@@ -15,12 +15,19 @@ interface routeModuleListType {
 const routeModuleList: routeModuleListType[] = [
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/home/dashboard",
   },
   {
     path: "/home",
     name: "home",
     component: () => import("@/layouts/index.vue"),
+    children: [
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: () => import("@/views/dashboard/index.vue"),
+      },
+    ],
   },
   {
     path: "/404",
