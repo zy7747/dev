@@ -14,14 +14,8 @@
 
     <Collapse title="页面名称">
       <template #content>
-        <el-tabs v-model="active" type="border-card">
-          <el-tab-pane
-            v-for="(item, index) in pageOption.tableConfig"
-            :name="index"
-          >
-            <template #label>
-              <span>{{ item.title }}</span>
-            </template>
+        <el-carousel :autoplay="false" @change="handleChange">
+          <el-carousel-item v-for="item in pageOption.tableConfig" :key="item">
             <c-table ref="tableRef" :tableConfig="item" />
             <c-dialog
               @confirm="confirm"
@@ -36,8 +30,8 @@
                 />
               </template>
             </c-dialog>
-          </el-tab-pane>
-        </el-tabs>
+          </el-carousel-item>
+        </el-carousel>
       </template>
     </Collapse>
   </div>
@@ -65,6 +59,9 @@ defineProps({
 //提交表单
 function submitForm() {
   unref(formRef).submitForm();
+}
+function handleChange(index: Number) {
+  active.value = index;
 }
 //查询
 function query() {

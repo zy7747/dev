@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Action: typeof import('./src/components/CElement/CTable/components/action.vue')['default']
     CButton: typeof import('./src/components/CElement/CButton/index.vue')['default']
+    CCarousel: typeof import('./src/components/CElement/CCarousel/index.vue')['default']
     CDialog: typeof import('./src/components/CElement/CDialog/index.vue')['default']
     CForm: typeof import('./src/components/CElement/CForm/index.vue')['default']
     CGrid: typeof import('./src/components/CElement/CGrid/index.vue')['default']
@@ -26,6 +27,8 @@ declare module 'vue' {
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElCollapseTransition: typeof import('element-plus/es')['ElCollapseTransition']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']

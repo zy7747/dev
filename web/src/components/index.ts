@@ -7,6 +7,7 @@ import CInput from "./CElement/CInput/index.vue";
 import CButton from "./CElement/CButton/index.vue";
 import CTable from "./CElement/CTable/index.vue";
 import CPage from "./CElement/CPage/index.vue";
+import CCarousel from "./CElement/CCarousel/index.vue";
 import CSchema from "./CElement/CSchema/index.vue";
 
 function setupComponents(app: any) {
@@ -20,6 +21,7 @@ function setupComponents(app: any) {
   app.component("CTable", CTable);
   app.component("CPage", CPage);
   app.component("CSchema", CSchema);
+  app.component("CCarousel", CCarousel);
 
   return app;
 }
