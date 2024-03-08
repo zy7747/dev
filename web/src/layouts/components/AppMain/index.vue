@@ -1,12 +1,25 @@
 <!-- AppMain -->
 <template>
   <div class="app-main">
-    <!-- <el-backtop target=".app-main"></el-backtop> -->
-    <c-page ref="pageRef" :pageOption="pageOption" />
+    <el-backtop style="z-index: 99999" target=".app-main"></el-backtop>
+    <el-watermark
+      :content="$t('app.watermark', '水印')"
+      :font="font"
+      :gap="[150, 150]"
+    >
+      <c-page ref="pageRef" :pageOption="pageOption" />
+      <c-page ref="pageRef" :pageOption="pageOption" />
+      <c-page ref="pageRef" :pageOption="pageOption" />
+    </el-watermark>
   </div>
 </template>
 
 <script lang="ts" setup>
+const font = ref({
+  fontWeight: 10,
+  fontSize: 16,
+  color: "rgba(0, 0, 0, 0.15)",
+});
 const pageData: any = reactive({
   queryData: {},
   formData: {},
