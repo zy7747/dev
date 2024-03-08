@@ -110,9 +110,14 @@ function confirm(handleConfirm: any) {
 const checkboxData = computed(() => {
   return unref(tableRef)[unref(active)].checkboxData;
 });
+//新增
+function addLine(row: any) {
+  unref(tableRef)[unref(active)].addLine(row);
+}
 
 defineExpose({
   query,
+  addLine,
   resetForm,
   submitForm,
   checkboxData,

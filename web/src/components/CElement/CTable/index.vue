@@ -10,13 +10,12 @@
       <Tools :tools="tableConfig.tools" />
     </template>
 
-    <template #pager>
-      <Pagination ref="paginationRef" :total="total" />
+    <template #tableSlot="{ row, column }: any">
+      <tableSlot :type="column.params.cType" v-model="row[column.field]" />
     </template>
 
     <template #tableEdit="{ row, column }: any">
       <c-schema
-        v-if="column.params.form"
         :type="column.params.form.type"
         :params="column.params.form.params"
         v-model="row[column.field]"
@@ -26,6 +25,10 @@
     <template #operate="{ row }">
       <Action :actions="tableConfig.actions" :row="row" :xGrid="xGrid" />
     </template>
+
+    <template #pager>
+      <Pagination class="pagination" ref="paginationRef" :total="total" />
+    </template>
   </vxe-grid>
 </template>
 
@@ -33,14 +36,15 @@
 import { VxeGridProps, VxeGridInstance } from "vxe-table";
 import Action from "./components/action.vue";
 import Tools from "./components/tools.vue";
+import tableSlot from "./components/tableSlot.vue";
+import lodash from "lodash";
+
+const paginationRef = ref();
+const xGrid = ref<VxeGridInstance<any>>();
 
 const total = ref(0);
 const loading: any = ref(false);
-const paginationRef = ref();
 const tableData = ref([]);
-
-const xGrid = ref<VxeGridInstance<any>>();
-
 const prop: any = defineProps({
   tableConfig: {
     text: "表格配置",
@@ -50,6 +54,7 @@ const prop: any = defineProps({
     },
   },
 });
+
 //
 function getTableCols(columns: any) {
   return unref(columns).map((item: any) => {
@@ -57,8 +62,10 @@ function getTableCols(columns: any) {
       resizable: true,
       slots: {},
       params: {},
+      "show-header-overflow": "ellipsis",
     };
 
+    //编辑插槽
     if (!item.editRender && item.form) {
       col.editRender = {};
       col.slots.edit = "tableEdit";
@@ -66,12 +73,28 @@ function getTableCols(columns: any) {
       Object.assign(col.params, { form: item.form });
     }
 
+    //自定义渲染插槽
+    if (item.cType && item.cType !== "action") {
+      col.slots.default = "tableSlot";
+      Object.assign(col.params, { cType: item.cType });
+    }
+
+    //过滤
+    if (item.isFilters) {
+      col.filters = filters.value[item.field];
+    }
+
+    //自定义插槽
     if (item.slots) {
       col.slots = item.slots;
     }
 
-    if (item.isFilters) {
-      col.filters = filters.value[item.field];
+    if (item.children && item.children.length) {
+      col.children = getTableCols(item.children);
+    }
+
+    if (item.cType === "action") {
+      col.slots = { default: "operate" };
     }
 
     return { ...item, ...col };
@@ -90,21 +113,35 @@ const rules: any = computed(() => {
   return rules;
 });
 //过滤
-const filters: any = computed(() => {
-  const filterMap: any = {};
-
-  prop.tableConfig.tableColumn.forEach((item: any) => {
+function getFilter(columns: any, filterMap: any) {
+  columns.forEach((item: any) => {
     if (item.isFilters) {
       filterMap[item.field] = [];
     }
-  });
 
+    if (item.children && item.children.length) {
+      getFilter(item.children, filterMap);
+    }
+  });
+}
+const filters: any = computed(() => {
+  const filterMap: any = {};
+
+  //数据平铺
+  getFilter(prop.tableConfig.tableColumn, filterMap);
+
+  //数据装入
   unref(tableData).forEach((item: any) => {
     Object.keys(filterMap).forEach((key: any) => {
       if (item[key]) {
         filterMap[key].push({ label: item[key], value: item[key] });
       }
     });
+  });
+
+  //数据去重
+  Object.keys(filterMap).map((key) => {
+    filterMap[key] = lodash.uniqBy(filterMap[key], "value");
   });
 
   return filterMap;
@@ -145,6 +182,28 @@ function query() {
     });
   }
 }
+//插入数据
+const addLine = async (rows: any) => {
+  const $grid = xGrid.value;
+
+  if ($grid) {
+    if ($grid.isEditByRow(null)) {
+      const { row: newRow } = await $grid.insertAt(
+        { ...rows, isAddRow: true },
+        null
+      );
+
+      await $grid.setEditRow(newRow);
+    } else {
+      ElMessage({
+        message: "请先保存数据再新增",
+        type: "warning",
+        showClose: true,
+        grouping: true,
+      });
+    }
+  }
+};
 //基本配置
 const gridOptions = reactive<VxeGridProps<any>>({
   border: true,
@@ -156,10 +215,15 @@ const gridOptions = reactive<VxeGridProps<any>>({
   align: "center",
   keepSource: true,
   showOverflow: "tooltip",
+  showHeaderOverflow: "title",
+  scrollX: { enabled: true, gt: 20 },
+  scrollY: { enabled: true, gt: 50 },
   rowConfig: {
     keyField: "_row_index",
     isHover: true,
+    isCurrent: true,
   },
+  columnConfig: { isCurrent: true, isHover: true },
   editConfig: {
     trigger: "manual",
     mode: "row",
@@ -181,7 +245,11 @@ const gridOptions = reactive<VxeGridProps<any>>({
     slots: {
       buttons: "toolbar_buttons",
     },
-    refresh: true, // 显示刷新按钮
+    refresh: {
+      queryMethod() {
+        query();
+      },
+    },
     print: true, // 显示打印按钮
     zoom: true, // 显示全屏按钮
     custom: true, // 显示自定义列按钮
@@ -195,8 +263,17 @@ if (prop.tableConfig.createLoad) {
 
 defineExpose({
   query,
+  addLine,
   checkboxData,
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-top: 15px;
+}
+</style>

@@ -7,6 +7,8 @@
       v-model="value"
       v-bind="params"
     />
+
+    <c-input v-else-if="type === 'input'" v-model="value" v-bind="params" />
   </div>
 </template>
 

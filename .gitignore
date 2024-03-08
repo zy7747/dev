@@ -15,6 +15,8 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 web/node_modules
+web/.vscode
+web/.dist
 !.vscode/extensions.json
 .idea
 depend

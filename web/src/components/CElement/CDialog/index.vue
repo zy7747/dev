@@ -3,7 +3,7 @@
   <el-dialog
     v-model="visible"
     :title="dialogConfig.title"
-    :width="500"
+    :width="dialogConfig.width ? dialogConfig.width : '500px'"
     draggable
   >
     <div>

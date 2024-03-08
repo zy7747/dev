@@ -23,7 +23,6 @@ defineProps({
   hasTitle: {
     text: "是否显示标题",
     type: [Boolean],
-    default: true,
   },
   collapse: {
     text: "菜单伸缩开关",

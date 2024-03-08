@@ -10,7 +10,6 @@
 const pageData: any = reactive({
   queryData: {},
   formData: {},
-  dialog: "add",
 });
 
 const { pageOption, pageRef, checkboxData } = useGrid({
@@ -49,6 +48,7 @@ const { pageOption, pageRef, checkboxData } = useGrid({
           type: "add",
           click() {
             unref(pageRef).handleOpen({ type: "add" });
+            //unref(pageRef).addLine({ user: "1" });
           },
         },
         {
@@ -80,6 +80,7 @@ const { pageOption, pageRef, checkboxData } = useGrid({
           field: "user",
           sortable: true,
           isFilters: true,
+          width: 200,
           rules: [
             {
               type: "date",
@@ -90,9 +91,7 @@ const { pageOption, pageRef, checkboxData } = useGrid({
           ],
           form: {
             type: "select",
-            params: {
-              a: 123,
-            },
+            params: {},
           },
         },
         {
@@ -121,40 +120,30 @@ const { pageOption, pageRef, checkboxData } = useGrid({
             },
           ],
         },
-
+        {
+          title: "头像", //用户名
+          field: "avatar",
+          cType: "img",
+          width: 200,
+          sortable: true,
+          isFilters: true,
+        },
         {
           title: "操作",
+          cType: "action",
           fixed: "right",
-          slots: { default: "operate" },
+          width: 450,
         },
       ],
       dialogConfig: {
+        width: "1500px",
         formConfig: {
           formParams: [
-            {
-              label: "下拉框",
-              prop: "aaa",
-              type: "select",
-              span: 6,
-              options: [
-                {
-                  label: "123",
-                  value: "123",
-                },
-              ],
-              rules: [
-                {
-                  type: "date",
-                  required: true,
-                  message: "Please pick a date",
-                  trigger: "change",
-                },
-              ],
-            },
             {
               label: "用户",
               prop: "user",
               type: "input",
+              span: 6,
             },
           ],
           formData: pageData.formData,
@@ -165,6 +154,12 @@ const { pageOption, pageRef, checkboxData } = useGrid({
         },
       },
       actions: [
+        {
+          type: "operate",
+          save() {
+            console.log("保存");
+          },
+        },
         {
           type: "edit",
           click({ row }: any) {
@@ -191,7 +186,15 @@ const { pageOption, pageRef, checkboxData } = useGrid({
         },
       ],
       query: (pages: any) => {
-        return Service.user.page({ ...pages, ...pageData.formData });
+        return Service.user
+          .page({ ...pages, ...pageData.formData })
+          .then((res: any) => {
+            for (var i = 0; i < 10; i++) {
+              res.data.list.push(...JSON.parse(JSON.stringify(res.data.list)));
+            }
+
+            return res;
+          });
       },
     },
   ],

@@ -29,6 +29,7 @@
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.14.202",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vueuse/core": "^10.8.0",
     "typescript": "^5.2.2",

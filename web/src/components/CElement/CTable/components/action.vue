@@ -8,7 +8,7 @@
             link
             type="primary"
             :icon="CircleCheckFilled"
-            @click="saveRowEvent()"
+            @click="saveRowEvent(row, item.save)"
           >
             保存
           </el-button>
@@ -17,7 +17,7 @@
             :icon="CircleCloseFilled"
             link
             type="info"
-            @click="clearRowEvent"
+            @click="clearRowEvent(row)"
           >
             取消
           </el-button>
@@ -127,18 +127,28 @@ const editRowEvent = (row: any) => {
 };
 
 //取消
-const clearRowEvent = () => {
+const clearRowEvent = (row: any) => {
   const $grid = prop.xGrid;
   if ($grid) {
-    $grid.clearEdit();
+    if (row.isAddRow) {
+      $grid.remove(row);
+    } else {
+      $grid.clearEdit();
+    }
   }
 };
 
 //保存
-const saveRowEvent = async () => {
+const saveRowEvent = async (row: any, save: Function) => {
   const $grid = prop.xGrid;
   if ($grid) {
-    await $grid.clearEdit();
+    if (row.isAddRow) {
+      save();
+      $grid.clearEdit();
+    } else {
+      save();
+      $grid.clearEdit();
+    }
   }
 };
 
@@ -146,7 +156,7 @@ const saveRowEvent = async () => {
 const removeRowEvent = async (row: any) => {
   const $grid = prop.xGrid;
   if ($grid) {
-    await $grid.remove(row);
+    $grid.remove(row);
   }
 };
 </script>

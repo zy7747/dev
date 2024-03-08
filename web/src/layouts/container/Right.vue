@@ -7,11 +7,7 @@
           backgroundColor: theme.asideBackgroundColor,
         }"
       >
-        <Logo
-          :collapse="theme.collapse"
-          :hasTitle="true"
-          :height="theme.headerHeight"
-        />
+        <Logo :collapse="theme.collapse" :height="theme.headerHeight" />
         <Sidebar
           :backgroundColor="theme.asideBackgroundColor"
           :width="theme.asideWidth"

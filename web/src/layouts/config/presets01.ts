@@ -1,7 +1,5 @@
-import { Normal } from "../container/index";
-
 const theme = ref<any>({
-  container: markRaw(Normal),
+  container: "Normal",
   headerBackgroundColor: "#d9e0ee",
   asideBackgroundColor: "#d9e0ee",
   breadcrumb: true,
