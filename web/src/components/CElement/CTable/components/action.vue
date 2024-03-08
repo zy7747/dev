@@ -46,7 +46,7 @@
         link
         type="primary"
         :icon="Edit"
-        @click="item.click(row)"
+        @click="item.click({ row })"
       >
         编辑
       </el-button>
@@ -55,7 +55,7 @@
         type="warning"
         :icon="Share"
         v-else-if="item.type === 'detail'"
-        @click="item.click(row)"
+        @click="item.click({ row })"
         link
       >
         详情
@@ -64,14 +64,14 @@
       <el-popconfirm
         v-else-if="item.type === 'remove'"
         title="是否删除数据?"
-        @confirm="item.click(row)"
+        @confirm="item.click({ row })"
       >
         <template #reference>
           <el-button link :icon="Delete" type="danger">删除</el-button>
         </template>
       </el-popconfirm>
 
-      <el-button v-else @click="item.click(row)" :icon="SwitchFilled" link>
+      <el-button v-else @click="item.click({ row })" :icon="SwitchFilled" link>
         {{ item.text }}
       </el-button>
     </template>

@@ -6,6 +6,7 @@ import CSelect from "./CElement/CSelect/index.vue";
 import CInput from "./CElement/CInput/index.vue";
 import CButton from "./CElement/CButton/index.vue";
 import CTable from "./CElement/CTable/index.vue";
+import CGrid from "./CElement/CGrid/index.vue";
 import CPage from "./CElement/CPage/index.vue";
 import CCarousel from "./CElement/CCarousel/index.vue";
 import CSchema from "./CElement/CSchema/index.vue";
@@ -20,6 +21,7 @@ function setupComponents(app: any) {
   app.component("CButton", CButton);
   app.component("CTable", CTable);
   app.component("CPage", CPage);
+  app.component("CGrid", CGrid);
   app.component("CSchema", CSchema);
   app.component("CCarousel", CCarousel);
 

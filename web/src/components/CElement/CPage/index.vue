@@ -12,7 +12,7 @@
       </template>
     </Collapse>
 
-    <Collapse title="页面名称">
+    <Collapse title="">
       <template #content>
         <el-tabs v-model="active" type="border-card">
           <el-tab-pane
@@ -92,17 +92,17 @@ function handleOpen({ type }: any) {
   }
   unref(dialogRef)[unref(active)].handleOpen();
 }
+//编辑弹窗
+function handleClose() {
+  unref(dialogRef)[unref(active)].handleClose();
+}
 //确认
 function confirm(handleConfirm: any) {
   unref(editRef)
     [unref(active)].submitForm()
     .then((valid: any) => {
       if (valid) {
-        handleConfirm().then((res: any) => {
-          if (res) {
-            unref(dialogRef)[unref(active)].handleClose();
-          }
-        });
+        handleConfirm();
       }
     });
 }
@@ -122,6 +122,7 @@ defineExpose({
   submitForm,
   checkboxData,
   handleOpen,
+  handleClose,
 });
 </script>
 

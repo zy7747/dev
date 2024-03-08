@@ -5,6 +5,7 @@ export default {
   page,
   save,
   remove,
+  detail,
 };
 
 export function login(params: any) {
@@ -23,18 +24,26 @@ export function page(params: any) {
   });
 }
 
-export function save(params: any) {
+export function detail(params: any) {
   return request({
-    url: "/user/save",
-    method: "post",
+    url: "/user/detail",
+    method: "get",
     params,
   });
 }
 
-export function remove(params: any) {
+export function save(data: any) {
+  return request({
+    url: "/user/save",
+    method: "post",
+    data,
+  });
+}
+
+export function remove(data: any) {
   return request({
     url: "/user/delete",
-    method: "post",
-    params,
+    method: "delete",
+    data,
   });
 }

@@ -34,7 +34,7 @@ export default ({ mode }: any) =>
             "@/plugins/service": [["default", "Service"]],
           },
           {
-            "@/hooks/useGrid": [["default", "useGrid"]],
+            "@/hooks/usePage": [["default", "usePage"]],
           },
         ],
         resolvers: [ElementPlusResolver()],
@@ -66,5 +66,13 @@ export default ({ mode }: any) =>
       host: true,
       port: 80,
       // 设置代理
+    },
+    build: {
+      minify: false,
+      rollupOptions: {
+        manualChunks: (id: any) => {
+          console.log(id);
+        },
+      },
     },
   });

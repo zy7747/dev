@@ -6,7 +6,18 @@ function useGrid(config = {}) {
     return unref(pageRef).checkboxData;
   });
 
+  const ids = computed(() => {
+    if (unref(pageRef).checkboxData.length) {
+      return unref(pageRef).checkboxData.map((item: any) => {
+        return item.id;
+      });
+    } else {
+      return [];
+    }
+  });
+
   return {
+    ids,
     pageOption,
     pageRef,
     checkboxData,

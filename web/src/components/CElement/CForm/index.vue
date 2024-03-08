@@ -69,6 +69,13 @@ const resetForm = () => {
 };
 
 const rules = computed(() => {
+  if (
+    !prop.formConfig ||
+    !prop.formConfig.formParams ||
+    !prop.formConfig.formParams.length
+  ) {
+    return {};
+  }
   const rules: any = {};
 
   prop.formConfig.formParams.forEach((item: any) => {

@@ -1,4 +1,4 @@
-const theme = ref<any>({
+export default {
   container: "Normal",
   headerBackgroundColor: "#d9e0ee",
   asideBackgroundColor: "#d9e0ee",
@@ -7,6 +7,4 @@ const theme = ref<any>({
   headerHeight: 60,
   asideWidth: 200,
   collapse: true,
-});
-
-export default theme;
+};
