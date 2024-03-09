@@ -5,9 +5,10 @@
 
 <script lang="ts" setup>
 const gridRef = ref();
+
 function getGrid() {
   setTimeout(() => {
-    unref(gridRef).renderPage({
+    unref(gridRef).render({
       form: [
         {
           label: "下拉框",

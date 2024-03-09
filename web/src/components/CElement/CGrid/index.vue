@@ -12,17 +12,20 @@ const pageData: any = reactive({
 
 const option = ref({});
 const pageRef = ref();
-//页面配置
-function renderPage(config: any) {
+const idList: any = ref([]);
+
+//页面渲染
+function render(config: any) {
   const { pageOption, ids } = usePage({
+    pageRef,
     formConfig: {
       formParams: config.form,
       formData: pageData.queryData,
     },
-    tableConfig: config.tables.map((item: any) => {
+    tableConfig: config.tables.map((table: any) => {
       return {
         createLoad: true,
-        title: item.title,
+        title: table.title,
         tools: [
           {
             type: "add",
@@ -34,7 +37,7 @@ function renderPage(config: any) {
           {
             type: "remove",
             click() {
-              Service[item.api].remove(unref(ids)).then((res: any) => {
+              Service[table.api].remove(unref(ids)).then((res: any) => {
                 if (res.code === 200) {
                   ElMessage({
                     message: "删除成功",
@@ -52,16 +55,16 @@ function renderPage(config: any) {
             type: "export",
           },
         ],
-        tableColumn: item.tableColumn,
+        tableColumn: table.tableColumn,
         dialogConfig: {
           width: "1000px",
           formConfig: {
-            formParams: item.dialogForm,
+            formParams: table.dialogForm,
             formData: pageData.formData,
           },
           //提交
           handleConfirm() {
-            Service[item.api].save(pageData.formData).then((res: any) => {
+            Service[table.api].save(pageData.formData).then((res: any) => {
               if (res.code === 200) {
                 ElMessage({
                   message: "新增成功",
@@ -77,7 +80,7 @@ function renderPage(config: any) {
           {
             type: "edit",
             click({ row }: any) {
-              Service[item.api].detail({ id: row.id }).then((res: any) => {
+              Service[table.api].detail({ id: row.id }).then((res: any) => {
                 pageData.formData = res.data;
                 unref(pageRef).handleOpen({ type: "edit" });
               });
@@ -86,7 +89,7 @@ function renderPage(config: any) {
           {
             type: "detail",
             click({ row }: any) {
-              Service[item.api].detail({ id: row.id }).then((res: any) => {
+              Service[table.api].detail({ id: row.id }).then((res: any) => {
                 pageData.formData = res.data;
                 unref(pageRef).handleOpen({ type: "detail" });
               });
@@ -95,7 +98,7 @@ function renderPage(config: any) {
           {
             type: "remove",
             click({ row }: any) {
-              Service[item.api].remove([row.id]).then((res: any) => {
+              Service[table.api].remove([row.id]).then((res: any) => {
                 if (res.code === 200) {
                   ElMessage({
                     message: "删除成功",
@@ -108,7 +111,7 @@ function renderPage(config: any) {
           },
         ],
         query: (pages: any) => {
-          return Service[item.api]
+          return Service[table.api]
             .page({ ...pages, ...pageData.query })
             .then((res: any) => {
               return res;
@@ -118,11 +121,14 @@ function renderPage(config: any) {
     }),
   });
 
+  console.log(pageOption, ids);
+
   option.value = pageOption;
+  idList.value = ids;
 }
 
 defineExpose({
-  renderPage,
+  render,
 });
 </script>
 

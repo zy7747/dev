@@ -1,5 +1,10 @@
-function useGrid(config = {}) {
-  const pageRef = ref();
+function useGrid(config: any = {}) {
+  const pageRef: any = ref();
+
+  if (config.pageRef) {
+    pageRef.value = config.pageRef;
+  }
+
   const pageOption = config;
 
   const checkboxData = computed(() => {
