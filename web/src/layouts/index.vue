@@ -9,7 +9,6 @@
 <script lang="ts" setup>
 import Theme from "./theme/index.vue";
 import { Normal, Left, Right, Top } from "./container";
-import presets01 from "./config/presets01";
 import presets02 from "./config/presets02";
 
 function container(containerName: String) {
@@ -25,12 +24,12 @@ function container(containerName: String) {
   }
 }
 
-const config = ref(presets01.value);
+const config = ref();
 
 function getConfig() {
   setTimeout(() => {
     config.value = presets02.value;
-  }, 3000);
+  }, 1500);
 }
 
 getConfig();
