@@ -1,7 +1,7 @@
 <!-- AppMain -->
 <template>
   <div class="app-main">
-    <!-- <el-backtop style="z-index: 99999" target=".app-main"></el-backtop> -->
+    <el-backtop style="z-index: 99999" target=".app-main"></el-backtop>
     <el-watermark
       :content="$t('app.watermark', '水印')"
       :font="font"

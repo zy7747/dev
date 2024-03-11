@@ -54,8 +54,6 @@ const prop: any = defineProps({
     },
   },
 });
-
-//
 function getTableCols(columns: any) {
   return unref(columns).map((item: any) => {
     const col: any = {
@@ -151,13 +149,13 @@ const tableColumn: any = computed(() => {
   return getTableCols(prop.tableConfig.tableColumn);
 });
 //多选
-const checkboxData: any = computed(() => {
+function checkboxData() {
   if (xGrid.value) {
     return xGrid.value.getCheckboxRecords();
   } else {
     return [];
   }
-});
+}
 //查询
 function query() {
   if (typeof prop.tableConfig.query === "function") {
@@ -180,6 +178,8 @@ function query() {
           loading.value = false;
         });
     });
+  } else {
+    tableData.value = prop.tableConfig.query;
   }
 }
 //插入数据

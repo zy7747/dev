@@ -1,5 +1,5 @@
 const data = ref({
-  container: "Normal",
+  container: "Top",
   headerBackgroundColor: "#d9e0ee",
   asideBackgroundColor: "#d9e0ee",
   breadcrumb: true,

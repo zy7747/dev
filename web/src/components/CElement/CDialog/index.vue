@@ -36,13 +36,13 @@ const visible = ref(false);
 function handleConfirm() {
   emit("confirm", prop.dialogConfig.handleConfirm);
 }
-function handleCancel() {
-  visible.value = false;
-}
 function handleOpen() {
   visible.value = true;
 }
 function handleClose() {
+  visible.value = false;
+}
+function handleCancel() {
   visible.value = false;
 }
 

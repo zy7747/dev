@@ -2,8 +2,8 @@
 <template>
   <el-form
     ref="formRef"
-    :disabled="disabled"
-    :model="formConfig.formData"
+    v-bind="$attrs"
+    :model="model"
     :rules="rules"
     label-position="top"
     :validate-on-rule-change="false"
@@ -18,7 +18,7 @@
             :type="item.type"
             :options="item.options"
             :params="item.params"
-            v-model="formConfig.formData[item.prop]"
+            v-model="model[item.prop]"
           />
         </el-form-item>
       </el-col>
@@ -38,10 +38,14 @@ const prop = defineProps({
       return {};
     },
   },
-  disabled: {
-    text: "禁用表单",
-    type: [Boolean],
-  },
+});
+
+const model = computed(() => {
+  if (prop.formConfig.formData) {
+    return prop.formConfig.formData;
+  } else {
+    return {};
+  }
 });
 
 //提交
@@ -69,20 +73,22 @@ const resetForm = () => {
 };
 
 const rules = computed(() => {
+  const rules: any = {};
+
   if (
     !prop.formConfig ||
     !prop.formConfig.formParams ||
     !prop.formConfig.formParams.length
   ) {
-    return {};
+    return rules;
   }
-  const rules: any = {};
 
   prop.formConfig.formParams.forEach((item: any) => {
     if (item.rules) {
       rules[item.prop] = item.rules;
     }
   });
+
   return rules;
 });
 

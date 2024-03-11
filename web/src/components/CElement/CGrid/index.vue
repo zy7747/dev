@@ -4,15 +4,8 @@
 </template>
 
 <script lang="ts" setup>
-//页面数据
-const pageData: any = reactive({
-  queryData: {},
-  formData: {},
-});
-
 const option = ref({});
 const pageRef = ref();
-const idList: any = ref([]);
 
 //页面渲染
 function render(config: any) {
@@ -20,7 +13,7 @@ function render(config: any) {
     pageRef,
     formConfig: {
       formParams: config.form,
-      formData: pageData.queryData,
+      formData: config.queryData,
     },
     tableConfig: config.tables.map((table: any) => {
       return {
@@ -30,14 +23,14 @@ function render(config: any) {
           {
             type: "add",
             click() {
-              unref(pageRef).handleOpen({ type: "add" });
-              //unref(pageRef).addLine({ user: "1" });
+              table.dialogData = {};
+              unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
           {
             type: "remove",
             click() {
-              Service[table.api].remove(unref(ids)).then((res: any) => {
+              Service[table.api].remove(ids()).then((res: any) => {
                 if (res.code === 200) {
                   ElMessage({
                     message: "删除成功",
@@ -60,11 +53,11 @@ function render(config: any) {
           width: "1000px",
           formConfig: {
             formParams: table.dialogForm,
-            formData: pageData.formData,
+            formData: table.dialogData,
           },
           //提交
           handleConfirm() {
-            Service[table.api].save(pageData.formData).then((res: any) => {
+            Service[table.api].save(table.dialogData).then((res: any) => {
               if (res.code === 200) {
                 ElMessage({
                   message: "新增成功",
@@ -81,8 +74,7 @@ function render(config: any) {
             type: "edit",
             click({ row }: any) {
               Service[table.api].detail({ id: row.id }).then((res: any) => {
-                pageData.formData = res.data;
-                unref(pageRef).handleOpen({ type: "edit" });
+                unref(pageRef).handleOpen({ type: "edit", data: res.data });
               });
             },
           },
@@ -90,8 +82,7 @@ function render(config: any) {
             type: "detail",
             click({ row }: any) {
               Service[table.api].detail({ id: row.id }).then((res: any) => {
-                pageData.formData = res.data;
-                unref(pageRef).handleOpen({ type: "detail" });
+                unref(pageRef).handleOpen({ type: "detail", data: res.data });
               });
             },
           },
@@ -112,7 +103,7 @@ function render(config: any) {
         ],
         query: (pages: any) => {
           return Service[table.api]
-            .page({ ...pages, ...pageData.query })
+            .page({ ...pages, ...config.queryData })
             .then((res: any) => {
               return res;
             });
@@ -121,10 +112,7 @@ function render(config: any) {
     }),
   });
 
-  console.log(pageOption, ids);
-
   option.value = pageOption;
-  idList.value = ids;
 }
 
 defineExpose({

@@ -4,7 +4,7 @@
     <Collapse title="页面名称">
       <template #tools>
         <el-button type="primary" @click="query">查询</el-button>
-        <el-button @click="resetForm">重置</el-button>
+        <el-button @click="reset">重置</el-button>
       </template>
 
       <template #content>
@@ -12,34 +12,33 @@
       </template>
     </Collapse>
 
-    <Collapse title="">
-      <template #content>
-        <el-tabs v-model="active" type="border-card">
-          <el-tab-pane
-            v-for="(item, index) in pageOption.tableConfig"
-            :name="index"
-          >
-            <template #label>
-              <span>{{ item.title }}</span>
-            </template>
-            <c-table ref="tableRef" :tableConfig="item" />
-            <c-dialog
-              @confirm="confirm"
-              ref="dialogRef"
-              :dialogConfig="item.dialogConfig"
-            >
-              <template #body>
-                <c-form
-                  :disabled="disabled"
-                  ref="editRef"
-                  :formConfig="item.dialogConfig.formConfig"
-                />
-              </template>
-            </c-dialog>
-          </el-tab-pane>
-        </el-tabs>
-      </template>
-    </Collapse>
+    <el-tabs v-model="active" type="border-card">
+      <el-tab-pane
+        v-for="(item, index) in pageOption.tableConfig"
+        :name="index"
+        :key="index"
+      >
+        <template #label>
+          <span>{{ item.title }}</span>
+        </template>
+
+        <c-table ref="tableRef" :tableConfig="item" />
+
+        <c-dialog
+          ref="dialogRef"
+          @confirm="confirm"
+          :dialogConfig="item.dialogConfig"
+        >
+          <template #body>
+            <c-form
+              ref="editRef"
+              :disabled="disabled"
+              :formConfig="item.dialogConfig.formConfig"
+            />
+          </template>
+        </c-dialog>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
@@ -62,10 +61,6 @@ defineProps({
   },
 });
 
-//提交表单
-function submitForm() {
-  unref(formRef).submitForm();
-}
 //查询
 function query() {
   unref(formRef)
@@ -77,10 +72,11 @@ function query() {
     });
 }
 //重置
-function resetForm() {
+function reset() {
   unref(formRef).resetForm();
   unref(tableRef)[unref(active)].query();
 }
+
 //编辑弹窗
 function handleOpen({ type }: any) {
   if (type === "add") {
@@ -91,6 +87,10 @@ function handleOpen({ type }: any) {
     disabled.value = true;
   }
   unref(dialogRef)[unref(active)].handleOpen();
+}
+//提交表单
+function submitForm() {
+  unref(formRef).submitForm();
 }
 //编辑弹窗
 function handleClose() {
@@ -107,9 +107,9 @@ function confirm(handleConfirm: any) {
     });
 }
 //多选
-const checkboxData = computed(() => {
-  return unref(tableRef)[unref(active)].checkboxData;
-});
+function checkboxData() {
+  return unref(tableRef)[unref(active)].checkboxData();
+}
 //新增
 function addLine(row: any) {
   unref(tableRef)[unref(active)].addLine(row);
@@ -117,8 +117,8 @@ function addLine(row: any) {
 
 defineExpose({
   query,
+  reset,
   addLine,
-  resetForm,
   submitForm,
   checkboxData,
   handleOpen,

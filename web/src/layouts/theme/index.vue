@@ -7,7 +7,9 @@
       <div>日夜模式</div>
       <Dark></Dark>
       <div>菜单位置</div>
-      <Container v-model.container="theme.container"></Container>
+      <el-radio-group v-model="theme.container">
+        <el-radio-button v-for="item in options" :label="item.value" />
+      </el-radio-group>
       <div>Header背景颜色</div>
       <el-color-picker v-model="theme.headerBackgroundColor" />
       <div>Aside背景颜色</div>
@@ -43,12 +45,17 @@
 
 <script lang="ts" setup>
 import Dark from "../theme/dark.vue";
-import Container from "../theme/container.vue";
 import { Tools } from "@element-plus/icons-vue";
-
 const theme: any = defineModel();
 
 const drawer = ref(false);
+
+const options = ref([
+  { label: "左菜单", value: "Left" },
+  { label: "上菜单", value: "Top" },
+  { label: "右菜单", value: "Right" },
+  { label: "常规", value: "Normal" },
+]);
 </script>
 
 <style lang="scss" scoped></style>
