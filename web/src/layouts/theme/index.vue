@@ -8,7 +8,9 @@
       <Dark></Dark>
       <div>菜单位置</div>
       <el-radio-group v-model="theme.container">
-        <el-radio-button v-for="item in options" :label="item.value" />
+        <el-radio-button v-for="item in options" :label="item.value">
+          {{ item.label }}
+        </el-radio-button>
       </el-radio-group>
       <div>Header背景颜色</div>
       <el-color-picker v-model="theme.headerBackgroundColor" />

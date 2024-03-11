@@ -27,6 +27,11 @@ const routeModuleList: routeModuleListType[] = [
         name: "dashboard",
         component: () => import("@/views/dashboard/index.vue"),
       },
+      {
+        path: "page",
+        name: "page",
+        component: () => import("@/views/configuration/page/index.vue"),
+      },
     ],
   },
   {

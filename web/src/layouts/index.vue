@@ -24,7 +24,7 @@ function container(containerName: String) {
   }
 }
 
-const config = ref();
+const config = ref({ container: "" });
 
 function getConfig() {
   setTimeout(() => {

@@ -9,24 +9,18 @@ const gridRef = ref();
 function getGrid() {
   setTimeout(() => {
     unref(gridRef).render({
-      queryData: {},
       form: [
         {
           label: "下拉框",
           prop: "aaa",
           type: "select",
-          options: [
-            {
-              label: "123",
-              value: "123",
-            },
-          ],
+          options: [],
           span: 6,
         },
       ],
       tables: [
         {
-          title: "表格",
+          title: "表格1",
           api: "user",
           tableColumn: [
             { type: "checkbox", width: 50 },
@@ -113,7 +107,79 @@ function getGrid() {
               },
             },
           ],
-          dialogData: {},
+        },
+        {
+          title: "表格2",
+          api: "user",
+          tableColumn: [
+            { type: "checkbox", width: 50 },
+            {
+              title: "序号", //用户名
+              type: "seq",
+              width: 100,
+            },
+            {
+              title: "用户名", //用户名
+              field: "user",
+              sortable: true,
+              isFilters: true,
+              width: 200,
+              rules: [
+                {
+                  type: "date",
+                  required: true,
+                  message: "Please pick a date",
+                  trigger: "change",
+                },
+              ],
+              form: {
+                type: "select",
+                params: {},
+              },
+            },
+            {
+              title: "头像", //用户名
+              field: "avatar",
+              cType: "img",
+              width: 200,
+              sortable: true,
+              isFilters: true,
+            },
+            {
+              title: "操作",
+              cType: "action",
+              fixed: "right",
+              width: 250,
+            },
+          ],
+          dialogForm: [
+            {
+              label: "用户",
+              prop: "user",
+              type: "input",
+              span: 6,
+            },
+            {
+              label: "密码",
+              prop: "password",
+              type: "input",
+              span: 6,
+              params: {
+                type: "password",
+                showPassword: true,
+              },
+            },
+            {
+              label: "xxxx",
+              prop: "aaaa",
+              type: "input",
+              span: 6,
+              params: {
+                type: "password",
+                showPassword: true,
+              },
+            },
+          ],
         },
       ],
     });

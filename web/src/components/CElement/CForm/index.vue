@@ -38,14 +38,13 @@ const prop = defineProps({
       return {};
     },
   },
-});
-
-const model = computed(() => {
-  if (prop.formConfig.formData) {
-    return prop.formConfig.formData;
-  } else {
-    return {};
-  }
+  model: {
+    text: "表单值",
+    type: [Object],
+    default: () => {
+      return {};
+    },
+  },
 });
 
 //提交

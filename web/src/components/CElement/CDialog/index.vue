@@ -5,6 +5,7 @@
     :title="dialogConfig.title"
     :width="dialogConfig.width ? dialogConfig.width : '500px'"
     draggable
+    destroy-on-close
   >
     <div>
       <slot name="body" />

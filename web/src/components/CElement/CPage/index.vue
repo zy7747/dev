@@ -8,15 +8,18 @@
       </template>
 
       <template #content>
-        <c-form ref="formRef" :formConfig="pageOption.formConfig" />
+        <c-form
+          ref="formRef"
+          :model="pageData.queryData"
+          :formConfig="pageOption.formConfig"
+        />
       </template>
     </Collapse>
 
-    <el-tabs v-model="active" type="border-card">
+    <el-tabs @tab-change="tabChange" v-model="active" type="border-card">
       <el-tab-pane
         v-for="(item, index) in pageOption.tableConfig"
         :name="index"
-        :key="index"
       >
         <template #label>
           <span>{{ item.title }}</span>
@@ -33,6 +36,7 @@
             <c-form
               ref="editRef"
               :disabled="disabled"
+              :model="pageData.editData"
               :formConfig="item.dialogConfig.formConfig"
             />
           </template>
@@ -43,16 +47,23 @@
 </template>
 
 <script lang="ts" setup>
-const active: any = ref<any>(0);
-const disabled: any = ref<any>();
-
 const formRef: any = ref<any>();
 const tableRef: any = ref<any>();
 const dialogRef: any = ref<any>();
 const editRef: any = ref<any>();
 
-defineProps({
+const active: any = ref<any>(0);
+const disabled: any = ref<any>();
+
+const prop = defineProps({
   pageOption: {
+    text: "页面配置",
+    type: [Object],
+    default: () => {
+      return {};
+    },
+  },
+  pageData: {
     text: "页面配置",
     type: [Object],
     default: () => {
@@ -76,35 +87,32 @@ function reset() {
   unref(formRef).resetForm();
   unref(tableRef)[unref(active)].query();
 }
-
 //编辑弹窗
-function handleOpen({ type }: any) {
-  if (type === "add") {
-    disabled.value = false;
-  } else if (type === "edit") {
-    disabled.value = false;
-  } else if (type === "detail") {
+function handleOpen({ type, data }: any) {
+  if (type === "detail") {
     disabled.value = true;
+  } else {
+    disabled.value = false;
   }
+  prop.pageData.editData = data;
   unref(dialogRef)[unref(active)].handleOpen();
 }
-//提交表单
-function submitForm() {
-  unref(formRef).submitForm();
-}
-//编辑弹窗
 function handleClose() {
   unref(dialogRef)[unref(active)].handleClose();
 }
 //确认
 function confirm(handleConfirm: any) {
-  unref(editRef)
-    [unref(active)].submitForm()
+  unref(editRef)[0]
+    .submitForm()
     .then((valid: any) => {
       if (valid) {
         handleConfirm();
       }
     });
+}
+//提交查询表单
+function submitForm() {
+  unref(formRef).submitForm();
 }
 //多选
 function checkboxData() {
@@ -114,6 +122,15 @@ function checkboxData() {
 function addLine(row: any) {
   unref(tableRef)[unref(active)].addLine(row);
 }
+function tabChange() {
+  query();
+}
+
+onMounted(() => {
+  if (prop.pageOption.createLoad) {
+    query();
+  }
+});
 
 defineExpose({
   query,
@@ -126,8 +143,4 @@ defineExpose({
 });
 </script>
 
-<style lang="scss" scoped>
-.el-main {
-  padding: 0;
-}
-</style>
+<style lang="scss" scoped></style>

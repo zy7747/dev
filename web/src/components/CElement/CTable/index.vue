@@ -156,9 +156,9 @@ function checkboxData() {
     return [];
   }
 }
-//查询
+//查询数据
 function query() {
-  if (typeof prop.tableConfig.query === "function") {
+  if (prop.tableConfig.query && typeof prop.tableConfig.query === "function") {
     nextTick(() => {
       loading.value = true;
       const page = unref(paginationRef).page;
@@ -178,8 +178,25 @@ function query() {
           loading.value = false;
         });
     });
+  } else if (
+    prop.tableConfig.list &&
+    typeof prop.tableConfig.list === "function"
+  ) {
+    prop.tableConfig
+      .list()
+      .then((res: any) => {
+        tableData.value = res.data.list;
+        total.value = 0;
+        loading.value = false;
+      })
+      .catch(() => {
+        loading.value = false;
+      })
+      .finally(() => {
+        loading.value = false;
+      });
   } else {
-    tableData.value = prop.tableConfig.query;
+    tableData.value = prop.tableConfig.data;
   }
 }
 //插入数据
@@ -256,10 +273,6 @@ const gridOptions = reactive<VxeGridProps<any>>({
   },
   editRules: rules,
 });
-
-if (prop.tableConfig.createLoad) {
-  query();
-}
 
 defineExpose({
   query,
