@@ -5,6 +5,9 @@ import Pagination from "./Pagination/index.vue";
 import CSelect from "./CElement/CSelect/index.vue";
 import CInput from "./CElement/CInput/index.vue";
 import CButton from "./CElement/CButton/index.vue";
+import CRadio from "./CElement/CRadio/index.vue";
+import CCheckbox from "./CElement/CCheckbox/index.vue";
+
 import CTable from "./CElement/CTable/index.vue";
 import CGrid from "./CElement/CGrid/index.vue";
 import CPage from "./CElement/CPage/index.vue";
@@ -17,8 +20,11 @@ function setupComponents(app: any) {
   app.component("Pagination", Pagination);
 
   app.component("CSelect", CSelect);
+  app.component("CRadio", CRadio);
   app.component("CInput", CInput);
   app.component("CButton", CButton);
+  app.component("CCheckbox", CCheckbox);
+
   app.component("CTable", CTable);
   app.component("CPage", CPage);
   app.component("CGrid", CGrid);

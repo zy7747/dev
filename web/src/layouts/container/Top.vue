@@ -11,6 +11,7 @@
         <Logo
           :hasTitle="true"
           :collapse="true"
+          :theme="theme"
           :width="theme.asideWidth"
           :height="theme.headerHeight"
         />
@@ -51,7 +52,7 @@ defineProps({
 }
 
 .el-main {
-  padding: 10px;
+  padding: 0;
   overflow: auto;
 }
 </style>

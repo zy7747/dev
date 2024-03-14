@@ -1,27 +1,36 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-//svg
-import "virtual:svg-icons-register";
+
 //components
 import setupComponents from "@/components";
 //router
 import { setupRouter } from "@/router";
 //pinia
 import { createPinia } from "pinia";
-//style
-import "@/styles/index.scss";
+//VXETable
+import useTable from "@/plugins/vxe-table";
+//directives
+import setupDirectives from "@/directives";
 //language
 import i18n from "@/language/index";
+//style
+import "@/styles/index.scss";
+import "virtual:windi.css";
+//svg
+import "virtual:svg-icons-register";
 //utils
 import "@/utils";
 //permission
 import "@/permission";
 //plugins
 import "@/plugins";
-//VXETable
-import useTable from "@/plugins/vxe-table";
+//piniaPersist
+import piniaPersist from "pinia-plugin-persist";
 
 const app = createApp(App);
+
+const pinia = createPinia();
+pinia.use(piniaPersist);
 
 async function create() {
   //router
@@ -30,10 +39,12 @@ async function create() {
   setupComponents(app);
   //VXETable
   useTable(app);
+  //directives
+  setupDirectives(app);
   //翻译
   app.use(i18n);
   //pinia
-  app.use(createPinia());
+  app.use(pinia);
   //app
   app.mount("#app");
 }

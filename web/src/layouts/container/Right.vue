@@ -7,7 +7,11 @@
           backgroundColor: theme.asideBackgroundColor,
         }"
       >
-        <Logo :collapse="theme.collapse" :height="theme.headerHeight" />
+        <Logo
+          :theme="theme"
+          :collapse="theme.collapse"
+          :height="theme.headerHeight"
+        />
         <Sidebar
           :backgroundColor="theme.asideBackgroundColor"
           :width="theme.asideWidth"
@@ -78,7 +82,7 @@ const container: any = computed(() => {
   align-items: center;
 }
 .el-main {
-  padding: 10px;
+  padding: 0;
   overflow: auto;
 }
 </style>

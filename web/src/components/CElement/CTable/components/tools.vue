@@ -3,7 +3,7 @@
   <div class="">
     <template v-for="item in tools">
       <el-button
-        v-if="item.type === 'add'"
+        v-if="item.type === 'add' && item.show !== false"
         :icon="Plus"
         @click="item.click"
         type="primary"
@@ -13,7 +13,7 @@
       </el-button>
 
       <el-button
-        v-else-if="item.type === 'remove'"
+        v-else-if="item.type === 'remove' && item.show !== false"
         :icon="Delete"
         @click="item.click"
         type="danger"
@@ -23,7 +23,7 @@
       </el-button>
 
       <el-button
-        v-else-if="item.type === 'import'"
+        v-else-if="item.type === 'import' && item.show !== false"
         :icon="Upload"
         @click="item.click"
         type="success"
@@ -33,7 +33,7 @@
       </el-button>
 
       <el-button
-        v-else-if="item.type === 'export'"
+        v-else-if="item.type === 'export' && item.show !== false"
         :icon="Download"
         @click="item.click"
         color="#626aef"
@@ -45,7 +45,7 @@
       <el-button
         type="info"
         :icon="SwitchFilled"
-        v-else
+        v-else-if="item.show !== false"
         size="small"
         @click="item.click"
       >

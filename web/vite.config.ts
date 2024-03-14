@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import vue from "@vitejs/plugin-vue";
 import svgLoader from "vite-svg-loader";
+import WindiCSS from "vite-plugin-windicss";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import Icons from "unplugin-icons/vite";
@@ -14,11 +15,12 @@ const getTarget = (mode: string, target: string) => {
   return loadEnv(mode, process.cwd())[target];
 };
 
-// https://vitejs.dev/config/
 export default ({ mode }: any) =>
   defineConfig({
+    base: "/system/",
     plugins: [
       vue(),
+      WindiCSS(),
       svgLoader(),
       createSvgIconsPlugin({
         iconDirs: [resolve("./src/icons")],
@@ -35,6 +37,9 @@ export default ({ mode }: any) =>
           },
           {
             "@/hooks/usePage": [["default", "usePage"]],
+          },
+          {
+            "@/hooks/useTable": [["default", "useTable"]],
           },
         ],
         resolvers: [ElementPlusResolver()],
@@ -64,7 +69,7 @@ export default ({ mode }: any) =>
     server: {
       // Listening on all local IPs
       host: true,
-      port: 80,
+      port: 88,
       // 设置代理
     },
   });

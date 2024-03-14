@@ -9,7 +9,8 @@
 <script lang="ts" setup>
 import Theme from "./theme/index.vue";
 import { Normal, Left, Right, Top } from "./container";
-import presets02 from "./config/presets02";
+import systemTheme from "./config/systemTheme";
+import videoTheme from "./config/videoTheme";
 
 function container(containerName: String) {
   switch (containerName) {
@@ -28,9 +29,23 @@ const config = ref({ container: "" });
 
 function getConfig() {
   setTimeout(() => {
-    config.value = presets02.value;
+    config.value = unref(systemTheme);
   }, 1500);
 }
+
+const Route = useRoute();
+
+watch(
+  Route,
+  (value) => {
+    if (value.fullPath === "/video/home") {
+      config.value = unref(videoTheme);
+    } else if (value.fullPath === "/system/dashboard") {
+      config.value = unref(systemTheme);
+    }
+  },
+  { immediate: true }
+);
 
 getConfig();
 </script>
@@ -39,10 +54,11 @@ getConfig();
 .layouts {
   position: relative;
   .theme {
-    top: 60px;
+    top: 58px;
     right: 0;
     position: absolute;
     z-index: 1000;
   }
 }
 </style>
+./config/videoTheme./config/videoTheme

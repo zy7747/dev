@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from "vue-router";
 import { createRouter, createWebHashHistory } from "vue-router";
 
 interface routeModuleListType {
-  path: string;
+  path: any;
   redirect?: string;
   name?: string;
   component?: any;
@@ -15,22 +15,21 @@ interface routeModuleListType {
 const routeModuleList: routeModuleListType[] = [
   {
     path: "/",
-    redirect: "/home/dashboard",
+    redirect: "/dashboard",
   },
   {
-    path: "/home",
-    name: "home",
+    path: "/",
     component: () => import("@/layouts/index.vue"),
     children: [
       {
         path: "dashboard",
         name: "dashboard",
-        component: () => import("@/views/dashboard/index.vue"),
+        component: () => import("@/views/pages/dashboard/index.vue"),
       },
       {
         path: "page",
         name: "page",
-        component: () => import("@/views/configuration/page/index.vue"),
+        component: () => import("@/views/pages/configuration/page/index.vue"),
       },
     ],
   },

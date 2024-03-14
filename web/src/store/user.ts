@@ -1,4 +1,3 @@
-import { userLogin } from "@/apis/user";
 import { defineStore } from "pinia";
 import { getToken, setToken } from "@/utils/auth";
 
@@ -15,8 +14,9 @@ export const useUserStore = defineStore({
   actions: {
     // 登录
     login(loginInfo: any) {
-      return userLogin({ ...loginInfo, loginSystem: "videoWeb" }).then(
-        (response: any) => {
+      return Service.user
+        .login({ ...loginInfo, loginSystem: "videoWeb" })
+        .then((response: any) => {
           if (response.code === 200) {
             this.token = response.data.token;
             this.userInfo = response.data.userInfo;
@@ -28,8 +28,7 @@ export const useUserStore = defineStore({
           } else {
             return false;
           }
-        }
-      );
+        });
     },
   },
 });

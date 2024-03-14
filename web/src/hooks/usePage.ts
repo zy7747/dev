@@ -1,4 +1,4 @@
-function useGrid(config: any = {}) {
+function usePage(config: any = {}) {
   const pageRef: any = ref();
   const pageOption = config;
 
@@ -40,4 +40,4 @@ function useGrid(config: any = {}) {
   };
 }
 
-export default useGrid;
+export default usePage;

@@ -7,7 +7,18 @@
       v-model="value"
       v-bind="params"
     />
-
+    <c-radio
+      v-else-if="type === 'radio'"
+      :options="options"
+      v-model="value"
+      v-bind="params"
+    />
+    <c-checkbox
+      v-else-if="type === 'checkbox'"
+      :options="options"
+      v-model="value"
+      v-bind="params"
+    />
     <c-input v-else-if="type === 'input'" v-model="value" v-bind="params" />
   </div>
 </template>
@@ -18,7 +29,7 @@ const value: any = defineModel();
 defineProps({
   type: {
     text: "类型",
-    type: [String, Number],
+    type: [String],
     default: "",
   },
   options: {

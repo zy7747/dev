@@ -1,7 +1,7 @@
 <!-- AppMain -->
 <template>
-  <div class="app-main">
-    <el-backtop style="z-index: 99999" target=".app-main" />
+  <div class="app-main font-mono">
+    <!-- <el-backtop style="z-index: 99999" target=".app-main" /> -->
     <el-watermark
       :content="$t('app.watermark', '水印')"
       :font="font"
@@ -22,9 +22,7 @@ const font = ref({
 
 <style lang="scss" scoped>
 .app-main {
-  height: 750px;
-  border-radius: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  height: 100%;
   overflow: auto;
 }
 </style>

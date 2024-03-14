@@ -16,7 +16,12 @@
       </template>
     </Collapse>
 
-    <el-tabs @tab-change="tabChange" v-model="active" type="border-card">
+    <el-tabs
+      @tab-change="tabChange"
+      v-model="active"
+      type="border-card"
+      v-if="pageOption.tableConfig && pageOption.tableConfig.length"
+    >
       <el-tab-pane
         v-for="(item, index) in pageOption.tableConfig"
         :name="index"
@@ -55,7 +60,7 @@ const editRef: any = ref<any>();
 const active: any = ref<any>(0);
 const disabled: any = ref<any>();
 
-const prop = defineProps({
+const { pageData, pageOption } = defineProps({
   pageOption: {
     text: "页面配置",
     type: [Object],
@@ -78,7 +83,9 @@ function query() {
     .submitForm()
     .then((res: any) => {
       if (res) {
-        unref(tableRef)[unref(active)].query();
+        if (tableRef.value) {
+          unref(tableRef)[unref(active)].query();
+        }
       }
     });
 }
@@ -94,7 +101,7 @@ function handleOpen({ type, data }: any) {
   } else {
     disabled.value = false;
   }
-  prop.pageData.editData = data;
+  pageData.editData = data;
   unref(dialogRef)[unref(active)].handleOpen();
 }
 function handleClose() {
@@ -127,7 +134,7 @@ function tabChange() {
 }
 
 onMounted(() => {
-  if (prop.pageOption.createLoad) {
+  if (pageOption.createLoad) {
     query();
   }
 });

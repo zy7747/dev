@@ -8,16 +8,16 @@
             link
             type="primary"
             :icon="CircleCheckFilled"
-            @click="saveRowEvent(row, item.save)"
+            @click="saveRowEvent()"
           >
             保存
           </el-button>
 
           <el-button
-            :icon="CircleCloseFilled"
             link
             type="info"
-            @click="clearRowEvent(row)"
+            :icon="CircleCloseFilled"
+            @click="clearRowEvent()"
           >
             取消
           </el-button>
@@ -52,11 +52,11 @@
       </el-button>
 
       <el-button
+        v-else-if="item.type === 'detail'"
+        link
         type="warning"
         :icon="Share"
-        v-else-if="item.type === 'detail'"
         @click="item.click({ row })"
-        link
       >
         详情
       </el-button>
@@ -88,7 +88,7 @@ import {
   CircleCheckFilled,
 } from "@element-plus/icons-vue";
 
-const prop: any = defineProps({
+const { xGrid } = defineProps({
   row: {
     text: "行信息",
     type: [Object],
@@ -109,9 +109,11 @@ const prop: any = defineProps({
   },
 });
 
+const tableData: any = defineModel();
+
 //是否在编辑状态
 const hasActiveEditRow = (row: any) => {
-  const $grid = prop.xGrid;
+  const $grid = xGrid;
   if ($grid) {
     return $grid.isEditByRow(row);
   }
@@ -120,43 +122,38 @@ const hasActiveEditRow = (row: any) => {
 
 //编辑
 const editRowEvent = (row: any) => {
-  const $grid = prop.xGrid;
+  const $grid = xGrid;
   if ($grid) {
     $grid.setEditRow(row);
   }
 };
 
 //取消
-const clearRowEvent = (row: any) => {
-  const $grid = prop.xGrid;
+const clearRowEvent = () => {
+  const $grid = xGrid;
   if ($grid) {
-    if (row.isAddRow) {
-      $grid.remove(row);
-    } else {
-      $grid.clearEdit();
-    }
+    $grid.clearEdit();
   }
 };
 
 //保存
-const saveRowEvent = async (row: any, save: Function) => {
-  const $grid = prop.xGrid;
+const saveRowEvent = async () => {
+  const $grid = xGrid;
   if ($grid) {
-    if (row.isAddRow) {
-      save();
-      $grid.clearEdit();
-    } else {
-      save();
-      $grid.clearEdit();
-    }
+    $grid.clearEdit();
   }
 };
 
 //删除
 const removeRowEvent = async (row: any) => {
-  const $grid = prop.xGrid;
+  const $grid = xGrid;
   if ($grid) {
-    $grid.remove(row);
+    const index = tableData.value.findIndex(
+      (item: any) => item._row_index === row._row_index
+    );
+    if (index > -1) {
+      tableData.value.splice(index, 1);
+    }
   }
 };
 </script>

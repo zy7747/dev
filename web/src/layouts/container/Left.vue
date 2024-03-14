@@ -7,18 +7,28 @@
           backgroundColor: theme.asideBackgroundColor,
         }"
       >
-        <Logo :hasTitle="false" :height="theme.headerHeight" />
+        <Logo :theme="theme" :hasTitle="false" :height="theme.headerHeight" />
         <Sidebar
           :backgroundColor="theme.asideBackgroundColor"
           :width="theme.asideWidth"
           :collapse="false"
         />
       </el-aside>
-      <el-main>
-        <Breadcrumb v-if="theme.breadcrumb" />
-        <TagsView v-if="theme.tagsView" />
-        <AppMain />
-      </el-main>
+      <el-container>
+        <el-header
+          :style="{
+            backgroundColor: theme.headerBackgroundColor,
+            height: `${theme.headerHeight}px`,
+          }"
+        >
+          <HeaderLine :backgroundColor="theme.headerBackgroundColor" />
+        </el-header>
+        <el-main>
+          <Breadcrumb v-if="theme.breadcrumb" />
+          <TagsView v-if="theme.tagsView" />
+          <AppMain />
+        </el-main>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -43,7 +53,7 @@ defineProps({
   width: auto;
 }
 .el-main {
-  padding: 10px;
+  padding: 0;
   overflow: auto;
 }
 </style>

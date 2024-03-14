@@ -1,7 +1,12 @@
 <!--  -->
 <template>
   <div class="theme">
-    <el-button type="primary" :icon="Tools" @click="drawer = true"> </el-button>
+    <el-button
+      type="primary"
+      size="small"
+      :icon="Tools"
+      @click="drawer = true"
+    />
 
     <el-drawer v-model="drawer" title="主题" direction="rtl">
       <div>日夜模式</div>

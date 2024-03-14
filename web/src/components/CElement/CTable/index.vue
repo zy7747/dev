@@ -3,7 +3,6 @@
   <vxe-grid
     ref="xGrid"
     :columns="tableColumn"
-    :data="tableData"
     v-bind="{ ...gridOptions, ...tableConfig }"
   >
     <template #toolbar_buttons>
@@ -11,7 +10,7 @@
     </template>
 
     <template #tableSlot="{ row, column }: any">
-      <tableSlot :type="column.params.cType" v-model="row[column.field]" />
+      <TableSlot :type="column.params.cType" v-model="row[column.field]" />
     </template>
 
     <template #tableEdit="{ row, column }: any">
@@ -23,11 +22,21 @@
     </template>
 
     <template #operate="{ row }">
-      <Action :actions="tableConfig.actions" :row="row" :xGrid="xGrid" />
+      <Action
+        v-model="tableConfig.data"
+        :actions="tableConfig.actions"
+        :row="row"
+        :xGrid="xGrid"
+      />
     </template>
 
     <template #pager>
-      <Pagination class="pagination" ref="paginationRef" :total="total" />
+      <div
+        v-show="total !== 0"
+        class="flex w-full justify-end items-center pagination"
+      >
+        <Pagination ref="paginationRef" :total="total" />
+      </div>
     </template>
   </vxe-grid>
 </template>
@@ -36,16 +45,17 @@
 import { VxeGridProps, VxeGridInstance } from "vxe-table";
 import Action from "./components/action.vue";
 import Tools from "./components/tools.vue";
-import tableSlot from "./components/tableSlot.vue";
+import TableSlot from "./components/tableSlot.vue";
 import lodash from "lodash";
+import { getFilter, getTableCols, getRules } from "@/hooks/table";
 
 const paginationRef = ref();
 const xGrid = ref<VxeGridInstance<any>>();
 
-const total = ref(0);
-const loading: any = ref(false);
-const tableData = ref([]);
-const prop: any = defineProps({
+const total: Ref<number> = ref(0);
+const loading: Ref<boolean> = ref(false);
+
+const { tableConfig } = defineProps({
   tableConfig: {
     text: "表格配置",
     type: [Object],
@@ -54,79 +64,25 @@ const prop: any = defineProps({
     },
   },
 });
-function getTableCols(columns: any) {
-  return unref(columns).map((item: any) => {
-    const col: any = {
-      resizable: true,
-      slots: {},
-      params: {},
-      "show-header-overflow": "ellipsis",
-    };
 
-    //编辑插槽
-    if (!item.editRender && item.form) {
-      col.editRender = {};
-      col.slots.edit = "tableEdit";
-
-      Object.assign(col.params, { form: item.form });
-    }
-
-    //自定义渲染插槽
-    if (item.cType && item.cType !== "action") {
-      col.slots.default = "tableSlot";
-      Object.assign(col.params, { cType: item.cType });
-    }
-
-    //过滤
-    if (item.isFilters) {
-      col.filters = filters.value[item.field];
-    }
-
-    //自定义插槽
-    if (item.slots) {
-      col.slots = item.slots;
-    }
-
-    if (item.children && item.children.length) {
-      col.children = getTableCols(item.children);
-    }
-
-    if (item.cType === "action") {
-      col.slots = { default: "operate" };
-    }
-
-    return { ...item, ...col };
-  });
-}
 //校验
 const rules: any = computed(() => {
-  const rules: any = {};
-
-  prop.tableConfig.tableColumn.forEach((item: any) => {
-    if (item.rules) {
-      rules[item.field] = item.rules;
-    }
-  });
-
-  return rules;
+  return getRules(tableConfig.tableColumn);
 });
-//过滤
-function getFilter(columns: any, filterMap: any) {
-  columns.forEach((item: any) => {
-    if (item.isFilters) {
-      filterMap[item.field] = [];
-    }
 
-    if (item.children && item.children.length) {
-      getFilter(item.children, filterMap);
-    }
-  });
-}
+const tableData: any = computed(() => {
+  return tableConfig.data;
+});
+
 const filters: any = computed(() => {
   const filterMap: any = {};
 
+  if (!tableData.value) {
+    return filterMap;
+  }
+
   //数据平铺
-  getFilter(prop.tableConfig.tableColumn, filterMap);
+  getFilter(tableConfig.tableColumn, filterMap);
 
   //数据装入
   unref(tableData).forEach((item: any) => {
@@ -146,69 +102,18 @@ const filters: any = computed(() => {
 });
 //列
 const tableColumn: any = computed(() => {
-  return getTableCols(prop.tableConfig.tableColumn);
+  return getTableCols(tableConfig.tableColumn, filters);
 });
-//多选
-function checkboxData() {
-  if (xGrid.value) {
-    return xGrid.value.getCheckboxRecords();
-  } else {
-    return [];
-  }
-}
-//查询数据
-function query() {
-  if (prop.tableConfig.query && typeof prop.tableConfig.query === "function") {
-    nextTick(() => {
-      loading.value = true;
-      const page = unref(paginationRef).page;
-      const size = unref(paginationRef).size;
 
-      prop.tableConfig
-        .query({ page, size })
-        .then((res: any) => {
-          tableData.value = res.data.list;
-          total.value = res.data.total;
-          loading.value = false;
-        })
-        .catch(() => {
-          loading.value = false;
-        })
-        .finally(() => {
-          loading.value = false;
-        });
-    });
-  } else if (
-    prop.tableConfig.list &&
-    typeof prop.tableConfig.list === "function"
-  ) {
-    prop.tableConfig
-      .list()
-      .then((res: any) => {
-        tableData.value = res.data.list;
-        total.value = 0;
-        loading.value = false;
-      })
-      .catch(() => {
-        loading.value = false;
-      })
-      .finally(() => {
-        loading.value = false;
-      });
-  } else {
-    tableData.value = prop.tableConfig.data;
-  }
-}
 //插入数据
-const addLine = async (rows: any) => {
+const addLine = async (row: any) => {
   const $grid = xGrid.value;
 
   if ($grid) {
     if ($grid.isEditByRow(null)) {
-      const { row: newRow } = await $grid.insertAt(
-        { ...rows, isAddRow: true },
-        null
-      );
+      const { row: newRow } = await $grid.insertAt(row, null);
+
+      tableConfig.data.push(newRow);
 
       await $grid.setEditRow(newRow);
     } else {
@@ -221,6 +126,62 @@ const addLine = async (rows: any) => {
     }
   }
 };
+//多选
+function checkboxData() {
+  if (xGrid.value) {
+    return xGrid.value.getCheckboxRecords();
+  } else {
+    return [];
+  }
+}
+//单选
+function checkRadioData() {
+  if (xGrid.value) {
+    return xGrid.value.getCheckboxRecords();
+  } else {
+    return [];
+  }
+}
+//查询
+function query() {
+  if (tableConfig.query) {
+    nextTick(() => {
+      loading.value = true;
+
+      const page = unref(paginationRef).page;
+      const size = unref(paginationRef).size;
+
+      tableConfig
+        .query({ page, size })
+        .then((res: any) => {
+          tableConfig.data = res.data.list;
+          total.value = res.data.total;
+          loading.value = false;
+        })
+        .catch(() => {
+          loading.value = false;
+        })
+        .finally(() => {
+          loading.value = false;
+        });
+    });
+  } else if (tableConfig.list) {
+    loading.value = true;
+    tableConfig
+      .list()
+      .then((res: any) => {
+        tableConfig.data = res.data.list;
+        loading.value = false;
+      })
+      .catch(() => {
+        loading.value = false;
+      })
+      .finally(() => {
+        loading.value = false;
+      });
+  }
+}
+
 //基本配置
 const gridOptions = reactive<VxeGridProps<any>>({
   border: true,
@@ -228,7 +189,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
   round: true,
   size: "small",
   height: 500,
-  loading,
+  loading: loading.value,
   align: "center",
   keepSource: true,
   showOverflow: "tooltip",
@@ -249,7 +210,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
     showIcon: false,
   },
   printConfig: {
-    columns: prop.tableConfig.columns,
+    columns: tableConfig.columns,
   },
   loadingConfig: { icon: "vxe-icon-indicator roll", text: "正在拼命加载中..." },
   checkboxConfig: {
@@ -278,15 +239,12 @@ defineExpose({
   query,
   addLine,
   checkboxData,
+  checkRadioData,
 });
 </script>
 
 <style lang="scss" scoped>
 .pagination {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: end;
   margin-top: 15px;
 }
 </style>

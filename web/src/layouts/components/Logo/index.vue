@@ -1,12 +1,12 @@
 <template>
   <div
-    class="logo"
+    class="logo flex items-center justify-center"
     :style="{ width: width ? width + 'px' : 'auto', height: height + 'px' }"
   >
     <svg-icon :name="`app-哔哩哔哩`" class="icon" />
-    <span v-if="hasTitle || collapse" style="margin-left: 10px">{{
-      "应用名称"
-    }}</span>
+    <span v-if="hasTitle || collapse" style="margin-left: 10px">
+      {{ theme.appName }}
+    </span>
   </div>
 </template>
 
@@ -15,6 +15,13 @@ defineProps({
   width: {
     text: "宽度",
     type: [Number],
+  },
+  theme: {
+    text: "主题",
+    type: [Object],
+    default: () => {
+      return {};
+    },
   },
   height: {
     text: "宽度",
@@ -33,9 +40,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: transparent;
   text-align: center;
   .icon {

@@ -1,6 +1,9 @@
 <!--  -->
 <template>
-  <div class="headerLine" :style="{ width: `calc(100% - ${width}px)` }">
+  <div
+    class="flex justify-between items-center"
+    :style="{ width: `calc(100% - ${width}px)` }"
+  >
     <HeaderMenu :backgroundColor="backgroundColor"></HeaderMenu>
     <div>工具栏</div>
   </div>
@@ -23,10 +26,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .headerLine {
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   overflow: hidden;
 }
 </style>

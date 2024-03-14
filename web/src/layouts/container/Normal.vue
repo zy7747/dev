@@ -8,6 +8,7 @@
         }"
       >
         <Logo
+          :theme="theme"
           :hasTitle="true"
           :collapse="true"
           :width="theme.asideWidth"
@@ -68,7 +69,7 @@ defineProps({
   align-items: center;
 }
 .el-main {
-  padding: 10px;
+  padding: 0;
   overflow: auto;
 }
 
