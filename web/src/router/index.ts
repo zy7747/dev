@@ -18,6 +18,11 @@ const routeModuleList: routeModuleListType[] = [
     redirect: "/dashboard",
   },
   {
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/system/login/index.vue"),
+  },
+  {
     path: "/",
     component: () => import("@/layouts/index.vue"),
     children: [
@@ -30,6 +35,18 @@ const routeModuleList: routeModuleListType[] = [
         path: "page",
         name: "page",
         component: () => import("@/views/pages/configuration/page/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("@/views/system/user/index.vue"),
+    children: [
+      {
+        path: "center",
+        name: "center",
+        component: () => import("@/views/system/user/center/index.vue"),
       },
     ],
   },

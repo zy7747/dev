@@ -93,6 +93,18 @@ function getGrid() {
               ],
               dialogForm: [
                 {
+                  label: "电话",
+                  prop: "phone",
+                  type: "input",
+                  span: 6,
+                },
+                {
+                  label: "电子邮箱",
+                  prop: "email",
+                  type: "input",
+                  span: 6,
+                },
+                {
                   label: "用户",
                   prop: "user",
                   type: "input",

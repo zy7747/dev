@@ -16,7 +16,6 @@ import com.example.system.dal.vo.user.UserPageVO;
 import com.example.system.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @return 列表分页
      */
     @Override
-    public Result<PageList<UserPageVO>> userPageService(UserQueryDTO user) {
+    public Result<PageList<UserPageVO>> userPage(UserQueryDTO user) {
         return Result.success(UserConvert.INSTANCE.page(userMapper.queryPage(user)));
     }
 
@@ -47,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @return 列表
      */
     @Override
-    public Result<List<UserListVO>> userListService(UserQueryDTO user) {
+    public Result<List<UserListVO>> userList(UserQueryDTO user) {
         return Result.success(UserConvert.INSTANCE.list(userMapper.queryList(user)));
     }
 
@@ -58,7 +57,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @return 详情
      */
     @Override
-    public Result<UserDetailVO> userDetailService(Long id) {
+    public Result<UserDetailVO> userDetail(Long id) {
         return Result.success(UserConvert.INSTANCE.detail(userMapper.selectById(id)));
     }
 
@@ -69,10 +68,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @return 新增/修改后数据
      */
     @Override
-    public Result<UserEntity> userSaveService(UserSaveDTO user) {
-        UserEntity userList = UserConvert.INSTANCE.save(user);
-        this.saveOrUpdate(userList);
-        return Result.success(userList);
+    public Result<UserEntity> userSave(UserSaveDTO user) {
+        UserEntity userEntity = UserConvert.INSTANCE.save(user);
+
+        List<UserEntity> userList = userMapper.queryList(new UserQueryDTO());
+
+        Result<UserEntity> valid = userMapper.onlyValid(userEntity, userList);
+
+        if (valid.getCode() == 200) {
+            this.saveOrUpdate(userEntity);
+            return Result.success(userEntity);
+        } else {
+            return valid;
+        }
     }
 
     /**
@@ -82,24 +90,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @return 新增/修改后数据
      */
     @Override
-    public Result<List<UserEntity>> userSaveListService(List<UserSaveDTO> user) {
+    public Result<List<UserEntity>> userSaveList(List<UserSaveDTO> user) {
         List<UserEntity> userList = UserConvert.INSTANCE.saveList(user);
-        this.saveOrUpdateBatch(userList);
-        return Result.success(userList);
+        Result<List<UserEntity>> valid = userMapper.onlyValidList(userList);
+        if (valid.getCode() == 200) {
+            this.saveOrUpdateBatch(userList);
+            return Result.success(userList);
+        } else {
+            return valid;
+        }
     }
 
-    /**
-     * 导入
-     *
-     * @param multipartFile 入参
-     * @return 新增/修改后数据
-     */
-    @Override
-    public Result<List<UserEntity>> userImportService(MultipartFile multipartFile) throws IOException {
-        List<UserEntity> userList = UserConvert.INSTANCE.imports(ExcelUtils.imports(multipartFile.getInputStream(), UserExportVO.class));
-        this.saveOrUpdateBatch(userList);
-        return Result.success(userList);
-    }
 
     /**
      * 导出
@@ -107,7 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @param response,user 入参
      */
     @Override
-    public void userExportService(UserQueryDTO user, HttpServletResponse response) throws IOException {
+    public void userExport(UserQueryDTO user, HttpServletResponse response) throws IOException {
         ExcelUtils.export(response, "用户.xlsx", "用户", UserExportVO.class, UserConvert.INSTANCE.export(userMapper.queryList(user)));
     }
 }

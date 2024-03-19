@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.framework.common.PageList;
+import com.example.framework.common.Result;
 import com.example.system.dal.dto.user.UserQueryDTO;
-import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -92,34 +92,48 @@ public interface UserMapper extends BaseMapper<UserEntity> {
     }
 
     /**
+     * 多列参数唯一性校验
+     */
+    default Result<List<UserEntity>> onlyValidList(List<UserEntity> users) {
+        List<UserEntity> userList = queryList(new UserQueryDTO());
+
+        for (UserEntity user : users) {
+            Result<UserEntity> u = onlyValid(user, userList);
+            if (u.getCode() != 200) {
+                return Result.fail(u.getMessage());
+            }
+        }
+        return Result.success(userList);
+    }
+
+    /**
      * 唯一性校验
      */
-    default String onlyValid(UserSaveDTO user) {
-        //一次查出所以数据
-        List<UserEntity> userList = queryList(new UserQueryDTO());
+    default Result<UserEntity> onlyValid(UserEntity user, List<UserEntity> userList) {
+
         for (UserEntity item : userList) {
             //修改跳过自己
             if (user.getId() != null && item.getId().equals(user.getId())) {
                 continue;
             }
             if (!StrUtil.hasBlank(user.getPhone()) && Objects.equals(user.getPhone(), item.getPhone())) {
-                return "电话号码已被注册";
+                return Result.fail("电话号码已被注册");
             }
             if (!StrUtil.hasBlank(user.getEmail()) && Objects.equals(user.getEmail(), item.getEmail())) {
-                return "电子邮箱已被注册";
+                return Result.fail("电子邮箱已被注册");
             }
             if (!StrUtil.hasBlank(user.getAccount()) && Objects.equals(user.getAccount(), item.getAccount())) {
-                return "账号已被注册";
+                return Result.fail("账号已被注册");
             }
             if (!StrUtil.hasBlank(user.getUser()) && Objects.equals(user.getUser(), item.getUser())) {
-                return "用户名已被注册";
+                return Result.fail("用户名已被注册");
             }
             if (!StrUtil.hasBlank(user.getNickname()) && Objects.equals(user.getNickname(), item.getNickname())) {
-                return "昵称已被注册";
+                return Result.fail("昵称已被注册");
             }
-
         }
-        return "新增成功";
+
+        return Result.success(user);
     }
 
     /**

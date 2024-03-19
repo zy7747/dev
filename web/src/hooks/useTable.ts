@@ -1,5 +1,5 @@
 function useTable(config: any = {}) {
-  const tableRef: any = ref();
+  const tableRef: any = ref<HTMLElement | null>(null);
   const tableConfig = config;
 
   if (config.tableRef) {

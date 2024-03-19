@@ -26,6 +26,8 @@ import "@/permission";
 import "@/plugins";
 //piniaPersist
 import piniaPersist from "pinia-plugin-persist";
+//hover.css
+import "hover.css";
 
 const app = createApp(App);
 

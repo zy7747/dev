@@ -148,22 +148,24 @@ function query() {
     nextTick(() => {
       loading.value = true;
 
-      const page = unref(paginationRef).page;
-      const size = unref(paginationRef).size;
+      if (paginationRef) {
+        const page = unref(paginationRef).page;
+        const size = unref(paginationRef).size;
 
-      tableConfig
-        .query({ page, size })
-        .then((res: any) => {
-          tableConfig.data = res.data.list;
-          total.value = res.data.total;
-          loading.value = false;
-        })
-        .catch(() => {
-          loading.value = false;
-        })
-        .finally(() => {
-          loading.value = false;
-        });
+        tableConfig
+          .query({ page, size })
+          .then((res: any) => {
+            tableConfig.data = res.data.list;
+            total.value = res.data.total;
+            loading.value = false;
+          })
+          .catch(() => {
+            loading.value = false;
+          })
+          .finally(() => {
+            loading.value = false;
+          });
+      }
     });
   } else if (tableConfig.list) {
     loading.value = true;
@@ -198,10 +200,10 @@ const gridOptions = reactive<VxeGridProps<any>>({
   scrollY: { enabled: true, gt: 50 },
   rowConfig: {
     keyField: "_row_index",
-    isHover: true,
-    isCurrent: true,
+    isHover: false,
+    isCurrent: false,
   },
-  columnConfig: { isCurrent: true, isHover: true },
+  columnConfig: { isCurrent: false, isHover: false },
   editConfig: {
     trigger: "manual",
     mode: "row",
@@ -214,10 +216,10 @@ const gridOptions = reactive<VxeGridProps<any>>({
   },
   loadingConfig: { icon: "vxe-icon-indicator roll", text: "正在拼命加载中..." },
   checkboxConfig: {
-    trigger: "row",
     reserve: true,
     highlight: true,
     range: true,
+    isShiftKey: true,
   },
   toolbarConfig: {
     slots: {

@@ -8,10 +8,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Action: typeof import('./src/components/CElement/CTable/components/action.vue')['default']
+    Audio: typeof import('./src/components/Player/audio.vue')['default']
     CButton: typeof import('./src/components/CElement/CButton/index.vue')['default']
     CCarousel: typeof import('./src/components/CElement/CCarousel/index.vue')['default']
     CCheckbox: typeof import('./src/components/CElement/CCheckbox/index.vue')['default']
     CDialog: typeof import('./src/components/CElement/CDialog/index.vue')['default']
+    CDropdown: typeof import('./src/components/CElement/CDropdown/index.vue')['default']
     CForm: typeof import('./src/components/CElement/CForm/index.vue')['default']
     CGrid: typeof import('./src/components/CElement/CGrid/index.vue')['default']
     CInput: typeof import('./src/components/CElement/CInput/index.vue')['default']
@@ -38,6 +40,9 @@ declare module 'vue' {
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
@@ -62,6 +67,7 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
     Pagination: typeof import('./src/components/Pagination/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -69,5 +75,6 @@ declare module 'vue' {
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     TableSlot: typeof import('./src/components/CElement/CTable/components/tableSlot.vue')['default']
     Tools: typeof import('./src/components/CElement/CTable/components/tools.vue')['default']
+    Video: typeof import('./src/components/Player/video.vue')['default']
   }
 }

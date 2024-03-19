@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="layouts">
-    <Theme class="theme" v-model.theme="config" />
+    <Theme ref="theme" :style="style" class="theme" v-model.theme="config" />
     <component :is="container(config.container)" :theme="config" />
   </div>
 </template>
@@ -10,7 +10,16 @@
 import Theme from "./theme/index.vue";
 import { Normal, Left, Right, Top } from "./container";
 import systemTheme from "./config/systemTheme";
-import videoTheme from "./config/videoTheme";
+
+import { useDraggable } from "@vueuse/core";
+
+// const { width, height } = useWindowSize();
+
+const theme = ref<HTMLElement | null>(null);
+
+const { style } = useDraggable(theme, {
+  initialValue: { x: 0, y: 0 },
+});
 
 function container(containerName: String) {
   switch (containerName) {
@@ -33,32 +42,14 @@ function getConfig() {
   }, 1500);
 }
 
-const Route = useRoute();
-
-watch(
-  Route,
-  (value) => {
-    if (value.fullPath === "/video/home") {
-      config.value = unref(videoTheme);
-    } else if (value.fullPath === "/system/dashboard") {
-      config.value = unref(systemTheme);
-    }
-  },
-  { immediate: true }
-);
-
 getConfig();
 </script>
 
 <style lang="scss" scoped>
-.layouts {
-  position: relative;
-  .theme {
-    top: 58px;
-    right: 0;
-    position: absolute;
-    z-index: 1000;
-  }
+.theme {
+  top: 58px;
+  right: 0;
+  position: fixed;
+  z-index: 1000;
 }
 </style>
-./config/videoTheme./config/videoTheme

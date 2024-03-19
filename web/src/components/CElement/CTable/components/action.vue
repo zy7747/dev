@@ -44,6 +44,7 @@
       <el-button
         v-else-if="item.type === 'edit'"
         link
+        v-bind="item"
         type="primary"
         :icon="Edit"
         @click="item.click({ row })"
@@ -54,6 +55,7 @@
       <el-button
         v-else-if="item.type === 'detail'"
         link
+        v-bind="item"
         type="warning"
         :icon="Share"
         @click="item.click({ row })"
@@ -67,13 +69,25 @@
         @confirm="item.click({ row })"
       >
         <template #reference>
-          <el-button link :icon="Delete" type="danger">删除</el-button>
+          <c-button
+            link
+            v-bind="item"
+            :icon="Delete"
+            type="danger"
+            text="删除"
+          />
+          >
         </template>
       </el-popconfirm>
 
-      <el-button v-else @click="item.click({ row })" :icon="SwitchFilled" link>
-        {{ item.text }}
-      </el-button>
+      <c-button
+        v-else
+        v-bind="item"
+        @click="item.click({ row })"
+        :icon="SwitchFilled"
+        link
+        :text="item.text"
+      />
     </template>
   </div>
 </template>

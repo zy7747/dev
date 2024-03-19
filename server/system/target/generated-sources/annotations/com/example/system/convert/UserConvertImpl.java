@@ -13,7 +13,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-07T11:40:09+0800",
+    date = "2024-03-18T19:15:32+0800",
     comments = "version: 1.5.0.Final, compiler: javac, environment: Java 11.0.17 (Amazon.com Inc.)"
 )
 public class UserConvertImpl implements UserConvert {
@@ -139,14 +139,14 @@ public class UserConvertImpl implements UserConvert {
     }
 
     @Override
-    public List<UserEntity> imports(List<UserExportVO> users) {
+    public List<UserSaveDTO> imports(List<UserExportVO> users) {
         if ( users == null ) {
             return null;
         }
 
-        List<UserEntity> list = new ArrayList<UserEntity>( users.size() );
+        List<UserSaveDTO> list = new ArrayList<UserSaveDTO>( users.size() );
         for ( UserExportVO userExportVO : users ) {
-            list.add( userExportVOToUserEntity( userExportVO ) );
+            list.add( userExportVOToUserSaveDTO( userExportVO ) );
         }
 
         return list;
@@ -251,29 +251,29 @@ public class UserConvertImpl implements UserConvert {
         return userExportVO;
     }
 
-    protected UserEntity userExportVOToUserEntity(UserExportVO userExportVO) {
+    protected UserSaveDTO userExportVOToUserSaveDTO(UserExportVO userExportVO) {
         if ( userExportVO == null ) {
             return null;
         }
 
-        UserEntity userEntity = new UserEntity();
+        UserSaveDTO userSaveDTO = new UserSaveDTO();
 
-        userEntity.setStatus( userExportVO.getStatus() );
-        userEntity.setCreator( userExportVO.getCreator() );
-        userEntity.setUpdater( userExportVO.getUpdater() );
-        userEntity.setRemark( userExportVO.getRemark() );
-        userEntity.setCreateTime( userExportVO.getCreateTime() );
-        userEntity.setUpdateTime( userExportVO.getUpdateTime() );
-        userEntity.setUid( userExportVO.getUid() );
-        userEntity.setPhone( userExportVO.getPhone() );
-        userEntity.setEmail( userExportVO.getEmail() );
-        userEntity.setAccount( userExportVO.getAccount() );
-        userEntity.setUser( userExportVO.getUser() );
-        userEntity.setPassword( userExportVO.getPassword() );
-        userEntity.setNickname( userExportVO.getNickname() );
-        userEntity.setAvatar( userExportVO.getAvatar() );
-        userEntity.setUserType( userExportVO.getUserType() );
+        userSaveDTO.setStatus( userExportVO.getStatus() );
+        userSaveDTO.setCreator( userExportVO.getCreator() );
+        userSaveDTO.setUpdater( userExportVO.getUpdater() );
+        userSaveDTO.setRemark( userExportVO.getRemark() );
+        userSaveDTO.setCreateTime( userExportVO.getCreateTime() );
+        userSaveDTO.setUpdateTime( userExportVO.getUpdateTime() );
+        userSaveDTO.setUid( userExportVO.getUid() );
+        userSaveDTO.setPhone( userExportVO.getPhone() );
+        userSaveDTO.setEmail( userExportVO.getEmail() );
+        userSaveDTO.setAccount( userExportVO.getAccount() );
+        userSaveDTO.setUser( userExportVO.getUser() );
+        userSaveDTO.setPassword( userExportVO.getPassword() );
+        userSaveDTO.setNickname( userExportVO.getNickname() );
+        userSaveDTO.setAvatar( userExportVO.getAvatar() );
+        userSaveDTO.setUserType( userExportVO.getUserType() );
 
-        return userEntity;
+        return userSaveDTO;
     }
 }

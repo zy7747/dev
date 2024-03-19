@@ -33,6 +33,9 @@ export default ({ mode }: any) =>
           "vue-router",
           "pinia",
           {
+            "@/plugins/download": [["default", "Download"]],
+          },
+          {
             "@/plugins/service": [["default", "Service"]],
           },
           {

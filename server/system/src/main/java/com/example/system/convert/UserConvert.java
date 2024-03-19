@@ -28,5 +28,5 @@ public interface UserConvert {
 
     List<UserExportVO> export(List<UserEntity> users);
 
-    List<UserEntity> imports(List<UserExportVO> users);
+    List<UserSaveDTO> imports(List<UserExportVO> users);
 }

@@ -10,16 +10,6 @@ function usePage(config: any = {}) {
     return unref(pageRef).checkboxData();
   }
 
-  function apis(params: String) {
-    let api = Service;
-
-    params.split(".").forEach((item) => {
-      api = api[item];
-    });
-
-    return api;
-  }
-
   function ids() {
     const list = unref(pageRef).checkboxData();
     if (list.length) {
@@ -33,7 +23,6 @@ function usePage(config: any = {}) {
 
   return {
     ids,
-    apis,
     pageOption,
     pageRef,
     checkboxData,

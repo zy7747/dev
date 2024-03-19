@@ -22,6 +22,21 @@ export default {
       data,
     });
   },
+  exports(params: any) {
+    return request({
+      url: "/user/export",
+      method: "get",
+      responseType: "blob",
+      params,
+    });
+  },
+  imports(data: any) {
+    return request({
+      url: "/user/import",
+      method: "post",
+      data,
+    });
+  },
   remove(data: any) {
     return request({
       url: "/user/delete",

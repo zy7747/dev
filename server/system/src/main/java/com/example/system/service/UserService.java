@@ -8,12 +8,14 @@ import com.example.system.dal.entity.UserEntity;
 import com.example.system.dal.vo.user.UserDetailVO;
 import com.example.system.dal.vo.user.UserListVO;
 import com.example.system.dal.vo.user.UserPageVO;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.validation.annotation.Validated;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+@Validated
 public interface UserService {
     /**
      * 获取列表分页
@@ -21,7 +23,7 @@ public interface UserService {
      * @param user 分页入参
      * @return 列表分页
      */
-    Result<PageList<UserPageVO>> userPageService(UserQueryDTO user);
+    Result<PageList<UserPageVO>> userPage(UserQueryDTO user);
 
     /**
      * 获取列表
@@ -29,7 +31,7 @@ public interface UserService {
      * @param user 入参
      * @return 列表
      */
-    Result<List<UserListVO>> userListService(UserQueryDTO user);
+    Result<List<UserListVO>> userList(UserQueryDTO user);
 
     /**
      * 获取详情
@@ -37,7 +39,7 @@ public interface UserService {
      * @param id 入参
      * @return 详情
      */
-    Result<UserDetailVO> userDetailService(Long id);
+    Result<UserDetailVO> userDetail(Long id);
 
     /**
      * 新增/修改
@@ -45,7 +47,7 @@ public interface UserService {
      * @param user 新增/修改内容
      * @return 新增/修改后数据
      */
-    Result<UserEntity> userSaveService(UserSaveDTO user);
+    Result<UserEntity> userSave(UserSaveDTO user);
 
     /**
      * 批量新增/修改
@@ -53,20 +55,13 @@ public interface UserService {
      * @param user 新增/修改内容
      * @return 新增/修改后数据
      */
-    Result<List<UserEntity>> userSaveListService(List<UserSaveDTO> user);
+    Result<List<UserEntity>> userSaveList(@Valid List<UserSaveDTO> user);
 
-    /**
-     * 导入
-     *
-     * @param multipartFile 入参
-     * @return 新增/修改后数据
-     */
-    Result<List<UserEntity>> userImportService(MultipartFile multipartFile) throws IOException;
 
     /**
      * 导出
      *
      * @param response,user 入参
      */
-    void userExportService(UserQueryDTO user, HttpServletResponse response) throws IOException;
+    void userExport(UserQueryDTO user, HttpServletResponse response) throws IOException;
 }

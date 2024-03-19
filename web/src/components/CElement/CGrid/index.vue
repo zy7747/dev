@@ -11,15 +11,27 @@ const pageData: any = ref({
   editData: {},
 });
 
+function apis(params: String) {
+  let api = Service;
+
+  params.split(".").forEach((item) => {
+    api = api[item];
+  });
+
+  return api;
+}
+
 //页面渲染
 function render(config: any) {
-  const { pageOption, ids, apis } = usePage({
+  const { pageOption, ids } = usePage({
     pageRef,
     createLoad: true,
     formConfig: {
       formParams: config.form,
     },
     tableConfig: config.tables.map((table: any) => {
+      const api = apis(table.api);
+
       return {
         title: table.title,
         tools: [
@@ -34,26 +46,31 @@ function render(config: any) {
             type: "remove",
             permission: [],
             click() {
-              apis(table.api)
-                .remove(ids())
-                .then((res: any) => {
-                  if (res.code === 200) {
-                    ElMessage({
-                      message: "删除成功",
-                      type: "success",
-                    });
-                    unref(pageRef).query();
-                  }
-                });
+              api.remove(ids()).then((res: any) => {
+                if (res.code === 200) {
+                  ElMessage({
+                    message: "删除成功",
+                    type: "success",
+                  });
+                  unref(pageRef).query();
+                }
+              });
             },
           },
           {
             type: "import",
             permission: [],
+            api(files: any) {
+              return api.imports(files).then(() => {
+                unref(pageRef).query();
+              });
+            },
           },
           {
             type: "export",
             permission: [],
+            api: api.exports,
+            fileName: table.title,
           },
         ],
         tableColumn: table.tableColumn,
@@ -64,18 +81,16 @@ function render(config: any) {
           },
           //提交
           handleConfirm() {
-            apis(table.api)
-              .save(unref(pageData).editData)
-              .then((res: any) => {
-                if (res.code === 200) {
-                  ElMessage({
-                    message: "新增成功",
-                    type: "success",
-                  });
-                  unref(pageRef).query();
-                  unref(pageRef).handleClose();
-                }
-              });
+            api.save(unref(pageData).editData).then((res: any) => {
+              if (res.code === 200) {
+                ElMessage({
+                  message: "新增成功",
+                  type: "success",
+                });
+                unref(pageRef).query();
+                unref(pageRef).handleClose();
+              }
+            });
           },
         },
         actions: [
@@ -83,50 +98,44 @@ function render(config: any) {
             type: "edit",
             permission: [],
             click({ row }: any) {
-              apis(table.api)
-                .detail({ id: row.id })
-                .then((res: any) => {
-                  unref(pageRef).handleOpen({
-                    type: "edit",
-                    data: res.data,
-                  });
+              api.detail({ id: row.id }).then((res: any) => {
+                unref(pageRef).handleOpen({
+                  type: "edit",
+                  data: res.data,
                 });
+              });
             },
           },
           {
             type: "detail",
             permission: [],
             click({ row }: any) {
-              apis(table.api)
-                .detail({ id: row.id })
-                .then((res: any) => {
-                  unref(pageRef).handleOpen({
-                    type: "detail",
-                    data: res.data,
-                  });
+              api.detail({ id: row.id }).then((res: any) => {
+                unref(pageRef).handleOpen({
+                  type: "detail",
+                  data: res.data,
                 });
+              });
             },
           },
           {
             type: "remove",
             permission: [],
             click({ row }: any) {
-              apis(table.api)
-                .remove([row.id])
-                .then((res: any) => {
-                  if (res.code === 200) {
-                    ElMessage({
-                      message: "删除成功",
-                      type: "success",
-                    });
-                    unref(pageRef).query();
-                  }
-                });
+              api.remove([row.id]).then((res: any) => {
+                if (res.code === 200) {
+                  ElMessage({
+                    message: "删除成功",
+                    type: "success",
+                  });
+                  unref(pageRef).query();
+                }
+              });
             },
           },
         ],
         query: (pages: any) => {
-          return apis(table.api)
+          return api
             .page({ ...pages, ...unref(pageData).queryData })
             .then((res: any) => {
               return res;

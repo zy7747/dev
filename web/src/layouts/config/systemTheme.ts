@@ -1,8 +1,9 @@
 const data = ref({
   appName: "数据管理中心",
   container: "Normal",
-  headerBackgroundColor: "#d9e0ee",
-  asideBackgroundColor: "#d9e0ee",
+  headerBackgroundColor: "#010409",
+  headerColor: "#fff",
+  asideBackgroundColor: "#0d1117",
   breadcrumb: false,
   tagsView: true,
   headerHeight: 60,

@@ -1,10 +1,10 @@
 <template>
   <div
-    class="logo flex items-center justify-center"
+    class="logo flex items-center justify-center cursor-pointer"
     :style="{ width: width ? width + 'px' : 'auto', height: height + 'px' }"
   >
     <svg-icon :name="`app-哔哩哔哩`" class="icon" />
-    <span v-if="hasTitle || collapse" style="margin-left: 10px">
+    <span class="appName" v-if="hasTitle || collapse" style="margin-left: 10px">
       {{ theme.appName }}
     </span>
   </div>
@@ -46,9 +46,11 @@ defineProps({
     width: 30px;
     height: 30px;
   }
+}
 
-  .icon:hover {
-    cursor: pointer;
-  }
+.appName {
+  padding: 2px;
+  border-radius: 5px;
+  background-color: #999898;
 }
 </style>

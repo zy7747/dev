@@ -4,6 +4,7 @@
       <el-header
         :style="{
           backgroundColor: theme.headerBackgroundColor,
+          color: theme.headerColor,
           height: `${theme.headerHeight}px`,
         }"
       >
@@ -23,7 +24,7 @@
       <el-container
         :style="{ height: `calc(100vh - ${theme.headerHeight}px) !important` }"
       >
-        <el-aside>
+        <el-aside :style="{ backgroundColor: theme.asideBackgroundColor }">
           <Sidebar
             :backgroundColor="theme.asideBackgroundColor"
             :width="theme.asideWidth"
