@@ -6,10 +6,13 @@
     :size="size"
     :style="`width:${width};`"
     :placeholder="placeholder"
+    :suffix-icon="Edit"
   />
 </template>
 
 <script lang="ts" setup>
+import { Edit } from "@element-plus/icons-vue";
+
 defineProps({
   size: {
     text: "下拉框大小",

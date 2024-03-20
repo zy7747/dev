@@ -13,10 +13,16 @@ function getGrid() {
         unref(gridRef).render({
           form: [
             {
-              label: "下拉框",
-              prop: "aaa",
+              label: "用户名称",
+              prop: "user",
+              type: "input",
+              span: 6,
+            },
+            {
+              label: "账号",
+              prop: "account",
               type: "select",
-              options: [],
+              options: [{ label: "1", value: "1" }],
               span: 6,
             },
           ],
@@ -30,6 +36,12 @@ function getGrid() {
                   title: "序号", //用户名
                   type: "seq",
                   width: 100,
+                },
+                {
+                  title: "头像", //用户名
+                  field: "user",
+                  cType: "img",
+                  width: 200,
                 },
                 {
                   title: "用户名", //用户名
@@ -75,14 +87,6 @@ function getGrid() {
                       isFilters: true,
                     },
                   ],
-                },
-                {
-                  title: "头像", //用户名
-                  field: "avatar",
-                  cType: "img",
-                  width: 200,
-                  sortable: true,
-                  isFilters: true,
                 },
                 {
                   title: "操作",

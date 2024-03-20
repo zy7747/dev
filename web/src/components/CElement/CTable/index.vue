@@ -10,7 +10,7 @@
     </template>
 
     <template #tableSlot="{ row, column }: any">
-      <TableSlot :type="column.params.cType" v-model="row[column.field]" />
+      <Columns :type="column.params.cType" v-model="row[column.field]" />
     </template>
 
     <template #tableEdit="{ row, column }: any">
@@ -44,8 +44,7 @@
 <script lang="ts" setup>
 import { VxeGridProps, VxeGridInstance } from "vxe-table";
 import Action from "./components/action.vue";
-import Tools from "./components/tools.vue";
-import TableSlot from "./components/tableSlot.vue";
+import Columns from "./components/columns.vue";
 import lodash from "lodash";
 import { getFilter, getTableCols, getRules } from "@/hooks/table";
 
@@ -194,7 +193,6 @@ const gridOptions = reactive<VxeGridProps<any>>({
   loading: loading.value,
   align: "center",
   keepSource: true,
-  showOverflow: "tooltip",
   showHeaderOverflow: "title",
   scrollX: { enabled: true, gt: 20 },
   scrollY: { enabled: true, gt: 50 },

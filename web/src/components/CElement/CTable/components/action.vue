@@ -1,95 +1,81 @@
-<!--  -->
+<!-- Action -->
 <template>
-  <div class="">
-    <template v-for="item in actions">
-      <template v-if="item.type === 'operate'">
-        <template v-if="hasActiveEditRow(row)">
-          <el-button
-            link
-            type="primary"
-            :icon="CircleCheckFilled"
-            @click="saveRowEvent()"
-          >
-            保存
-          </el-button>
+  <template v-for="item in actions">
+    <template v-if="item.type === 'operate'">
+      <template v-if="hasActiveEditRow(row)">
+        <c-button
+          link
+          text="保存"
+          type="primary"
+          :icon="CircleCheckFilled"
+          @click="saveRowEvent()"
+        />
 
-          <el-button
-            link
-            type="info"
-            :icon="CircleCloseFilled"
-            @click="clearRowEvent()"
-          >
-            取消
-          </el-button>
-        </template>
-
-        <template v-else>
-          <el-button
-            link
-            type="primary"
-            :icon="Edit"
-            @click="editRowEvent(row)"
-          >
-            编辑
-          </el-button>
-
-          <el-popconfirm title="是否删除数据?" @confirm="removeRowEvent(row)">
-            <template #reference>
-              <el-button :icon="Delete" type="danger" link> 删除 </el-button>
-            </template>
-          </el-popconfirm>
-        </template>
+        <c-button
+          link
+          text="取消"
+          type="info"
+          :icon="CircleCloseFilled"
+          @click="clearRowEvent()"
+        />
       </template>
 
-      <el-button
-        v-else-if="item.type === 'edit'"
-        link
-        v-bind="item"
-        type="primary"
-        :icon="Edit"
-        @click="item.click({ row })"
-      >
-        编辑
-      </el-button>
+      <template v-else>
+        <c-button
+          link
+          text="编辑"
+          type="primary"
+          :icon="Edit"
+          @click="editRowEvent(row)"
+        />
 
-      <el-button
-        v-else-if="item.type === 'detail'"
-        link
-        v-bind="item"
-        type="warning"
-        :icon="Share"
-        @click="item.click({ row })"
-      >
-        详情
-      </el-button>
-
-      <el-popconfirm
-        v-else-if="item.type === 'remove'"
-        title="是否删除数据?"
-        @confirm="item.click({ row })"
-      >
-        <template #reference>
-          <c-button
-            link
-            v-bind="item"
-            :icon="Delete"
-            type="danger"
-            text="删除"
-          />
-          >
-        </template>
-      </el-popconfirm>
-
-      <c-button
-        v-else
-        v-bind="item"
-        @click="item.click({ row })"
-        :icon="SwitchFilled"
-        link
-        :text="item.text"
-      />
+        <el-popconfirm title="是否删除数据?" @confirm="removeRowEvent(row)">
+          <template #reference>
+            <c-button text="删除" :icon="Delete" type="danger" link />
+          </template>
+        </el-popconfirm>
+      </template>
     </template>
-  </div>
+
+    <c-button
+      v-else-if="item.type === 'edit'"
+      link
+      text="编辑"
+      v-bind="item"
+      type="primary"
+      :icon="Edit"
+      @click="item.click({ row })"
+    />
+
+    <c-button
+      v-else-if="item.type === 'detail'"
+      link
+      text="详情"
+      v-bind="item"
+      type="warning"
+      :icon="Share"
+      @click="item.click({ row })"
+    />
+
+    <el-popconfirm
+      v-else-if="item.type === 'remove'"
+      title="是否删除数据?"
+      @confirm="item.click({ row })"
+    >
+      <template #reference>
+        <c-button link v-bind="item" :icon="Delete" type="danger" text="删除" />
+      </template>
+    </el-popconfirm>
+
+    <c-button
+      v-else
+      v-bind="item"
+      @click="item.click({ row })"
+      :icon="SwitchFilled"
+      link
+      :text="item.text"
+    />
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -171,5 +157,3 @@ const removeRowEvent = async (row: any) => {
   }
 };
 </script>
-
-<style lang="scss" scoped></style>
