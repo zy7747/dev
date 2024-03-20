@@ -36,14 +36,14 @@ function render(config: any) {
         title: table.title,
         tools: [
           {
-            type: "add",
+            operation: "add",
             permission: [],
             click() {
               unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
           {
-            type: "remove",
+            operation: "remove",
             permission: [],
             click() {
               api.remove(ids()).then((res: any) => {
@@ -58,7 +58,7 @@ function render(config: any) {
             },
           },
           {
-            type: "import",
+            operation: "import",
             permission: [],
             api(files: any) {
               return api.imports(files).then(() => {
@@ -67,7 +67,7 @@ function render(config: any) {
             },
           },
           {
-            type: "export",
+            operation: "export",
             permission: [],
             api: api.exports,
             fileName: table.title,
@@ -95,7 +95,7 @@ function render(config: any) {
         },
         actions: [
           {
-            type: "edit",
+            operation: "edit",
             permission: [],
             click({ row }: any) {
               api.detail({ id: row.id }).then((res: any) => {
@@ -107,7 +107,7 @@ function render(config: any) {
             },
           },
           {
-            type: "detail",
+            operation: "detail",
             permission: [],
             click({ row }: any) {
               api.detail({ id: row.id }).then((res: any) => {
@@ -119,7 +119,7 @@ function render(config: any) {
             },
           },
           {
-            type: "remove",
+            operation: "remove",
             permission: [],
             click({ row }: any) {
               api.remove([row.id]).then((res: any) => {

@@ -3,8 +3,20 @@
   <div class="CPage">
     <Collapse title="页面名称">
       <template #tools>
-        <el-button type="primary" @click="query">查询</el-button>
-        <el-button @click="reset">重置</el-button>
+        <c-button
+          size="small"
+          type="primary"
+          @click="query"
+          text="查询"
+          :icon="Search"
+        />
+        <c-button
+          plain
+          size="small"
+          @click="reset"
+          text="重置"
+          :icon="Refresh"
+        />
       </template>
 
       <template #content>
@@ -35,15 +47,20 @@
         <c-dialog
           ref="dialogRef"
           @confirm="confirm"
+          :title="dialogTitle"
           :dialogConfig="item.dialogConfig"
         >
           <template #body>
-            <c-form
-              ref="editRef"
-              :disabled="disabled"
-              :model="pageData.editData"
-              :formConfig="item.dialogConfig.formConfig"
-            />
+            <Collapse title="表单">
+              <template #content>
+                <c-form
+                  ref="editRef"
+                  :disabled="disabled"
+                  :model="pageData.editData"
+                  :formConfig="item.dialogConfig.formConfig"
+                />
+              </template>
+            </Collapse>
           </template>
         </c-dialog>
       </el-tab-pane>
@@ -52,6 +69,8 @@
 </template>
 
 <script lang="ts" setup>
+import { Refresh, Search } from "@element-plus/icons-vue";
+
 const formRef: any = ref<any>();
 const tableRef: any = ref<any>();
 const dialogRef: any = ref<any>();
@@ -59,6 +78,7 @@ const editRef: any = ref<any>();
 
 const active: any = ref<any>(0);
 const disabled: any = ref<any>();
+const dialogTitle = ref("");
 
 const { pageData, pageOption } = defineProps({
   pageOption: {
@@ -97,10 +117,17 @@ function reset() {
 //编辑弹窗
 function handleOpen({ type, data }: any) {
   if (type === "detail") {
+    dialogTitle.value = "详情";
     disabled.value = true;
   } else {
+    if (type === "add") {
+      dialogTitle.value = "新增";
+    } else {
+      dialogTitle.value = "修改";
+    }
     disabled.value = false;
   }
+
   pageData.editData = data;
   unref(dialogRef)[unref(active)].handleOpen();
 }

@@ -31,21 +31,23 @@ function getGrid() {
               title: "表格1",
               api: "user",
               tableColumn: [
-                { type: "checkbox", width: 50 },
+                { type: "checkbox", width: 50, fixed: "left" },
                 {
                   title: "序号", //用户名
                   type: "seq",
                   width: 100,
+                  fixed: "left",
                 },
                 {
                   title: "头像", //用户名
-                  field: "user",
+                  field: "ava",
                   cType: "img",
                   width: 200,
                 },
                 {
                   title: "用户名", //用户名
                   field: "user",
+                  cType: "tag",
                   sortable: true,
                   isFilters: true,
                   width: 200,

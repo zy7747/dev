@@ -1,7 +1,7 @@
 <!-- Action -->
 <template>
   <template v-for="item in actions">
-    <template v-if="item.type === 'operate'">
+    <template v-if="item.operation === 'operate'">
       <template v-if="hasActiveEditRow(row)">
         <c-button
           link
@@ -38,7 +38,7 @@
     </template>
 
     <c-button
-      v-else-if="item.type === 'edit'"
+      v-else-if="item.operation === 'edit'"
       link
       text="编辑"
       v-bind="item"
@@ -48,7 +48,7 @@
     />
 
     <c-button
-      v-else-if="item.type === 'detail'"
+      v-else-if="item.operation === 'detail'"
       link
       text="详情"
       v-bind="item"
@@ -58,7 +58,7 @@
     />
 
     <el-popconfirm
-      v-else-if="item.type === 'remove'"
+      v-else-if="item.operation === 'remove'"
       title="是否删除数据?"
       @confirm="item.click({ row })"
     >

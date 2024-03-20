@@ -1,19 +1,19 @@
-<!-- input -->
+<!--  -->
 <template>
-  <el-input
+  <el-tree-select
     v-model="value"
+    :data="options"
+    show-checkbox
     v-bind="$attrs"
+    :placeholder="placeholder"
+    :filterable="filterable"
+    :clearable="clearable"
     :size="size"
     :style="`width:${width};`"
-    :placeholder="placeholder"
-    :clearable="clearable"
-    :suffix-icon="Edit"
   />
 </template>
 
 <script lang="ts" setup>
-import { Edit } from "@element-plus/icons-vue";
-
 defineProps({
   size: {
     text: "下拉框大小",
@@ -33,16 +33,24 @@ defineProps({
       return true;
     },
   },
+  filterable: {
+    text: "筛选",
+    type: [Boolean],
+    default: () => {
+      return true;
+    },
+  },
   placeholder: {
     text: "提示语句",
     type: [String],
     default: () => {
-      return "请输入";
+      return "请选择";
     },
   },
 });
 
 const value: any = defineModel();
+const options: any = defineModel("options");
 </script>
 
 <style lang="scss" scoped></style>

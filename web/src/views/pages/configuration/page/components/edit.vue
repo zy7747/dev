@@ -130,7 +130,7 @@ const editableTabs: any = computed(() => {
       name: item.name,
       tools: [
         {
-          type: "add",
+          operation: "add",
           click() {
             unref(tableRef)[pageData.value.tabIndex].addLine();
           },

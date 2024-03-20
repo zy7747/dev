@@ -115,20 +115,20 @@ const tableColumn = () => {
 const { tableConfig, tableRef } = useTable({
   tools: [
     {
-      type: "add",
+      operation: "add",
       click() {
         unref(tableRef).addLine();
       },
     },
     {
-      type: "remove",
+      operation: "remove",
       click() {},
     },
   ],
   tableColumn: tableColumn(),
   actions: [
     {
-      type: "operate",
+      operation: "operate",
     },
   ],
   data: pageData.value.form,

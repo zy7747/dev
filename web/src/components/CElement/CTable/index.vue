@@ -48,6 +48,7 @@ import Columns from "./components/columns.vue";
 import lodash from "lodash";
 import { getFilter, getTableCols, getRules } from "@/hooks/table";
 
+const Route = useRoute();
 const paginationRef = ref();
 const xGrid = ref<VxeGridInstance<any>>();
 
@@ -193,6 +194,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
   loading: loading.value,
   align: "center",
   keepSource: true,
+  id: `${Route.fullPath}/${tableConfig.title}`, //缓存列状态
   showHeaderOverflow: "title",
   scrollX: { enabled: true, gt: 20 },
   scrollY: { enabled: true, gt: 50 },
@@ -201,13 +203,20 @@ const gridOptions = reactive<VxeGridProps<any>>({
     isHover: false,
     isCurrent: false,
   },
-  columnConfig: { isCurrent: false, isHover: false },
+  columnConfig: { isCurrent: true, isHover: false },
   editConfig: {
     trigger: "manual",
     mode: "row",
     autoClear: false,
     showStatus: false,
     showIcon: false,
+  },
+  customConfig: {
+    storage: {
+      visible: true,
+      resizable: true,
+      fixed: true,
+    },
   },
   printConfig: {
     columns: tableConfig.columns,

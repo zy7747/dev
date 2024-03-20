@@ -3,6 +3,7 @@ import Collapse from "./Collapse/index.vue";
 import Pagination from "./Pagination/index.vue";
 import VideoPlay from "./Player/video.vue";
 import Tools from "./Tools/index.vue";
+import DictTag from "./DictTag/index.vue";
 
 import CSelect from "./CElement/CSelect/index.vue";
 import CSwitch from "./CElement/CSwitch/index.vue";
@@ -24,6 +25,7 @@ function setupComponents(app: any) {
   app.component("Collapse", Collapse);
   app.component("Pagination", Pagination);
   app.component("VideoPlay", VideoPlay);
+  app.component("DictTag", DictTag);
 
   app.component("CSelect", CSelect);
   app.component("CRadio", CRadio);

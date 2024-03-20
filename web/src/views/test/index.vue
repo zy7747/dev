@@ -19,13 +19,13 @@ const { pageRef, pageOption, ids } = usePage({
       title: "标题",
       tools: [
         {
-          type: "add",
+          operation: "add",
           click() {
             unref(pageRef).handleOpen({ type: "add", data: {} });
           },
         },
         {
-          type: "remove",
+          operation: "remove",
           click() {
             Service.page.remove(ids()).then((res: any) => {
               if (res.code === 200) {
@@ -39,10 +39,10 @@ const { pageRef, pageOption, ids } = usePage({
           },
         },
         {
-          type: "import",
+          operation: "import",
         },
         {
-          type: "export",
+          operation: "export",
         },
       ],
       tableColumn: [],
@@ -67,7 +67,7 @@ const { pageRef, pageOption, ids } = usePage({
       },
       actions: [
         {
-          type: "edit",
+          operation: "edit",
           click({ row }: any) {
             Service.page.detail({ id: row.id }).then((res: any) => {
               unref(pageRef).handleOpen({
@@ -78,7 +78,7 @@ const { pageRef, pageOption, ids } = usePage({
           },
         },
         {
-          type: "detail",
+          operation: "detail",
           click({ row }: any) {
             Service.page.detail({ id: row.id }).then((res: any) => {
               unref(pageRef).handleOpen({
@@ -89,7 +89,7 @@ const { pageRef, pageOption, ids } = usePage({
           },
         },
         {
-          type: "remove",
+          operation: "remove",
           click({ row }: any) {
             Service.page.remove([row.id]).then((res: any) => {
               if (res.code === 200) {

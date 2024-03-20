@@ -44,11 +44,6 @@ const visitedViews: any = ref([
     path: "/page",
     title: "配置页面",
   },
-  {
-    icon: "哔哩哔哩",
-    path: "/video",
-    title: "视频",
-  },
 ]);
 
 function isActive(route: any) {

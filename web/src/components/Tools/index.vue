@@ -4,7 +4,7 @@
     <template v-for="item in tools">
       <template v-if="item.show !== false">
         <c-button
-          v-if="item.type === 'add'"
+          v-if="item.operation === 'add'"
           v-bind="item"
           type="primary"
           size="small"
@@ -14,7 +14,7 @@
         />
 
         <c-button
-          v-else-if="item.type === 'remove'"
+          v-else-if="item.operation === 'remove'"
           v-bind="item"
           type="danger"
           size="small"
@@ -23,7 +23,7 @@
           @click="item.click"
         />
 
-        <template v-else-if="item.type === 'import'">
+        <template v-else-if="item.operation === 'import'">
           <el-upload
             ref="uploadRef"
             action=""
@@ -44,7 +44,7 @@
         </template>
 
         <c-button
-          v-else-if="item.type === 'export'"
+          v-else-if="item.operation === 'export'"
           v-bind="item"
           class="btn"
           color="#626aef"
