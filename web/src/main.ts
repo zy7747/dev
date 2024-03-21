@@ -12,7 +12,7 @@ import useTable from "@/plugins/vxe-table";
 //directives
 import setupDirectives from "@/directives";
 //language
-import i18n from "@/language/index";
+import { i18n } from "@/language/index";
 //style
 import "@/styles/index.scss";
 import "virtual:windi.css";

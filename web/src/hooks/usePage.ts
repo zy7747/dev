@@ -37,10 +37,10 @@ function usePage(config: any = {}) {
   }
 
   //新增成功后提示
-  function addSuccess(res: any) {
+  function submitSuccess(res: any) {
     if (res.code === 200) {
       ElMessage({
-        message: "新增成功",
+        message: "提交成功",
         type: "success",
       });
       unref(pageRef).query();
@@ -52,7 +52,7 @@ function usePage(config: any = {}) {
     ids,
     query,
     removeSuccess,
-    addSuccess,
+    submitSuccess,
     pageOption,
     pageRef,
     checkboxData,

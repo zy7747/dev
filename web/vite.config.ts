@@ -39,6 +39,9 @@ export default ({ mode }: any) =>
             "@/plugins/service": [["default", "Service"]],
           },
           {
+            "@/language/index": [["default", "$t"]],
+          },
+          {
             "@/hooks/usePage": [["default", "usePage"]],
           },
           {

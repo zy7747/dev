@@ -1,5 +1,21 @@
 {
-  "app": {
-    "video": "ビデオ"
+  "system": {
+    "action": "操作",
+    "add": "追加",
+    "cancel": "取消",
+    "delete": "削除",
+    "deleteMore": "一括削除",
+    "detail": "詳細",
+    "edit": "修正",
+    "export": "エクスポート",
+    "import": "インポート",
+    "no": "番号",
+    "query": "検索",
+    "reset": "リセット",
+    "save": "保存"
+  },
+  "form": {
+    "please enter": "入力してください",
+    "please select": "選択してください"
   }
 }

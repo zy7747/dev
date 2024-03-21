@@ -1,5 +1,45 @@
 {
-  "app": {
-    "video": "video"
+  "system": {
+    "query": "query",
+    "reset": "reset",
+    "import": "import",
+    "export": "export",
+    "deleteMore": "batch delete",
+    "action": "action",
+    "no": "No.",
+    "add": "add",
+    "save": "save",
+    "edit": "edit",
+    "detail": "detail",
+    "delete": "delete",
+    "cancel": "cancel",
+    "drop to sort": "drop to sort",
+    "show": "show",
+    "back": "back"
+  },
+  "form": {
+    "please input": "please input",
+    "please select": "please select"
+  },
+  "user": {
+    "user": "user",
+    "id": "id",
+    "uid": "uid",
+    "phone": "phone",
+    "email": "email",
+    "account": "account",
+    "password": "password",
+    "nickname": "nickname",
+    "avatar": "avatar",
+    "userType": "userType",
+    "status": "status",
+    "remark": "remark",
+    "creator": "creator",
+    "updater": "updater",
+    "createTime": "createTime",
+    "updateTime": "updateTime",
+    "isDeleted": "isDeleted",
+    "tenantId": "tenantId",
+    "version": "version"
   }
 }
