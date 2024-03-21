@@ -63,5 +63,5 @@ public interface UserService {
      *
      * @param response,user 入参
      */
-    void userExport(UserQueryDTO user, HttpServletResponse response) throws IOException;
+    void userExport(HttpServletResponse response, UserQueryDTO user) throws IOException;
 }

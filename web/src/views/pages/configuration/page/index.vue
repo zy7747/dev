@@ -29,6 +29,7 @@ import Query from "./components/query.vue";
 import Table from "./components/table.vue";
 import EditForm from "./components/edit.vue";
 import View from "./components/view.vue";
+import JsonView from "./components/jsonView.vue";
 
 import { Monitor, DataLine, Picture, Edit } from "@element-plus/icons-vue";
 
@@ -56,6 +57,11 @@ const steps: any = ref([
     title: "编辑框",
     icon: markRaw(Edit),
     component: markRaw(EditForm),
+  },
+  {
+    title: "查看JSON",
+    icon: markRaw(Picture),
+    component: markRaw(JsonView),
   },
   {
     title: "浏览界面",

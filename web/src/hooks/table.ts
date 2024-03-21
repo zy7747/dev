@@ -57,14 +57,16 @@ export function getTableCols(columns: any, filters: any) {
   });
 }
 //校验
-export function getRules(column: any) {
-  const rules: any = {};
-
+export function getRules(column: any, rules: any) {
   if (!column) return rules;
 
   column.forEach((item: any) => {
     if (item.rules) {
       rules[item.field] = item.rules;
+    }
+
+    if (item.children) {
+      getRules(item.children, rules);
     }
   });
 

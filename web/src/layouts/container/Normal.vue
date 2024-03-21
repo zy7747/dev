@@ -33,9 +33,9 @@
         </el-aside>
 
         <el-main>
-          <Breadcrumb v-if="theme.breadcrumb" />
-          <TagsView v-if="theme.tagsView" />
-          <AppMain />
+          <Breadcrumb class="breadcrumb" v-if="theme.breadcrumb" />
+          <TagsView class="tagsView" v-if="theme.tagsView" />
+          <AppMain class="app-main" />
         </el-main>
       </el-container>
     </el-container>
@@ -70,8 +70,18 @@ defineProps({
   align-items: center;
 }
 .el-main {
+  position: relative;
   padding: 0;
-  overflow: auto;
+  .tagsView {
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    background-color: #f5f7fa;
+  }
+
+  .app-main {
+    padding-top: 30px;
+  }
 }
 
 .el-aside {

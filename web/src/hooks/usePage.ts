@@ -1,5 +1,5 @@
 function usePage(config: any = {}) {
-  const pageRef: any = ref();
+  const pageRef = ref();
   const pageOption = config;
 
   if (config.pageRef) {
@@ -21,8 +21,38 @@ function usePage(config: any = {}) {
     }
   }
 
+  function query() {
+    unref(pageRef).query();
+  }
+
+  //删除成功后提示
+  function removeSuccess(res: any) {
+    if (res.code === 200) {
+      ElMessage({
+        message: "删除成功",
+        type: "success",
+      });
+      unref(pageRef).query();
+    }
+  }
+
+  //新增成功后提示
+  function addSuccess(res: any) {
+    if (res.code === 200) {
+      ElMessage({
+        message: "新增成功",
+        type: "success",
+      });
+      unref(pageRef).query();
+      unref(pageRef).handleClose();
+    }
+  }
+
   return {
     ids,
+    query,
+    removeSuccess,
+    addSuccess,
     pageOption,
     pageRef,
     checkboxData,

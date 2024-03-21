@@ -94,13 +94,13 @@ public interface UserMapper extends BaseMapper<UserEntity> {
     /**
      * 多列参数唯一性校验
      */
-    default Result<List<UserEntity>> onlyValidList(List<UserEntity> users) {
+    default Result<List<UserEntity>> onlyValidList(List<UserEntity> userData) {
         List<UserEntity> userList = queryList(new UserQueryDTO());
 
-        for (UserEntity user : users) {
-            Result<UserEntity> u = onlyValid(user, userList);
-            if (u.getCode() != 200) {
-                return Result.fail(u.getMessage());
+        for (UserEntity item : userData) {
+            Result<UserEntity> user = onlyValid(item, userList);
+            if (user.getCode() != 200) {
+                return Result.fail(user.getMessage());
             }
         }
         return Result.success(userList);

@@ -16,17 +16,17 @@ import java.util.List;
 public interface UserConvert {
     UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
 
-    PageList<UserPageVO> page(PageList<UserEntity> users);
+    PageList<UserPageVO> page(PageList<UserEntity> user);
 
-    List<UserListVO> list(List<UserEntity> users);
+    List<UserListVO> list(List<UserEntity> user);
 
-    UserDetailVO detail(UserEntity users);
+    UserDetailVO detail(UserEntity user);
 
-    UserEntity save(UserSaveDTO users);
+    UserEntity save(UserSaveDTO user);
 
-    List<UserEntity> saveList(List<UserSaveDTO> users);
+    List<UserEntity> saveList(List<UserSaveDTO> user);
 
-    List<UserExportVO> export(List<UserEntity> users);
+    List<UserExportVO> export(List<UserEntity> user);
 
-    List<UserSaveDTO> imports(List<UserExportVO> users);
+    List<UserSaveDTO> imports(List<UserExportVO> user);
 }

@@ -18,6 +18,7 @@ import CGrid from "./CElement/CGrid/index.vue";
 import CPage from "./CElement/CPage/index.vue";
 import CCarousel from "./CElement/CCarousel/index.vue";
 import CSchema from "./CElement/CSchema/index.vue";
+import CTabs from "./CElement/CTabs/index.vue";
 
 function setupComponents(app: any) {
   app.component("SvgIcon", SvgIcon);
@@ -34,6 +35,7 @@ function setupComponents(app: any) {
   app.component("CCheckbox", CCheckbox);
   app.component("CDropdown", CDropdown);
   app.component("CSwitch", CSwitch);
+  app.component("CTabs", CTabs);
 
   app.component("CTable", CTable);
   app.component("CPage", CPage);

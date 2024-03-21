@@ -23,9 +23,10 @@ function apis(params: String) {
 
 //页面渲染
 function render(config: any) {
-  const { pageOption, ids } = usePage({
+  const { pageOption, ids, query, removeSuccess, addSuccess } = usePage({
     pageRef,
     createLoad: true,
+    title: config.title,
     formConfig: {
       formParams: config.form,
     },
@@ -47,13 +48,7 @@ function render(config: any) {
             permission: [],
             click() {
               api.remove(ids()).then((res: any) => {
-                if (res.code === 200) {
-                  ElMessage({
-                    message: "删除成功",
-                    type: "success",
-                  });
-                  unref(pageRef).query();
-                }
+                removeSuccess(res);
               });
             },
           },
@@ -62,14 +57,16 @@ function render(config: any) {
             permission: [],
             api(files: any) {
               return api.imports(files).then(() => {
-                unref(pageRef).query();
+                query();
               });
             },
           },
           {
             operation: "export",
             permission: [],
-            api: api.exports,
+            api() {
+              return api.exports(unref(pageData).queryData);
+            },
             fileName: table.title,
           },
         ],
@@ -82,14 +79,7 @@ function render(config: any) {
           //提交
           handleConfirm() {
             api.save(unref(pageData).editData).then((res: any) => {
-              if (res.code === 200) {
-                ElMessage({
-                  message: "新增成功",
-                  type: "success",
-                });
-                unref(pageRef).query();
-                unref(pageRef).handleClose();
-              }
+              addSuccess(res);
             });
           },
         },
@@ -123,13 +113,7 @@ function render(config: any) {
             permission: [],
             click({ row }: any) {
               api.remove([row.id]).then((res: any) => {
-                if (res.code === 200) {
-                  ElMessage({
-                    message: "删除成功",
-                    type: "success",
-                  });
-                  unref(pageRef).query();
-                }
+                removeSuccess(res);
               });
             },
           },
@@ -146,6 +130,7 @@ function render(config: any) {
   });
 
   option.value = pageOption;
+
   nextTick(() => {
     unref(pageRef).query();
   });

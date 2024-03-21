@@ -69,15 +69,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      */
     @Override
     public Result<UserEntity> userSave(UserSaveDTO user) {
-        UserEntity userEntity = UserConvert.INSTANCE.save(user);
-
+        UserEntity userData = UserConvert.INSTANCE.save(user);
         List<UserEntity> userList = userMapper.queryList(new UserQueryDTO());
-
-        Result<UserEntity> valid = userMapper.onlyValid(userEntity, userList);
-
+        Result<UserEntity> valid = userMapper.onlyValid(userData, userList);
         if (valid.getCode() == 200) {
-            this.saveOrUpdate(userEntity);
-            return Result.success(userEntity);
+            this.saveOrUpdate(userData);
+            return Result.success(userData);
         } else {
             return valid;
         }
@@ -91,16 +88,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      */
     @Override
     public Result<List<UserEntity>> userSaveList(List<UserSaveDTO> user) {
-        List<UserEntity> userList = UserConvert.INSTANCE.saveList(user);
-        Result<List<UserEntity>> valid = userMapper.onlyValidList(userList);
+        List<UserEntity> userData = UserConvert.INSTANCE.saveList(user);
+        Result<List<UserEntity>> valid = userMapper.onlyValidList(userData);
         if (valid.getCode() == 200) {
-            this.saveOrUpdateBatch(userList);
-            return Result.success(userList);
+            this.saveOrUpdateBatch(userData);
+            return Result.success(userData);
         } else {
             return valid;
         }
     }
-
 
     /**
      * 导出
@@ -108,7 +104,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      * @param response,user 入参
      */
     @Override
-    public void userExport(UserQueryDTO user, HttpServletResponse response) throws IOException {
+    public void userExport(HttpServletResponse response, UserQueryDTO user) throws IOException {
         ExcelUtils.export(response, "用户.xlsx", "用户", UserExportVO.class, UserConvert.INSTANCE.export(userMapper.queryList(user)));
     }
 }

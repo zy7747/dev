@@ -3,7 +3,8 @@
   <vxe-grid
     ref="xGrid"
     :columns="tableColumn"
-    v-bind="{ ...gridOptions, ...tableConfig }"
+    :data="tableData"
+    v-bind="options"
   >
     <template #toolbar_buttons>
       <Tools :tools="tableConfig.tools" />
@@ -65,19 +66,24 @@ const { tableConfig } = defineProps({
   },
 });
 
+const tableData = ref(tableConfig.data);
+
+const options = computed(() => {
+  return { ...gridOptions, ...tableConfig };
+});
 //校验
 const rules: any = computed(() => {
-  return getRules(tableConfig.tableColumn);
-});
+  let rules = {};
 
-const tableData: any = computed(() => {
-  return tableConfig.data;
+  getRules(tableConfig.tableColumn, rules);
+
+  return rules;
 });
 
 const filters: any = computed(() => {
   const filterMap: any = {};
 
-  if (!tableData.value) {
+  if (!tableConfig.data) {
     return filterMap;
   }
 
@@ -85,7 +91,7 @@ const filters: any = computed(() => {
   getFilter(tableConfig.tableColumn, filterMap);
 
   //数据装入
-  unref(tableData).forEach((item: any) => {
+  tableConfig.data.forEach((item: any) => {
     Object.keys(filterMap).forEach((key: any) => {
       if (item[key]) {
         filterMap[key].push({ label: item[key], value: item[key] });
@@ -148,35 +154,25 @@ function query() {
     nextTick(() => {
       loading.value = true;
 
-      if (paginationRef) {
-        const page = unref(paginationRef).page;
-        const size = unref(paginationRef).size;
+      const page = unref(paginationRef).page;
+      const size = unref(paginationRef).size;
 
-        tableConfig
-          .query({ page, size })
-          .then((res: any) => {
-            tableConfig.data = res.data.list;
-            total.value = res.data.total;
-            loading.value = false;
-          })
-          .catch(() => {
-            loading.value = false;
-          })
-          .finally(() => {
-            loading.value = false;
-          });
-      }
+      tableConfig
+        .query({ page, size })
+        .then((res: any) => {
+          tableData.value = JSON.parse(JSON.stringify(res.data.list));
+          total.value = res.data.total;
+        })
+        .finally(() => {
+          loading.value = false;
+        });
     });
   } else if (tableConfig.list) {
     loading.value = true;
     tableConfig
       .list()
       .then((res: any) => {
-        tableConfig.data = res.data.list;
-        loading.value = false;
-      })
-      .catch(() => {
-        loading.value = false;
+        tableData.value = res.data.list;
       })
       .finally(() => {
         loading.value = false;

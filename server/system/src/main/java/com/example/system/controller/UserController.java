@@ -85,6 +85,6 @@ public class UserController {
     @GetMapping("/export")
     @ApiOperation(value = "导出")
     public void userExport(HttpServletResponse response, UserQueryDTO user) throws IOException {
-        userService.userExport(user, response);
+        userService.userExport(response, user);
     }
 }

@@ -1,7 +1,7 @@
 <!--CPage-->
 <template>
   <div class="CPage">
-    <Collapse title="页面名称">
+    <Collapse :title="pageOption.title">
       <template #tools>
         <c-button
           size="small"
@@ -28,57 +28,55 @@
       </template>
     </Collapse>
 
-    <el-tabs
-      @tab-change="tabChange"
+    <c-tabs
+      v-if="pageOption.tableConfig && pageOption.tableConfig.length"
+      @tabChange="tabChange"
       v-model="active"
       type="border-card"
-      v-if="pageOption.tableConfig && pageOption.tableConfig.length"
+      :options="pageOption.tableConfig"
     >
-      <el-tab-pane
-        v-for="(item, index) in pageOption.tableConfig"
-        :name="index"
+      <template #content="{ item, index }">
+        <c-table :ref="(el) => setTableRef(el, index)" :tableConfig="item" />
+      </template>
+    </c-tabs>
+
+    <template v-for="(item, index) in pageOption.tableConfig" :key="index">
+      <c-dialog
+        :ref="(el) => setDialogRef(el, index)"
+        @confirm="confirm"
+        :title="dialogTitle"
+        :dialogConfig="item.dialogConfig"
       >
-        <template #label>
-          <span>{{ item.title }}</span>
+        <template #body>
+          <Collapse title="表单">
+            <template #content>
+              <c-form
+                :ref="(el) => setEditRef(el, index)"
+                :disabled="isDetail"
+                :model="pageData.editData"
+                :formConfig="item.dialogConfig.formConfig"
+              />
+            </template>
+          </Collapse>
         </template>
-
-        <c-table ref="tableRef" :tableConfig="item" />
-
-        <c-dialog
-          ref="dialogRef"
-          @confirm="confirm"
-          :title="dialogTitle"
-          :dialogConfig="item.dialogConfig"
-        >
-          <template #body>
-            <Collapse title="表单">
-              <template #content>
-                <c-form
-                  ref="editRef"
-                  :disabled="disabled"
-                  :model="pageData.editData"
-                  :formConfig="item.dialogConfig.formConfig"
-                />
-              </template>
-            </Collapse>
-          </template>
-        </c-dialog>
-      </el-tab-pane>
-    </el-tabs>
+      </c-dialog>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { Refresh, Search } from "@element-plus/icons-vue";
 
+import { template } from "lodash";
+
 const formRef: any = ref<any>();
-const tableRef: any = ref<any>();
-const dialogRef: any = ref<any>();
-const editRef: any = ref<any>();
+const tableRef: any = ref<any>([]);
+const dialogRef: any = ref<any>([]);
+const editRef: any = ref<any>([]);
 
 const active: any = ref<any>(0);
-const disabled: any = ref<any>();
-const dialogTitle = ref("");
+const isDetail: any = ref<any>();
+const dialogTitle: Ref<string> = ref<string>("");
 
 const { pageData, pageOption } = defineProps({
   pageOption: {
@@ -118,14 +116,14 @@ function reset() {
 function handleOpen({ type, data }: any) {
   if (type === "detail") {
     dialogTitle.value = "详情";
-    disabled.value = true;
+    isDetail.value = true;
   } else {
     if (type === "add") {
       dialogTitle.value = "新增";
     } else {
       dialogTitle.value = "修改";
     }
-    disabled.value = false;
+    isDetail.value = false;
   }
 
   pageData.editData = data;
@@ -158,6 +156,16 @@ function addLine(row: any) {
 }
 function tabChange() {
   query();
+}
+//循环ref获取
+function setTableRef(el: any, index: number) {
+  unref(tableRef)[unref(index)] = el;
+}
+function setDialogRef(el: any, index: number) {
+  unref(dialogRef)[unref(index)] = el;
+}
+function setEditRef(el: any, index: number) {
+  unref(editRef)[unref(index)] = el;
 }
 
 onMounted(() => {
