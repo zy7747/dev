@@ -8,7 +8,7 @@
           v-bind="item"
           type="primary"
           size="small"
-          text="新增"
+          :text="$t('system.add')"
           :icon="Plus"
           @click="item.click"
         />
@@ -18,7 +18,7 @@
           v-bind="item"
           type="danger"
           size="small"
-          text="批量删除"
+          :text="$t('system.delete in bulk')"
           :icon="Delete"
           @click="item.click"
         />
@@ -37,7 +37,7 @@
               class="btn"
               type="success"
               size="small"
-              text="导入"
+              :text="$t('system.import')"
               :icon="Upload"
             />
           </el-upload>
@@ -49,7 +49,7 @@
           class="btn"
           color="#626aef"
           size="small"
-          text="导出"
+          :text="$t('system.export')"
           :icon="DownloadFile"
           @click="handleExport(item)"
         />

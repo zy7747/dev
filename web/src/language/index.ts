@@ -5,34 +5,22 @@ import en from "./locales/en.json";
 import jp from "./locales/jp.json";
 import kr from "./locales/kr.json";
 
-import zhCN from "vxe-table/lib/locale/lang/zh-CN";
-import enUS from "vxe-table/lib/locale/lang/en-US";
-
 export const i18n = createI18n({
   //这里是语种的持久化，刷新也存在
-  locale: localStorage.getItem("language") || "zh", // 默认是中文
+  locale: localStorage.getItem("language") || "en", // 默认是中文
   fallbackLocale: "zh", // 语言切换的时候是英文
   globalInjection: true, //全局配置
   legacy: true, //vue3写法
   messages: {
-    en: {
-      ...enUS,
-      ...en,
-    },
-    zh: {
-      ...zh,
-      ...zhCN,
-    },
+    en,
+    zh,
     jp,
     kr,
   }, //需要做国际化的语种
 });
 
-const messages: any = {};
-
 function $t(key: string, cn: string) {
-  messages[key] = cn;
-  return i18n.global.t(key, cn);
+  return i18n.global.t(key, { msg: cn });
 }
 
 export default $t;

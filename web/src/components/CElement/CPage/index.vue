@@ -7,14 +7,14 @@
           size="small"
           type="primary"
           @click="query"
-          text="查询"
+          :text="$t('system.query')"
           :icon="Search"
         />
         <c-button
           plain
           size="small"
           @click="reset"
-          text="重置"
+          :text="$t('system.reset')"
           :icon="Refresh"
         />
       </template>
@@ -115,13 +115,13 @@ function reset() {
 //编辑弹窗
 function handleOpen({ type, data }: any) {
   if (type === "detail") {
-    dialogTitle.value = "详情";
+    dialogTitle.value = $t("system.detail", "详情");
     isDetail.value = true;
   } else {
     if (type === "add") {
-      dialogTitle.value = "新增";
+      dialogTitle.value = $t("system.add", "新增");
     } else {
-      dialogTitle.value = "修改";
+      dialogTitle.value = $t("system.edit", "修改");
     }
     isDetail.value = false;
   }

@@ -5,7 +5,7 @@
       <template v-if="hasActiveEditRow(row)">
         <c-button
           link
-          text="保存"
+          :text="$t('system.save')"
           type="primary"
           :icon="CircleCheckFilled"
           @click="saveRowEvent()"
@@ -13,7 +13,7 @@
 
         <c-button
           link
-          text="取消"
+          :text="$t('system.cancel')"
           type="info"
           :icon="CircleCloseFilled"
           @click="clearRowEvent()"
@@ -23,7 +23,7 @@
       <template v-else>
         <c-button
           link
-          text="编辑"
+          :text="$t('system.edit')"
           type="primary"
           :icon="Edit"
           @click="editRowEvent(row)"
@@ -31,7 +31,12 @@
 
         <el-popconfirm title="是否删除数据?" @confirm="removeRowEvent(row)">
           <template #reference>
-            <c-button text="删除" :icon="Delete" type="danger" link />
+            <c-button
+              :text="$t('system.delete')"
+              :icon="Delete"
+              type="danger"
+              link
+            />
           </template>
         </el-popconfirm>
       </template>
@@ -40,7 +45,7 @@
     <c-button
       v-else-if="item.operation === 'edit'"
       link
-      text="编辑"
+      :text="$t('system.edit')"
       v-bind="item"
       type="primary"
       :icon="Edit"
@@ -50,7 +55,7 @@
     <c-button
       v-else-if="item.operation === 'detail'"
       link
-      text="详情"
+      :text="$t('system.detail')"
       v-bind="item"
       type="warning"
       :icon="Share"
@@ -63,7 +68,13 @@
       @confirm="item.click({ row })"
     >
       <template #reference>
-        <c-button link v-bind="item" :icon="Delete" type="danger" text="删除" />
+        <c-button
+          link
+          v-bind="item"
+          :icon="Delete"
+          type="danger"
+          :text="$t('system.delete')"
+        />
       </template>
     </el-popconfirm>
 

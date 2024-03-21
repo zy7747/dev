@@ -1,21 +1,47 @@
 {
   "system": {
-    "action": "操作",
+    "action": "アクション",
     "add": "追加",
-    "cancel": "取消",
+    "cancel": "キャンセル",
     "delete": "削除",
-    "deleteMore": "一括削除",
+    "delete in bulk": "一括削除",
     "detail": "詳細",
-    "edit": "修正",
+    "edit": "編集",
     "export": "エクスポート",
     "import": "インポート",
     "no": "番号",
-    "query": "検索",
+    "query": "クエリ",
     "reset": "リセット",
-    "save": "保存"
+    "save": "保存",
+    "drop to sort": "ドラッグして並べ替え",
+    "show": "表示",
+    "watermark": "透かし",
+    "back": "戻る",
+    "base info": "基本情報"
   },
   "form": {
-    "please enter": "入力してください",
+    "please input": "入力してください",
     "please select": "選択してください"
+  },
+  "user": {
+    "user": "ユーザー",
+    "id": "ID",
+    "uid": "ユーザーID",
+    "phone": "電話番号",
+    "email": "メールアドレス",
+    "account": "アカウント",
+    "password": "パスワード",
+    "nickname": "ニックネーム",
+    "avatar": "アバター",
+    "userType": "タイプ",
+    "status": "ステータス",
+    "remark": "備考",
+    "creator": "作成者",
+    "updater": "更新者",
+    "createTime": "作成日時",
+    "updateTime": "更新日時",
+    "isDeleted": "削除された",
+    "tenantId": "テナントID",
+    "version": "楽観的ロック"
   }
 }

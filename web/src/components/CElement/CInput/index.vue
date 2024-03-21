@@ -37,7 +37,7 @@ defineProps({
     text: "提示语句",
     type: [String],
     default: () => {
-      return "请输入";
+      return $t("form.please input", "请输入");
     },
   },
 });

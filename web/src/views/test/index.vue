@@ -14,18 +14,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
     formConfig: {
       formParams: [
         {
-          label: $t("user.id", "id"),
-          prop: "id",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.uid", "用户id"),
-          prop: "uid",
-          type: "input",
-          span: 6,
-        },
-        {
           label: $t("user.phone", "电话号码"),
           prop: "phone",
           type: "input",
@@ -50,20 +38,8 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           span: 6,
         },
         {
-          label: $t("user.password", "密码"),
-          prop: "password",
-          type: "input",
-          span: 6,
-        },
-        {
           label: $t("user.nickname", "昵称"),
           prop: "nickname",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.avatar", "头像"),
-          prop: "avatar",
           type: "input",
           span: 6,
         },
@@ -76,12 +52,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         {
           label: $t("user.status", "状态"),
           prop: "status",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.remark", "备注"),
-          prop: "remark",
           type: "input",
           span: 6,
         },
@@ -106,24 +76,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         {
           label: $t("user.updateTime", "更新时间"),
           prop: "updateTime",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.isDeleted", "是否删除"),
-          prop: "isDeleted",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.tenantId", "租户id"),
-          prop: "tenantId",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.version", "乐观锁"),
-          prop: "version",
           type: "input",
           span: 6,
         },
@@ -176,57 +128,54 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             fixed: "left",
           },
           {
-            title: $t("user.id", "id"),
-            field: "id",
-            width: 200,
-          },
-          {
-            title: $t("user.uid", "用户id"),
-            field: "uid",
-            width: 200,
-          },
-          {
-            title: $t("user.phone", "电话号码"),
-            field: "phone",
-            width: 200,
-          },
-          {
-            title: $t("user.email", "电子邮箱"),
-            field: "email",
-            width: 200,
-          },
-          {
-            title: $t("user.account", "账号"),
-            field: "account",
-            width: 200,
-          },
-          {
-            title: $t("user.user", "用户名"),
-            field: "user",
-            width: 200,
-          },
-          {
-            title: $t("user.password", "密码"),
-            field: "password",
-            width: 200,
-          },
-          {
-            title: $t("user.nickname", "昵称"),
-            field: "nickname",
-            width: 200,
-          },
-          {
             title: $t("user.avatar", "头像"),
             field: "avatar",
             width: 200,
           },
           {
+            title: $t("user.user", "用户名"),
+            field: "user",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("user.nickname", "昵称"),
+            field: "nickname",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("system.base info", "基础信息"),
+            children: [
+              {
+                title: $t("user.account", "账号"),
+                field: "account",
+                isFilters: true,
+                width: 200,
+              },
+              {
+                title: $t("user.phone", "电话号码"),
+                field: "phone",
+                isFilters: true,
+                width: 200,
+              },
+              {
+                title: $t("user.email", "电子邮箱"),
+                field: "email",
+                isFilters: true,
+                width: 200,
+              },
+            ],
+          },
+          {
             title: $t("user.userType", "类型"),
+            isFilters: true,
             field: "userType",
             width: 200,
           },
           {
             title: $t("user.status", "状态"),
+            isFilters: true,
             field: "status",
             width: 200,
           },
@@ -253,21 +202,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           {
             title: $t("user.updateTime", "更新时间"),
             field: "updateTime",
-            width: 200,
-          },
-          {
-            title: $t("user.isDeleted", "是否删除"),
-            field: "isDeleted",
-            width: 200,
-          },
-          {
-            title: $t("user.tenantId", "租户id"),
-            field: "tenantId",
-            width: 200,
-          },
-          {
-            title: $t("user.version", "乐观锁"),
-            field: "version",
             width: 200,
           },
           {
@@ -316,18 +250,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           width: "1000px",
           formConfig: {
             formParams: [
-              {
-                label: $t("user.id", "id"),
-                prop: "id",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.uid", "用户id"),
-                prop: "uid",
-                type: "input",
-                span: 6,
-              },
               {
                 label: $t("user.phone", "电话号码"),
                 prop: "phone",
@@ -385,48 +307,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
               {
                 label: $t("user.remark", "备注"),
                 prop: "remark",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.creator", "创建人"),
-                prop: "creator",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.updater", "更新人"),
-                prop: "updater",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.createTime", "创建时间"),
-                prop: "createTime",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.updateTime", "更新时间"),
-                prop: "updateTime",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.isDeleted", "是否删除"),
-                prop: "isDeleted",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.tenantId", "租户id"),
-                prop: "tenantId",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("user.version", "乐观锁"),
-                prop: "version",
                 type: "input",
                 span: 6,
               },

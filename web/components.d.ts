@@ -35,6 +35,7 @@ declare module 'vue' {
     CTreeSelect: typeof import('./src/components/CElement/CTreeSelect/index.vue')['default']
     DictTag: typeof import('./src/components/DictTag/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']

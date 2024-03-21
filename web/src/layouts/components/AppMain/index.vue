@@ -1,9 +1,9 @@
 <!-- AppMain -->
 <template>
   <div class="app-main font-mono">
-    <!-- <el-backtop style="z-index: 99999" target=".app-main" /> -->
+    <el-backtop style="z-index: 3" target=".app-main" />
     <el-watermark
-      :content="$t('app.watermark', '水印')"
+      :content="$t('system.watermark')"
       :font="font"
       :gap="[150, 150]"
     >

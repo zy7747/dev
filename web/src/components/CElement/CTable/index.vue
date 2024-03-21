@@ -83,7 +83,7 @@ const rules: any = computed(() => {
 const filters: any = computed(() => {
   const filterMap: any = {};
 
-  if (!tableConfig.data) {
+  if (!tableData.value) {
     return filterMap;
   }
 
@@ -91,7 +91,7 @@ const filters: any = computed(() => {
   getFilter(tableConfig.tableColumn, filterMap);
 
   //数据装入
-  tableConfig.data.forEach((item: any) => {
+  tableData.value.forEach((item: any) => {
     Object.keys(filterMap).forEach((key: any) => {
       if (item[key]) {
         filterMap[key].push({ label: item[key], value: item[key] });
