@@ -13,35 +13,35 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-18T19:15:32+0800",
+    date = "2024-03-22T08:52:58+0800",
     comments = "version: 1.5.0.Final, compiler: javac, environment: Java 11.0.17 (Amazon.com Inc.)"
 )
 public class UserConvertImpl implements UserConvert {
 
     @Override
-    public PageList<UserPageVO> page(PageList<UserEntity> users) {
-        if ( users == null ) {
+    public PageList<UserPageVO> page(PageList<UserEntity> user) {
+        if ( user == null ) {
             return null;
         }
 
         PageList<UserPageVO> pageList = new PageList<UserPageVO>();
 
-        pageList.setPage( users.getPage() );
-        pageList.setTotal( users.getTotal() );
-        pageList.setSize( users.getSize() );
-        pageList.setList( userEntityListToUserPageVOList( users.getList() ) );
+        pageList.setPage( user.getPage() );
+        pageList.setTotal( user.getTotal() );
+        pageList.setSize( user.getSize() );
+        pageList.setList( userEntityListToUserPageVOList( user.getList() ) );
 
         return pageList;
     }
 
     @Override
-    public List<UserListVO> list(List<UserEntity> users) {
-        if ( users == null ) {
+    public List<UserListVO> list(List<UserEntity> user) {
+        if ( user == null ) {
             return null;
         }
 
-        List<UserListVO> list = new ArrayList<UserListVO>( users.size() );
-        for ( UserEntity userEntity : users ) {
+        List<UserListVO> list = new ArrayList<UserListVO>( user.size() );
+        for ( UserEntity userEntity : user ) {
             list.add( userEntityToUserListVO( userEntity ) );
         }
 
@@ -49,75 +49,75 @@ public class UserConvertImpl implements UserConvert {
     }
 
     @Override
-    public UserDetailVO detail(UserEntity users) {
-        if ( users == null ) {
+    public UserDetailVO detail(UserEntity user) {
+        if ( user == null ) {
             return null;
         }
 
         UserDetailVO userDetailVO = new UserDetailVO();
 
-        userDetailVO.setId( users.getId() );
-        userDetailVO.setStatus( users.getStatus() );
-        userDetailVO.setRemark( users.getRemark() );
-        userDetailVO.setCreator( users.getCreator() );
-        userDetailVO.setUpdater( users.getUpdater() );
-        userDetailVO.setCreateTime( users.getCreateTime() );
-        userDetailVO.setUpdateTime( users.getUpdateTime() );
-        userDetailVO.setIsDeleted( users.getIsDeleted() );
-        userDetailVO.setTenantId( users.getTenantId() );
-        userDetailVO.setVersion( users.getVersion() );
-        userDetailVO.setUid( users.getUid() );
-        userDetailVO.setPhone( users.getPhone() );
-        userDetailVO.setEmail( users.getEmail() );
-        userDetailVO.setAccount( users.getAccount() );
-        userDetailVO.setUser( users.getUser() );
-        userDetailVO.setPassword( users.getPassword() );
-        userDetailVO.setNickname( users.getNickname() );
-        userDetailVO.setAvatar( users.getAvatar() );
-        userDetailVO.setUserType( users.getUserType() );
+        userDetailVO.setId( user.getId() );
+        userDetailVO.setStatus( user.getStatus() );
+        userDetailVO.setRemark( user.getRemark() );
+        userDetailVO.setCreator( user.getCreator() );
+        userDetailVO.setUpdater( user.getUpdater() );
+        userDetailVO.setCreateTime( user.getCreateTime() );
+        userDetailVO.setUpdateTime( user.getUpdateTime() );
+        userDetailVO.setIsDeleted( user.getIsDeleted() );
+        userDetailVO.setTenantId( user.getTenantId() );
+        userDetailVO.setVersion( user.getVersion() );
+        userDetailVO.setUid( user.getUid() );
+        userDetailVO.setPhone( user.getPhone() );
+        userDetailVO.setEmail( user.getEmail() );
+        userDetailVO.setAccount( user.getAccount() );
+        userDetailVO.setUser( user.getUser() );
+        userDetailVO.setPassword( user.getPassword() );
+        userDetailVO.setNickname( user.getNickname() );
+        userDetailVO.setAvatar( user.getAvatar() );
+        userDetailVO.setUserType( user.getUserType() );
 
         return userDetailVO;
     }
 
     @Override
-    public UserEntity save(UserSaveDTO users) {
-        if ( users == null ) {
+    public UserEntity save(UserSaveDTO user) {
+        if ( user == null ) {
             return null;
         }
 
         UserEntity userEntity = new UserEntity();
 
-        userEntity.setId( users.getId() );
-        userEntity.setStatus( users.getStatus() );
-        userEntity.setCreator( users.getCreator() );
-        userEntity.setUpdater( users.getUpdater() );
-        userEntity.setRemark( users.getRemark() );
-        userEntity.setCreateTime( users.getCreateTime() );
-        userEntity.setUpdateTime( users.getUpdateTime() );
-        userEntity.setIsDeleted( users.getIsDeleted() );
-        userEntity.setTenantId( users.getTenantId() );
-        userEntity.setVersion( users.getVersion() );
-        userEntity.setUid( users.getUid() );
-        userEntity.setPhone( users.getPhone() );
-        userEntity.setEmail( users.getEmail() );
-        userEntity.setAccount( users.getAccount() );
-        userEntity.setUser( users.getUser() );
-        userEntity.setPassword( users.getPassword() );
-        userEntity.setNickname( users.getNickname() );
-        userEntity.setAvatar( users.getAvatar() );
-        userEntity.setUserType( users.getUserType() );
+        userEntity.setId( user.getId() );
+        userEntity.setStatus( user.getStatus() );
+        userEntity.setCreator( user.getCreator() );
+        userEntity.setUpdater( user.getUpdater() );
+        userEntity.setRemark( user.getRemark() );
+        userEntity.setCreateTime( user.getCreateTime() );
+        userEntity.setUpdateTime( user.getUpdateTime() );
+        userEntity.setIsDeleted( user.getIsDeleted() );
+        userEntity.setTenantId( user.getTenantId() );
+        userEntity.setVersion( user.getVersion() );
+        userEntity.setUid( user.getUid() );
+        userEntity.setPhone( user.getPhone() );
+        userEntity.setEmail( user.getEmail() );
+        userEntity.setAccount( user.getAccount() );
+        userEntity.setUser( user.getUser() );
+        userEntity.setPassword( user.getPassword() );
+        userEntity.setNickname( user.getNickname() );
+        userEntity.setAvatar( user.getAvatar() );
+        userEntity.setUserType( user.getUserType() );
 
         return userEntity;
     }
 
     @Override
-    public List<UserEntity> saveList(List<UserSaveDTO> users) {
-        if ( users == null ) {
+    public List<UserEntity> saveList(List<UserSaveDTO> user) {
+        if ( user == null ) {
             return null;
         }
 
-        List<UserEntity> list = new ArrayList<UserEntity>( users.size() );
-        for ( UserSaveDTO userSaveDTO : users ) {
+        List<UserEntity> list = new ArrayList<UserEntity>( user.size() );
+        for ( UserSaveDTO userSaveDTO : user ) {
             list.add( save( userSaveDTO ) );
         }
 
@@ -125,13 +125,13 @@ public class UserConvertImpl implements UserConvert {
     }
 
     @Override
-    public List<UserExportVO> export(List<UserEntity> users) {
-        if ( users == null ) {
+    public List<UserExportVO> export(List<UserEntity> user) {
+        if ( user == null ) {
             return null;
         }
 
-        List<UserExportVO> list = new ArrayList<UserExportVO>( users.size() );
-        for ( UserEntity userEntity : users ) {
+        List<UserExportVO> list = new ArrayList<UserExportVO>( user.size() );
+        for ( UserEntity userEntity : user ) {
             list.add( userEntityToUserExportVO( userEntity ) );
         }
 
@@ -139,13 +139,13 @@ public class UserConvertImpl implements UserConvert {
     }
 
     @Override
-    public List<UserSaveDTO> imports(List<UserExportVO> users) {
-        if ( users == null ) {
+    public List<UserSaveDTO> imports(List<UserExportVO> user) {
+        if ( user == null ) {
             return null;
         }
 
-        List<UserSaveDTO> list = new ArrayList<UserSaveDTO>( users.size() );
-        for ( UserExportVO userExportVO : users ) {
+        List<UserSaveDTO> list = new ArrayList<UserSaveDTO>( user.size() );
+        for ( UserExportVO userExportVO : user ) {
             list.add( userExportVOToUserSaveDTO( userExportVO ) );
         }
 
