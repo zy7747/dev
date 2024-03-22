@@ -49,6 +49,11 @@ const visitedViews: any = ref([
     path: "/test",
     title: "测试",
   },
+  {
+    icon: "哔哩哔哩",
+    path: "/dict",
+    title: "字典",
+  },
 ]);
 
 function isActive(route: any) {

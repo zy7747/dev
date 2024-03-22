@@ -29,19 +29,31 @@ export default {
     app: "user",
     text: "用户详情",
   },
-  saveList: {
-    url: "/user/saveList",
+  save: {
+    url: "/user/save",
     method: "post",
     app: "user",
     text: "用户编辑",
   },
-  delete: {
+  saveList: {
+    url: "/user/saveList",
+    method: "post",
+    app: "user",
+    text: "用户批量编辑",
+  },
+  remove: {
     url: "/user/delete",
     method: "delete",
     app: "user",
     text: "用户删除",
   },
-  export: {
+  imports: {
+    url: "/user/import",
+    method: "get",
+    app: "user",
+    text: "用户导入",
+  },
+  exports: {
     url: "/user/export",
     method: "get",
     app: "user",

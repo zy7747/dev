@@ -43,5 +43,27 @@
     "isDeleted": "isDeleted",
     "tenantId": "tenantId",
     "version": "version"
+  },
+  "dict": {
+    "dict": "dict",
+    "id": "id",
+    "parentId": "parentId",
+    "dictName": "dictName",
+    "dictCode": "dictCode",
+    "dictType": "dictType",
+    "label": "label",
+    "value": "value",
+    "color": "color",
+    "sort": "sort",
+    "params": "params",
+    "status": "status",
+    "remark": "remark",
+    "creator": "creator",
+    "updater": "updater",
+    "createTime": "createTime",
+    "updateTime": "updateTime",
+    "isDeleted": "isDeleted",
+    "tenantId": "tenantId",
+    "version": "version"
   }
 }

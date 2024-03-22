@@ -1,14 +1,13 @@
 import request from "@/utils/request";
 import lodash from "lodash";
-
-const apis: any = {};
-
 const modules = import.meta.glob(["@/apis/**.ts", "@/apis/**/*.ts"], {
   import: "default",
   eager: true,
 });
 
-// 4.api配置
+const apis: any = {};
+
+// api配置
 function config(api: any = {}, data: any) {
   const config: any = {};
 
@@ -40,18 +39,19 @@ function config(api: any = {}, data: any) {
 }
 
 Object.keys(modules).forEach((key: any) => {
-  //获取文件路径数组
+  //1.获取文件路径数组
   const newKey = key.replace(".ts", "").replace("/src/apis/", "");
   const pathArr = newKey.split("/");
-  //获取文件下所有导出对象
+  //2.获取文件下所有导出对象
   const obj: any = modules[key];
   const newObj: any = {};
+  // 3.重新配置参数
   Object.keys(obj).forEach((item: any) => {
     newObj[item] = (data: any) => {
       return config(obj[item], data);
     };
   });
-
+  //4.深层装配
   lodash.set(apis, pathArr, newObj);
 });
 

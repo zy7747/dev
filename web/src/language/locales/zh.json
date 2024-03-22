@@ -43,5 +43,27 @@
     "isDeleted": "是否删除",
     "tenantId": "租户id",
     "version": "乐观锁"
+  },
+  "dict": {
+    "dict": "字典",
+    "id": "id",
+    "parentId": "父节点id",
+    "dictName": "字典名称",
+    "dictCode": "字典编码",
+    "dictType": "字典类型",
+    "label": "名",
+    "value": "值",
+    "color": "自定义颜色",
+    "sort": "排序",
+    "params": "其他参数",
+    "status": "状态",
+    "remark": "备注",
+    "creator": "创建人",
+    "updater": "更新人",
+    "createTime": "创建时间",
+    "updateTime": "更新时间",
+    "isDeleted": "是否删除",
+    "tenantId": "租户id",
+    "version": "乐观锁"
   }
 }

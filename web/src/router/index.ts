@@ -37,6 +37,11 @@ const routeModuleList: routeModuleListType[] = [
         component: () => import("@/views/pages/configuration/page/index.vue"),
       },
       {
+        path: "dict",
+        name: "dict",
+        component: () => import("@/views/pages/configuration/dict/index.vue"),
+      },
+      {
         path: "test",
         name: "test",
         component: () => import("@/views/test/index.vue"),
