@@ -23,7 +23,7 @@ function apis(params: String) {
 
 //页面渲染
 function render(config: any) {
-  const { pageOption, ids, query, removeSuccess, addSuccess } = usePage({
+  const { pageOption, ids, query, removeSuccess, submitSuccess } = usePage({
     pageRef,
     createLoad: true,
     title: config.title,
@@ -79,7 +79,7 @@ function render(config: any) {
           //提交
           handleConfirm() {
             api.save(unref(pageData).editData).then((res: any) => {
-              addSuccess(res);
+              submitSuccess(res);
             });
           },
         },

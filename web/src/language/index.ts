@@ -7,7 +7,7 @@ import kr from "./locales/kr.json";
 
 export const i18n = createI18n({
   //这里是语种的持久化，刷新也存在
-  locale: localStorage.getItem("language") || "en", // 默认是中文
+  locale: localStorage.getItem("language") || "zh", // 默认是中文
   fallbackLocale: "zh", // 语言切换的时候是英文
   globalInjection: true, //全局配置
   legacy: true, //vue3写法

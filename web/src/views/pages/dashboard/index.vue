@@ -10,92 +10,166 @@ function getGrid() {
   setTimeout(() => {
     nextTick(() => {
       unref(gridRef).render({
-        title: "用户",
+        title: $t("user.user", "用户"),
         form: [
           {
-            label: "用户名称",
+            label: $t("user.phone", "电话号码"),
+            prop: "phone",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.email", "电子邮箱"),
+            prop: "email",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.account", "账号"),
+            prop: "account",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.user", "用户名"),
             prop: "user",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.nickname", "昵称"),
+            prop: "nickname",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.userType", "类型"),
+            prop: "userType",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.status", "状态"),
+            prop: "status",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.creator", "创建人"),
+            prop: "creator",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.updater", "更新人"),
+            prop: "updater",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.createTime", "创建时间"),
+            prop: "createTime",
+            type: "input",
+            span: 6,
+          },
+          {
+            label: $t("user.updateTime", "更新时间"),
+            prop: "updateTime",
             type: "input",
             span: 6,
           },
         ],
         tables: [
           {
-            title: "表格1",
+            title: $t("user.user", "用户"),
             api: "user",
             tableColumn: [
               { type: "checkbox", width: 50, fixed: "left" },
               {
-                title: "序号", //用户名
+                title: $t("system.no", "序号"),
                 type: "seq",
                 width: 100,
                 fixed: "left",
               },
               {
-                title: "头像", //用户名
-                field: "ava",
-                cType: "img",
+                title: $t("user.avatar", "头像"),
+                field: "avatar",
                 width: 200,
               },
               {
-                title: "用户名", //用户名
+                title: $t("user.user", "用户名"),
                 field: "user",
-                cType: "tag",
-                sortable: true,
                 isFilters: true,
                 width: 200,
-                rules: [
-                  {
-                    required: true,
-                    message: "Please pick a date",
-                    trigger: "change",
-                  },
-                ],
-                form: {
-                  type: "select",
-                  params: {},
-                },
               },
               {
-                title: "基本信息", //基本信息
+                title: $t("user.nickname", "昵称"),
+                field: "nickname",
+                isFilters: true,
+                width: 200,
+              },
+              {
+                title: $t("system.base info", "基础信息"),
                 children: [
                   {
-                    title: "账号", //账号
+                    title: $t("user.account", "账号"),
                     field: "account",
-                    width: 200,
-                    sortable: true,
                     isFilters: true,
-                    form: {
-                      type: "select",
-                      params: {},
-                    },
-                    rules: [
-                      {
-                        type: "date",
-                        required: true,
-                        message: "Please pick a date",
-                        trigger: "change",
-                      },
-                    ],
+                    width: 200,
                   },
                   {
-                    title: "电话号码", //用户名
+                    title: $t("user.phone", "电话号码"),
                     field: "phone",
-                    width: 200,
-                    sortable: true,
                     isFilters: true,
+                    width: 200,
                   },
                   {
-                    title: "电子邮箱", //用户名
+                    title: $t("user.email", "电子邮箱"),
                     field: "email",
-                    width: 200,
-                    sortable: true,
                     isFilters: true,
+                    width: 200,
                   },
                 ],
               },
               {
-                title: "操作",
+                title: $t("user.userType", "类型"),
+                isFilters: true,
+                field: "userType",
+                width: 200,
+              },
+              {
+                title: $t("user.status", "状态"),
+                isFilters: true,
+                field: "status",
+                width: 200,
+              },
+              {
+                title: $t("user.remark", "备注"),
+                field: "remark",
+                width: 200,
+              },
+              {
+                title: $t("user.creator", "创建人"),
+                field: "creator",
+                width: 200,
+              },
+              {
+                title: $t("user.updater", "更新人"),
+                field: "updater",
+                width: 200,
+              },
+              {
+                title: $t("user.createTime", "创建时间"),
+                field: "createTime",
+                width: 200,
+              },
+              {
+                title: $t("user.updateTime", "更新时间"),
+                field: "updateTime",
+                width: 200,
+              },
+              {
+                title: $t("system.action", "操作"),
                 cType: "action",
                 fixed: "right",
                 width: 250,
@@ -103,32 +177,64 @@ function getGrid() {
             ],
             dialogForm: [
               {
-                label: "电话",
+                label: $t("user.phone", "电话号码"),
                 prop: "phone",
                 type: "input",
                 span: 6,
               },
               {
-                label: "电子邮箱",
+                label: $t("user.email", "电子邮箱"),
                 prop: "email",
                 type: "input",
                 span: 6,
               },
               {
-                label: "用户",
+                label: $t("user.account", "账号"),
+                prop: "account",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("user.user", "用户名"),
                 prop: "user",
                 type: "input",
                 span: 6,
               },
               {
-                label: "密码",
+                label: $t("user.password", "密码"),
                 prop: "password",
                 type: "input",
                 span: 6,
-                params: {
-                  type: "password",
-                  showPassword: true,
-                },
+              },
+              {
+                label: $t("user.nickname", "昵称"),
+                prop: "nickname",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("user.avatar", "头像"),
+                prop: "avatar",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("user.userType", "类型"),
+                prop: "userType",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("user.status", "状态"),
+                prop: "status",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("user.remark", "备注"),
+                prop: "remark",
+                type: "input",
+                span: 6,
               },
             ],
           },

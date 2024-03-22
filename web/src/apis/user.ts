@@ -1,6 +1,13 @@
 import request from "@/utils/request";
 
 export default {
+  userInfo(params: any) {
+    return request({
+      url: "/user/userInfo",
+      method: "get",
+      params,
+    });
+  },
   login(params: any) {
     return request({
       url: "/user/login",

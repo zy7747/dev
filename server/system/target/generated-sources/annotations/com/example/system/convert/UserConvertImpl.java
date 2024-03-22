@@ -3,6 +3,7 @@ package com.example.system.convert;
 import com.example.framework.common.PageList;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
+import com.example.system.dal.vo.user.UserBaseInfoVO;
 import com.example.system.dal.vo.user.UserDetailVO;
 import com.example.system.dal.vo.user.UserExportVO;
 import com.example.system.dal.vo.user.UserListVO;
@@ -13,7 +14,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-22T08:52:58+0800",
+    date = "2024-03-22T15:19:09+0800",
     comments = "version: 1.5.0.Final, compiler: javac, environment: Java 11.0.17 (Amazon.com Inc.)"
 )
 public class UserConvertImpl implements UserConvert {
@@ -150,6 +151,28 @@ public class UserConvertImpl implements UserConvert {
         }
 
         return list;
+    }
+
+    @Override
+    public UserBaseInfoVO UserBaseInfoVO(UserEntity users) {
+        if ( users == null ) {
+            return null;
+        }
+
+        UserBaseInfoVO userBaseInfoVO = new UserBaseInfoVO();
+
+        userBaseInfoVO.setId( users.getId() );
+        if ( users.getUid() != null ) {
+            userBaseInfoVO.setUid( String.valueOf( users.getUid() ) );
+        }
+        userBaseInfoVO.setPhone( users.getPhone() );
+        userBaseInfoVO.setEmail( users.getEmail() );
+        userBaseInfoVO.setAccount( users.getAccount() );
+        userBaseInfoVO.setUser( users.getUser() );
+        userBaseInfoVO.setAvatar( users.getAvatar() );
+        userBaseInfoVO.setUserType( users.getUserType() );
+
+        return userBaseInfoVO;
     }
 
     protected UserPageVO userEntityToUserPageVO(UserEntity userEntity) {

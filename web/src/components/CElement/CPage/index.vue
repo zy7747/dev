@@ -21,6 +21,7 @@
 
       <template #content>
         <c-form
+          @keyup.enter.native="query"
           ref="formRef"
           :model="pageData.queryData"
           :formConfig="pageOption.formConfig"

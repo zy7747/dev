@@ -46,8 +46,13 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.27" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.27" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.27" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.27" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.27" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-security:2.7.12" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.27" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.7.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.7.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:5.7.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.7.8" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-validation:2.7.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.75" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:6.2.5.Final" level="project" />

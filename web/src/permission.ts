@@ -1,10 +1,41 @@
 import { router } from "@/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import { getToken } from "./utils/auth";
+import { useUserStore } from "@/store/user";
 
-router.beforeEach(async (_to, _from, next) => {
+const whiteList = ["/login", "/404", "/500"]; //白名单
+
+router.beforeEach(async (to, _from, next) => {
+  const userStore = useUserStore();
   NProgress.start();
-  next();
+  const token = getToken(); //token
+  const url = to.path; //跳转路径
+
+  // 1. 已登录 去登录页 -> 跳转首页
+  if (token && url === "/login") {
+    next({ path: "/" });
+  }
+
+  // 2. 已登录 不是登录页 -> 放行
+  if (token && url !== "/login") {
+    if (!userStore.userInfo.id) {
+      await userStore.getUserInfo();
+      next({ ...to, replace: true });
+    } else {
+      next();
+    }
+  }
+
+  // 3. 未登录 在白名单 -> 放行
+  if (!token && whiteList.indexOf(url) !== -1) {
+    next();
+  }
+
+  // 4. 未登录 不在白名单 -> 登录页
+  if (!token && whiteList.indexOf(url) === -1) {
+    next({ path: "/login" });
+  }
 });
 
 router.afterEach(() => {

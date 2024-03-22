@@ -2,10 +2,12 @@ package com.example.system.service;
 
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
+import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
 import com.example.system.dal.vo.user.UserDetailVO;
+import com.example.system.dal.vo.user.UserInfoVO;
 import com.example.system.dal.vo.user.UserListVO;
 import com.example.system.dal.vo.user.UserPageVO;
 import org.springframework.validation.annotation.Validated;
@@ -64,4 +66,21 @@ public interface UserService {
      * @param response,user 入参
      */
     void userExport(HttpServletResponse response, UserQueryDTO user) throws IOException;
+
+    /**
+     * 登录接口
+     *
+     * @param loginInfo 登录用户信息
+     * @return 用户信息
+     */
+    Result<UserInfoVO> login(LoginDTO loginInfo);
+
+    /**
+     * 通过token获取用户信息
+     *
+     * @param loginSystem 登录系统
+     * @param token
+     * @return 用户信息
+     */
+    Result<UserInfoVO> userInfo(String loginSystem, String token);
 }

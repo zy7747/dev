@@ -1,32 +1,46 @@
 import { defineStore } from "pinia";
-import { getToken, setToken } from "@/utils/auth";
+import { removeToken, setToken } from "@/utils/auth";
 
 export const useUserStore = defineStore({
   id: "user", // id必填，且需要唯一
   state: () => {
     return {
       userInfo: {} as any,
-      token: getToken(),
-      permission: [], //权限
-      asyncRoutes: [] as any, //路由
     };
   },
   actions: {
     // 登录
     login(loginInfo: any) {
       return Service.user
-        .login({ ...loginInfo, loginSystem: "videoWeb" })
+        .login({ ...loginInfo, loginSystem: "system" })
         .then((response: any) => {
           if (response.code === 200) {
-            this.token = response.data.token;
-            this.userInfo = response.data.userInfo;
-            this.asyncRoutes = response.data.menuList;
-
+            //加入Token
             setToken(response.data.token);
+            this.userInfo = response.data.userInfo;
+
+            //1.记住密码
+            if (loginInfo.rememberMe) {
+              localStorage.setItem("rememberMe", JSON.stringify(loginInfo));
+            } else {
+              localStorage.removeItem("rememberMe");
+            }
+
+            return response.data;
+          }
+        });
+    },
+    getUserInfo() {
+      return Service.user
+        .userInfo({ loginSystem: "system" })
+        .then((response: any) => {
+          if (response.code === 200) {
+            //3.存储用户信息
+            this.userInfo = response.data.userInfo;
 
             return response.data;
           } else {
-            return false;
+            removeToken();
           }
         });
     },

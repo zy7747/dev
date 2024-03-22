@@ -4,13 +4,11 @@ import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
 import com.example.system.convert.UserConvert;
+import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
-import com.example.system.dal.vo.user.UserDetailVO;
-import com.example.system.dal.vo.user.UserExportVO;
-import com.example.system.dal.vo.user.UserListVO;
-import com.example.system.dal.vo.user.UserPageVO;
+import com.example.system.dal.vo.user.*;
 import com.example.system.mapper.UserMapper;
 import com.example.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -86,5 +84,18 @@ public class UserController {
     @ApiOperation(value = "导出")
     public void userExport(HttpServletResponse response, UserQueryDTO user) throws IOException {
         userService.userExport(response, user);
+    }
+
+    @GetMapping("/login")
+    @ApiOperation(value = "登录")
+    public Result<UserInfoVO> login(@Valid LoginDTO loginInfo) {
+        return userService.login(loginInfo);
+    }
+
+
+    @GetMapping("/userInfo")
+    @ApiOperation(value = "获取用户信息")
+    public Result<UserInfoVO> userInfo(@RequestHeader("Authorization") String token, String loginSystem) {
+        return userService.userInfo(loginSystem, token);
     }
 }

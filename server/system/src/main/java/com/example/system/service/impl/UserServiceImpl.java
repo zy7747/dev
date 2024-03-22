@@ -1,19 +1,19 @@
 package com.example.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
 import com.example.system.convert.UserConvert;
+import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
-import com.example.system.dal.vo.user.UserExportVO;
+import com.example.system.dal.vo.user.*;
 import com.example.system.mapper.UserMapper;
-import com.example.system.dal.vo.user.UserDetailVO;
-import com.example.system.dal.vo.user.UserListVO;
-import com.example.system.dal.vo.user.UserPageVO;
 import com.example.system.service.UserService;
+import com.example.system.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -106,5 +106,52 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     @Override
     public void userExport(HttpServletResponse response, UserQueryDTO user) throws IOException {
         ExcelUtils.export(response, "用户.xlsx", "用户", UserExportVO.class, UserConvert.INSTANCE.export(userMapper.queryList(user)));
+    }
+
+    /**
+     * 登录接口
+     *
+     * @param loginInfo 登录用户信息
+     * @return 用户信息
+     */
+    @Override
+    public Result<UserInfoVO> login(LoginDTO loginInfo) {
+        QueryWrapper<UserEntity> wrapper = new QueryWrapper<>();
+
+        wrapper.eq("account", loginInfo.getAccount()).and(i -> i.eq("password", loginInfo.getPassword()));
+
+        //查询数据
+        UserEntity userInfo = userMapper.selectOne(wrapper);
+
+        //登录成功
+        if (userInfo != null) {
+            //1.生成Token
+            String Token = new JwtUtil().getToken(userInfo);
+            //返回用户信息和Token
+            return userInfo(loginInfo.getLoginSystem(), Token);
+        } else {
+            return Result.fail("登录失败,请检查账号密码是否正确");
+        }
+    }
+
+    /**
+     * 通过token获取用户信息
+     *
+     * @return 用户信息
+     */
+    @Override
+    public Result<UserInfoVO> userInfo(String loginSystem, String token) {
+        //1.获取Token中用户id
+        Object userId = JwtUtil.getTokenInfo(token);
+        //2.通过id找出用户信息
+        UserEntity userInfo = userMapper.selectById(userId.toString());
+        //3.实例化返回参数
+        UserInfoVO userInfoVo = new UserInfoVO();
+        //4.注入token
+        userInfoVo.setToken(token);
+        //5.注入用户基础信息
+        userInfoVo.setUserInfo(UserConvert.INSTANCE.UserBaseInfoVO(userInfo));
+
+        return Result.success(userInfoVo);
     }
 }

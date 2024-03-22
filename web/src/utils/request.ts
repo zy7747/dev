@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken } from "./auth";
+import { useUserStore } from "@/store/user";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
@@ -11,11 +12,15 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   (config) => {
+    const userStore = useUserStore();
     // 如果存在登录用户信息，则将其设置到请求头部
     if (getToken()) {
       config.headers["Authorization"] = getToken();
     }
 
+    if (userStore.userInfo.id) {
+      config.headers["UserId"] = userStore.userInfo.id;
+    }
     return config;
   },
   (error) => {
