@@ -1,61 +1,51 @@
-import request from "@/utils/request";
-
 export default {
-  userInfo(params: any) {
-    return request({
-      url: "/user/userInfo",
-      method: "get",
-      params,
-    });
+  login: {
+    url: "/user/login",
+    method: "get",
+    app: "user",
+    text: "登录",
   },
-  login(params: any) {
-    return request({
-      url: "/user/login",
-      method: "get",
-      params,
-    });
+  userInfo: {
+    url: "/user/userInfo",
+    method: "get",
+    app: "user",
+    text: "获取用户信息",
   },
-  page(params: any) {
-    return request({
-      url: "/user/page",
-      method: "get",
-      params,
-    });
+  page: {
+    url: "/user/page",
+    method: "get",
+    app: "user",
+    text: "用户分页",
   },
-  save(data: any) {
-    return request({
-      url: "/user/save",
-      method: "post",
-      data,
-    });
+  list: {
+    url: "/user/list",
+    method: "get",
+    app: "user",
+    text: "用户列表",
   },
-  exports(params: any) {
-    return request({
-      url: "/user/export",
-      method: "get",
-      responseType: "blob",
-      params,
-    });
+  detail: {
+    url: "/user/detail",
+    method: "get",
+    app: "user",
+    text: "用户详情",
   },
-  imports(data: any) {
-    return request({
-      url: "/user/import",
-      method: "post",
-      data,
-    });
+  saveList: {
+    url: "/user/saveList",
+    method: "post",
+    app: "user",
+    text: "用户编辑",
   },
-  remove(data: any) {
-    return request({
-      url: "/user/delete",
-      method: "delete",
-      data,
-    });
+  delete: {
+    url: "/user/delete",
+    method: "delete",
+    app: "user",
+    text: "用户删除",
   },
-  detail(params: any) {
-    return request({
-      url: "/user/detail",
-      method: "get",
-      params,
-    });
+  export: {
+    url: "/user/export",
+    method: "get",
+    app: "user",
+    blob: true,
+    text: "用户导出",
   },
 };

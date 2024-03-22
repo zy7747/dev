@@ -5,7 +5,11 @@ export const useUserStore = defineStore({
   id: "user", // id必填，且需要唯一
   state: () => {
     return {
-      userInfo: {} as any,
+      userInfo: {} as any, //用户信息
+      roles: [], //角色
+      menu: [], //菜单
+      permission: [], //权限
+      asyncRoutes: [], //路由
     };
   },
   actions: {
