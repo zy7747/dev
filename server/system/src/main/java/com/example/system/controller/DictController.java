@@ -100,9 +100,15 @@ public class DictController {
         dictService.dictExport(response, dict);
     }
 
-    @GetMapping("/getSubList")
+    @GetMapping("/subList")
     @ApiOperation(value = "获取子列表")
-    public Result<List<DictEntity>> getSubList(@Valid DictQueryDTO dict) {
-        return dictService.getSubList(dict);
+    public Result<List<DictEntity>> subList(@Valid DictQueryDTO dict) {
+        return dictService.subList(dict);
+    }
+
+    @GetMapping("/dictMap")
+    @ApiOperation(value = "获取所有字典集")
+    public Result<Object> dictMap() {
+        return dictService.dictMap();
     }
 }

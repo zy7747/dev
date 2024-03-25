@@ -42,6 +42,9 @@ export default ({ mode }: any) =>
             "@/language/index": [["default", "$t"]],
           },
           {
+            "@/dict": [["Dict", "Dict"]],
+          },
+          {
             "@/hooks/usePage": [["default", "usePage"]],
           },
           {

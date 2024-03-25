@@ -10,7 +10,7 @@ export const i18n = createI18n({
   locale: localStorage.getItem("language") || "zh", // 默认是中文
   fallbackLocale: "zh", // 语言切换的时候是英文
   globalInjection: true, //全局配置
-  legacy: true, //vue3写法
+  legacy: false, //vue3写法
   messages: {
     en,
     zh,

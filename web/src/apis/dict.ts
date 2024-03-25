@@ -48,4 +48,10 @@ export default {
     blob: true,
     text: "字典导出",
   },
+  dictMap: {
+    url: "/dict/dictMap",
+    method: "get",
+    app: "dict",
+    text: "字典Map",
+  },
 };

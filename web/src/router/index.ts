@@ -2,17 +2,8 @@ import type { App } from "vue";
 import type { RouteRecordRaw } from "vue-router";
 import { createRouter, createWebHashHistory } from "vue-router";
 
-interface routeModuleListType {
-  path: any;
-  redirect?: string;
-  name?: string;
-  component?: any;
-  children?: any;
-  meta?: any;
-}
-
 //其他独立的路由在这里拼接
-const routeModuleList: routeModuleListType[] = [
+const routeModuleList: any = [
   {
     path: "/",
     redirect: "/dashboard",
@@ -32,9 +23,14 @@ const routeModuleList: routeModuleListType[] = [
         component: () => import("@/views/pages/dashboard/index.vue"),
       },
       {
-        path: "page",
-        name: "page",
-        component: () => import("@/views/pages/configuration/page/index.vue"),
+        path: "user",
+        name: "user",
+        component: () => import("@/views/pages/user/index.vue"),
+      },
+      {
+        path: "role",
+        name: "role",
+        component: () => import("@/views/pages/configuration/role/index.vue"),
       },
       {
         path: "dict",
@@ -42,24 +38,18 @@ const routeModuleList: routeModuleListType[] = [
         component: () => import("@/views/pages/configuration/dict/index.vue"),
       },
       {
-        path: "test",
-        name: "test",
-        component: () => import("@/views/test/index.vue"),
+        path: "page",
+        name: "page",
+        component: () => import("@/views/pages/configuration/page/index.vue"),
       },
-    ],
-  },
-  {
-    path: "/user",
-    name: "user",
-    component: () => import("@/views/system/user/index.vue"),
-    children: [
       {
-        path: "center",
-        name: "center",
-        component: () => import("@/views/system/user/center/index.vue"),
+        path: "menu",
+        name: "menu",
+        component: () => import("@/views/pages/configuration/menu/index.vue"),
       },
     ],
   },
+  ,
   {
     path: "/404",
     name: "404",

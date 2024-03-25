@@ -70,5 +70,12 @@ public interface DictService {
      * @param dict 入参
      * @return 子列表
      */
-    Result<List<DictEntity>> getSubList(DictQueryDTO dict);
+    Result<List<DictEntity>> subList(DictQueryDTO dict);
+
+    /**
+     * 获取子列表
+     *
+     * @return 字典Map
+     */
+    Result<Object> dictMap();
 }

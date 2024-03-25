@@ -1,12 +1,17 @@
 <!--  -->
 <template>
   <el-dropdown @command="handleCommand">
-    <el-button type="primary" :size="size">
-      {{ text }}
+    <el-button type="primary" :size="size" v-if="title">
+      {{ title }}
     </el-button>
+    <div class="cursor-pointer">
+      <slot name="title"></slot>
+    </div>
+
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item :command="item.value" v-for="item in options">
+          <svg-icon :name="item.icon" class="icon" v-if="item.icon" />
           {{ item.label }}
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -15,13 +20,12 @@
 </template>
 
 <script lang="ts" setup>
+const emit = defineEmits(["command"]);
+
 defineProps({
-  text: {
-    text: "下拉选按钮名称",
+  title: {
+    text: "下拉选文本",
     type: [String] as any,
-    default: () => {
-      return "default";
-    },
   },
   size: {
     text: "单选框大小",
@@ -34,9 +38,15 @@ defineProps({
 const value: any = defineModel();
 const options: any = defineModel("options");
 
-function handleCommand(command: string | number | object) {
-  value.value = command;
+function handleCommand(val: string | number | object) {
+  const obj = unref(options).find((item: any) => item.value === val);
+  value.value = val;
+  emit("command", obj);
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.icon {
+  margin-right: 5px;
+}
+</style>

@@ -13,7 +13,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-22T16:09:09+0800",
+    date = "2024-03-25T19:53:08+0800",
     comments = "version: 1.5.0.Final, compiler: javac, environment: Java 11.0.17 (Amazon.com Inc.)"
 )
 public class DictConvertImpl implements DictConvert {

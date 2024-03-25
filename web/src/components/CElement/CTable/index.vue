@@ -177,7 +177,7 @@ function query() {
     tableConfig
       .list()
       .then((res: any) => {
-        tableData.value = res.data.list;
+        tableData.value = res.data;
       })
       .finally(() => {
         loading.value = false;

@@ -16,7 +16,7 @@ import { Edit } from "@element-plus/icons-vue";
 
 defineProps({
   size: {
-    text: "下拉框大小",
+    text: "大小",
     type: [String] as any,
     default: () => {
       return "default";

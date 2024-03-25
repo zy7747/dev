@@ -125,9 +125,19 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
      * @return 子列表
      */
     @Override
-    public Result<List<DictEntity>> getSubList(DictQueryDTO dict) {
+    public Result<List<DictEntity>> subList(DictQueryDTO dict) {
         List<DictEntity> dictList = dictMapper.getSubList(dict);
 
         return Result.success(dictList);
+    }
+
+    /**
+     * 获取子列表
+     *
+     * @return 字典Map
+     */
+    @Override
+    public Result<Object> dictMap() {
+        return Result.success(dictMapper.getDictMap());
     }
 }

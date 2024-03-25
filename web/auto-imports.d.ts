@@ -6,6 +6,7 @@
 export {}
 declare global {
   const $t: typeof import('@/language/index')['default']
+  const Dict: typeof import('@/dict')['Dict']
   const Download: typeof import('@/plugins/download')['default']
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']

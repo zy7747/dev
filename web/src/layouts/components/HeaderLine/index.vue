@@ -5,12 +5,15 @@
     :style="{ width: `calc(100% - ${width}px)` }"
   >
     <HeaderMenu :backgroundColor="backgroundColor"></HeaderMenu>
-    <div>工具栏</div>
+    <div class="tools">
+      <Language />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import HeaderMenu from "./components/HeaderMenu.vue";
+import Language from "./components/Language.vue";
 
 defineProps({
   backgroundColor: {
@@ -27,5 +30,9 @@ defineProps({
 <style lang="scss" scoped>
 .headerLine {
   overflow: hidden;
+}
+
+.tools {
+  padding-right: 15px;
 }
 </style>

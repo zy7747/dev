@@ -1,82 +1,200 @@
-<!--  -->
+<!-- 配置页面 page -->
 <template>
-  <el-container>
-    <el-header>
-      <Steps :steps="steps" v-model="active" />
-    </el-header>
-    <el-container>
-      <el-aside width="250px" v-if="active !== 3">
-        <Scrollbar :active="active" v-model="pageData" />
-      </el-aside>
-
-      <el-main>
-        <component
-          ref="component"
-          v-model="pageData"
-          :pageData="pageData"
-          :is="componentName(active)"
-          :active="active"
-        />
-      </el-main>
-    </el-container>
-  </el-container>
+  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
-
 <script lang="ts" setup>
-import Steps from "./components/steps.vue";
-import Scrollbar from "./components/scrollbar.vue";
-import Query from "./components/query.vue";
-import Table from "./components/table.vue";
-import EditForm from "./components/edit.vue";
-import View from "./components/view.vue";
-import JsonView from "./components/jsonView.vue";
-
-import { Monitor, DataLine, Picture, Edit } from "@element-plus/icons-vue";
-
-const component = ref();
 const pageData: any = ref({
-  tabIndex: "0",
-  form: [],
-  tables: [],
+  queryData: {},
+  editData: {},
 });
-
-const active: any = ref(0);
-
-const steps: any = ref([
-  {
-    title: "查询",
-    icon: markRaw(DataLine),
-    component: markRaw(Query),
-  },
-  {
-    title: "表格",
-    icon: markRaw(Monitor),
-    component: markRaw(Table),
-  },
-  {
-    title: "编辑框",
-    icon: markRaw(Edit),
-    component: markRaw(EditForm),
-  },
-  {
-    title: "查看JSON",
-    icon: markRaw(Picture),
-    component: markRaw(JsonView),
-  },
-  {
-    title: "浏览界面",
-    icon: markRaw(Picture),
-    component: markRaw(View),
-  },
-]);
-
-function componentName(active: number) {
-  return steps.value[active].component;
-}
+const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
+  usePage({
+    createLoad: true,
+    title: $t("page.page", "配置页面"),
+    formConfig: {
+      formParams: [
+        {
+          label: $t("page.menuId", "页面id"),
+          prop: "menuId",
+          type: "input",
+          span: 6,
+        },
+      ],
+    },
+    tableConfig: [
+      {
+        title: $t("page.page", "配置页面"),
+        tools: [
+          {
+            operation: "add",
+            permission: ["page.add"],
+            click() {
+              unref(pageRef).handleOpen({ type: "add", data: {} });
+            },
+          },
+          {
+            operation: "remove",
+            permission: ["page.remove"],
+            click() {
+              Service.page.remove(ids()).then((res: any) => {
+                removeSuccess(res);
+              });
+            },
+          },
+          {
+            operation: "import",
+            permission: ["page.import"],
+            api(files: any) {
+              return Service.page.imports(files).then(() => {
+                query();
+              });
+            },
+          },
+          {
+            operation: "export",
+            permission: ["page.export"],
+            api() {
+              return Service.page.exports(unref(pageData).queryData);
+            },
+            fileName: $t("page.page", "配置页面"),
+          },
+        ],
+        tableColumn: [
+          { type: "checkbox", width: 50, fixed: "left" },
+          {
+            title: $t("system.no", "序号"),
+            type: "seq",
+            width: 100,
+            fixed: "left",
+          },
+          {
+            title: $t("page.menuId", "页面id"),
+            field: "menuId",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("page.status", "状态"),
+            field: "status",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("page.remark", "备注"),
+            field: "remark",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("page.creator", "创建人"),
+            field: "creator",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("page.updater", "更新人"),
+            field: "updater",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("page.createTime", "创建时间"),
+            field: "createTime",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("page.updateTime", "更新时间"),
+            field: "updateTime",
+            isFilters: true,
+            width: 200,
+          },
+          {
+            title: $t("system.action", "操作"),
+            cType: "action",
+            fixed: "right",
+            width: 250,
+          },
+        ],
+        actions: [
+          {
+            operation: "edit",
+            permission: ["page.edit"],
+            click({ row }: any) {
+              Service.page.detail({ id: row.id }).then((res: any) => {
+                unref(pageRef).handleOpen({
+                  type: "edit",
+                  data: res.data,
+                });
+              });
+            },
+          },
+          {
+            operation: "detail",
+            permission: ["page.detail"],
+            click({ row }: any) {
+              Service.page.detail({ id: row.id }).then((res: any) => {
+                unref(pageRef).handleOpen({
+                  type: "detail",
+                  data: res.data,
+                });
+              });
+            },
+          },
+          {
+            operation: "remove",
+            permission: ["page.remove"],
+            click({ row }: any) {
+              Service.page.remove([row.id]).then((res: any) => {
+                removeSuccess(res);
+              });
+            },
+          },
+        ],
+        dialogConfig: {
+          width: "1500px",
+          formConfig: {
+            formParams: [
+              {
+                label: $t("page.menuId", "页面id"),
+                prop: "menuId",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("page.options", "页面配置"),
+                prop: "options",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("page.status", "状态"),
+                prop: "status",
+                type: "input",
+                span: 6,
+              },
+              {
+                label: $t("page.remark", "备注"),
+                prop: "remark",
+                type: "input",
+                span: 6,
+              },
+            ],
+          },
+          //提交
+          handleConfirm() {
+            Service.page.save(unref(pageData).editData).then((res: any) => {
+              submitSuccess(res);
+            });
+          },
+        },
+        query: (pages: any) => {
+          return Service.page.page({ ...pages }).then((res: any) => {
+            return res;
+          });
+        },
+      },
+    ],
+  });
 </script>
-
-<style lang="scss" scoped>
-.el-header {
-  padding: 0;
-}
-</style>
+<style lang="scss" scoped></style>

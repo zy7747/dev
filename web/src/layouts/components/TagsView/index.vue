@@ -46,13 +46,23 @@ const visitedViews: any = ref([
   },
   {
     icon: "哔哩哔哩",
-    path: "/test",
-    title: "测试",
+    path: "/role",
+    title: "角色",
+  },
+  {
+    icon: "哔哩哔哩",
+    path: "/user",
+    title: "用户",
   },
   {
     icon: "哔哩哔哩",
     path: "/dict",
     title: "字典",
+  },
+  {
+    icon: "哔哩哔哩",
+    path: "/menu",
+    title: "菜单",
   },
 ]);
 

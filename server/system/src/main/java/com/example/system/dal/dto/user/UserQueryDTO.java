@@ -1,6 +1,6 @@
 package com.example.system.dal.dto.user;
 
-import com.example.framework.dal.dto.PageQueryDTO;
+import com.example.framework.dal.dto.PageDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @ApiModel(value = "查询")
 @EqualsAndHashCode(callSuper = true)
-public class UserQueryDTO extends PageQueryDTO {
+public class UserQueryDTO extends PageDTO {
     /**
      * 用户id
      */

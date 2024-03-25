@@ -11,8 +11,7 @@ import com.example.system.dal.dto.dict.DictQueryDTO;
 import com.example.system.dal.entity.DictEntity;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Mapper
 public interface DictMapper extends BaseMapper<DictEntity> {
@@ -27,7 +26,7 @@ public interface DictMapper extends BaseMapper<DictEntity> {
         }
         /* 字典名称 */
         if (!StrUtil.hasBlank(dict.getDictName())) {
-            wrapper.eq("dict_name", dict.getDictName());
+            wrapper.like("dict_name", dict.getDictName());
         }
         /* 字典编码 */
         if (!StrUtil.hasBlank(dict.getDictCode())) {
@@ -155,5 +154,36 @@ public interface DictMapper extends BaseMapper<DictEntity> {
         wrapper.orderByAsc("sort");
 
         return selectList(wrapper);
+    }
+
+    default Object getDictMap() {
+        QueryWrapper<DictEntity> wrapper = new QueryWrapper<>();
+
+        wrapper.orderByAsc("sort");
+
+        //新建一个要返回的集合
+        Map<String, Object> dictMap = new HashMap<>();
+
+        //1.拿出所有集合
+        List<DictEntity> dictList = selectList(wrapper);
+
+        //便利所有集合
+        dictList.forEach(item -> {
+
+            if (item.getParentId() == null) {
+                List<DictEntity> subset = new ArrayList<>();
+
+                dictList.forEach(dictItem -> {
+                    if (item.getId().equals(dictItem.getParentId())) {
+                        dictItem.setDictType(item.getDictType());
+                        subset.add(dictItem);
+                    }
+                });
+
+                dictMap.put(item.getDictCode(), subset);
+            }
+        });
+
+        return dictMap;
     }
 }

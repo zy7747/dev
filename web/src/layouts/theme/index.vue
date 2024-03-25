@@ -65,4 +65,9 @@ const options = ref([
 ]);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.theme {
+  height: 50px;
+  width: 50px;
+}
+</style>

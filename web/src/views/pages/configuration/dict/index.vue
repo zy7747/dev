@@ -38,7 +38,8 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         {
           label: $t("dict.status", "状态"),
           prop: "status",
-          type: "input",
+          type: "select",
+          options: Dict("code"),
           span: 6,
         },
       ],
@@ -237,9 +238,11 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
         },
         query: (pages: any) => {
-          return Service.dict.page({ ...pages }).then((res: any) => {
-            return res;
-          });
+          return Service.dict
+            .page({ ...pages, ...pageData.queryData })
+            .then((res: any) => {
+              return res;
+            });
         },
       },
     ],

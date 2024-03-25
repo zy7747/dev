@@ -3,11 +3,13 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { getToken } from "./utils/auth";
 import { useUserStore } from "@/store/user";
+import { useDictStore } from "@/store/dict";
 
 const whiteList = ["/login", "/404", "/500"]; //白名单
 
 router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore();
+  const useDict = useDictStore();
   NProgress.start();
   const token = getToken(); //token
   const url = to.path; //跳转路径
@@ -20,6 +22,7 @@ router.beforeEach(async (to, _from, next) => {
   // 2. 已登录 不是登录页 -> 放行
   if (token && url !== "/login") {
     if (!userStore.userInfo.id) {
+      useDict.getDictMap();
       await userStore.getUserInfo();
       next({ ...to, replace: true });
     } else {

@@ -13,8 +13,6 @@ import systemTheme from "./config/systemTheme";
 
 import { useDraggable } from "@vueuse/core";
 
-// const { width, height } = useWindowSize();
-
 const theme = ref<HTMLElement | null>(null);
 
 const { style } = useDraggable(theme, {
@@ -37,19 +35,21 @@ function container(containerName: String) {
 const config = ref({ container: "" });
 
 function getConfig() {
-  setTimeout(() => {
-    config.value = unref(systemTheme);
-  }, 1500);
+  config.value = unref(systemTheme);
 }
 
 getConfig();
 </script>
 
-<style lang="scss" scoped>
-.theme {
-  top: 58px;
-  right: 0;
-  position: fixed;
-  z-index: 1000;
+<style lang="scss">
+.layouts {
+  width: 100vw;
+  height: 100vh;
+  .theme {
+    position: absolute;
+    top: 50% !important;
+    right: 0 !important;
+    z-index: 99;
+  }
 }
 </style>

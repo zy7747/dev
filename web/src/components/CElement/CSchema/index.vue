@@ -4,7 +4,7 @@
     <c-select
       v-if="type === 'select'"
       :placeholder="
-        $t('form.please select') + (item.label ? item.label : item.title)
+        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
       "
       :options="options"
       v-model="value"
@@ -25,7 +25,23 @@
     <c-input
       v-else-if="type === 'input'"
       :placeholder="
-        $t('form.please input') + (item.label ? item.label : item.title)
+        $t('form.please input') + ' ' + (item.label ? item.label : item.title)
+      "
+      v-model="value"
+      v-bind="params"
+    />
+    <c-number
+      v-else-if="type === 'number'"
+      :placeholder="
+        $t('form.please input') + ' ' + (item.label ? item.label : item.title)
+      "
+      v-model="value"
+      v-bind="params"
+    />
+    <c-treeSelect
+      v-else-if="type === 'treeSelect'"
+      :placeholder="
+        $t('form.please input') + ' ' + (item.label ? item.label : item.title)
       "
       v-model="value"
       v-bind="params"
