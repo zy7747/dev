@@ -1,4 +1,5 @@
 package com.example.system.service;
+
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.system.dal.dto.dict.DictQueryDTO;
@@ -8,10 +9,12 @@ import com.example.system.dal.vo.dict.DictDetailVO;
 import com.example.system.dal.vo.dict.DictListVO;
 import com.example.system.dal.vo.dict.DictPageVO;
 import org.springframework.validation.annotation.Validated;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+
 @Validated
 public interface DictService {
     /**
@@ -21,6 +24,7 @@ public interface DictService {
      * @return 列表分页
      */
     Result<PageList<DictPageVO>> dictPage(DictQueryDTO dict);
+
     /**
      * 获取列表
      *
@@ -28,6 +32,7 @@ public interface DictService {
      * @return 列表
      */
     Result<List<DictListVO>> dictList(DictQueryDTO dict);
+
     /**
      * 获取详情
      *
@@ -35,6 +40,7 @@ public interface DictService {
      * @return 详情
      */
     Result<DictDetailVO> dictDetail(Long id);
+
     /**
      * 新增/修改
      *
@@ -42,6 +48,7 @@ public interface DictService {
      * @return 新增/修改后数据
      */
     Result<DictEntity> dictSave(DictSaveDTO dict);
+
     /**
      * 批量新增/修改
      *
@@ -49,10 +56,19 @@ public interface DictService {
      * @return 新增/修改后数据
      */
     Result<List<DictEntity>> dictSaveList(@Valid List<DictSaveDTO> dict);
+
     /**
      * 导出
      *
      * @param response,dict 入参
      */
     void dictExport(HttpServletResponse response, DictQueryDTO dict) throws IOException;
+
+    /**
+     * 获取子列表
+     *
+     * @param dict 入参
+     * @return 子列表
+     */
+    Result<List<DictEntity>> getSubList(DictQueryDTO dict);
 }

@@ -2,6 +2,7 @@ package com.example.system.dal.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.framework.dal.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class DictEntity extends BaseEntity {
     /**
      * 父节点id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)//雪花算法丢失精度问题
     @ApiModelProperty(value = "父节点id")
     private Long parentId;
     /**

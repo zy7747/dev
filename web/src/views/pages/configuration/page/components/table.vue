@@ -60,18 +60,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      rules: [
-        {
-          type: "date",
-          required: true,
-          message: "Please pick a date",
-          trigger: "change",
-        },
-      ],
-      form: {
-        type: "input",
-        params: {},
-      },
     },
     {
       title: "字段值", //字段值
@@ -79,18 +67,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      rules: [
-        {
-          type: "date",
-          required: true,
-          message: "Please pick a date",
-          trigger: "change",
-        },
-      ],
-      form: {
-        type: "input",
-        params: {},
-      },
     },
     {
       title: "类型", //字段值
@@ -98,18 +74,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      rules: [
-        {
-          type: "date",
-          required: true,
-          message: "Please pick a date",
-          trigger: "change",
-        },
-      ],
-      form: {
-        type: "select",
-        params: {},
-      },
     },
     {
       title: "值集", //值集
@@ -117,10 +81,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      form: {
-        type: "select",
-        params: {},
-      },
     },
     {
       title: "是否需要校验必填", //是否需要校验必填
@@ -128,10 +88,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      form: {
-        type: "select",
-        params: {},
-      },
     },
     {
       title: "是否需要筛选", //是否需要筛选
@@ -139,10 +95,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      form: {
-        type: "select",
-        params: {},
-      },
     },
     {
       title: "是否需要排序", //是否需要排序
@@ -150,10 +102,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      form: {
-        type: "select",
-        params: {},
-      },
     },
     {
       title: "表格栏位宽度", //基本宽度
@@ -161,10 +109,6 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
-      form: {
-        type: "input",
-        params: {},
-      },
     },
     {
       title: "操作",

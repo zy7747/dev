@@ -8,6 +8,9 @@
     resize
     show-footer
     remember
+    :mask="false"
+    destroy-on-close
+    esc-closable
   >
     <template #corner>
       <vxe-icon name="minus" class="close"></vxe-icon>

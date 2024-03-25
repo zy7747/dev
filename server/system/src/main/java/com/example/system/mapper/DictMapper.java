@@ -25,11 +25,6 @@ public interface DictMapper extends BaseMapper<DictEntity> {
         if (dict.getId() != null) {
             wrapper.eq("id", dict.getId());
         }
-        /* 父节点id */
-        if (dict.getParentId() != null) {
-            wrapper.eq("parent_id", dict.getParentId());
-        }
-
         /* 字典名称 */
         if (!StrUtil.hasBlank(dict.getDictName())) {
             wrapper.eq("dict_name", dict.getDictName());
@@ -83,6 +78,8 @@ public interface DictMapper extends BaseMapper<DictEntity> {
             wrapper.eq("update_time", dict.getUpdateTime());
         }
         wrapper.orderByDesc("create_time");
+
+        wrapper.isNull("parent_id");
         return wrapper;
     }
 
@@ -100,6 +97,7 @@ public interface DictMapper extends BaseMapper<DictEntity> {
         return Result.success(dictList);
     }
 
+
     /**
      * 唯一性校验
      */
@@ -112,13 +110,13 @@ public interface DictMapper extends BaseMapper<DictEntity> {
             if (!StrUtil.hasBlank(dict.getDictName()) && Objects.equals(dict.getDictName(), item.getDictName())) {
                 return Result.fail("字典名称已被注册");
             }
-            if (!StrUtil.hasBlank(dict.getDictCode()) && Objects.equals(dict.getDictCode(), item.getDictCode())) {
+            if (!StrUtil.hasBlank(dict.getDictCode()) && dict.getParentId() != null && Objects.equals(dict.getDictCode(), item.getDictCode())) {
                 return Result.fail("字典编码已被注册");
             }
-            if (!StrUtil.hasBlank(dict.getLabel()) && Objects.equals(dict.getLabel(), item.getLabel())) {
+            if (!StrUtil.hasBlank(dict.getLabel()) && Objects.equals(dict.getDictCode(), item.getDictCode()) && Objects.equals(dict.getLabel(), item.getLabel())) {
                 return Result.fail("名已被注册");
             }
-            if (!StrUtil.hasBlank(dict.getValue()) && Objects.equals(dict.getValue(), item.getValue())) {
+            if (!StrUtil.hasBlank(dict.getValue()) && Objects.equals(dict.getDictCode(), item.getDictCode()) && Objects.equals(dict.getValue(), item.getValue())) {
                 return Result.fail("值已被注册");
             }
         }
@@ -138,5 +136,24 @@ public interface DictMapper extends BaseMapper<DictEntity> {
      */
     default List<DictEntity> queryList(DictQueryDTO dict) {
         return selectList(search(dict));
+    }
+
+    /**
+     * 子列表查询
+     */
+    default List<DictEntity> getSubList(DictQueryDTO dict) {
+        QueryWrapper<DictEntity> wrapper = new QueryWrapper<>();
+        //1.直接通过PID去找
+        if (dict.getParentId() != null) {
+            wrapper.eq("parent_id", dict.getParentId());
+        }
+        //2.根据CODE去找
+        if (dict.getDictCode() != null) {
+            wrapper.eq("dict_code", dict.getDictCode());
+        }
+
+        wrapper.orderByAsc("sort");
+
+        return selectList(wrapper);
     }
 }

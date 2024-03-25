@@ -2,6 +2,7 @@
 <template>
   <vxe-grid
     ref="xGrid"
+    keep-source
     :columns="tableColumn"
     :data="tableData"
     v-bind="options"
@@ -16,6 +17,7 @@
 
     <template #tableEdit="{ row, column }: any">
       <c-schema
+        :item="column"
         :type="column.params.form.type"
         :params="column.params.form.params"
         v-model="row[column.field]"
@@ -117,9 +119,12 @@ const addLine = async (row: any) => {
 
   if ($grid) {
     if ($grid.isEditByRow(null)) {
-      const { row: newRow } = await $grid.insertAt(row, null);
+      const { row: newRow } = await $grid.insertAt(
+        { ...row, isAdd: true },
+        null
+      );
 
-      tableConfig.data.push(newRow);
+      tableConfig.data.unshift(newRow);
 
       await $grid.setEditRow(newRow);
     } else {

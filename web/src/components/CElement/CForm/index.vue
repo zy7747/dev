@@ -15,6 +15,7 @@
       >
         <el-form-item :label="item.label" :prop="item.prop">
           <c-schema
+            :item="item"
             :type="item.type"
             :options="item.options"
             :params="item.params"

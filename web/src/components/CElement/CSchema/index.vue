@@ -3,6 +3,9 @@
   <div style="width: 100%">
     <c-select
       v-if="type === 'select'"
+      :placeholder="
+        $t('form.please select') + (item.label ? item.label : item.title)
+      "
       :options="options"
       v-model="value"
       v-bind="params"
@@ -19,7 +22,14 @@
       v-model="value"
       v-bind="params"
     />
-    <c-input v-else-if="type === 'input'" v-model="value" v-bind="params" />
+    <c-input
+      v-else-if="type === 'input'"
+      :placeholder="
+        $t('form.please input') + (item.label ? item.label : item.title)
+      "
+      v-model="value"
+      v-bind="params"
+    />
   </div>
 </template>
 
@@ -41,7 +51,14 @@ defineProps({
   },
   params: {
     text: "属性",
-    type: [Array, Object, Function],
+    type: [Array, Object, Function] as any,
+    default: () => {
+      return {};
+    },
+  },
+  item: {
+    text: "表单信息",
+    type: [Array, Object, Function] as any,
     default: () => {
       return {};
     },

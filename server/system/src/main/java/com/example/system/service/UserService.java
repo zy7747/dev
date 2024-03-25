@@ -78,8 +78,7 @@ public interface UserService {
     /**
      * 通过token获取用户信息
      *
-     * @param loginSystem 登录系统
-     * @param token
+     * @param loginSystem,token 登录系统
      * @return 用户信息
      */
     Result<UserInfoVO> userInfo(String loginSystem, String token);

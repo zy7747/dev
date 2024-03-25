@@ -1,10 +1,15 @@
 package com.example.system.dal.vo.dict;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.example.system.dal.entity.DictEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @ApiModel(value = "详情")
@@ -13,6 +18,7 @@ public class DictDetailVO extends BaseParamsVO {
     /**
      * 父节点id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)//雪花算法丢失精度问题
     @ApiModelProperty(value = "父节点id")
     private Long parentId;
     /**
@@ -55,4 +61,10 @@ public class DictDetailVO extends BaseParamsVO {
      */
     @ApiModelProperty(value = "其他参数")
     private String params;
+
+    /**
+     * 字典子集
+     */
+    @ApiModelProperty(value = "字典子集")
+    private List<DictEntity> dictList;
 }

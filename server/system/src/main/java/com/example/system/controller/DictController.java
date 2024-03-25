@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -70,7 +71,18 @@ public class DictController {
 
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除")
-    public Result<Object> dictDelete(@RequestBody List<String> ids) {
+    public Result<Object> dictDelete(@RequestBody List<Long> ids) {
+        //查找子集并删除
+        ids.forEach((id) -> {
+            DictQueryDTO dict = new DictQueryDTO();
+            dict.setParentId(id);
+            List<DictEntity> dictList = dictMapper.getSubList(dict);
+
+            if (dictList.size() > 0) {
+                List<Long> idList = dictList.stream().map(DictEntity::getId).collect(Collectors.toList());
+                dictMapper.deleteBatchIds(idList);
+            }
+        });
         dictMapper.deleteBatchIds(ids);
         return Result.success("删除成功");
     }
@@ -86,5 +98,11 @@ public class DictController {
     @ApiOperation(value = "导出")
     public void dictExport(HttpServletResponse response, DictQueryDTO dict) throws IOException {
         dictService.dictExport(response, dict);
+    }
+
+    @GetMapping("/getSubList")
+    @ApiOperation(value = "获取子列表")
+    public Result<List<DictEntity>> getSubList(@Valid DictQueryDTO dict) {
+        return dictService.getSubList(dict);
     }
 }

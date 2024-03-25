@@ -8,7 +8,7 @@
           :text="$t('system.save')"
           type="primary"
           :icon="CircleCheckFilled"
-          @click="saveRowEvent()"
+          @click="saveRowEvent(row)"
         />
 
         <c-button
@@ -16,7 +16,7 @@
           :text="$t('system.cancel')"
           type="info"
           :icon="CircleCloseFilled"
-          @click="clearRowEvent()"
+          @click="clearRowEvent(row)"
         />
       </template>
 
@@ -29,7 +29,10 @@
           @click="editRowEvent(row)"
         />
 
-        <el-popconfirm title="是否删除数据?" @confirm="removeRowEvent(row)">
+        <el-popconfirm
+          title="是否删除数据?"
+          @confirm="removeRowEvent(row, item.remove)"
+        >
           <template #reference>
             <c-button
               :text="$t('system.delete')"
@@ -134,29 +137,55 @@ const hasActiveEditRow = (row: any) => {
 //编辑
 const editRowEvent = (row: any) => {
   const $grid = xGrid;
-  if ($grid) {
-    $grid.setEditRow(row);
+
+  const isEdit = unref(tableData).every((item: any) => {
+    return !hasActiveEditRow(item);
+  });
+
+  if (!isEdit) {
+    ElMessage({
+      message: "请先保存数据再编辑",
+      type: "warning",
+      showClose: true,
+      grouping: true,
+    });
+  } else {
+    if ($grid) {
+      $grid.setEditRow(row);
+    }
   }
 };
 
 //取消
-const clearRowEvent = () => {
+const clearRowEvent = (row: any) => {
   const $grid = xGrid;
   if ($grid) {
+    if (row.isAdd) {
+      removeRowEvent(row);
+    }
+    $grid.revertData(row);
     $grid.clearEdit();
   }
 };
 
 //保存
-const saveRowEvent = async () => {
+const saveRowEvent = async (row: any) => {
   const $grid = xGrid;
   if ($grid) {
+    if (row.isAdd) {
+      delete row.isAdd;
+    }
     $grid.clearEdit();
   }
 };
 
 //删除
-const removeRowEvent = async (row: any) => {
+const removeRowEvent = async (row: any, remove?: any) => {
+  if (row.id) {
+    remove(row.id);
+    return;
+  }
+
   const $grid = xGrid;
   if ($grid) {
     const index = tableData.value.findIndex(

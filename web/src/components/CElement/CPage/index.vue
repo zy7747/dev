@@ -59,6 +59,8 @@
               />
             </template>
           </Collapse>
+
+          <slot :name="dialogSlot(index)" />
         </template>
       </c-dialog>
     </template>
@@ -70,6 +72,8 @@ import { Refresh, Search } from "@element-plus/icons-vue";
 
 import { template } from "lodash";
 
+const pageData: any = defineModel("pageData");
+
 const formRef: any = ref<any>();
 const tableRef: any = ref<any>([]);
 const dialogRef: any = ref<any>([]);
@@ -78,16 +82,10 @@ const editRef: any = ref<any>([]);
 const active: any = ref<any>(0);
 const isDetail: any = ref<any>();
 const dialogTitle: Ref<string> = ref<string>("");
+// const slots = useSlots();
 
-const { pageData, pageOption } = defineProps({
+const { pageOption } = defineProps({
   pageOption: {
-    text: "页面配置",
-    type: [Object],
-    default: () => {
-      return {};
-    },
-  },
-  pageData: {
     text: "页面配置",
     type: [Object],
     default: () => {
@@ -96,13 +94,17 @@ const { pageData, pageOption } = defineProps({
   },
 });
 
+function dialogSlot(index: number) {
+  return "dialog" + index;
+}
+
 //查询
 function query() {
   unref(formRef)
     .submitForm()
     .then((res: any) => {
       if (res) {
-        if (tableRef.value) {
+        if (unref(tableRef)[unref(active)]) {
           unref(tableRef)[unref(active)].query();
         }
       }
@@ -126,8 +128,8 @@ function handleOpen({ type, data }: any) {
     }
     isDetail.value = false;
   }
+  unref(pageData).editData = data;
 
-  pageData.editData = data;
   unref(dialogRef)[unref(active)].handleOpen();
 }
 function handleClose() {

@@ -1,4 +1,5 @@
 package com.example.system.service.impl;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
@@ -15,15 +16,18 @@ import com.example.system.dal.vo.dict.DictPageVO;
 import com.example.system.service.DictService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
 @Slf4j
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> implements DictService {
     @Resource
     DictMapper dictMapper;
+
     /**
      * 获取列表分页
      *
@@ -34,6 +38,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
     public Result<PageList<DictPageVO>> dictPage(DictQueryDTO dict) {
         return Result.success(DictConvert.INSTANCE.page(dictMapper.queryPage(dict)));
     }
+
     /**
      * 获取列表
      *
@@ -44,6 +49,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
     public Result<List<DictListVO>> dictList(DictQueryDTO dict) {
         return Result.success(DictConvert.INSTANCE.list(dictMapper.queryList(dict)));
     }
+
     /**
      * 获取详情
      *
@@ -52,8 +58,19 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
      */
     @Override
     public Result<DictDetailVO> dictDetail(Long id) {
-        return Result.success(DictConvert.INSTANCE.detail(dictMapper.selectById(id)));
+        DictQueryDTO dict = new DictQueryDTO();
+
+        dict.setParentId(id);
+
+        List<DictEntity> dictList = dictMapper.getSubList(dict);
+
+        DictDetailVO dictDetail = DictConvert.INSTANCE.detail(dictMapper.selectById(id));
+
+        dictDetail.setDictList(dictList);
+
+        return Result.success(dictDetail);
     }
+
     /**
      * 新增/修改
      *
@@ -72,6 +89,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
             return valid;
         }
     }
+
     /**
      * 批量新增/修改
      *
@@ -89,6 +107,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
             return valid;
         }
     }
+
     /**
      * 导出
      *
@@ -97,5 +116,18 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
     @Override
     public void dictExport(HttpServletResponse response, DictQueryDTO dict) throws IOException {
         ExcelUtils.export(response, "字典.xlsx", "字典", DictExportVO.class, DictConvert.INSTANCE.export(dictMapper.queryList(dict)));
+    }
+
+    /**
+     * 获取子列表
+     *
+     * @param dict 入参
+     * @return 子列表
+     */
+    @Override
+    public Result<List<DictEntity>> getSubList(DictQueryDTO dict) {
+        List<DictEntity> dictList = dictMapper.getSubList(dict);
+
+        return Result.success(dictList);
     }
 }

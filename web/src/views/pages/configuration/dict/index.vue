@@ -1,12 +1,22 @@
 <!-- 字典 dict -->
 <template>
-  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
+  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
+    <template #dialog0>
+      <Collapse title="表格" v-if="pageData.editData.id">
+        <template #content>
+          <c-table ref="tableRef" :tableConfig="tableConfig" />
+        </template>
+      </Collapse>
+    </template>
+  </c-page>
 </template>
 <script lang="ts" setup>
-const pageData: any = ref({
+const pageData: any = reactive({
   queryData: {},
   editData: {},
+  dictList: [],
 });
+
 const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
   usePage({
     createLoad: true,
@@ -41,6 +51,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             operation: "add",
             permission: ["dict.add"],
             click() {
+              pageData.dictList.splice(0);
               unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
@@ -66,7 +77,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             operation: "export",
             permission: ["dict.export"],
             api() {
-              return Service.dict.exports(unref(pageData).queryData);
+              return Service.dict.exports(pageData.queryData);
             },
             fileName: $t("dict.dict", "字典"),
           },
@@ -98,44 +109,8 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             width: 200,
           },
           {
-            title: $t("dict.label", "名"),
-            field: "label",
-            isFilters: true,
-            width: 200,
-          },
-          {
-            title: $t("dict.value", "值"),
-            field: "value",
-            isFilters: true,
-            width: 200,
-          },
-          {
-            title: $t("dict.color", "自定义颜色"),
-            field: "color",
-            isFilters: true,
-            width: 200,
-          },
-          {
-            title: $t("dict.sort", "排序"),
-            field: "sort",
-            isFilters: true,
-            width: 200,
-          },
-          {
-            title: $t("dict.params", "其他参数"),
-            field: "params",
-            isFilters: true,
-            width: 200,
-          },
-          {
             title: $t("dict.status", "状态"),
             field: "status",
-            isFilters: true,
-            width: 200,
-          },
-          {
-            title: $t("dict.remark", "备注"),
-            field: "remark",
             isFilters: true,
             width: 200,
           },
@@ -176,6 +151,11 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             permission: ["dict.edit"],
             click({ row }: any) {
               Service.dict.detail({ id: row.id }).then((res: any) => {
+                pageData.dictList.splice(0);
+                nextTick(() => {
+                  pageData.dictList.push(...res.data.dictList);
+                });
+
                 unref(pageRef).handleOpen({
                   type: "edit",
                   data: res.data,
@@ -233,19 +213,27 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 type: "input",
                 span: 6,
               },
-              {
-                label: $t("dict.remark", "备注"),
-                prop: "remark",
-                type: "input",
-                span: 6,
-              },
             ],
           },
           //提交
           handleConfirm() {
-            Service.dict.save(unref(pageData).editData).then((res: any) => {
-              submitSuccess(res);
-            });
+            let dictList = [];
+
+            if (pageData.dictList.length) {
+              dictList = pageData.dictList.map((item: any) => {
+                return {
+                  ...item,
+                  parentId: pageData.editData.id,
+                  code: pageData.editData.code,
+                };
+              });
+            }
+
+            Service.dict
+              .saveList([pageData.editData, ...dictList])
+              .then((res: any) => {
+                submitSuccess(res);
+              });
           },
         },
         query: (pages: any) => {
@@ -256,5 +244,105 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
       },
     ],
   });
+
+const { tableConfig, tableRef } = useTable({
+  tools: [
+    {
+      operation: "add",
+      click() {
+        unref(tableRef).addLine();
+      },
+    },
+    {
+      operation: "remove",
+      click() {},
+    },
+  ],
+  tableColumn: [
+    { type: "checkbox", width: 50, fixed: "left" },
+    {
+      title: $t("system.no", "序号"),
+      type: "seq",
+      width: 100,
+      fixed: "left",
+    },
+    {
+      title: $t("dict.label", "名"),
+      field: "label",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "input",
+      },
+    },
+    {
+      title: $t("dict.value", "值"),
+      field: "value",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "input",
+      },
+    },
+    {
+      title: $t("dict.color", "自定义颜色"),
+      field: "color",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "input",
+      },
+    },
+    {
+      title: $t("dict.sort", "排序"),
+      field: "sort",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "input",
+      },
+    },
+    {
+      title: $t("dict.params", "其他参数"),
+      field: "params",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "input",
+      },
+    },
+    {
+      title: $t("dict.status", "状态"),
+      field: "status",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "input",
+      },
+    },
+    {
+      title: "操作",
+      cType: "action",
+      fixed: "right",
+      width: 250,
+    },
+  ],
+  actions: [
+    {
+      operation: "operate",
+      remove(id: string) {
+        Service.dict.remove([id]).then(() => {
+          Service.dict.detail({ id: pageData.editData.id }).then((res: any) => {
+            pageData.dictList.splice(0);
+            nextTick(() => {
+              pageData.dictList.push(...res.data.dictList);
+            });
+          });
+        });
+      },
+    },
+  ],
+  data: pageData.dictList,
+});
 </script>
 <style lang="scss" scoped></style>
