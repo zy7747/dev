@@ -36,16 +36,19 @@ export default ({ mode }: any) =>
             "@/plugins/download": [["default", "Download"]],
           },
           {
-            "@/plugins/service": [["default", "Service"]],
+            "@/plugins/service": [["default", "Service"]], //api
           },
           {
-            "@/language/index": [["default", "$t"]],
+            "@/language/index": [["default", "$t"]], //翻译
           },
           {
-            "@/dict": [["Dict", "Dict"]],
+            "@/dict": [
+              ["Dict", "Dict"],
+              ["DictService", "DictService"],
+            ], //字典
           },
           {
-            "@/hooks/usePage": [["default", "usePage"]],
+            "@/hooks/usePage": [["default", "usePage"]], //Hook
           },
           {
             "@/hooks/useTable": [["default", "useTable"]],

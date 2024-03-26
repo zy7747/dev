@@ -9,7 +9,11 @@ import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.entity.UserEntity;
+import com.example.system.dal.entity.UserRoleEntity;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Objects;
@@ -151,4 +155,14 @@ public interface UserMapper extends BaseMapper<UserEntity> {
     default List<UserEntity> queryList(UserQueryDTO user) {
         return selectList(search(user));
     }
+
+
+    @Select("SELECT * FROM user_role WHERE user_id = #{userId}")
+    List<UserRoleEntity> selectUserRole(Long userId);
+
+    @Delete("DELETE FROM user_role WHERE user_id = #{userId}")
+    void deleteUserRole(Long userId);
+
+    @Insert("INSERT INTO user_role(user_id, role_id) VALUES (#{userId}, #{roleId})")
+    void insertUserRole(Long userId, Long roleId);
 }

@@ -42,34 +42,36 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         tools: [
           {
             operation: "add",
-            permission: ["menu.add"],
+            permission: ["configuration:menu:add"],
             click() {
               unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
           {
             operation: "remove",
-            permission: ["menu.remove"],
+            permission: ["configuration:menu:remove"],
             click() {
-              Service.menu.remove(ids()).then((res: any) => {
+              Service.configuration.menu.remove(ids()).then((res: any) => {
                 removeSuccess(res);
               });
             },
           },
           {
             operation: "import",
-            permission: ["menu.import"],
+            permission: ["configuration:menu:import"],
             api(files: any) {
-              return Service.menu.imports(files).then(() => {
+              return Service.configuration.menu.imports(files).then(() => {
                 query();
               });
             },
           },
           {
             operation: "export",
-            permission: ["menu.export"],
+            permission: ["configuration:menu:export"],
             api() {
-              return Service.menu.exports(unref(pageData).queryData);
+              return Service.configuration.menu.exports(
+                unref(pageData).queryData
+              );
             },
             fileName: $t("menu.menu", "菜单"),
           },
@@ -213,33 +215,37 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         actions: [
           {
             operation: "edit",
-            permission: ["menu.edit"],
+            permission: ["configuration:menu:edit"],
             click({ row }: any) {
-              Service.menu.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "edit",
-                  data: res.data,
+              Service.configuration.menu
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "edit",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "detail",
-            permission: ["menu.detail"],
+            permission: ["configuration:menu:detail"],
             click({ row }: any) {
-              Service.menu.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "detail",
-                  data: res.data,
+              Service.configuration.menu
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "detail",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "remove",
-            permission: ["menu.remove"],
+            permission: ["configuration:menu:remove"],
             click({ row }: any) {
-              Service.menu.remove([row.id]).then((res: any) => {
+              Service.configuration.menu.remove([row.id]).then((res: any) => {
                 removeSuccess(res);
               });
             },
@@ -341,13 +347,15 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
           //提交
           handleConfirm() {
-            Service.menu.save(unref(pageData).editData).then((res: any) => {
-              submitSuccess(res);
-            });
+            Service.configuration.menu
+              .save(unref(pageData).editData)
+              .then((res: any) => {
+                submitSuccess(res);
+              });
           },
         },
         list: () => {
-          return Service.menu.list().then((res: any) => {
+          return Service.configuration.menu.list().then((res: any) => {
             const list = res.data.map((item: any) => {
               return { ...item, label: item.title, value: item.id };
             });

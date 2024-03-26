@@ -55,30 +55,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           type: "input",
           span: 6,
         },
-        {
-          label: $t("user.creator", "创建人"),
-          prop: "creator",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.updater", "更新人"),
-          prop: "updater",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.createTime", "创建时间"),
-          prop: "createTime",
-          type: "input",
-          span: 6,
-        },
-        {
-          label: $t("user.updateTime", "更新时间"),
-          prop: "updateTime",
-          type: "input",
-          span: 6,
-        },
       ],
     },
     tableConfig: [

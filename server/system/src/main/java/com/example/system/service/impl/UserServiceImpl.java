@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -36,6 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      */
     @Override
     public Result<PageList<UserPageVO>> userPage(UserQueryDTO user) {
+
         return Result.success(UserConvert.INSTANCE.page(userMapper.queryPage(user)));
     }
 
@@ -58,7 +60,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
      */
     @Override
     public Result<UserDetailVO> userDetail(Long id) {
-        return Result.success(UserConvert.INSTANCE.detail(userMapper.selectById(id)));
+        ArrayList<Long> roles = new ArrayList<>();
+
+        userMapper.selectUserRole(id).forEach(item -> roles.add(item.getRoleId()));
+
+        UserDetailVO user = UserConvert.INSTANCE.detail(userMapper.selectById(id));
+        user.setRoles(roles);
+
+        return Result.success(user);
     }
 
     /**
@@ -70,10 +79,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
     @Override
     public Result<UserEntity> userSave(UserSaveDTO user) {
         UserEntity userData = UserConvert.INSTANCE.save(user);
+
         List<UserEntity> userList = userMapper.queryList(new UserQueryDTO());
+
         Result<UserEntity> valid = userMapper.onlyValid(userData, userList);
+
         if (valid.getCode() == 200) {
             this.saveOrUpdate(userData);
+
+            if (user.getRoles() != null && user.getRoles().size() > 0) {
+                //先删除所有user下的角色
+                userMapper.deleteUserRole(userData.getId());
+                //循环角色列表
+                for (Long role : user.getRoles()) {
+                    //将角色数据塞进去
+                    userMapper.insertUserRole(userData.getId(), role);
+                }
+            }
             return Result.success(userData);
         } else {
             return valid;

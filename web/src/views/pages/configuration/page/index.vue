@@ -27,34 +27,36 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         tools: [
           {
             operation: "add",
-            permission: ["page.add"],
+            permission: ["configuration:page:add"],
             click() {
               unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
           {
             operation: "remove",
-            permission: ["page.remove"],
+            permission: ["configuration:page:remove"],
             click() {
-              Service.page.remove(ids()).then((res: any) => {
+              Service.configuration.page.remove(ids()).then((res: any) => {
                 removeSuccess(res);
               });
             },
           },
           {
             operation: "import",
-            permission: ["page.import"],
+            permission: ["configuration:page:import"],
             api(files: any) {
-              return Service.page.imports(files).then(() => {
+              return Service.configuration.page.imports(files).then(() => {
                 query();
               });
             },
           },
           {
             operation: "export",
-            permission: ["page.export"],
+            permission: ["configuration:page:export"],
             api() {
-              return Service.page.exports(unref(pageData).queryData);
+              return Service.configuration.page.exports(
+                unref(pageData).queryData
+              );
             },
             fileName: $t("page.page", "配置页面"),
           },
@@ -119,33 +121,37 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         actions: [
           {
             operation: "edit",
-            permission: ["page.edit"],
+            permission: ["configuration:page:edit"],
             click({ row }: any) {
-              Service.page.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "edit",
-                  data: res.data,
+              Service.configuration.page
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "edit",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "detail",
-            permission: ["page.detail"],
+            permission: ["configuration:page:detail"],
             click({ row }: any) {
-              Service.page.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "detail",
-                  data: res.data,
+              Service.configuration.page
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "detail",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "remove",
-            permission: ["page.remove"],
+            permission: ["configuration:page:remove"],
             click({ row }: any) {
-              Service.page.remove([row.id]).then((res: any) => {
+              Service.configuration.page.remove([row.id]).then((res: any) => {
                 removeSuccess(res);
               });
             },
@@ -183,15 +189,19 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
           //提交
           handleConfirm() {
-            Service.page.save(unref(pageData).editData).then((res: any) => {
-              submitSuccess(res);
-            });
+            Service.configuration.page
+              .save(unref(pageData).editData)
+              .then((res: any) => {
+                submitSuccess(res);
+              });
           },
         },
         query: (pages: any) => {
-          return Service.page.page({ ...pages }).then((res: any) => {
-            return res;
-          });
+          return Service.configuration.page
+            .page({ ...pages })
+            .then((res: any) => {
+              return res;
+            });
         },
       },
     ],

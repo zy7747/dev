@@ -68,8 +68,10 @@ public class UserController {
 
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除")
-    public Result<Object> userDelete(@RequestBody List<String> ids) {
+    public Result<Object> userDelete(@RequestBody List<Long> ids) {
         userMapper.deleteBatchIds(ids);
+
+        ids.forEach(id -> userMapper.deleteUserRole(id));
         return Result.success("删除成功");
     }
 

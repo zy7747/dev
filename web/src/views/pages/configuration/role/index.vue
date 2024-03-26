@@ -39,34 +39,36 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         tools: [
           {
             operation: "add",
-            permission: ["role.add"],
+            permission: ["configuration:role:add"],
             click() {
               unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
           {
             operation: "remove",
-            permission: ["role.remove"],
+            permission: ["configuration:role:remove"],
             click() {
-              Service.role.remove(ids()).then((res: any) => {
+              Service.configuration.role.remove(ids()).then((res: any) => {
                 removeSuccess(res);
               });
             },
           },
           {
             operation: "import",
-            permission: ["role.import"],
+            permission: ["configuration:role:import"],
             api(files: any) {
-              return Service.role.imports(files).then(() => {
+              return Service.configuration.role.imports(files).then(() => {
                 query();
               });
             },
           },
           {
             operation: "export",
-            permission: ["role.export"],
+            permission: ["configuration:role:export"],
             api() {
-              return Service.role.exports(unref(pageData).queryData);
+              return Service.configuration.role.exports(
+                unref(pageData).queryData
+              );
             },
             fileName: $t("role.role", "角色"),
           },
@@ -79,7 +81,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             width: 100,
             fixed: "left",
           },
-
           {
             title: $t("role.roleName", "角色名称"),
             field: "roleName",
@@ -138,33 +139,37 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         actions: [
           {
             operation: "edit",
-            permission: ["role.edit"],
+            permission: ["configuration:role:edit"],
             click({ row }: any) {
-              Service.role.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "edit",
-                  data: res.data,
+              Service.configuration.role
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "edit",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "detail",
-            permission: ["role.detail"],
+            permission: ["configuration:role:detail"],
             click({ row }: any) {
-              Service.role.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "detail",
-                  data: res.data,
+              Service.configuration.role
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "detail",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "remove",
-            permission: ["role.remove"],
+            permission: ["configuration:role:remove"],
             click({ row }: any) {
-              Service.role.remove([row.id]).then((res: any) => {
+              Service.configuration.role.remove([row.id]).then((res: any) => {
                 removeSuccess(res);
               });
             },
@@ -202,15 +207,19 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
           //提交
           handleConfirm() {
-            Service.role.save(unref(pageData).editData).then((res: any) => {
-              submitSuccess(res);
-            });
+            Service.configuration.role
+              .save(unref(pageData).editData)
+              .then((res: any) => {
+                submitSuccess(res);
+              });
           },
         },
         query: (pages: any) => {
-          return Service.role.page({ ...pages }).then((res: any) => {
-            return res;
-          });
+          return Service.configuration.role
+            .page({ ...pages })
+            .then((res: any) => {
+              return res;
+            });
         },
       },
     ],

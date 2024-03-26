@@ -50,7 +50,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         tools: [
           {
             operation: "add",
-            permission: ["dict.add"],
+            permission: ["configuration:dict:add"],
             click() {
               pageData.dictList.splice(0);
               unref(pageRef).handleOpen({ type: "add", data: {} });
@@ -58,27 +58,27 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
           {
             operation: "remove",
-            permission: ["dict.remove"],
+            permission: ["configuration:dict:remove"],
             click() {
-              Service.dict.remove(ids()).then((res: any) => {
+              Service.configuration.dict.remove(ids()).then((res: any) => {
                 removeSuccess(res);
               });
             },
           },
           {
             operation: "import",
-            permission: ["dict.import"],
+            permission: ["configuration:dict:import"],
             api(files: any) {
-              return Service.dict.imports(files).then(() => {
+              return Service.configuration.dict.imports(files).then(() => {
                 query();
               });
             },
           },
           {
             operation: "export",
-            permission: ["dict.export"],
+            permission: ["configuration:dict:export"],
             api() {
-              return Service.dict.exports(pageData.queryData);
+              return Service.configuration.dict.exports(pageData.queryData);
             },
             fileName: $t("dict.dict", "字典"),
           },
@@ -149,38 +149,42 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         actions: [
           {
             operation: "edit",
-            permission: ["dict.edit"],
+            permission: ["configuration:dict:edit"],
             click({ row }: any) {
-              Service.dict.detail({ id: row.id }).then((res: any) => {
-                pageData.dictList.splice(0);
-                nextTick(() => {
-                  pageData.dictList.push(...res.data.dictList);
-                });
+              Service.configuration.dict
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  pageData.dictList.splice(0);
+                  nextTick(() => {
+                    pageData.dictList.push(...res.data.dictList);
+                  });
 
-                unref(pageRef).handleOpen({
-                  type: "edit",
-                  data: res.data,
+                  unref(pageRef).handleOpen({
+                    type: "edit",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "detail",
-            permission: ["dict.detail"],
+            permission: ["configuration:dict:detail"],
             click({ row }: any) {
-              Service.dict.detail({ id: row.id }).then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "detail",
-                  data: res.data,
+              Service.configuration.dict
+                .detail({ id: row.id })
+                .then((res: any) => {
+                  unref(pageRef).handleOpen({
+                    type: "detail",
+                    data: res.data,
+                  });
                 });
-              });
             },
           },
           {
             operation: "remove",
-            permission: ["dict.remove"],
+            permission: ["configuration:dict:remove"],
             click({ row }: any) {
-              Service.dict.remove([row.id]).then((res: any) => {
+              Service.configuration.dict.remove([row.id]).then((res: any) => {
                 removeSuccess(res);
               });
             },
@@ -230,7 +234,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
               });
             }
 
-            Service.dict
+            Service.configuration.dict
               .saveList([pageData.editData, ...dictList])
               .then((res: any) => {
                 submitSuccess(res);
@@ -238,7 +242,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
         },
         query: (pages: any) => {
-          return Service.dict
+          return Service.configuration.dict
             .page({ ...pages, ...pageData.queryData })
             .then((res: any) => {
               return res;
@@ -334,13 +338,15 @@ const { tableConfig, tableRef } = useTable({
     {
       operation: "operate",
       remove(id: string) {
-        Service.dict.remove([id]).then(() => {
-          Service.dict.detail({ id: pageData.editData.id }).then((res: any) => {
-            pageData.dictList.splice(0);
-            nextTick(() => {
-              pageData.dictList.push(...res.data.dictList);
+        Service.configuration.dict.remove([id]).then(() => {
+          Service.configuration.dict
+            .detail({ id: pageData.editData.id })
+            .then((res: any) => {
+              pageData.dictList.splice(0);
+              nextTick(() => {
+                pageData.dictList.push(...res.data.dictList);
+              });
             });
-          });
         });
       },
     },

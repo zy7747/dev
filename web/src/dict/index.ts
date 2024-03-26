@@ -1,5 +1,8 @@
 import { useDictStore } from "@/store/dict";
-import lodash from "lodash";
+
+const service = import.meta.glob(["@/dict/service/**.ts"], {
+  eager: true,
+});
 
 const useDict = useDictStore();
 
@@ -10,4 +13,9 @@ export function Dict(dictCode: string) {
   const dict = dictMap[dictCode] ? dictMap[dictCode] : [];
 
   return dict;
+}
+
+export function DictService(dictCode: string) {
+  //获取字典
+  console.log(dictCode, service);
 }

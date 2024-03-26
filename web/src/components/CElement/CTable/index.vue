@@ -6,6 +6,7 @@
     :columns="tableColumn"
     :data="tableData"
     v-bind="options"
+    :loading="loading"
   >
     <template #toolbar_buttons>
       <Tools :tools="tableConfig.tools" />
@@ -56,7 +57,7 @@ const paginationRef = ref();
 const xGrid = ref<VxeGridInstance<any>>();
 
 const total: Ref<number> = ref(0);
-const loading: Ref<boolean> = ref(false);
+const loading: any = ref(false);
 
 const { tableConfig } = defineProps({
   tableConfig: {
@@ -156,9 +157,8 @@ function checkRadioData() {
 //查询
 function query() {
   if (tableConfig.query) {
+    loading.value = true;
     nextTick(() => {
-      loading.value = true;
-
       const page = unref(paginationRef).page;
       const size = unref(paginationRef).size;
 
@@ -191,7 +191,6 @@ const gridOptions = reactive<VxeGridProps<any>>({
   round: true,
   size: "small",
   height: 500,
-  loading: loading.value,
   align: "center",
   keepSource: true,
   id: `${Route.fullPath}/${tableConfig.title}`, //缓存列状态
@@ -221,7 +220,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
   printConfig: {
     columns: tableConfig.columns,
   },
-  loadingConfig: { icon: "vxe-icon-indicator roll", text: "正在拼命加载中..." },
+  loadingConfig: { icon: "vxe-icon-send roll", text: "正在拼命加载中..." },
   checkboxConfig: {
     reserve: true,
     highlight: true,

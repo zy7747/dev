@@ -9,7 +9,7 @@ export const useDictStore = defineStore({
   },
   actions: {
     getDictMap() {
-      return Service.dict.dictMap().then((response: any) => {
+      return Service.configuration.dict.dictMap().then((response: any) => {
         if (response.code === 200) {
           this.dictMap = response.data;
         }
