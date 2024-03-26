@@ -3,7 +3,6 @@
   <el-tree-select
     v-model="value"
     :data="options"
-    show-checkbox
     v-bind="$attrs"
     :placeholder="placeholder"
     :filterable="filterable"
@@ -50,6 +49,7 @@ defineProps({
 });
 
 const value: any = defineModel();
+
 const options: any = defineModel("options");
 </script>
 

@@ -188,7 +188,6 @@ function query() {
 //基本配置
 const gridOptions = reactive<VxeGridProps<any>>({
   border: true,
-  stripe: true,
   round: true,
   size: "small",
   height: 500,
@@ -226,8 +225,6 @@ const gridOptions = reactive<VxeGridProps<any>>({
   checkboxConfig: {
     reserve: true,
     highlight: true,
-    range: true,
-    isShiftKey: true,
   },
   toolbarConfig: {
     slots: {

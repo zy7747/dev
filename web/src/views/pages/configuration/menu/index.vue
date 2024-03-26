@@ -3,10 +3,14 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
+import { handleTree } from "@/utils/formatData";
+
 const pageData: any = ref({
   queryData: {},
   editData: {},
 });
+
+const menuTree: any = ref([]);
 const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
   usePage({
     createLoad: true,
@@ -256,13 +260,17 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 label: $t("menu.parentId", "父节点id"),
                 prop: "parentId",
                 type: "treeSelect",
-                options: Dict("menu_type"),
+                params: {
+                  "check-strictly": true,
+                },
+                options: menuTree.value,
                 span: 12,
               },
               {
                 label: $t("menu.icon", "图标"),
                 prop: "icon",
-                type: "input",
+                type: "icon",
+                options: "app",
                 span: 12,
               },
               {
@@ -340,6 +348,14 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
         },
         list: () => {
           return Service.menu.list().then((res: any) => {
+            const list = res.data.map((item: any) => {
+              return { ...item, label: item.title, value: item.id };
+            });
+
+            menuTree.value.splice(0);
+
+            menuTree.value.push(...handleTree(list));
+
             return res;
           });
         },

@@ -41,8 +41,18 @@
     <c-treeSelect
       v-else-if="type === 'treeSelect'"
       :placeholder="
-        $t('form.please input') + ' ' + (item.label ? item.label : item.title)
+        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
       "
+      :options="options"
+      v-model="value"
+      v-bind="params"
+    />
+    <IconSelect
+      v-else-if="type === 'icon'"
+      :placeholder="
+        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
+      "
+      :options="options"
       v-model="value"
       v-bind="params"
     />
@@ -60,7 +70,7 @@ defineProps({
   },
   options: {
     text: "选项列表",
-    type: [Array, Object, Function],
+    type: [Array, Object, Function, String],
     default: () => {
       return [];
     },
