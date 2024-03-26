@@ -2,7 +2,7 @@
 <template>
   <el-select-v2
     v-model="value"
-    :options="options"
+    :options="option"
     v-bind="$attrs"
     :placeholder="placeholder"
     :filterable="filterable"
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+const { options } = defineProps({
   size: {
     text: "下拉框大小",
     type: [String] as any,
@@ -46,10 +46,24 @@ defineProps({
       return "请选择";
     },
   },
+  options: {
+    text: "选项列表",
+    type: [Array, Object, Function, String] as any,
+    default: () => {
+      return [];
+    },
+  },
 });
 
 const value: any = defineModel();
-const options: any = defineModel("options");
+
+const option = computed(() => {
+  if (typeof options === "function") {
+    return options();
+  } else if (typeof options === "object") {
+    return options;
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

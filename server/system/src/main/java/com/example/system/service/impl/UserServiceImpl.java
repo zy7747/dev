@@ -9,8 +9,13 @@ import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
+import com.example.system.dal.entity.MenuEntity;
+import com.example.system.dal.entity.RoleEntity;
 import com.example.system.dal.entity.UserEntity;
+import com.example.system.dal.entity.UserRoleEntity;
 import com.example.system.dal.vo.user.*;
+import com.example.system.mapper.MenuMapper;
+import com.example.system.mapper.RoleMapper;
 import com.example.system.mapper.UserMapper;
 import com.example.system.service.UserService;
 import com.example.system.utils.JwtUtil;
@@ -28,6 +33,12 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
     @Resource
     UserMapper userMapper;
+
+    @Resource
+    RoleMapper roleMapper;
+
+    @Resource
+    MenuMapper menuMapper;
 
     /**
      * 获取列表分页
@@ -173,7 +184,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         userInfoVo.setToken(token);
         //5.注入用户基础信息
         userInfoVo.setUserInfo(UserConvert.INSTANCE.UserBaseInfoVO(userInfo));
+        //6.获取角色
+        List<RoleEntity> roles = userMapper.selectRole(userInfo.getId());
+        userInfoVo.setRoles(roles);
+        //7.获取角色对应菜单
+        roles.forEach(role -> {
+            List<MenuEntity> menuList = new ArrayList<>();
 
+            List<MenuEntity> menus = userMapper.selectMenu(role.getId());
+            
+            userInfoVo.setMenuList(menus);
+        });
         return Result.success(userInfoVo);
     }
 }

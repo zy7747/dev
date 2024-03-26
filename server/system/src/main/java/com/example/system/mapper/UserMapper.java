@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.system.dal.dto.user.UserQueryDTO;
+import com.example.system.dal.entity.MenuEntity;
+import com.example.system.dal.entity.RoleEntity;
 import com.example.system.dal.entity.UserEntity;
 import com.example.system.dal.entity.UserRoleEntity;
 import org.apache.ibatis.annotations.Delete;
@@ -159,6 +161,12 @@ public interface UserMapper extends BaseMapper<UserEntity> {
 
     @Select("SELECT * FROM user_role WHERE user_id = #{userId}")
     List<UserRoleEntity> selectUserRole(Long userId);
+
+    @Select("SELECT * FROM role JOIN user_role ur on role.id = ur.role_id WHERE user_id = #{userId}")
+    List<RoleEntity> selectRole(Long userId);
+
+    @Select("SELECT * FROM menu JOIN role_menu rm on menu.id = rm.menu_id WHERE role_id = #{roleId}")
+    List<MenuEntity> selectMenu(Long roleId);
 
     @Delete("DELETE FROM user_role WHERE user_id = #{userId}")
     void deleteUserRole(Long userId);

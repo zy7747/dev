@@ -51,6 +51,9 @@ export default ({ mode }: any) =>
             "@/hooks/usePage": [["default", "usePage"]], //Hook
           },
           {
+            "@/hooks/useDict": [["default", "useDict"]], //Hook
+          },
+          {
             "@/hooks/useTable": [["default", "useTable"]],
           },
         ],

@@ -20,6 +20,7 @@ import CPage from "./CElement/CPage/index.vue";
 import CCarousel from "./CElement/CCarousel/index.vue";
 import CSchema from "./CElement/CSchema/index.vue";
 import CTabs from "./CElement/CTabs/index.vue";
+import CTree from "./CElement/CTree/index.vue";
 
 function setupComponents(app: any) {
   app.component("SvgIcon", SvgIcon);
@@ -40,6 +41,7 @@ function setupComponents(app: any) {
   app.component("CTabs", CTabs);
 
   app.component("CTable", CTable);
+  app.component("CTree", CTree);
   app.component("CPage", CPage);
   app.component("CGrid", CGrid);
   app.component("CSchema", CSchema);

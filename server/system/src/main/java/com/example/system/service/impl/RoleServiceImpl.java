@@ -1,13 +1,16 @@
 package com.example.system.service.impl;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
 import com.example.system.convert.RoleConvert;
+import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.role.RoleQueryDTO;
 import com.example.system.dal.dto.role.RoleSaveDTO;
 import com.example.system.dal.entity.RoleEntity;
 import com.example.system.dal.vo.role.RoleExportVO;
+import com.example.system.dal.vo.user.UserDetailVO;
 import com.example.system.mapper.RoleMapper;
 import com.example.system.dal.vo.role.RoleDetailVO;
 import com.example.system.dal.vo.role.RoleListVO;
@@ -15,15 +18,19 @@ import com.example.system.dal.vo.role.RolePageVO;
 import com.example.system.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> implements RoleService {
     @Resource
     RoleMapper roleMapper;
+
     /**
      * 获取列表分页
      *
@@ -34,6 +41,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
     public Result<PageList<RolePageVO>> rolePage(RoleQueryDTO role) {
         return Result.success(RoleConvert.INSTANCE.page(roleMapper.queryPage(role)));
     }
+
     /**
      * 获取列表
      *
@@ -44,6 +52,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
     public Result<List<RoleListVO>> roleList(RoleQueryDTO role) {
         return Result.success(RoleConvert.INSTANCE.list(roleMapper.queryList(role)));
     }
+
     /**
      * 获取详情
      *
@@ -52,8 +61,19 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
      */
     @Override
     public Result<RoleDetailVO> roleDetail(Long id) {
-        return Result.success(RoleConvert.INSTANCE.detail(roleMapper.selectById(id)));
+
+        ArrayList<Long> menus = new ArrayList<>();
+
+        roleMapper.selectRoleMenu(id).forEach(item -> menus.add(item.getMenuId()));
+
+        RoleDetailVO roles = RoleConvert.INSTANCE.detail(roleMapper.selectById(id));
+
+        roles.setMenus(menus);
+
+        return Result.success(roles);
+
     }
+
     /**
      * 新增/修改
      *
@@ -67,11 +87,23 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
         Result<RoleEntity> valid = roleMapper.onlyValid(roleData, roleList);
         if (valid.getCode() == 200) {
             this.saveOrUpdate(roleData);
+
+            if (role.getMenus() != null && role.getMenus().size() > 0) {
+                //先删除所有user下的角色
+                roleMapper.deleteRoleMenu(roleData.getId());
+                //循环角色列表
+                for (Long menu : role.getMenus()) {
+                    //将角色数据塞进去
+                    roleMapper.insertRoleMenu(roleData.getId(), menu);
+                }
+            }
+
             return Result.success(roleData);
         } else {
             return valid;
         }
     }
+
     /**
      * 批量新增/修改
      *
@@ -89,6 +121,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impleme
             return valid;
         }
     }
+
     /**
      * 导出
      *

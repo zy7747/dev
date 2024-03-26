@@ -14,7 +14,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-26T11:27:13+0800",
+    date = "2024-03-26T16:39:46+0800",
     comments = "version: 1.5.0.Final, compiler: javac, environment: Java 11.0.17 (Amazon.com Inc.)"
 )
 public class UserConvertImpl implements UserConvert {

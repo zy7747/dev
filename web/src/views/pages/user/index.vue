@@ -7,6 +7,11 @@ const pageData: any = ref({
   queryData: {},
   editData: {},
 });
+
+const { dict } = useDict({
+  roles: DictService("roles"),
+});
+
 const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
   usePage({
     createLoad: true,
@@ -272,6 +277,16 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 label: $t("user.userType", "类型"),
                 prop: "userType",
                 type: "input",
+                span: 6,
+              },
+              {
+                label: "角色",
+                prop: "roles",
+                type: "select",
+                options: () => dict.roles,
+                params: {
+                  multiple: true,
+                },
                 span: 6,
               },
               {

@@ -9,7 +9,12 @@ import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.system.dal.dto.role.RoleQueryDTO;
 import com.example.system.dal.entity.RoleEntity;
+import com.example.system.dal.entity.RoleMenuEntity;
+import com.example.system.dal.entity.UserRoleEntity;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Objects;
@@ -105,4 +110,13 @@ public interface RoleMapper extends BaseMapper<RoleEntity> {
     default List<RoleEntity> queryList(RoleQueryDTO role) {
         return selectList(search(role));
     }
+
+    @Select("SELECT * FROM role_menu WHERE role_id = #{roleId}")
+    List<RoleMenuEntity> selectRoleMenu(Long roleId);
+
+    @Delete("DELETE FROM role_menu WHERE role_id = #{roleId}")
+    void deleteRoleMenu(Long roleId);
+
+    @Insert("INSERT INTO role_menu(role_id, menu_id) VALUES (#{userId}, #{menuId})")
+    void insertRoleMenu(Long userId, Long menuId);
 }

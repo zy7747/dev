@@ -1,12 +1,26 @@
 <!-- 角色 role -->
 <template>
-  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
+  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
+    <template #dialog0>
+      <Collapse title="树" v-if="pageData.editData.id">
+        <template #content>
+          <CTree :options="dict.menus" v-model="pageData.editData.menus" />
+        </template>
+      </Collapse>
+    </template>
+  </c-page>
 </template>
+
 <script lang="ts" setup>
-const pageData: any = ref({
+const pageData: any = reactive({
   queryData: {},
   editData: {},
 });
+
+const { dict } = useDict({
+  menus: DictService("menusTree"),
+});
+
 const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
   usePage({
     createLoad: true,
