@@ -11,7 +11,7 @@
     </template>
   </el-sub-menu>
 
-  <el-menu-item v-else :persistent="false">
+  <el-menu-item v-else :persistent="false" :index="menu.id">
     <svg-icon name="app-哔哩哔哩" class="icon" />
     <template #title>
       <el-text class="primary">{{ menu.title }}</el-text>

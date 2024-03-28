@@ -30,7 +30,7 @@
             :limit="1"
             :show-file-list="false"
             :before-upload="handleImport"
-            :http-request="(params):any => httpRequest(params, item)"
+            :http-request="(params:any):any => httpRequest(params, item)"
           >
             <c-button
               v-bind="item"

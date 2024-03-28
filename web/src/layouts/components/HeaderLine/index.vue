@@ -28,10 +28,6 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.headerLine {
-  overflow: hidden;
-}
-
 .tools {
   padding-right: 15px;
 }

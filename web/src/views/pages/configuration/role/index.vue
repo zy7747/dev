@@ -12,6 +12,9 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({
+  name: "Role",
+});
 const pageData: any = reactive({
   queryData: {},
   editData: {},

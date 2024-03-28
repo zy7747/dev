@@ -10,7 +10,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from "@/store/user";
 import MenuItem from "./Item.vue";
+
+const userStore = useUserStore();
 
 const prop = defineProps({
   backgroundColor: {
@@ -28,7 +31,9 @@ const prop = defineProps({
   },
 });
 
-const list: any = [];
+const list: any = computed(() => {
+  return userStore.menu;
+});
 
 const asWidth = computed(() => {
   return prop.width + "px";

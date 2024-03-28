@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="flex justify-between tagsView">
+  <div class="flex justify-between tabs">
     <div class="flex tags">
       <router-link
         v-for="tag in visitedViews"
@@ -11,7 +11,7 @@
       >
         <svg-icon :name="`app-${tag.icon}`" class="icon" />
         {{ tag.title }}
-        <span class="el-icon-close" />
+        <span class="el-icon-close" @click="removeTab(tag)" />
       </router-link>
     </div>
 
@@ -31,48 +31,33 @@
 
 <script lang="ts" setup>
 import { ArrowDownBold, Tools, Refresh } from "@element-plus/icons-vue";
-const Route = useRoute();
+import { useTabStore } from "@/store/tabs";
 
-const visitedViews: any = ref([
-  {
-    icon: "哔哩哔哩",
-    path: "/dashboard",
-    title: "system首页",
-  },
-  {
-    icon: "哔哩哔哩",
-    path: "/page",
-    title: "配置页面",
-  },
-  {
-    icon: "哔哩哔哩",
-    path: "/role",
-    title: "角色",
-  },
-  {
-    icon: "哔哩哔哩",
-    path: "/user",
-    title: "用户",
-  },
-  {
-    icon: "哔哩哔哩",
-    path: "/dict",
-    title: "字典",
-  },
-  {
-    icon: "哔哩哔哩",
-    path: "/menu",
-    title: "菜单",
-  },
-]);
+const Route = useRoute();
+const useTab = useTabStore();
+
+const visitedViews: any = ref([]);
 
 function isActive(route: any) {
   return route.path === Route.path;
 }
+
+function removeTab(route: any) {
+  useTab.removeTab(route);
+}
+
+watch(
+  Route,
+  (route) => {
+    useTab.addTab(route);
+    visitedViews.value = useTab.visitedViews;
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
-.tagsView {
+.tabs {
   border: 1px solid #ecebeb;
   .tag {
     overflow: hidden;
@@ -111,5 +96,9 @@ function isActive(route: any) {
       color: #245fd4;
     }
   }
+}
+
+.active {
+  background-color: pink;
 }
 </style>

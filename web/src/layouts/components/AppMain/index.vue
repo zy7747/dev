@@ -7,12 +7,25 @@
       :font="font"
       :gap="[150, 150]"
     >
-      <RouterView />
+      <RouterView v-slot="{ Component, route }">
+        <transition name="el-fade-in-linear">
+          <keep-alive :include="include" :max="10">
+            <component :is="Component" :key="route.fullPath" />
+          </keep-alive>
+        </transition>
+      </RouterView>
     </el-watermark>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useTabStore } from "@/store/tabs";
+const useTab = useTabStore();
+
+const include = computed(() => {
+  return useTab.keepViews;
+});
+
 const font = ref({
   fontWeight: 10,
   fontSize: 16,

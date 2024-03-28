@@ -11,6 +11,10 @@
   </c-page>
 </template>
 <script lang="ts" setup>
+defineOptions({
+  name: "Dict",
+});
+
 const pageData: any = reactive({
   queryData: {},
   editData: {},

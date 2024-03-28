@@ -23,7 +23,7 @@
 
       <el-main>
         <Breadcrumb v-if="theme.breadcrumb" />
-        <TagsView v-if="theme.tagsView" />
+        <Tabs v-if="theme.tabs" />
         <AppMain />
       </el-main>
     </el-container>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { AppMain, Logo, HeaderLine, Breadcrumb, TagsView } from "../components";
+import { AppMain, Logo, HeaderLine, Breadcrumb, Tabs } from "../components";
 
 defineProps({
   theme: {

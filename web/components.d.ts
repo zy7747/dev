@@ -90,6 +90,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     Tools: typeof import('./src/components/Tools/index.vue')['default']
+    UploadFile: typeof import('./src/components/UploadFile/index.vue')['default']
     Video: typeof import('./src/components/Player/video.vue')['default']
   }
 }

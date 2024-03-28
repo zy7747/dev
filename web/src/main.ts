@@ -18,8 +18,6 @@ import "@/styles/index.scss";
 import "virtual:windi.css";
 //svg
 import "virtual:svg-icons-register";
-//utils
-import "@/utils";
 //permission
 import "@/permission";
 //plugins

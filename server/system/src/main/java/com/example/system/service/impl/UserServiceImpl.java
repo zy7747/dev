@@ -6,16 +6,15 @@ import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
 import com.example.system.convert.UserConvert;
+import com.example.system.dal.dto.menu.MenuQueryDTO;
 import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.MenuEntity;
 import com.example.system.dal.entity.RoleEntity;
 import com.example.system.dal.entity.UserEntity;
-import com.example.system.dal.entity.UserRoleEntity;
 import com.example.system.dal.vo.user.*;
 import com.example.system.mapper.MenuMapper;
-import com.example.system.mapper.RoleMapper;
 import com.example.system.mapper.UserMapper;
 import com.example.system.service.UserService;
 import com.example.system.utils.JwtUtil;
@@ -26,16 +25,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
     @Resource
     UserMapper userMapper;
-
-    @Resource
-    RoleMapper roleMapper;
 
     @Resource
     MenuMapper menuMapper;
@@ -167,6 +165,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         }
     }
 
+    //向上查找
+    public void findMenu(List<MenuEntity> menuList, Long id, List<MenuEntity> menus) {
+        for (MenuEntity menu : menuList) {
+            if (id.equals(menu.getId())) {
+                menus.add(menu);
+                if (menu.getParentId() != null) {
+                    findMenu(menuList, menu.getParentId(), menus);
+                }
+            }
+        }
+    }
+
     /**
      * 通过token获取用户信息
      *
@@ -184,17 +194,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         userInfoVo.setToken(token);
         //5.注入用户基础信息
         userInfoVo.setUserInfo(UserConvert.INSTANCE.UserBaseInfoVO(userInfo));
-        //6.获取角色
+        //6.通过userId获取角色
         List<RoleEntity> roles = userMapper.selectRole(userInfo.getId());
         userInfoVo.setRoles(roles);
         //7.获取角色对应菜单
-        roles.forEach(role -> {
-            List<MenuEntity> menuList = new ArrayList<>();
+        List<MenuEntity> menus = new ArrayList<>();
+        List<MenuEntity> menuList = menuMapper.queryList(new MenuQueryDTO());
+        //向上查找
+        roles.forEach(role -> userMapper.selectMenu(role.getId()).forEach(menuItem -> findMenu(menuList, menuItem.getId(), menus)));
+        //多角色菜单去重
+        List<MenuEntity> menu = menus.stream()
+                .distinct()
+                .sorted(Comparator.comparing(MenuEntity::getId))
+                .collect(Collectors.toList());
 
-            List<MenuEntity> menus = userMapper.selectMenu(role.getId());
-            
-            userInfoVo.setMenuList(menus);
-        });
+        userInfoVo.setMenuList(menu);
+
         return Result.success(userInfoVo);
     }
 }

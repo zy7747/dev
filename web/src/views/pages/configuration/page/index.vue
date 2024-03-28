@@ -3,6 +3,9 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
+defineOptions({
+  name: "Page",
+});
 const pageData: any = ref({
   queryData: {},
   editData: {},

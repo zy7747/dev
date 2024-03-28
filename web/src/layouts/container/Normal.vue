@@ -9,11 +9,11 @@
         }"
       >
         <Logo
-          :theme="theme"
           :hasTitle="true"
           :collapse="true"
           :width="theme.asideWidth"
           :height="theme.headerHeight"
+          :theme="theme"
         />
         <HeaderLine
           :width="theme.asideWidth"
@@ -34,7 +34,7 @@
 
         <el-main>
           <Breadcrumb class="breadcrumb" v-if="theme.breadcrumb" />
-          <TagsView class="tagsView" v-if="theme.tagsView" />
+          <Tabs class="tabs" v-if="theme.tabs" />
           <AppMain class="app-main" />
         </el-main>
       </el-container>
@@ -46,7 +46,7 @@
 import {
   AppMain,
   Breadcrumb,
-  TagsView,
+  Tabs,
   Sidebar,
   HeaderLine,
   Logo,
@@ -72,7 +72,7 @@ defineProps({
 .el-main {
   position: relative;
   padding: 0;
-  .tagsView {
+  .tabs {
     width: 100%;
     z-index: 1;
     position: absolute;

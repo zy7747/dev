@@ -4,7 +4,7 @@ const data = ref({
   headerBackgroundColor: "#d9e0ee",
   asideBackgroundColor: "#d9e0ee",
   breadcrumb: false,
-  tagsView: true,
+  tabs: true,
   headerHeight: 60,
   asideWidth: 200,
   collapse: true,

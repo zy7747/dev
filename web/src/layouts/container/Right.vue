@@ -33,7 +33,7 @@
         </el-header>
         <el-main>
           <Breadcrumb v-if="theme.breadcrumb" />
-          <TagsView v-if="theme.tagsView" />
+          <Tabs v-if="theme.tabs" />
           <AppMain />
         </el-main>
       </el-container>
@@ -48,7 +48,7 @@ import {
   HeaderLine,
   Sidebar,
   Breadcrumb,
-  TagsView,
+  Tabs,
 } from "../components";
 
 const prop = defineProps({

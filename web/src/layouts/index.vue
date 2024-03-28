@@ -1,23 +1,14 @@
-<!--  -->
+<!-- layouts -->
 <template>
-  <div class="layouts">
-    <Theme ref="theme" :style="style" class="theme" v-model.theme="config" />
-    <component :is="container(config.container)" :theme="config" />
-  </div>
+  <Theme v-model="config" />
+  <component :is="container(config.container)" :theme="config" />
 </template>
 
 <script lang="ts" setup>
-import Theme from "./theme/index.vue";
 import { Normal, Left, Right, Top } from "./container";
 import systemTheme from "./config/systemTheme";
-
-import { useDraggable } from "@vueuse/core";
-
-const theme = ref<HTMLElement | null>(null);
-
-const { style } = useDraggable(theme, {
-  initialValue: { x: 0, y: 0 },
-});
+import Theme from "./theme/index.vue";
+const config = ref();
 
 function container(containerName: String) {
   switch (containerName) {
@@ -32,24 +23,16 @@ function container(containerName: String) {
   }
 }
 
-const config = ref({ container: "" });
-
 function getConfig() {
-  config.value = unref(systemTheme);
+  const layout = localStorage.getItem("theme");
+  if (layout) {
+    config.value = JSON.parse(layout);
+  } else {
+    config.value = JSON.parse(JSON.stringify(unref(systemTheme)));
+  }
 }
 
 getConfig();
 </script>
 
-<style lang="scss">
-.layouts {
-  width: 100vw;
-  height: 100vh;
-  .theme {
-    position: absolute;
-    top: 50% !important;
-    right: 0 !important;
-    z-index: 99;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

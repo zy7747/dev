@@ -8,9 +8,9 @@ import { useDictStore } from "@/store/dict";
 const whiteList = ["/login", "/404", "/500"]; //白名单
 
 router.beforeEach(async (to, _from, next) => {
+  NProgress.start();
   const userStore = useUserStore();
   const useDict = useDictStore();
-  NProgress.start();
   const token = getToken(); //token
   const url = to.path; //跳转路径
 
@@ -22,8 +22,15 @@ router.beforeEach(async (to, _from, next) => {
   // 2. 已登录 不是登录页 -> 放行
   if (token && url !== "/login") {
     if (!userStore.userInfo.id) {
+      //字典
       useDict.getDictMap();
+      //用户信息
       await userStore.getUserInfo();
+      //路由
+      userStore.asyncRoutes.forEach((item: any) => {
+        router.addRoute(item);
+      });
+
       next({ ...to, replace: true });
     } else {
       next();

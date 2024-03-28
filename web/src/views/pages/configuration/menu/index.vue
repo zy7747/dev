@@ -3,6 +3,9 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
+defineOptions({
+  name: "Menu",
+});
 import { handleTree } from "@/utils/formatData";
 
 const pageData: any = ref({

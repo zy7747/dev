@@ -7,7 +7,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import Icons from "unplugin-icons/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-
+import VueDevTools from "vite-plugin-vue-devtools";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { resolve } from "path";
 
@@ -19,6 +19,7 @@ export default ({ mode }: any) =>
   defineConfig({
     base: "/system/",
     plugins: [
+      VueDevTools(),
       vue(),
       WindiCSS(),
       svgLoader(),

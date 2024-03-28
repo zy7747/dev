@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+target
 dist-ssr
 *.local
 
@@ -17,6 +18,7 @@ dist-ssr
 web/node_modules
 web/.vscode
 web/.dist
+service/booting/.target
 !.vscode/extensions.json
 .idea
 depend
@@ -26,3 +28,18 @@ depend
 *.njsproj
 *.sln
 *.sw?
+server/booting/target/booting-2.7.12.jar
+server/booting/target/booting-2.7.12.jar.original
+server/system/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+server/booting/target/maven-archiver/pom.properties
+server/booting/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+server/booting/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+server/dependencies/target/dependencies-2.7.12.jar
+server/dependencies/target/maven-archiver/pom.properties
+server/framework/target/framework-2.7.12.jar
+server/framework/target/maven-archiver/pom.properties
+server/framework/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+server/framework/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+server/system/target/system-2.7.12.jar
+server/system/target/maven-archiver/pom.properties
+server/system/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
