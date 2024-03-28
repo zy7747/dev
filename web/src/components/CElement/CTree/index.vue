@@ -13,7 +13,7 @@
     v-bind="$attrs"
     :data="option"
     :filter-method="filterMethod"
-    :default-checked-keys="checked"
+    :default-checked-keys="defaultChecked"
     @check="getCheckedKeys"
     show-checkbox
     :height="208"
@@ -24,8 +24,12 @@
 import type { TreeNode } from "element-plus/es/components/tree-v2/src/types";
 
 const treeRef = ref();
-// const checked = ref();
-const checked: any = defineModel();
+//选中与半选的和
+const data: any = defineModel();
+//选中
+const checked: any = ref([]);
+//半选
+const halfChecked: any = ref([]);
 const query = ref("");
 
 const { options } = defineProps({
@@ -60,8 +64,42 @@ const option = computed(() => {
   }
 });
 
+//默认选中
+const defaultChecked: any = ref([]);
+
+function findDefaultChecked(tree: any, list: any) {
+  tree.forEach((p: any) => {
+    if (!p.children && unref(data).includes(p.id)) {
+      list.push(p.id);
+    }
+
+    if (p.children) {
+      findDefaultChecked(p.children, list);
+    }
+  });
+}
+
+watch(
+  option,
+  (tree) => {
+    const list: any = [];
+
+    findDefaultChecked(tree, list);
+
+    defaultChecked.value = list;
+  },
+  { immediate: true }
+);
+
 const getCheckedKeys = () => {
-  checked.value = JSON.parse(JSON.stringify(unref(treeRef).getCheckedKeys()));
+  data.value = [
+    ...unref(treeRef).getCheckedKeys(),
+    ...unref(treeRef).getHalfCheckedKeys(),
+  ];
+
+  checked.value = unref(treeRef).getCheckedKeys();
+
+  halfChecked.value = unref(treeRef).getHalfCheckedKeys();
 };
 
 const onQueryChanged = (query: string) => {

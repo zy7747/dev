@@ -9,11 +9,6 @@ const routeModuleList: any = [
     redirect: "/dashboard",
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: () => import("@/views/pages/dashboard/index.vue"),
-  },
-  {
     path: "/login",
     name: "login",
     component: () => import("@/views/system/login/index.vue"),

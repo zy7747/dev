@@ -165,14 +165,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         }
     }
 
-    //向上查找
-    public void findMenu(List<MenuEntity> menuList, Long id, List<MenuEntity> menus) {
-        for (MenuEntity menu : menuList) {
-            if (id.equals(menu.getId())) {
-                menus.add(menu);
-                if (menu.getParentId() != null) {
-                    findMenu(menuList, menu.getParentId(), menus);
+    /**
+     * 向下查找菜单下所有子菜单并判断用户是否拥有
+     *
+     * @param menus      总菜单入参
+     * @param pid        父级菜单ID
+     * @param systemMenu 需要处理的菜单
+     */
+    public void getTree(List<MenuEntity> menus, List<MenuEntity> roleMenu, List<MenuEntity> systemMenu, Long pid) {
+        for (MenuEntity menu : menus) {
+            //  向下查找
+            if (pid.equals(menu.getParentId())) {
+                //如果在角色菜单中找到一条PID === 该ID或者ID===id的加入列表
+                List<MenuEntity> hasMenu = roleMenu.stream().filter(i -> pid.equals(i.getId()) || pid.equals(i.getParentId())).collect(Collectors.toList());
+                //如果有
+                if (hasMenu.size() > 0) {
+                    systemMenu.add(menu);
+                    getTree(menus, roleMenu, systemMenu, menu.getId());
                 }
+
             }
         }
     }
@@ -198,17 +209,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         List<RoleEntity> roles = userMapper.selectRole(userInfo.getId());
         userInfoVo.setRoles(roles);
         //7.获取角色对应菜单
-        List<MenuEntity> menus = new ArrayList<>();
+
+        //7.1全部菜单
         List<MenuEntity> menuList = menuMapper.queryList(new MenuQueryDTO());
-        //向上查找
-        roles.forEach(role -> userMapper.selectMenu(role.getId()).forEach(menuItem -> findMenu(menuList, menuItem.getId(), menus)));
-        //多角色菜单去重
-        List<MenuEntity> menu = menus.stream()
+        //7.2获取多用户拥有的所有菜单
+        List<MenuEntity> roleMenu = new ArrayList<>();
+        roles.forEach(role -> roleMenu.addAll(userMapper.selectMenu(role.getId())));
+        //需要返回的菜单去重
+        List<MenuEntity> menuRes = roleMenu.stream()
                 .distinct()
                 .sorted(Comparator.comparing(MenuEntity::getId))
                 .collect(Collectors.toList());
 
-        userInfoVo.setMenuList(menu);
+        userInfoVo.setMenuList(menuRes);
 
         return Result.success(userInfoVo);
     }

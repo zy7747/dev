@@ -7,6 +7,7 @@ import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
+import com.example.system.dal.entity.MenuEntity;
 import com.example.system.dal.entity.UserEntity;
 import com.example.system.dal.vo.user.*;
 import com.example.system.mapper.UserMapper;
@@ -64,6 +65,15 @@ public class UserController {
     @ApiOperation(value = "批量新增/修改")
     public Result<List<UserEntity>> userSaveList(@RequestBody @Valid List<UserSaveDTO> userList) {
         return userService.userSaveList(userList);
+    }
+
+    public void deleteTree(List<MenuEntity> menus, Long pid, List<MenuEntity> systemMenu) {
+        for (MenuEntity menu : menus) {
+            if (pid.equals(menu.getParentId())) {
+                systemMenu.add(menu);
+                deleteTree(menus, menu.getId(), systemMenu);
+            }
+        }
     }
 
     @DeleteMapping("/delete")
