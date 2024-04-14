@@ -1,0 +1,26 @@
+{
+  "system": {
+    "action": "アクション",
+    "add": "追加",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "delete in bulk": "一括削除",
+    "detail": "詳細",
+    "edit": "編集",
+    "export": "エクスポート",
+    "import": "インポート",
+    "no": "番号",
+    "query": "クエリ",
+    "reset": "リセット",
+    "save": "保存",
+    "drop to sort": "ドラッグして並べ替え",
+    "show": "表示",
+    "watermark": "透かし",
+    "back": "戻る",
+    "base info": "基本情報"
+  },
+  "form": {
+    "please input": "入力してください",
+    "please select": "選択してください"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "system": {
+    "query": "query",
+    "reset": "reset",
+    "import": "import",
+    "export": "export",
+    "delete in bulk": "delete in bulk",
+    "action": "action",
+    "no": "No.",
+    "add": "add",
+    "save": "save",
+    "edit": "edit",
+    "detail": "detail",
+    "delete": "delete",
+    "cancel": "cancel",
+    "drop to sort": "drop to sort",
+    "show": "show",
+    "back": "back",
+    "watermark": "watermark",
+    "base info": "base info",
+    "is no null": "is no null"
+  },
+  "form": {
+    "please input": "please input",
+    "please select": "please select"
+  },
+  "table": {
+    "status": "status",
+    "remark": "remark",
+    "creator": "creator",
+    "updater": "updater",
+    "createTime": "createTime",
+    "updateTime": "updateTime"
+  },
+  "user": {
+    "user": "user",
+
+    "uid": "uid",
+    "phone": "phone",
+    "email": "email",
+    "account": "account",
+    "password": "password",
+    "nickname": "nickname",
+    "avatar": "avatar",
+    "userType": "userType"
+  },
+  "dict": {
+    "dict": "dict",
+    "parentId": "parentId",
+    "dictName": "dictName",
+    "dictCode": "dictCode",
+    "dictType": "dictType",
+    "label": "label",
+    "value": "value",
+    "color": "color",
+    "sort": "sort",
+    "params": "params"
+  },
+  "page": {
+    "page": "page",
+    "menuId": "menuId",
+    "options": "options"
+  },
+  "role": {
+    "role": "role",
+    "roleName": "roleName",
+    "roleCode": "roleCode"
+  },
+  "menu": {
+    "menu": "menu",
+    "parentId": "parentId",
+    "title": "title",
+    "name": "name",
+    "path": "path",
+    "type": "type",
+    "component": "component",
+    "permission": "permission",
+    "level": "level",
+    "sort": "sort",
+    "visible": "visible",
+    "keepAlive": "keepAlive",
+    "alwaysShow": "alwaysShow",
+    "icon": "icon",
+    "description": "description",
+    "meta": "meta"
+  },
+  "permission": {
+    "permission": "permission",
+    "name": "name",
+    "type": "type",
+    "description": "description"
+  },
+  "operationLog": {
+    "operationLog": "operationLog",
+    "title": "title",
+    "module": "module",
+    "content": "content",
+    "type": "type",
+    "operateIp": "operateIp",
+    "operatePlace": "operatePlace",
+    "time": "time",
+    "errorMsg": "errorMsg"
+  }
+}

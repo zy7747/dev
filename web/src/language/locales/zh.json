@@ -1,0 +1,103 @@
+{
+  "system": {
+    "action": "操作",
+    "add": "新增",
+    "cancel": "取消",
+    "delete": "删除",
+    "delete in bulk": "批量删除",
+    "detail": "详情",
+    "edit": "修改",
+    "export": "导出",
+    "import": "导入",
+    "no": "序号",
+    "query": "查询",
+    "reset": "重置",
+    "save": "保存",
+    "drop to sort": "拖拽排序",
+    "show": "展开",
+    "watermark": "水印",
+    "back": "返回",
+    "base info": "基础信息",
+    "is no null": "不能为空"
+  },
+  "form": {
+    "please input": "请输入",
+    "please select": "请选择"
+  },
+  "table": {
+    "status": "状态",
+    "remark": "备注",
+    "creator": "创建人",
+    "updater": "更新人",
+    "createTime": "创建时间",
+    "updateTime": "更新时间"
+  },
+  "user": {
+    "user": "用户",
+    "uid": "用户id",
+    "phone": "电话号码",
+    "email": "电子邮箱",
+    "account": "账号",
+    "password": "密码",
+    "nickname": "昵称",
+    "avatar": "头像",
+    "userType": "类型"
+  },
+  "dict": {
+    "dict": "字典",
+    "parentId": "父节点id",
+    "dictName": "字典名称",
+    "dictCode": "字典编码",
+    "dictType": "字典类型",
+    "label": "名",
+    "value": "值",
+    "color": "自定义颜色",
+    "sort": "排序",
+    "params": "其他参数"
+  },
+  "page": {
+    "page": "配置页面",
+    "menuId": "页面id",
+    "options": "页面配置"
+  },
+  "role": {
+    "role": "角色",
+    "roleName": "角色名称",
+    "roleCode": "角色编码"
+  },
+  "menu": {
+    "menu": "菜单",
+    "parentId": "父节点id",
+    "title": "菜单名",
+    "name": "组件名",
+    "path": "URL路径",
+    "type": "类型",
+    "component": "组件文件路径",
+    "permission": "权限标识",
+    "level": "层级",
+    "sort": "排序",
+    "visible": "是否可见",
+    "keepAlive": "是否缓存",
+    "alwaysShow": "是否总是显示",
+    "icon": "图标",
+    "description": "描述",
+    "meta": "其他信息"
+  },
+  "permission": {
+    "permission": "权限",
+    "name": "权限名称",
+    "type": "类型",
+    "description": "描述"
+  },
+  "operationLog": {
+    "operationLog": "操作日志",
+    "title": "标题",
+    "module": "操作模块",
+    "content": "操作内容",
+    "type": "操作类型",
+    "operateIp": "操作IP",
+    "operatePlace": "操作地",
+    "time": "耗时",
+    "errorMsg": "错误信息"
+  }
+}
