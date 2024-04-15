@@ -92,7 +92,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 type: "add",
                 data: {
                   status: "normal",
-                  roles: ["1773529542931804161"],
+                  roles: [],
                   userType: "ordinary",
                 },
               });

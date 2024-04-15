@@ -8,7 +8,7 @@ CREATE TABLE `operation_log`
     `operate_ip`    VARCHAR(32) COLLATE utf8mb4_unicode_ci           DEFAULT NULL COMMENT '操作IP',
     `operate_place` VARCHAR(32) COLLATE utf8mb4_unicode_ci           DEFAULT NULL COMMENT '操作地',
     `time`          TINYINT                                          DEFAULT 0 COMMENT '耗时',
-    `error_msg`     VARCHAR(1024) COLLATE utf8mb4_unicode_ci         DEFAULT NULL COMMENT '错误信息',
+    `error_msg`     text COLLATE utf8mb4_unicode_ci COMMENT '错误信息',
     `status`        VARCHAR(64) COLLATE utf8mb4_unicode_ci           DEFAULT NULL COMMENT '状态',
     `remark`        text COLLATE utf8mb4_unicode_ci COMMENT '备注',
     `creator`       VARCHAR(64) COLLATE utf8mb4_unicode_ci           DEFAULT '' COMMENT '创建人',

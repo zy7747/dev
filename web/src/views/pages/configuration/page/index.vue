@@ -11,6 +11,8 @@ const pageData: any = ref({
   editData: {},
 });
 
+const Router = useRouter();
+
 const { dict } = useDict({
   menusTree: DictService("menusTree"),
 });
@@ -127,7 +129,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             title: $t("system.action", "操作"),
             cType: "action",
             fixed: "right",
-            width: 250,
+            width: 300,
           },
         ],
         actions: [
@@ -143,6 +145,17 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                     data: res.data,
                   });
                 });
+            },
+          },
+          {
+            text: "配置",
+            click({ row }: any) {
+              Router.push({
+                path: "/configuration/page/add",
+                query: {
+                  id: row.id,
+                },
+              });
             },
           },
           {
@@ -175,23 +188,22 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
               {
                 label: $t("page.menuId", "页面id"),
                 prop: "menuId",
-                type: "input",
+                type: "treeSelect",
+                params: {
+                  "check-strictly": true,
+                },
+                options: () => dict.menusTree,
                 span: 6,
               },
               {
-                label: $t("page.options", "页面配置"),
-                prop: "options",
-                type: "input",
-                span: 6,
-              },
-              {
-                label: $t("page.status", "状态"),
+                label: $t("table.status", "状态"),
                 prop: "status",
-                type: "input",
+                type: "select",
+                options: Dict("page_status"),
                 span: 6,
               },
               {
-                label: $t("page.remark", "备注"),
+                label: $t("table.remark", "备注"),
                 prop: "remark",
                 type: "input",
                 span: 6,

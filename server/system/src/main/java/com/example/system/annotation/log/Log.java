@@ -1,4 +1,4 @@
-package com.example.system.annotation;
+package com.example.system.annotation.log;
 
 import com.example.system.enums.OperateType;
 

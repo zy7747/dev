@@ -304,7 +304,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 label: $t("menu.title", "菜单名"),
                 prop: "title",
                 type: "input",
-
                 span: 12,
               },
               {

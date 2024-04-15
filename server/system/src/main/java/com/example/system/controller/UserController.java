@@ -3,7 +3,7 @@ package com.example.system.controller;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
-import com.example.system.annotation.Log;
+import com.example.system.annotation.log.Log;
 import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.user.LoginDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
@@ -101,7 +101,6 @@ public class UserController {
 
     @GetMapping("/login")
     @ApiOperation(value = "登录")
-    @Log(title = "用户登录", module = "用户管理", content = "用户登录", type = OperateType.LOGIN)
     public Result<UserInfoVO> login(@Valid LoginDTO loginInfo) {
         return userService.login(loginInfo);
     }

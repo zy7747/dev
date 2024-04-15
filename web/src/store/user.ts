@@ -110,7 +110,8 @@ export const useUserStore = defineStore({
           (item.type === "directory" ||
             item.type === "menu" ||
             item.type === "system") &&
-          item.status === "0"
+          item.status === "0" &&
+          item.visible
         ) {
           menu.push({
             ...item,

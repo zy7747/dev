@@ -1,6 +1,7 @@
 package com.example.system.dal.vo.user;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.example.system.annotation.dict.Dict;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -53,6 +54,7 @@ public class UserPageVO extends BaseParamsVO {
     /**
      * 类型
      */
+    @Dict(code = "user_type")
     @ApiModelProperty(value = "类型")
     private String userType;
 }

@@ -1,4 +1,4 @@
-package com.example.system.annotation;
+package com.example.system.annotation.log;
 
 import com.example.framework.utils.ServletUtils;
 import com.example.system.dal.dto.operationLog.OperationLogSaveDTO;
@@ -22,7 +22,7 @@ public class LogAspect {
     @Resource
     OperationLogService operationLogService;
 
-    @Pointcut("@annotation(com.example.system.annotation.Log)")
+    @Pointcut("@annotation(com.example.system.annotation.log.Log)")
     public void logPointCut() {
 
     }

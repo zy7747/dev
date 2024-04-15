@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div style="height: 600px">
-    <pre><code class="language-plaintext" v-html="highlightedCode(pageData)"></code></pre>
+    <pre><code class="language-plaintext" v-html="highlightedCode({...pageData,options:null})"></code></pre>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { js_beautify } from "js-beautify";
 import "highlight.js/styles/devibeans.css"; // 导入代码高亮样式
 // import "highlight.js/styles/panda-syntax-light.css";
 import highlight from "@/plugins/highlight";
-const { pageData } = defineProps({
+defineProps({
   active: {
     text: "active",
     type: [Number] as any,

@@ -3,7 +3,7 @@ CREATE TABLE `menu`
     `id`          BIGINT                                  NOT NULL COMMENT 'id',
     `parent_id`   BIGINT                                           DEFAULT NULL COMMENT '父节点id',
     `title`       VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单名',
-    `name`        VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '组件名',
+    `name`        VARCHAR(255) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '组件名',
     `path`        VARCHAR(255) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '路由路径',
     `type`        VARCHAR(64) COLLATE utf8mb4_unicode_ci  NOT NULL COMMENT '类型',
     `component`   VARCHAR(255) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '组件',

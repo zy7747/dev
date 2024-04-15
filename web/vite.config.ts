@@ -10,6 +10,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import VueDevTools from "vite-plugin-vue-devtools";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { resolve } from "path";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 const getTarget = (mode: string, target: string) => {
   return loadEnv(mode, process.cwd())[target];
@@ -21,6 +22,7 @@ export default ({ mode }: any) =>
     plugins: [
       VueDevTools(),
       vue(),
+      basicSsl(),
       WindiCSS(),
       svgLoader(),
       createSvgIconsPlugin({
