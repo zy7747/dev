@@ -24,7 +24,6 @@ public class LogAspect {
 
     @Pointcut("@annotation(com.example.system.annotation.log.Log)")
     public void logPointCut() {
-
     }
 
     /**

@@ -17,10 +17,87 @@
     "show": "表示",
     "watermark": "透かし",
     "back": "戻る",
-    "base info": "基本情報"
+    "base info": "基本情報",
+    "is no null": "Can not be empty"
   },
   "form": {
     "please input": "入力してください",
     "please select": "選択してください"
+  },
+  "dict": {
+    "color": "Custom color",
+    "dict": "dictionary",
+    "dictCode": "dictionary encoding",
+    "dictName": "Dictionary name",
+    "dictType": "dictionary type",
+    "label": "name",
+    "params": "Other parameters",
+    "parentId": "Parent node id",
+    "sort": "sort",
+    "value": "value"
+  },
+  "menu": {
+    "alwaysShow": "Whether to always display",
+    "component": "Component file path",
+    "description": "describe",
+    "icon": "icon",
+    "keepAlive": "Whether to cache",
+    "level": "Hierarchy",
+    "menu": "menu",
+    "meta": "other information",
+    "name": "Component name",
+    "parentId": "Parent node id",
+    "path": "URL path",
+    "permission": "Permission ID",
+    "sort": "sort",
+    "title": "Menu name",
+    "type": "type",
+    "visible": "visible or not"
+  },
+  "operationLog": {
+    "content": "Operation content",
+    "errorMsg": "error message",
+    "module": "Operation module",
+    "operateIp": "Operation IP",
+    "operatePlace": "operating place",
+    "operationLog": "Operation log",
+    "time": "time consuming",
+    "title": "title",
+    "type": "Operation type"
+  },
+  "page": {
+    "menuId": "Page id",
+    "options": "Page configuration",
+    "page": "Configuration page"
+  },
+  "permission": {
+    "description": "describe",
+    "name": "Permission name",
+    "permission": "Permissions",
+    "type": "type"
+  },
+  "role": {
+    "role": "Role",
+    "roleCode": "role coding",
+    "roleName": "Role Name"
+  },
+  "table": {
+    "createTime": "creation time",
+    "creator": "founder",
+    "remark": "Remark",
+    "status": "state",
+    "updateTime": "Update time",
+    "updater": "updater"
+  },
+  "user": {
+    "account": "account",
+    "avatar": "avatar",
+    "email": "E-mail",
+    "nickname": "Nick name",
+    "password": "password",
+    "phone": "telephone number",
+    "uid": "user id",
+    "user": "user",
+    "userType": "type"
   }
 }

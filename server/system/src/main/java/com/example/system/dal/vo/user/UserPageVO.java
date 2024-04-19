@@ -29,6 +29,7 @@ public class UserPageVO extends BaseParamsVO {
     /**
      * 账号
      */
+
     @ApiModelProperty(value = "账号")
     private String account;
     /**

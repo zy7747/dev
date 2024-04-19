@@ -1,0 +1,103 @@
+{
+  "system": {
+    "action": "작업",
+    "add": "추가",
+    "cancel": "취소",
+    "delete": "삭제",
+    "delete in bulk": "대량 삭제",
+    "detail": "상세 정보",
+    "edit": "수정",
+    "export": "내보내기",
+    "import": "가져오기",
+    "no": "일련번호",
+    "query": "조회",
+    "reset": "재설정",
+    "save": "저장",
+    "drop to sort": "드래그하여 정렬",
+    "show": "펼치기",
+    "watermark": "워터마크",
+    "back": "뒤로",
+    "base info": "기본 정보",
+    "is no null": "비워둘 수 없습니다."
+  },
+  "form": {
+    "please input": "입력해주세요",
+    "please select": "선택해주세요"
+  },
+  "dict": {
+    "color": "맞춤 색상",
+    "dict": "사전",
+    "dictCode": "사전 인코딩",
+    "dictName": "사전 이름",
+    "dictType": "사전 유형",
+    "label": "이름",
+    "params": "기타 매개변수",
+    "parentId": "상위 노드 ID",
+    "sort": "종류",
+    "value": "값"
+  },
+  "menu": {
+    "alwaysShow": "항상 표시할지 여부",
+    "component": "구성요소 파일 경로",
+    "description": "설명하다",
+    "icon": "상",
+    "keepAlive": "캐시할지 여부",
+    "level": "계층",
+    "menu": "메뉴",
+    "meta": "기타 정보",
+    "name": "구성요소 이름",
+    "parentId": "상위 노드 ID",
+    "path": "URL 경로",
+    "permission": "권한 ID",
+    "sort": "종류",
+    "title": "메뉴명",
+    "type": "유형",
+    "visible": "보이는지 아닌지"
+  },
+  "operationLog": {
+    "content": "작전 내용",
+    "errorMsg": "에러 메시지",
+    "module": "운영 모듈",
+    "operateIp": "운영 IP",
+    "operatePlace": "수술 장소",
+    "operationLog": "작업 로그",
+    "time": "시간이 많이 걸리는",
+    "title": "제목",
+    "type": "작업 유형"
+  },
+  "page": {
+    "menuId": "페이지 ID",
+    "options": "페이지 구성",
+    "page": "구성 페이지"
+  },
+  "permission": {
+    "description": "설명하다",
+    "name": "권한 이름",
+    "permission": "권한",
+    "type": "유형"
+  },
+  "role": {
+    "role": "역할",
+    "roleCode": "역할 코딩",
+    "roleName": "역할 이름"
+  },
+  "table": {
+    "createTime": "생성 시간",
+    "creator": "설립자",
+    "remark": "주목",
+    "status": "상태",
+    "updateTime": "업데이트 시간",
+    "updater": "업데이터"
+  },
+  "user": {
+    "account": "계정",
+    "avatar": "화신",
+    "email": "이메일",
+    "nickname": "닉네임",
+    "password": "비밀번호",
+    "phone": "전화 번호",
+    "uid": "사용자 ID",
+    "user": "사용자",
+    "userType": "유형"
+  }
+}

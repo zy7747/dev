@@ -3,7 +3,7 @@ import { createI18n } from "vue-i18n";
 import zh from "./locales/zh.json";
 import en from "./locales/en.json";
 import jp from "./locales/jp.json";
-import kr from "./locales/kr.json";
+import ko from "./locales/ko.json";
 
 export const i18n = createI18n({
   //这里是语种的持久化，刷新也存在
@@ -15,7 +15,7 @@ export const i18n = createI18n({
     en,
     zh,
     jp,
-    kr,
+    ko,
   }, //需要做国际化的语种
 });
 

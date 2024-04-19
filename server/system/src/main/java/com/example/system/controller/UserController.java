@@ -3,6 +3,7 @@ package com.example.system.controller;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
+import com.example.system.annotation.dict.DictClass;
 import com.example.system.annotation.log.Log;
 import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.user.LoginDTO;
@@ -41,6 +42,7 @@ public class UserController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页")
+    @DictClass
     public Result<PageList<UserPageVO>> userPage(@Valid UserQueryDTO user) {
         return userService.userPage(user);
     }

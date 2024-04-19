@@ -43,7 +43,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           label: $t("table.status", "状态"),
           prop: "status",
           type: "select",
-          options: Dict("code"),
+          options: Dict("dict_status"),
           span: 6,
         },
       ],
@@ -57,7 +57,12 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             permission: ["dict:add"],
             click() {
               pageData.dictList.splice(0);
-              unref(pageRef).handleOpen({ type: "add", data: {} });
+              unref(pageRef).handleOpen({
+                type: "add",
+                data: {
+                  dictType: "string",
+                },
+              });
             },
           },
           {
@@ -110,6 +115,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           {
             title: $t("dict.dictType", "字典类型"),
             field: "dictType",
+            translate: "dict_type",
             isFilters: true,
             width: 200,
           },
@@ -117,6 +123,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             title: $t("table.status", "状态"),
             field: "status",
             isFilters: true,
+            translate: "dict_status",
             width: 200,
           },
           {
@@ -212,13 +219,15 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
               {
                 label: $t("dict.dictType", "字典类型"),
                 prop: "dictType",
-                type: "input",
+                type: "select",
+                options: Dict("dict_type"),
                 span: 6,
               },
               {
                 label: $t("table.status", "状态"),
                 prop: "status",
-                type: "input",
+                type: "select",
+                options: Dict("dict_status"),
                 span: 6,
               },
             ],
