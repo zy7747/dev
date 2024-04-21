@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <el-tag v-if="dict.color" :type="dict.color">
+    <el-tag v-if="dict.color && dict.color != 'default'" :type="dict.color">
       {{ dict.label }}
     </el-tag>
     <span v-else>{{ dict.label }}</span>

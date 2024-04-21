@@ -73,7 +73,7 @@ const { tableConfig } = defineProps({
   },
 });
 
-const tableData = ref(tableConfig.data);
+const tableData = ref();
 
 const options = computed(() => {
   return { ...gridOptions, ...tableConfig };
@@ -241,6 +241,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
     print: true, // 显示打印按钮
     zoom: true, // 显示全屏按钮
     custom: true, // 显示自定义列按钮
+    export: true,
   },
   editRules: rules,
 });

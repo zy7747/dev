@@ -58,7 +58,8 @@
   "page": {
     "page": "配置页面",
     "menuId": "页面id",
-    "options": "页面配置"
+    "options": "页面配置",
+    "pageCode": "页面编码"
   },
   "role": {
     "role": "角色",

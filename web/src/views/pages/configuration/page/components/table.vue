@@ -13,7 +13,7 @@
       :name="table.name"
     >
       <c-form :model="pageData.tables[index]" :formConfig="formConfig" />
-      <c-table ref="tableRef" :tableConfig="table" />
+      <c-table :ref="(el) => setTableRef(el, index)" :tableConfig="table" />
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import type { TabPaneName } from "element-plus";
 const pageData: any = defineModel();
-const tableRef = ref();
+const tableRef: any = ref<any>([]);
 
 const formConfig = ref({
   formParams: [
@@ -119,6 +119,11 @@ const tableColumn = () => {
   ];
 };
 
+//循环ref获取
+function setTableRef(el: any, index: number) {
+  unref(tableRef)[unref(index)] = el;
+}
+
 const editableTabs: any = computed(() => {
   return pageData.value.tables.map((item: any) => {
     return {
@@ -128,16 +133,16 @@ const editableTabs: any = computed(() => {
         {
           operation: "add",
           click() {
-            unref(tableRef)[pageData.value.tabIndex].addLine();
+            unref(tableRef)[pageData.value.tabIndex].addLine({});
           },
         },
       ],
+      tableColumn: tableColumn(),
       actions: [
         {
           operation: "operate",
         },
       ],
-      tableColumn: tableColumn(),
       data: item.tableColumn,
     };
   });

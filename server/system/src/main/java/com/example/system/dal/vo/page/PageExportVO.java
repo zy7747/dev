@@ -3,6 +3,7 @@ package com.example.system.dal.vo.page;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.example.framework.dal.vo.ExcelVO;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,6 +16,11 @@ public class PageExportVO extends ExcelVO {
      */
     @ExcelProperty("页面id")
     private Long menuId;
+    /**
+     * 页面编码
+     */
+    @ExcelProperty(value = "页面编码")
+    private String pageCode;
     /**
      * 页面配置
      */

@@ -12,6 +12,7 @@ import com.example.system.dal.entity.PageEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Objects;
 
 @Mapper
 public interface PageMapper extends BaseMapper<PageEntity> {
@@ -27,6 +28,10 @@ public interface PageMapper extends BaseMapper<PageEntity> {
         /* 页面配置 */
         if (!StrUtil.hasBlank(page.getOptions())) {
             wrapper.eq("options", page.getOptions());
+        }
+        /* 页面编码 */
+        if (!StrUtil.hasBlank(page.getPageCode())) {
+            wrapper.eq("page_code", page.getPageCode());
         }
         /* 状态 */
         if (!StrUtil.hasBlank(page.getStatus())) {
@@ -79,6 +84,14 @@ public interface PageMapper extends BaseMapper<PageEntity> {
             //修改跳过自己
             if (page.getId() != null && item.getId().equals(page.getId())) {
                 continue;
+            }
+
+            if (page.getMenuId() != null && Objects.equals(page.getMenuId(), item.getMenuId())) {
+                return Result.fail("页面id已被注册");
+            }
+
+            if (!StrUtil.hasBlank(page.getPageCode()) && Objects.equals(page.getPageCode(), item.getPageCode())) {
+                return Result.fail("页面编码已被注册");
             }
         }
         return Result.success(page);

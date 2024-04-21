@@ -138,7 +138,7 @@ const editableTabs: any = computed(() => {
       ],
       actions: [
         {
-          type: "operate",
+          operation: "operate",
         },
       ],
       tableColumn: tableColumn(),

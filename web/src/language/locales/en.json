@@ -34,7 +34,6 @@
   },
   "user": {
     "user": "user",
-
     "uid": "uid",
     "phone": "phone",
     "email": "email",
@@ -59,7 +58,8 @@
   "page": {
     "page": "page",
     "menuId": "menuId",
-    "options": "options"
+    "options": "options",
+    "pageCode": "pageCode"
   },
   "role": {
     "role": "role",

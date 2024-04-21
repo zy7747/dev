@@ -42,8 +42,8 @@
     </c-tabs>
 
     <template v-for="(item, index) in pageOption.tableConfig" :key="index">
-      <c-dialog
-        :ref="(el) => setDialogRef(el, index)"
+      <c-modal
+        :ref="(el:any) => setDialogRef(el, index)"
         @confirm="confirm"
         :title="dialogTitle"
         :dialogConfig="dialogConfig(item.dialogConfig)"
@@ -62,7 +62,7 @@
 
           <slot :name="dialogSlot(index)" />
         </template>
-      </c-dialog>
+      </c-modal>
     </template>
   </div>
 </template>

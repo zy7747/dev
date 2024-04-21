@@ -5,6 +5,10 @@
 <script lang="ts" setup>
 const pageData: any = defineModel();
 
+const { dict } = useDict({
+  dictList: DictService("dictList"),
+});
+
 const tableColumn = () => {
   return [
     { type: "checkbox", width: 50 },
@@ -67,7 +71,9 @@ const tableColumn = () => {
       ],
       form: {
         type: "select",
-        params: {},
+        params: {
+          options: Dict("form_type"),
+        },
       },
     },
     {
@@ -78,7 +84,9 @@ const tableColumn = () => {
       width: 200,
       form: {
         type: "select",
-        params: {},
+        params: {
+          options: () => dict.dictList,
+        },
       },
     },
     {
@@ -88,8 +96,11 @@ const tableColumn = () => {
       isFilters: true,
       width: 200,
       form: {
-        type: "input",
-        params: {},
+        type: "number",
+        params: {
+          max: 24,
+          min: 0,
+        },
       },
     },
     {
@@ -98,9 +109,12 @@ const tableColumn = () => {
       sortable: true,
       isFilters: true,
       width: 200,
+      translate: "isNo",
       form: {
         type: "select",
-        params: {},
+        params: {
+          options: Dict("isNo"),
+        },
       },
     },
     {
@@ -117,7 +131,7 @@ const { tableConfig, tableRef } = useTable({
     {
       operation: "add",
       click() {
-        unref(tableRef).addLine();
+        unref(tableRef).addLine({});
       },
     },
     {
@@ -131,7 +145,7 @@ const { tableConfig, tableRef } = useTable({
       operation: "operate",
     },
   ],
-  data: pageData.value.form,
+  data: unref(pageData).form,
 });
 </script>
 

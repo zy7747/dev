@@ -55,8 +55,8 @@ public class PageController {
 
     @GetMapping("/detail")
     @ApiOperation(value = "详情")
-    public Result<PageDetailVO> pageDetail(Long id) {
-        return pageService.pageDetail(id);
+    public Result<PageDetailVO> pageDetail(PageDetailVO pageDetail) {
+        return pageService.pageDetail(pageDetail);
     }
 
     @PostMapping("/save")

@@ -3,6 +3,8 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
+const Router = useRouter();
+
 defineOptions({
   name: "Page",
 });
@@ -10,8 +12,6 @@ const pageData: any = ref({
   queryData: {},
   editData: {},
 });
-
-const Router = useRouter();
 
 const { dict } = useDict({
   menusTree: DictService("menusTree"),
@@ -31,6 +31,12 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             "check-strictly": true,
           },
           options: () => dict.menusTree,
+          span: 6,
+        },
+        {
+          label: $t("page.pageCode", "页面编码"),
+          prop: "pageCode",
+          type: "input",
           span: 6,
         },
       ],
@@ -90,9 +96,16 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             width: 200,
           },
           {
+            title: $t("page.pageCode", "页面编码"),
+            field: "pageCode",
+            isFilters: true,
+            width: 200,
+          },
+          {
             title: $t("table.status", "状态"),
             field: "status",
             isFilters: true,
+            translate: "page_status",
             width: 200,
           },
           {
@@ -193,6 +206,12 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                   "check-strictly": true,
                 },
                 options: () => dict.menusTree,
+                span: 6,
+              },
+              {
+                label: $t("page.pageCode", "页面编码"),
+                prop: "pageCode",
+                type: "input",
                 span: 6,
               },
               {

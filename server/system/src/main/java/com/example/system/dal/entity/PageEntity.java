@@ -18,6 +18,11 @@ public class PageEntity extends BaseEntity {
     @ApiModelProperty(value = "页面id")
     private Long menuId;
     /**
+     * 页面编码
+     */
+    @ApiModelProperty(value = "页面编码")
+    private String pageCode;
+    /**
      * 页面配置
      */
     @ApiModelProperty(value = "页面配置")

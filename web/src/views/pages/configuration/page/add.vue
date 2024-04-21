@@ -15,6 +15,12 @@
         :text="$t('system.back')"
         @handleClick="back"
       />
+      <c-button
+        :icon="RefreshLeft"
+        size="small"
+        text="弹窗"
+        @handleClick="dialog"
+      />
     </template>
     <template #content>
       <el-container>
@@ -59,10 +65,17 @@ import {
   DocumentChecked,
 } from "@element-plus/icons-vue";
 
+import { useDialog } from "@/hooks/useDialog";
+
+//页面数据
+const pageData: any = reactive({
+  tabIndex: "0",
+  form: [],
+  tables: [],
+});
 const component = ref();
 const Route = useRoute();
 const Router = useRouter();
-const pageData: any = ref({});
 
 const active: any = ref(0);
 
@@ -100,29 +113,29 @@ function componentName(active: number) {
 //加载数据
 function load() {
   Service.configuration.page.detail({ id: Route.query.id }).then((res: any) => {
-    const options = res.data.options;
+    const options = JSON.parse(res.data.options);
+
     if (options && options !== "") {
-      pageData.value = { ...res.data, ...JSON.parse(options) };
+      Object.assign(pageData, { id: res.data.id });
+      console.log(options);
+
+      pageData.form.push(...options.form);
+      pageData.tables.push(...options.tables);
     } else {
-      pageData.value = {
-        ...res.data,
-        tabIndex: "0",
-        form: [],
-        tables: [],
-      };
+      Object.assign(pageData, { id: res.data.id });
     }
   });
 }
-//报错
+//保存
 function save() {
-  if (unref(pageData).form) {
+  if (pageData.form) {
     return Service.configuration.page
       .save({
-        ...pageData.value,
+        ...pageData,
         options: JSON.stringify({
-          tabIndex: unref(pageData).tabIndex,
-          form: unref(pageData).form,
-          tables: unref(pageData).tables,
+          tabIndex: pageData.tabIndex,
+          form: pageData.form,
+          tables: pageData.tables,
         }),
       })
       .then((res: any) => {
@@ -141,6 +154,10 @@ function back() {
   Router.push({
     path: "/configuration/page",
   });
+}
+
+function dialog() {
+  useDialog();
 }
 
 load();

@@ -36,10 +36,10 @@ public interface PageService {
     /**
      * 获取详情
      *
-     * @param id 入参
+     * @param pageDetail 入参
      * @return 详情
      */
-    Result<PageDetailVO> pageDetail(Long id);
+    Result<PageDetailVO> pageDetail(PageDetailVO pageDetail);
 
     /**
      * 新增/修改

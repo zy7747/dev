@@ -201,7 +201,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           },
         ],
         dialogConfig: {
-          width: "1000px",
+          width: "1500px",
           formConfig: {
             formParams: [
               {
@@ -231,7 +231,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 span: 6,
               },
             ],
-            actions: [{}],
           },
           //提交
           handleConfirm() {
@@ -270,7 +269,7 @@ const { tableConfig, tableRef } = useTable({
     {
       operation: "add",
       click() {
-        unref(tableRef).addLine();
+        unref(tableRef).addLine({ status: "1" });
       },
     },
     {
@@ -305,21 +304,24 @@ const { tableConfig, tableRef } = useTable({
       },
     },
     {
-      title: $t("dict.color", "自定义颜色"),
-      field: "color",
-      isFilters: true,
-      width: 200,
-      form: {
-        type: "input",
-      },
-    },
-    {
       title: $t("dict.sort", "排序"),
       field: "sort",
       isFilters: true,
       width: 200,
       form: {
-        type: "input",
+        type: "number",
+      },
+    },
+    {
+      title: $t("dict.color", "自定义颜色"),
+      field: "color",
+      isFilters: true,
+      width: 200,
+      form: {
+        type: "select",
+        params: {
+          options: Dict("dict_color"),
+        },
       },
     },
     {
@@ -336,8 +338,12 @@ const { tableConfig, tableRef } = useTable({
       field: "status",
       isFilters: true,
       width: 200,
+      translate: "dict_status",
       form: {
-        type: "input",
+        type: "select",
+        params: {
+          options: Dict("dict_status"),
+        },
       },
     },
     {

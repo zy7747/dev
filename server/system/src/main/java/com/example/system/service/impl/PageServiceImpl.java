@@ -1,5 +1,7 @@
 package com.example.system.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
@@ -53,12 +55,24 @@ public class PageServiceImpl extends ServiceImpl<PageMapper, PageEntity> impleme
     /**
      * 获取详情
      *
-     * @param id 入参
+     * @param pageDetail 入参
      * @return 详情
      */
     @Override
-    public Result<PageDetailVO> pageDetail(Long id) {
-        return Result.success(PageConvert.INSTANCE.detail(pageMapper.selectById(id)));
+    public Result<PageDetailVO> pageDetail(PageDetailVO pageDetail) {
+        if (pageDetail.getId() != null) {
+            return Result.success(PageConvert.INSTANCE.detail(pageMapper.selectById(pageDetail.getId())));
+        } else {
+            QueryWrapper<PageEntity> wrapper = new QueryWrapper<>();
+
+            /* 页面编码 */
+            if (!StrUtil.hasBlank(pageDetail.getPageCode())) {
+                wrapper.eq("page_code", pageDetail.getPageCode());
+            }
+
+            return Result.success(PageConvert.INSTANCE.detail(pageMapper.selectOne(wrapper)));
+        }
+
     }
 
     /**

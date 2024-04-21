@@ -1,3 +1,5 @@
+import { Icon } from "@iconify/vue";
+
 import SvgIcon from "./SvgIcon/index.vue";
 import Collapse from "./Collapse/index.vue";
 import Pagination from "./Pagination/index.vue";
@@ -5,6 +7,8 @@ import VideoPlay from "./Player/video.vue";
 import Tools from "./Tools/index.vue";
 import DictTag from "./DictTag/index.vue";
 import IconSelect from "./IconSelect/index.vue";
+import Dialog from "./Dialog/index.vue";
+import Modal from "./Modal/index.vue";
 
 import CSelect from "./CElement/CSelect/index.vue";
 import CSwitch from "./CElement/CSwitch/index.vue";
@@ -21,7 +25,6 @@ import CCarousel from "./CElement/CCarousel/index.vue";
 import CSchema from "./CElement/CSchema/index.vue";
 import CTabs from "./CElement/CTabs/index.vue";
 import CTree from "./CElement/CTree/index.vue";
-import { Icon } from "@iconify/vue";
 
 function setupComponents(app: any) {
   app.component("SvgIcon", SvgIcon);
@@ -41,6 +44,8 @@ function setupComponents(app: any) {
   app.component("CDropdown", CDropdown);
   app.component("CSwitch", CSwitch);
   app.component("CTabs", CTabs);
+  app.component("CDialog", Dialog);
+  app.component("CModal", Modal);
 
   app.component("CTable", CTable);
   app.component("CTree", CTree);
