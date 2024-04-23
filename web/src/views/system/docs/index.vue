@@ -9,8 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-// const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const baseUrl = "http://localhost:80";
+const baseUrl = import.meta.env.VITE_APP_BASE_API + "/docs";
 </script>
 
 <style lang="scss" scoped></style>

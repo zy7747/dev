@@ -1,9 +1,9 @@
 package com.example.system.annotation.log;
 
-import com.example.framework.utils.ServletUtils;
 import com.example.system.dal.dto.operationLog.OperationLogSaveDTO;
 import com.example.system.service.OperationLogService;
 import com.example.system.utils.IPUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -12,15 +12,29 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
+@Slf4j
 @Aspect
 @Component
 public class LogAspect {
     @Resource
     OperationLogService operationLogService;
+
+    public static HttpServletRequest getRequest() {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (!(requestAttributes instanceof ServletRequestAttributes)) {
+            return null;
+        }
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+        return servletRequestAttributes.getRequest();
+    }
 
     @Pointcut("@annotation(com.example.system.annotation.log.Log)")
     public void logPointCut() {
@@ -67,9 +81,19 @@ public class LogAspect {
         //内容
         operationLog.setContent(controllerLog.content());
         //IP
-        operationLog.setOperateIp(ServletUtils.getLoginUserIp());
+        HttpServletRequest request = getRequest();
+        String ip = IPUtil.getIp(request);
+
+        operationLog.setOperateIp(ip);
         //物理地址
-        String cityInfo = IPUtil.getCityInfo(ServletUtils.getLoginUserAdder());
+        String cityInfo = null;
+        try {
+            cityInfo = IPUtil.getAdd(ip);
+            log.info(ip);
+            log.info(cityInfo);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
         operationLog.setOperatePlace(cityInfo);
         //类型
         operationLog.setType(controllerLog.type().toString());

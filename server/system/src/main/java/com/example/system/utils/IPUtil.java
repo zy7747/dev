@@ -1,96 +1,52 @@
 package com.example.system.utils;
 
-import org.lionsoul.ip2region.DataBlock;
-import org.lionsoul.ip2region.DbConfig;
-import org.lionsoul.ip2region.DbSearcher;
-import org.lionsoul.ip2region.Util;
+import cn.hutool.extra.servlet.ServletUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.lionsoul.ip2region.xdb.Searcher;
+import org.springframework.util.FileCopyUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.lang.reflect.Method;
-import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
 
+@Slf4j
 public class IPUtil {
-
     /**
-     * 获取IP地址
+     * 从HttpServletRequest中获取浏览器客户端的请求ip
      *
-     * @param request
-     * @return
+     * @param request HttpServletRequest
+     * @return String ip地址
      */
-    public static String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Real-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        if ("0:0:0:0:0:0:0:1".equals(ip)) {
-            ip = "127.0.0.1";
-        }
-        if (ip.split(",").length > 1) {
-            ip = ip.split(",")[0];
-        }
+    public static String getIp(HttpServletRequest request) {
+        String clientIP = ServletUtil.getClientIP(request);
+        String ip = "0:0:0:0:0:0:0:1".equals(clientIP) ? "127.0.0.1" : clientIP;
+        ip = ip.trim();
         return ip;
     }
 
     /**
-     * 根据IP地址获取城市
+     * 根据ip地址查询IP所属的实际地址信息
      *
-     * @param ip
-     * @return
+     * @param ip String  ip地址,如 223.120.23.106
+     * @return String  xx省xx市xx区移动/联通/电信
      */
-    public static String getCityInfo(String ip) {
-        URL url = IPUtil.class.getClassLoader().getResource("ip2region.db");
-        File file;
-        if (url != null) {
-            file = new File(url.getFile());
-        } else {
-            return null;
-        }
-        if (!file.exists()) {
-            System.out.println("Error: Invalid ip2region.db file, filePath：" + file.getPath());
-            return null;
-        }
-        //查询算法
-        int algorithm = DbSearcher.BTREE_ALGORITHM; //B-tree
-        //DbSearcher.BINARY_ALGORITHM //Binary
-        //DbSearcher.MEMORY_ALGORITYM //Memory
+    public static String getAdd(String ip) throws Exception {
         try {
-            DbConfig config = new DbConfig();
-            DbSearcher searcher = new DbSearcher(config, file.getPath());
-            Method method;
-            switch (algorithm) {
-                case DbSearcher.BTREE_ALGORITHM:
-                    method = searcher.getClass().getMethod("btreeSearch", String.class);
-                    break;
-                case DbSearcher.BINARY_ALGORITHM:
-                    method = searcher.getClass().getMethod("binarySearch", String.class);
-                    break;
-                case DbSearcher.MEMORY_ALGORITYM:
-                    method = searcher.getClass().getMethod("memorySearch", String.class);
-                    break;
-                default:
-                    return null;
-            }
-            DataBlock dataBlock;
-            if (!Util.isIpAddress(ip)) {
-                System.out.println("Error: Invalid ip address");
-                return null;
-            }
-            dataBlock = (DataBlock) method.invoke(searcher, ip);
-            return dataBlock.getRegion();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+            InputStream ris = IPUtil.class.getResourceAsStream("/ip2region/ip2region.xdb");
+            byte[] dbBinStr = FileCopyUtils.copyToByteArray(ris);
+            Searcher searcher = Searcher.newWithBuffer(dbBinStr);
+            //注意：不能使用文件类型，打成jar包后，会找不到文件
+            String region = searcher.searchByStr(ip);
 
+            String add = region.replace("0|", "").replace("|0", "");
+            searcher.close();
+
+            return add;
+        } catch (IOException e) {
+            log.error("解析ip地址失败,无法创建搜索器: {}", e);
+            throw new RuntimeException(e);
+        }
+
+
+    }
 }
