@@ -3,7 +3,7 @@
   <div class="flex justify-between tabs">
     <div class="flex tags">
       <router-link
-        v-for="tag in visitedViews"
+        v-for="(tag, index) in visitedViews"
         class="tag flex items-center"
         :key="tag.path"
         :class="isActive(tag) ? 'active' : ''"
@@ -12,7 +12,7 @@
         <svg-icon :name="tag.icon" class="icon" />
         {{ tag.title }}
 
-        <el-icon class="el-icon-close" @click="(e) => removeTab(e)">
+        <el-icon class="el-icon-close" @click.prevent.native="removeTab(index)">
           <CircleCloseFilled />
         </el-icon>
       </router-link>
@@ -53,13 +53,18 @@ function isActive(route: any) {
   return route.path === Route.path;
 }
 //删除路由
-function removeTab(e: any) {
-  e.stopPropagation();
-  const vRoute = unref(visitedViews)[unref(visitedViews).length - 2];
+function removeTab(index: number) {
+  useTab.removeTab(visitedViews[index]);
 
-  Router.push(vRoute.path);
-
-  // useTab.removeTab(route);
+  if (visitedViews.length === 0) {
+    Router.push({
+      path: "/dashboard",
+    });
+  } else {
+    Router.push({
+      path: visitedViews[index - 1].fullPath,
+    });
+  }
 }
 //新增路由
 function addTab(route: any) {

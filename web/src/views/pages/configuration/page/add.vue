@@ -117,7 +117,6 @@ function load() {
 
     if (options && options !== "") {
       Object.assign(pageData, { id: res.data.id });
-      console.log(options);
 
       pageData.form.push(...options.form);
       pageData.tables.push(...options.tables);

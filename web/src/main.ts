@@ -27,6 +27,8 @@ import piniaPersist from "pinia-plugin-persist";
 //hover.css
 import "hover.css";
 
+import "default-passive-events";
+
 const app = createApp(App);
 
 const pinia = createPinia();

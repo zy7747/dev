@@ -21,8 +21,8 @@
 
       <template #content>
         <c-form
-          @keyup.enter.native="query"
           ref="formRef"
+          @keyup.enter.native="query"
           :model="pageData.queryData"
           :formConfig="pageOption.formConfig"
         />
@@ -30,10 +30,10 @@
     </Collapse>
 
     <c-tabs
+      type="border-card"
       v-if="pageOption.tableConfig && pageOption.tableConfig.length"
       @tabChange="tabChange"
       v-model="active"
-      type="border-card"
       :options="pageOption.tableConfig"
     >
       <template #content="{ item, index }">
@@ -41,7 +41,7 @@
       </template>
     </c-tabs>
 
-    <template v-for="(item, index) in pageOption.tableConfig" :key="index">
+    <template v-for="(item, index) in pageOption.tableConfig">
       <c-modal
         :ref="(el:any) => setDialogRef(el, index)"
         @confirm="confirm"
@@ -49,7 +49,7 @@
         :dialogConfig="dialogConfig(item.dialogConfig)"
       >
         <template #body>
-          <Collapse title="表单">
+          <Collapse title="表单" v-if="item.dialogConfig.formConfig">
             <template #content>
               <c-form
                 :ref="(el) => setEditRef(el, index)"
@@ -70,20 +70,6 @@
 <script lang="ts" setup>
 import { Refresh, Search } from "@element-plus/icons-vue";
 
-import { template } from "lodash";
-
-const pageData: any = defineModel("pageData");
-const dialogType = ref();
-
-const formRef: any = ref<any>();
-const tableRef: any = ref<any>([]);
-const dialogRef: any = ref<any>([]);
-const editRef: any = ref<any>([]);
-
-const active: any = ref<any>(0);
-const isDetail: any = ref<any>();
-const dialogTitle: Ref<string> = ref<string>("");
-
 const { pageOption } = defineProps({
   pageOption: {
     text: "页面配置",
@@ -94,28 +80,32 @@ const { pageOption } = defineProps({
   },
 });
 
-function dialogSlot(index: number) {
-  return "dialog" + index;
-}
+const pageData: any = defineModel("pageData");
+const dialogType = ref();
+
+const formRef: any = ref<any>();
+const tableRef: any = ref<any>([]);
+const dialogRef: any = ref<any>([]);
+const editRef: any = ref<any>([]);
+
+const active: any = reactive<any>(0);
+const isDetail: any = ref<any>();
+const dialogTitle: Ref<string> = ref<string>("");
 
 //查询
 function query() {
   return unref(formRef)
     .submitForm()
     .then((res: any) => {
-      if (res) {
-        if (unref(tableRef)[unref(active)]) {
-          return unref(tableRef)[unref(active)].query();
-        }
+      if (res && unref(tableRef)[active]) {
+        return unref(tableRef)[active].query();
       }
     });
 }
 //重置
 function reset() {
   unref(formRef).resetForm();
-  if (unref(tableRef)[unref(active)]) {
-    return unref(tableRef)[unref(active)].query();
-  }
+  query();
 }
 //编辑弹窗
 function handleOpen({ type, data }: any) {
@@ -135,10 +125,11 @@ function handleOpen({ type, data }: any) {
   //数据反显
   unref(pageData).editData = data;
   //打开弹窗
-  unref(dialogRef)[unref(active)].handleOpen();
+  unref(dialogRef)[active].handleOpen();
 }
+//关闭弹窗
 function handleClose() {
-  unref(dialogRef)[unref(active)].handleClose();
+  unref(dialogRef)[active].handleClose();
 }
 //确认
 function confirm(handleConfirm: any) {
@@ -156,11 +147,11 @@ function submitForm() {
 }
 //多选
 function checkboxData() {
-  return unref(tableRef)[unref(active)].checkboxData();
+  return unref(tableRef)[active].checkboxData();
 }
 //新增
 function addLine(row: any) {
-  unref(tableRef)[unref(active)].addLine(row);
+  unref(tableRef)[active].addLine(row);
 }
 function tabChange() {
   query();
@@ -175,7 +166,9 @@ function setDialogRef(el: any, index: number) {
 function setEditRef(el: any, index: number) {
   unref(editRef)[unref(index)] = el;
 }
-
+function dialogSlot(index: number) {
+  return "dialog" + index;
+}
 function dialogConfig(config: any) {
   return {
     ...config,

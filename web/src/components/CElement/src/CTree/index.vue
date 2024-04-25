@@ -89,8 +89,6 @@ watch(
     findDefaultChecked(tree, list);
 
     defaultChecked.value = list;
-
-    console.log(123, defaultChecked.value);
   },
   { immediate: true }
 );

@@ -59,8 +59,6 @@ const value: any = defineModel();
 
 const option = computed(() => {
   if (typeof options === "function") {
-    console.log(options());
-
     return options();
   } else if (typeof options === "object") {
     return options;
