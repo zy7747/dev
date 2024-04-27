@@ -104,7 +104,7 @@ const getCheckedKeys = () => {
   halfChecked.value = unref(treeRef).getHalfCheckedKeys();
 };
 
-const onQueryChanged = (query: string) => {
+const onQueryChanged = () => {
   treeRef.value!.filter(query);
 };
 

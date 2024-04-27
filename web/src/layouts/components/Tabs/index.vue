@@ -12,7 +12,11 @@
         <svg-icon :name="tag.icon" class="icon" />
         {{ tag.title }}
 
-        <el-icon class="el-icon-close" @click.prevent.native="removeTab(index)">
+        <el-icon
+          v-show="isActive(tag)"
+          class="el-icon-close"
+          @click.prevent.native="removeTab(index)"
+        >
           <CircleCloseFilled />
         </el-icon>
       </router-link>
@@ -96,10 +100,6 @@ watch(
     &:hover {
       background: #eee;
     }
-
-    &:hover > .el-icon-close {
-      display: block;
-    }
   }
 
   .icon {
@@ -115,7 +115,7 @@ watch(
     border-radius: 50%;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     transform-origin: 100% 50%;
-    display: none;
+
     &:hover {
       background-color: #245fd4;
       color: #fff;

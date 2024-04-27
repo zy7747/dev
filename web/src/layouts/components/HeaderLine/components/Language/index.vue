@@ -2,7 +2,10 @@
 <template>
   <CDropdown :options="langs" @command="command">
     <template #title>
-      <svg-icon :name="icon" class="icon" />
+      <div class="flex flex-col items-center">
+        <svg-icon :name="lang.icon" class="icon" />
+        <span style="margin-top: 3px; font-size: 12px">{{ lang.label }}</span>
+      </div>
     </template>
   </CDropdown>
 </template>
@@ -12,18 +15,18 @@ import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
 
 const langs = ref([
-  { icon: "cn", label: "中文", value: "zh" },
+  { icon: "cn", label: "中 文", value: "zh" },
   { icon: "us", label: "English", value: "en" },
   { icon: "jp", label: "日本語", value: "jp" },
-  { icon: "ko", label: "한국인", value: "ko" },
+  { icon: "kr", label: "한국인", value: "ko" },
 ]);
 
-const icon = computed(() => {
+const lang = computed(() => {
   const obj: any = unref(langs).find(
     (item: any) => item.value === locale.value
   );
 
-  return obj.icon;
+  return obj;
 });
 
 function command(row: any) {

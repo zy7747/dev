@@ -4,16 +4,31 @@
     class="flex justify-between items-center"
     :style="{ width: `calc(100% - ${width}px)` }"
   >
-    <HeaderMenu :backgroundColor="backgroundColor"></HeaderMenu>
-    <div class="tools">
-      <Language />
+    <div class="flex items-center">
+      <HeaderMenu :backgroundColor="backgroundColor" />
+      <Search />
     </div>
+
+    <ul class="tools">
+      <li><Message /></li>
+      <li><History /></li>
+      <li><Collection /></li>
+      <li><Language /></li>
+      <li><UserInfo /></li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
-import HeaderMenu from "./components/HeaderMenu.vue";
-import Language from "./components/Language.vue";
+import {
+  HeaderMenu,
+  Language,
+  UserInfo,
+  Message,
+  Collection,
+  Search,
+  History,
+} from "./components/index.ts";
 
 defineProps({
   backgroundColor: {
@@ -29,6 +44,12 @@ defineProps({
 
 <style lang="scss" scoped>
 .tools {
-  padding-right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--el-text-color-regular);
+  li {
+    margin-right: 20px;
+  }
 }
 </style>

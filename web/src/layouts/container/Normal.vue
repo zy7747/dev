@@ -4,7 +4,6 @@
       <el-header
         :style="{
           backgroundColor: theme.headerBackgroundColor,
-          color: theme.headerColor,
           height: `${theme.headerHeight}px`,
         }"
       >
