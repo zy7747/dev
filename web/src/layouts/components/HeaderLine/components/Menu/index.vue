@@ -2,13 +2,10 @@
 <template>
   <el-menu
     mode="horizontal"
-    text-color="black"
-    active-text-color="#eec54e"
-    :backgroundColor="backgroundColor"
     :default-active="activeMenu"
     :unique-opened="true"
     :collapse-transition="true"
-    style="width: 500px"
+    style="max-width: 600px"
   >
     <template v-for="item in list">
       <MenuItem :menu="item"></MenuItem>
@@ -22,14 +19,6 @@ import MenuItem from "./HeaderMenuItem.vue";
 
 const userStore = useUserStore();
 const Route = useRoute();
-
-defineProps({
-  backgroundColor: {
-    text: "背景颜色",
-    type: [String],
-    default: "#FFF",
-  },
-});
 
 const list: any = computed(() => {
   return userStore.menu;
@@ -53,9 +42,9 @@ const activeMenu: any = computed(() => {
 }
 
 .el-menu--horizontal.el-menu {
-  border-bottom: 0px solid black;
+  border-bottom: 0px;
 }
 .el-menu--horizontal > .el-menu-item.is-active {
-  border-bottom: 0px solid black;
+  border-bottom: 0px;
 }
 </style>

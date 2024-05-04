@@ -206,7 +206,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
     isHover: false,
     isCurrent: false,
   },
-  columnConfig: { isCurrent: true, isHover: false },
+  columnConfig: { isCurrent: false, isHover: false },
   editConfig: {
     trigger: "manual",
     mode: "row",

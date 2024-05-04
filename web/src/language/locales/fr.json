@@ -1,0 +1,109 @@
+{
+  "dict": {
+    "color": "Couleur personnalisée",
+    "dict": "dictionnaire",
+    "dictCode": "encodage de dictionnaire",
+    "dictName": "Nom du dictionnaire",
+    "dictType": "Sorte de dictionnaire",
+    "label": "nom",
+    "params": "Autres paramètres",
+    "parentId": "ID du nœud parent",
+    "sort": "trier",
+    "value": "valeur"
+  },
+  "form": {
+    "please input": "Entrez s'il vous plait",
+    "please select": "Choisissez s'il vous plaît",
+    "search": "recherche"
+  },
+  "menu": {
+    "alwaysShow": "S'il faut toujours afficher",
+    "component": "Chemin du fichier de composant",
+    "description": "décrire",
+    "icon": "icône",
+    "keepAlive": "Faut-il mettre en cache",
+    "level": "Hiérarchie",
+    "menu": "menu",
+    "meta": "les autres informations",
+    "name": "Nom du composant",
+    "parentId": "ID du nœud parent",
+    "path": "Chemin de l'URL",
+    "permission": "ID d'autorisation",
+    "sort": "trier",
+    "title": "Nom du menu",
+    "type": "taper",
+    "visible": "visible ou non"
+  },
+  "operationLog": {
+    "content": "Contenu de l'opération",
+    "errorMsg": "Message d'erreur",
+    "module": "Module d'exploitation",
+    "operateIp": "Opération IP",
+    "operatePlace": "lieu d'opération",
+    "operationLog": "Journal des opérations",
+    "time": "prend du temps",
+    "title": "titre",
+    "type": "Type d'opération"
+  },
+  "page": {
+    "menuId": "Identifiant de la page",
+    "options": "Configuration des pages",
+    "page": "Page de configuration",
+    "pageCode": "Encodage des pages"
+  },
+  "permission": {
+    "description": "décrire",
+    "name": "Nom de l'autorisation",
+    "permission": "Autorisations",
+    "type": "taper"
+  },
+  "role": {
+    "role": "Rôle",
+    "roleCode": "codage des rôles",
+    "roleName": "Nom de rôle"
+  },
+  "system": {
+    "action": "fonctionner",
+    "add": "Nouveau",
+    "back": "retour",
+    "base info": "Informations de base",
+    "cancel": "Annuler",
+    "delete": "supprimer",
+    "delete in bulk": "suppression par lots",
+    "detail": "Détails",
+    "drop to sort": "Tri par glisser-déposer",
+    "edit": "Réviser",
+    "export": "Exporter",
+    "import": "importer",
+    "is no null": "Ne peux pas être vide",
+    "no": "numéro de série",
+    "query": "Renseigner",
+    "reset": "réinitialiser",
+    "save": "sauvegarder",
+    "show": "Développer",
+    "watermark": "filigrane",
+    "collection": "collecter",
+    "history": "histoire",
+    "message": "information",
+    "Data Management Center": "Centre de gestion des données"
+  },
+  "table": {
+    "createTime": "temps de creation",
+    "creator": "fondateur",
+    "remark": "Remarque",
+    "status": "État",
+    "updateTime": "Temps de mise à jour",
+    "updater": "programme de mise à jour"
+  },
+  "user": {
+    "account": "compte",
+    "avatar": "avatar",
+    "email": "E-mail",
+    "nickname": "Surnom",
+    "password": "mot de passe",
+    "phone": "numéro de téléphone",
+    "uid": "ID de l'utilisateur",
+    "user": "utilisateur",
+    "userType": "taper"
+  }
+}

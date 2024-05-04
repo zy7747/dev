@@ -18,11 +18,16 @@
     "back": "back",
     "watermark": "watermark",
     "base info": "base info",
-    "is no null": "is no null"
+    "is no null": "is no null",
+    "collection": "collect",
+    "history": "history",
+    "message": "information",
+    "Data Management Center": "Data Management Center"
   },
   "form": {
     "please input": "please input",
-    "please select": "please select"
+    "please select": "please select",
+    "search": "search"
   },
   "table": {
     "status": "status",

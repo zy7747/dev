@@ -19,6 +19,8 @@ const langs = ref([
   { icon: "us", label: "English", value: "en" },
   { icon: "jp", label: "日本語", value: "jp" },
   { icon: "kr", label: "한국인", value: "ko" },
+  { icon: "fr", label: "Français", value: "fr" },
+  { icon: "ru", label: "Россия", value: "ru" },
 ]);
 
 const lang = computed(() => {

@@ -5,7 +5,7 @@
     :style="{ width: `calc(100% - ${width}px)` }"
   >
     <div class="flex items-center">
-      <HeaderMenu :backgroundColor="backgroundColor" />
+      <HeaderMenu />
       <Search />
     </div>
 
@@ -31,10 +31,6 @@ import {
 } from "./components/index.ts";
 
 defineProps({
-  backgroundColor: {
-    text: "背景颜色",
-    type: [String],
-  },
   width: {
     text: "宽度",
     type: [Number],

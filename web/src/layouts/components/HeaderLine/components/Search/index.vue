@@ -5,7 +5,7 @@
       <el-autocomplete
         v-model="keywords"
         :fetch-suggestions="querySearch"
-        placeholder="搜索"
+        :placeholder="$t('form.search')"
         show-word-limit
         clearable
         @keyup.enter="searchVideo(keywords)"
@@ -82,7 +82,7 @@ function searchVideo(keyword: any) {
 }
 
 .value {
-  width: 24rem;
+  width: 20rem;
   overflow: hidden;
   text-overflow: ellipsis; //使用省略号代替溢出文本
   white-space: nowrap;

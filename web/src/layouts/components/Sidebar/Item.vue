@@ -44,14 +44,10 @@ function menuClick(menu: any) {
 
 <style lang="scss" scoped>
 ::v-deep(.el-sub-menu__title) {
-  background-color: #e7e8eb;
   justify-content: center !important;
   padding: 0 !important;
 }
 
-::v-deep(.el-sub-menu__icon-arrow) {
-  display: none !important;
-}
 ::v-deep(.el-menu-tooltip__trigger) {
   padding: 0;
   justify-content: center !important;

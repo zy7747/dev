@@ -18,11 +18,16 @@
     "watermark": "透かし",
     "back": "戻る",
     "base info": "基本情報",
-    "is no null": "Can not be empty"
+    "is no null": "Can not be empty",
+    "collection": "collect",
+    "history": "history",
+    "message": "information",
+    "Data Management Center": "Data Management Center"
   },
   "form": {
     "please input": "入力してください",
-    "please select": "選択してください"
+    "please select": "選択してください",
+    "search": "search"
   },
   "dict": {
     "color": "Custom color",
@@ -68,7 +73,8 @@
   "page": {
     "menuId": "Page id",
     "options": "Page configuration",
-    "page": "Configuration page"
+    "page": "Configuration page",
+    "pageCode": "Page encoding"
   },
   "permission": {
     "description": "describe",

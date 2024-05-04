@@ -1,31 +1,32 @@
 <template>
   <div
     class="logo flex items-center justify-center cursor-pointer"
-    :style="{ width: width ? width + 'px' : 'auto', height: height + 'px' }"
+    :style="{
+      width: theme.asideWidth ? theme.asideWidth + 'px' : 'auto',
+      height: theme.height + 'px',
+    }"
   >
-    <svg-icon :name="`哔哩哔哩`" class="icon" />
-    <span class="appName" v-if="hasTitle || collapse" style="margin-left: 10px">
-      {{ theme.appName }}
+    <div class="logo">
+      <img class="logoPng" src="@/assets/images/logo/logo.png" alt="" />
+    </div>
+    <span
+      class="appName"
+      :title="$t('system.Data Management Center', '数据管理中心')"
+      v-if="hasTitle || collapse"
+    >
+      {{ $t("system.Data Management Center", "数据管理中心") }}
     </span>
   </div>
 </template>
 
 <script lang="ts" setup>
 defineProps({
-  width: {
-    text: "宽度",
-    type: [Number],
-  },
   theme: {
     text: "主题",
     type: [Object],
     default: () => {
       return {};
     },
-  },
-  height: {
-    text: "宽度",
-    type: [Number],
   },
   hasTitle: {
     text: "是否显示标题",
@@ -40,19 +41,32 @@ defineProps({
 
 <style lang="scss" scoped>
 .logo {
-  background: transparent;
-  text-align: center;
-  .icon {
-    width: 30px;
-    height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  .logoPng {
+    width: 100%;
+    object-fit: cover;
   }
 }
 
 .appName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   border-radius: 5px;
-  color: #000000;
+  padding: 5px 15px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 1px -2px 0px black; /* 描边效果 */
+  background-size: 100% 30px !important;
+  background-position: 0;
+  background: url("@/assets/images/button/输入框.png") no-repeat center;
   &:hover {
-    background-color: #999898;
     color: #f0f0f0;
   }
 }

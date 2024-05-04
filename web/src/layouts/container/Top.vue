@@ -4,21 +4,11 @@
     <el-container>
       <el-header
         :style="{
-          backgroundColor: theme.headerBackgroundColor,
           height: `${theme.headerHeight}px`,
         }"
       >
-        <Logo
-          :hasTitle="true"
-          :collapse="true"
-          :theme="theme"
-          :width="theme.asideWidth"
-          :height="theme.headerHeight"
-        />
-        <HeaderLine
-          :width="theme.asideWidth"
-          :backgroundColor="theme.headerBackgroundColor"
-        />
+        <Logo :hasTitle="true" :collapse="true" :theme="theme" />
+        <HeaderLine :width="theme.asideWidth" />
       </el-header>
 
       <el-main>

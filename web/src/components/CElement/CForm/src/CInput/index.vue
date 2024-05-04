@@ -7,7 +7,7 @@
     :style="`width:${width};`"
     :placeholder="placeholder"
     :clearable="clearable"
-    :suffix-icon="Edit"
+    :suffix-icon="suffixIcon"
   />
 </template>
 
@@ -15,6 +15,13 @@
 import { Edit } from "@element-plus/icons-vue";
 
 defineProps({
+  suffixIcon: {
+    text: "图标",
+    type: [Object] as any,
+    default: () => {
+      return Edit;
+    },
+  },
   size: {
     text: "大小",
     type: [String] as any,

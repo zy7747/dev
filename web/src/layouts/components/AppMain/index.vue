@@ -27,7 +27,6 @@ const include = computed(() => {
 const font = ref({
   fontWeight: 10,
   fontSize: 16,
-  color: "rgba(0, 0, 0, 0.15)",
 });
 </script>
 

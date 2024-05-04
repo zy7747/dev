@@ -18,11 +18,16 @@
     "watermark": "워터마크",
     "back": "뒤로",
     "base info": "기본 정보",
-    "is no null": "비워둘 수 없습니다."
+    "is no null": "비워둘 수 없습니다.",
+    "collection": "모으다",
+    "history": "역사",
+    "message": "정보",
+    "Data Management Center": "데이터 관리 센터"
   },
   "form": {
     "please input": "입력해주세요",
-    "please select": "선택해주세요"
+    "please select": "선택해주세요",
+    "search": "찾다"
   },
   "dict": {
     "color": "맞춤 색상",
@@ -68,7 +73,8 @@
   "page": {
     "menuId": "페이지 ID",
     "options": "페이지 구성",
-    "page": "구성 페이지"
+    "page": "구성 페이지",
+    "pageCode": "페이지 인코딩"
   },
   "permission": {
     "description": "설명하다",

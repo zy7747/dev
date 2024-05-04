@@ -1,5 +1,4 @@
 const data = ref({
-  appName: "数据管理中心",
   container: "Normal",
   headerBackgroundColor: "#f5f7fa",
   headerColor: "#fff",

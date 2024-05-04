@@ -1,5 +1,6 @@
 {
   "system": {
+    "Data Management Center": "数据管理中心",
     "action": "操作",
     "add": "新增",
     "cancel": "取消",
@@ -18,9 +19,13 @@
     "watermark": "水印",
     "back": "返回",
     "base info": "基础信息",
+    "message": "消 息",
+    "history": "历 史",
+    "collection": "收 藏",
     "is no null": "不能为空"
   },
   "form": {
+    "search": "搜索",
     "please input": "请输入",
     "please select": "请选择"
   },

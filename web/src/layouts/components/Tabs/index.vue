@@ -92,14 +92,21 @@ watch(
 
 <style lang="scss" scoped>
 .tabs {
-  border: 1px solid #ecebeb;
   .tag {
-    color: #333;
+    color: #000000;
+    background-color: #fff;
     padding: 0 10px;
-    border-right: 1px solid #ecebeb;
+    border-radius: 5px;
+    margin-right: 8px;
     &:hover {
-      background: #eee;
+      color: #fff;
+      background: #303b75;
     }
+  }
+
+  .active {
+    color: #fff;
+    background: #303b75;
   }
 
   .icon {
@@ -126,16 +133,12 @@ watch(
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 1px solid #ecebeb;
+    border: 1px solid var(--el-border-color-darker);
     padding: 0 10px;
     &:hover {
       cursor: pointer;
       color: #245fd4;
     }
   }
-}
-
-.active {
-  background-color: #e7e8eb;
 }
 </style>

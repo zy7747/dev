@@ -3,7 +3,6 @@
     <el-container>
       <el-header
         :style="{
-          backgroundColor: theme.headerBackgroundColor,
           height: `${theme.headerHeight}px`,
         }"
       >
@@ -14,21 +13,14 @@
           :height="theme.headerHeight"
           :theme="theme"
         />
-        <HeaderLine
-          :width="theme.asideWidth"
-          :backgroundColor="theme.headerBackgroundColor"
-        />
+        <HeaderLine :width="theme.asideWidth" />
       </el-header>
 
       <el-container
         :style="{ height: `calc(100vh - ${theme.headerHeight}px) !important` }"
       >
-        <el-aside :style="{ backgroundColor: theme.asideBackgroundColor }">
-          <Sidebar
-            :backgroundColor="theme.asideBackgroundColor"
-            :width="theme.asideWidth"
-            :collapse="theme.collapse"
-          />
+        <el-aside>
+          <Sidebar :width="theme.asideWidth" :collapse="theme.collapse" />
         </el-aside>
 
         <el-main>
@@ -71,11 +63,11 @@ defineProps({
 .el-main {
   position: relative;
   padding: 0;
+  margin: 7px;
   .tabs {
     width: 100%;
     z-index: 1;
     position: absolute;
-    background-color: #f5f7fa;
   }
 
   .app-main {

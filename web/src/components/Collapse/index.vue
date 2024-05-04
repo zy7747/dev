@@ -47,9 +47,9 @@ const show = ref(true);
   align-items: center;
   justify-content: space-between;
   display: flex;
-  background-color: #f5f7fa;
-  border-bottom: 1px solid #e1e3e7;
+  border: 1px solid var(--el-border-color-darker);
 }
+
 .tools {
   align-items: center;
   justify-content: space-around;

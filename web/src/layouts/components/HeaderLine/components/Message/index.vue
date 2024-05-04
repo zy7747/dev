@@ -2,7 +2,9 @@
 <template>
   <div class="flex flex-col items-center cursor-pointer">
     <svg-icon name="邮件" class="icon" />
-    <span style="font-size: 12px; margin-top: 3px">{{ "消 息" }}</span>
+    <span style="font-size: 12px; margin-top: 3px">
+      {{ $t("system.message") }}
+    </span>
   </div>
 </template>
 

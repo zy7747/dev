@@ -4,6 +4,8 @@ import zh from "./locales/zh.json";
 import en from "./locales/en.json";
 import jp from "./locales/jp.json";
 import ko from "./locales/ko.json";
+import fr from "./locales/fr.json";
+import ru from "./locales/ru.json";
 
 export const i18n = createI18n({
   //这里是语种的持久化，刷新也存在
@@ -16,6 +18,8 @@ export const i18n = createI18n({
     zh,
     jp,
     ko,
+    fr,
+    ru,
   }, //需要做国际化的语种
 });
 

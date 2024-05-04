@@ -17,7 +17,6 @@
       <el-container>
         <el-header
           :style="{
-            backgroundColor: theme.headerBackgroundColor,
             height: `${theme.headerHeight}px`,
           }"
         >
