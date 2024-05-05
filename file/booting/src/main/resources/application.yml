@@ -22,12 +22,11 @@ spring:
 
 server:
   #端口号
-  port: 8080
+  port: 8081
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml # 自定义xml文件路径
   configuration:
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true #在映射实体类时候,将数据库表名和字段中下划线去掉,按照驼峰命名
 
 

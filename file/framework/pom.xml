@@ -4,7 +4,7 @@
     <!--  继承父类  -->
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>server</artifactId>
+        <artifactId>file</artifactId>
         <version>2.7.12</version>
     </parent>
 

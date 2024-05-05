@@ -93,7 +93,7 @@ export default ({ mode }: any) =>
     server: {
       // Listening on all local IPs
       host: true,
-      port: 88,
+      port: 80,
       // 设置代理
     },
   });

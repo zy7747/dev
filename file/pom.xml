@@ -12,11 +12,11 @@
 
     <!-- 父类信息 -->
     <groupId>com.example</groupId>
-    <artifactId>server</artifactId>
+    <artifactId>file</artifactId>
     <version>2.7.12</version>
 
     <!-- 基本信息 -->
-    <name>server</name>
+    <name>file</name>
     <description>后台服务</description>
     <packaging>pom</packaging>
 
