@@ -34,6 +34,15 @@ public interface FileService {
     Result<List<FileListVO>> fileList(FileQueryDTO file);
 
     /**
+     * 获取列表
+     *
+     * @param file 入参
+     * @return 列表
+     */
+    Result<List<FileListVO>> fileDetailList(FileQueryDTO file);
+
+
+    /**
      * 获取详情
      *
      * @param id 入参

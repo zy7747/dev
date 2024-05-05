@@ -109,7 +109,7 @@ const onQueryChanged = () => {
 };
 
 const filterMethod: any = (query: string, node: TreeNode) => {
-  return node.label!.includes(query);
+  return node.label!.includes(unref(query));
 };
 
 defineExpose({

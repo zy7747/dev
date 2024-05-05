@@ -12,6 +12,10 @@
     fit="cover"
   />
 
+  <div v-else-if="type === 'link'">
+    <el-link type="primary">{{ value }}</el-link>
+  </div>
+
   <div v-else-if="type === 'icon'" class="iconBox">
     <svg-icon :name="value" class="icon" />
   </div>
@@ -20,12 +24,12 @@
 </template>
 
 <script lang="ts" setup>
-const fileUrl = import.meta.env.VITE_APP_FILE_API;
+const fileUrl = "http://localhost:8081";
 
 defineProps({
   params: {
-    text: "类型",
-    type: [Object] as any,
+    text: "参数",
+    type: [Object, Function] as any,
   },
   type: {
     text: "类型",

@@ -16,7 +16,9 @@
           <span>{{ item.title }}</span>
         </template>
         <el-collapse-transition class="collapse" v-show="show">
-          <slot name="content" :item="item" :index="index" />
+          <div>
+            <slot name="content" :item="item" :index="index" />
+          </div>
         </el-collapse-transition>
       </el-tab-pane>
     </el-tabs>

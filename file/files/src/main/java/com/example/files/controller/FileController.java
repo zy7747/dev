@@ -50,6 +50,12 @@ public class FileController {
         return fileService.fileList(file);
     }
 
+    @GetMapping("/fileDetailList")
+    @ApiOperation(value = "列表")
+    public Result<List<FileListVO>> fileDetailList(@Valid FileQueryDTO file) {
+        return fileService.fileDetailList(file);
+    }
+
     @GetMapping("/detail")
     @ApiOperation(value = "详情")
     public Result<FileDetailVO> fileDetail(Long id) {

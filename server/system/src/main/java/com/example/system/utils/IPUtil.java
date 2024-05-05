@@ -43,7 +43,6 @@ public class IPUtil {
 
             return add;
         } catch (IOException e) {
-            log.error("解析ip地址失败,无法创建搜索器: {}", e);
             throw new RuntimeException(e);
         }
 

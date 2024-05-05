@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <c-button @handleClick="login" text="登录" />
+      <c-button @handleClick="login" text="START" />
       <c-button @click="handleCheck" text="去注册" />
     </div>
   </div>

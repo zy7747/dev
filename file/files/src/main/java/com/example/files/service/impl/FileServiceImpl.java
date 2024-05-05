@@ -51,6 +51,18 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
     }
 
     /**
+     * 获取列表
+     *
+     * @param file 入参
+     * @return 列表
+     */
+    @Override
+    public Result<List<FileListVO>> fileDetailList(FileQueryDTO file) {
+        return Result.success(FileConvert.INSTANCE.list(fileMapper.queryFileList(file)));
+    }
+
+
+    /**
      * 获取详情
      *
      * @param id 入参

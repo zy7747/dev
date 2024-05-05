@@ -14,6 +14,7 @@
 
     <template #tableSlot="{ row, column }: any">
       <Columns
+        @click="column.params.on.click({ row, column })"
         :type="column.params.cType"
         :params="column.params"
         v-model="row[column.field]"
@@ -43,7 +44,7 @@
         v-show="total !== 0"
         class="flex w-full justify-end items-center pagination"
       >
-        <Pagination ref="paginationRef" :total="total" />
+        <Pagination @query="query" ref="paginationRef" :total="total" />
       </div>
     </template>
   </vxe-grid>
@@ -189,6 +190,10 @@ function query() {
   }
 }
 
+function reset() {
+  unref(paginationRef).reset();
+}
+
 //基本配置
 const gridOptions = reactive<VxeGridProps<any>>({
   border: true,
@@ -248,6 +253,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
 
 defineExpose({
   query,
+  reset,
   addLine,
   checkboxData,
   checkRadioData,

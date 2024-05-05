@@ -16,26 +16,27 @@ export function getTableCols(columns: any, filters: any) {
   return unref(columns).map((item: any) => {
     const col: any = {
       resizable: true,
+      "show-header-overflow": "ellipsis",
       slots: {},
       params: {},
-      "show-header-overflow": "ellipsis",
+      columns: {},
     };
 
     //编辑插槽
-    if (!item.editRender && item.form) {
-      col.editRender = {};
-      col.slots.edit = "tableEdit";
+    if (!item.editRender) {
+      if (item.form) {
+        col.editRender = {};
+        col.slots.edit = "tableEdit";
 
-      Object.assign(col.params, { form: item.form });
+        Object.assign(col.params, { form: item.form });
+      }
     }
 
     //自定义渲染插槽
     if ((item.cType && item.cType !== "action") || item.translate) {
       col.slots.default = "tableSlot";
-      Object.assign(col.params, {
-        cType: item.cType,
-        translate: item.translate,
-      });
+
+      Object.assign(col.params, item);
     }
 
     //过滤

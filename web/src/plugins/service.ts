@@ -1,5 +1,6 @@
 import request from "@/utils/request";
 import lodash from "lodash";
+
 const modules = import.meta.glob(["@/apis/**.ts", "@/apis/**/*.ts"], {
   import: "default",
   eager: true,
@@ -23,8 +24,8 @@ function config(api: any = {}, data: any) {
     config.responseType = api.responseType;
   }
 
-  if (api.baseURL) {
-    config.baseURL = api.baseURL;
+  if (api.baseUrl) {
+    config.baseURL = api.baseUrl;
   }
 
   if (api.headers) {

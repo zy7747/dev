@@ -37,7 +37,13 @@
       :options="pageOption.tableConfig"
     >
       <template #content="{ item, index }">
-        <c-table :ref="(el) => setTableRef(el, index)" :tableConfig="item" />
+        <c-table
+          v-if="item.tableColumn"
+          :ref="(el) => setTableRef(el, index)"
+          :tableConfig="item"
+        />
+
+        <slot :name="item.slot" :item="item" :index="index" />
       </template>
     </c-tabs>
 
@@ -88,7 +94,7 @@ const tableRef: any = ref<any>([]);
 const dialogRef: any = ref<any>([]);
 const editRef: any = ref<any>([]);
 
-const active: any = reactive<any>(0);
+const active: any = ref(0);
 const isDetail: any = ref<any>();
 const dialogTitle: Ref<string> = ref<string>("");
 
@@ -97,14 +103,17 @@ function query() {
   return unref(formRef)
     .submitForm()
     .then((res: any) => {
-      if (res && unref(tableRef)[active]) {
-        return unref(tableRef)[active].query();
+      if (res && unref(tableRef)[unref(active)]) {
+        return unref(tableRef)[unref(active)].query();
+      } else if (pageOption.tableConfig[unref(active)].slotQuery) {
+        return pageOption.tableConfig[unref(active)].slotQuery();
       }
     });
 }
 //重置
 function reset() {
   unref(formRef).resetForm();
+  unref(tableRef)[unref(active)].reset();
   query();
 }
 //编辑弹窗
@@ -125,11 +134,11 @@ function handleOpen({ type, data }: any) {
   //数据反显
   unref(pageData).editData = data;
   //打开弹窗
-  unref(dialogRef)[active].handleOpen();
+  unref(dialogRef)[unref(active)].handleOpen();
 }
 //关闭弹窗
 function handleClose() {
-  unref(dialogRef)[active].handleClose();
+  unref(dialogRef)[unref(active)].handleClose();
 }
 //确认
 function confirm(handleConfirm: any) {
@@ -147,11 +156,11 @@ function submitForm() {
 }
 //多选
 function checkboxData() {
-  return unref(tableRef)[active].checkboxData();
+  return unref(tableRef)[unref(active)].checkboxData();
 }
 //新增
 function addLine(row: any) {
-  unref(tableRef)[active].addLine(row);
+  unref(tableRef)[unref(active)].addLine(row);
 }
 function tabChange() {
   query();

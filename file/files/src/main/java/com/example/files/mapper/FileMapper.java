@@ -25,6 +25,10 @@ public interface FileMapper extends BaseMapper<FileEntity> {
         if (file.getId() != null) {
             wrapper.eq("id", file.getId());
         }
+        /* parentId */
+        if (file.getParentId() != null) {
+            wrapper.eq("parent_id", file.getParentId());
+        }
         /* 文件名称 */
         if (!StrUtil.hasBlank(file.getFileName())) {
             wrapper.eq("file_name", file.getFileName());
@@ -113,4 +117,13 @@ public interface FileMapper extends BaseMapper<FileEntity> {
     default List<FileEntity> queryList(FileQueryDTO file) {
         return selectList(search(file));
     }
+
+    default List<FileEntity> queryFileList(FileQueryDTO file) {
+        if (file.getParentId() == null) {
+            return selectList(search(file).isNull("parent_id"));
+        } else {
+            return selectList(search(file));
+        }
+    }
+
 }
