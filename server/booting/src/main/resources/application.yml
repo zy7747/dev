@@ -22,7 +22,7 @@ spring:
 
 server:
   #端口号
-  port: 8088
+  port: 8080
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml # 自定义xml文件路径

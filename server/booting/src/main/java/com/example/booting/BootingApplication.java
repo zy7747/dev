@@ -14,7 +14,7 @@ public class BootingApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BootingApplication.class, args);
-        log.info("项目启动成功-端口8088");
+        log.info("项目启动成功-端口8080");
     }
 
 }
