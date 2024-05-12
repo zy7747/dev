@@ -1,13 +1,14 @@
 <!--  -->
 <template>
   <div class="sidebar">
-    <c-input
-      v-if="collapse"
-      style="width: 200px; margin-bottom: 5px"
-      v-model="query"
-      :placeholder="$t('form.search')"
-      :suffixIcon="Search"
-    />
+    <div style="width: asWidth; margin-bottom: 5px">
+      <c-input
+        v-if="collapse"
+        v-model="query"
+        :placeholder="$t('form.search')"
+        :suffixIcon="Search"
+      />
+    </div>
     <el-menu
       :collapse="!collapse"
       mode="vertical"

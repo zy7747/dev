@@ -1,13 +1,13 @@
 <!-- 文件 file -->
 <template>
   <el-container>
-    <el-aside width="250px">
-      <Tree :data="list" @node-click="nodeClick" />
+    <el-aside width="10vw">
+      <Tree :data="tree" @node-click="nodeClick" />
     </el-aside>
     <el-main>
       <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
         <template #fileView>
-          <View :data="data" />
+          <View :data="list" />
         </template>
       </c-page>
     </el-main>
@@ -17,7 +17,7 @@
 import View from "./components/View.vue";
 import Tree from "./components/Tree.vue";
 import { handleTree } from "@/utils/formatData";
-const fileUrl = "http://localhost:8081";
+const fileUrl = import.meta.env.VITE_APP_FILE_URL;
 
 defineOptions({
   name: "File",
@@ -31,8 +31,8 @@ const pageData: any = reactive({
 const nodeInfo: any = ref({
   id: null,
 });
-const data: any = ref([]);
 const list: any = ref([]);
+const tree: any = ref([]);
 
 const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
   createLoad: true,
@@ -86,14 +86,8 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
         {
           title: $t("system.no", "序号"),
           type: "seq",
-          width: 100,
+          width: 60,
           fixed: "left",
-        },
-        {
-          title: $t("file.fileType", "文件类型"),
-          field: "fileType",
-          isFilters: true,
-          width: 200,
         },
         {
           title: $t("file.fileName", "文件名称"),
@@ -110,10 +104,16 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
           width: 200,
         },
         {
+          title: $t("file.fileType", "文件类型"),
+          field: "fileType",
+          isFilters: true,
+          width: 150,
+        },
+        {
           title: $t("file.fileSize", "文件大小"),
           field: "fileSize",
           isFilters: true,
-          width: 200,
+          width: 100,
           formatter: ({ row }: any) => {
             const value = row.fileSize;
 
@@ -130,23 +130,15 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
           isFilters: true,
           width: 200,
         },
-
         {
           title: $t("file.filePath", "文件路径"),
           field: "filePath",
           isFilters: true,
           width: 200,
         },
-
         {
           title: $t("table.status", "状态"),
           field: "status",
-          isFilters: true,
-          width: 200,
-        },
-        {
-          title: $t("table.remark", "备注"),
-          field: "remark",
           isFilters: true,
           width: 200,
         },
@@ -284,7 +276,7 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
             });
         },
       },
-      data: unref(data),
+      data: unref(list),
     },
     {
       title: $t("file.file view", "文件视图"),
@@ -295,7 +287,7 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
 //获取文件夹树
 function getList() {
   Service.file.list({ fileType: "folder" }).then((res: any) => {
-    list.value = handleTree(res.data);
+    tree.value = handleTree(res.data);
     queryFile();
   });
 }
@@ -304,8 +296,10 @@ function queryFile() {
   Service.file
     .fileDetailList({ parentId: unref(nodeInfo).id })
     .then((res: any) => {
-      data.value.splice(0);
-      data.value.push(...res.data);
+      list.value.splice(0);
+      nextTick(() => {
+        list.value.push(...res.data);
+      });
     });
 }
 //左侧树节点触发

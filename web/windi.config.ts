@@ -1,4 +1,5 @@
 import { defineConfig } from "vite-plugin-windicss";
+import colors from "windicss/colors";
 
 export default defineConfig({
   darkMode: "class",
@@ -9,11 +10,23 @@ export default defineConfig({
         "-1": "-1",
       },
       screens: {
-        sm: "576px",
+        sm: "640px",
         md: "768px",
-        lg: "992px",
-        xl: "1200px",
-        "2xl": "1600px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+      },
+      colors: {
+        blue: colors.sky,
+        red: colors.rose,
+        pink: colors.fuchsia,
+      },
+      fontFamily: {
+        sans: ["Graphik", "sans-serif"],
+        serif: ["Merriweather", "serif"],
+      },
+      borderRadius: {
+        "4xl": "2rem",
       },
     },
   },

@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-const fileUrl = "http://localhost:8081";
+const fileUrl = import.meta.env.VITE_APP_FILE_URL;
 
 defineProps({
   params: {

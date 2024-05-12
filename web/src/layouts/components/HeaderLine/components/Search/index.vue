@@ -67,7 +67,7 @@ function searchVideo(keyword: any) {
 
 <style lang="scss" scoped>
 .SearchInput {
-  width: 400px;
+  width: 25vw;
   height: 100%;
   display: flex;
 }

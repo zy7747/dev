@@ -21,10 +21,10 @@
       :height="700"
     >
       <template #default="{ node }">
-        <span class="node-item">
+        <span class="node-item" @contextmenu.prevent.stop="nodeClick(node)">
           <img
             style="width: 20px; margin-right: 5px"
-            src="@/assets/images/file/folder.png"
+            src="https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/file/folder.png"
             alt=""
           />
           <span :title="node.label">{{ node.label }}</span>
@@ -48,6 +48,10 @@ defineProps({
 const onQueryChanged = () => {
   treeRef.value!.filter(query);
 };
+
+function nodeClick(node: any) {
+  console.log(node);
+}
 
 const filterMethod: any = (query: string, node: any) => {
   return node.fileName!.includes(unref(query));

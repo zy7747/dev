@@ -61,18 +61,7 @@ defineProps({
   align-items: center;
 }
 .el-main {
-  position: relative;
   padding: 0;
-  margin: 7px;
-  .tabs {
-    width: 100%;
-    z-index: 1;
-    position: absolute;
-  }
-
-  .app-main {
-    padding-top: 26px;
-  }
 }
 
 .el-aside {

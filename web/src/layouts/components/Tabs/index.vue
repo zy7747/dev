@@ -92,23 +92,20 @@ watch(
 
 <style lang="scss" scoped>
 .tabs {
+  background-color: var(--el-bg-color);
   .tag {
-    color: #000000;
-    background-color: #fff;
     padding: 0 10px;
     border-radius: 5px;
-    margin-right: 8px;
+    margin-right: 5px;
     &:hover {
       color: #fff;
       background: #303b75;
     }
   }
-
   .active {
     color: #fff;
     background: #303b75;
   }
-
   .icon {
     width: 16px;
     height: 16px;
@@ -128,6 +125,7 @@ watch(
       color: #fff;
     }
   }
+
   //右侧菜单
   .action {
     display: flex;

@@ -12,9 +12,9 @@
       <el-checkbox v-model="loginInfo.rememberMe" label="记住我" />
     </div>
 
-    <div>
+    <div class="button">
       <c-button @handleClick="login" text="START" />
-      <c-button @click="handleCheck" text="去注册" />
+      <c-button @click="handleCheck" text="SignUp" />
     </div>
   </div>
 </template>
@@ -88,4 +88,11 @@ function hasRemember() {
 hasRemember();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

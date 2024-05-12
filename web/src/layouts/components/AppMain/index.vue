@@ -1,7 +1,7 @@
 <!-- AppMain -->
 <template>
   <div class="app-main font-mono">
-    <!-- <el-backtop style="z-index: 3" target=".app-main" /> -->
+    <el-backtop style="z-index: 10" target=".app-main" />
     <el-watermark
       :content="$t('system.watermark')"
       :font="font"
@@ -32,7 +32,6 @@ const font = ref({
 
 <style lang="scss" scoped>
 .app-main {
-  height: 100%;
   overflow: auto;
 }
 </style>

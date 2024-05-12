@@ -10,7 +10,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import VueDevTools from "vite-plugin-vue-devtools";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { resolve } from "path";
-import basicSsl from "@vitejs/plugin-basic-ssl";
+// import basicSsl from "@vitejs/plugin-basic-ssl";
 
 const getTarget = (mode: string, target: string) => {
   return loadEnv(mode, process.cwd())[target];
@@ -22,15 +22,13 @@ export default ({ mode }: any) =>
     plugins: [
       VueDevTools(),
       vue(),
-      basicSsl(),
+      // basicSsl(),
       WindiCSS(),
       svgLoader(),
       createSvgIconsPlugin({
         iconDirs: [
           resolve(process.cwd(), "src/icons/app"),
-          resolve(process.cwd(), "src/icons/files"),
           resolve(process.cwd(), "src/icons/flag"),
-          resolve(process.cwd(), "src/icons/menu"),
           resolve(process.cwd(), "src/icons/system"),
         ],
         // 指定symbolId格式（这里的配置与6.2步骤中的引入svg组件的name配置项写法有关）

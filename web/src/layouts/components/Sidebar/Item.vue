@@ -43,22 +43,9 @@ function menuClick(menu: any) {
 </script>
 
 <style lang="scss" scoped>
-::v-deep(.el-sub-menu__title) {
-  justify-content: center !important;
-  padding: 0 !important;
-}
-
-::v-deep(.el-menu-tooltip__trigger) {
-  padding: 0;
-  justify-content: center !important;
-}
-.el-menu-item {
-  padding: 0 !important;
-  justify-content: center;
-}
 .icon {
-  margin: 0 6px;
-  width: 18px;
-  height: 18px;
+  margin: 0 5px;
+  width: 17px;
+  height: 17px;
 }
 </style>

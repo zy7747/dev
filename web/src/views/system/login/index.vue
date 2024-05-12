@@ -32,7 +32,7 @@ import Login from "./login.vue";
   }
   .login {
     position: absolute;
-    z-index: 3;
+    z-index: 1;
   }
 }
 </style>
