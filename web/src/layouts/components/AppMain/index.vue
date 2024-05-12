@@ -1,6 +1,6 @@
 <!-- AppMain -->
 <template>
-  <div class="app-main font-mono">
+  <div class="font-mono">
     <el-backtop style="z-index: 10" target=".app-main" />
     <el-watermark
       :content="$t('system.watermark')"

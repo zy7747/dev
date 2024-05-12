@@ -97,6 +97,10 @@ watch(
     padding: 0 10px;
     border-radius: 5px;
     margin-right: 5px;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &:hover {
       color: #fff;
       background: #303b75;

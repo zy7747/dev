@@ -1,4 +1,5 @@
 const data = ref({
+  appName: $t("system.Data Management Center", "数据管理中心"),
   container: "Normal",
   headerBackgroundColor: "#f5f7fa",
   headerColor: "#fff",

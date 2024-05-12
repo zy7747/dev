@@ -1,12 +1,61 @@
 import { defineStore } from "pinia";
 import { removeToken, setToken } from "@/utils/auth";
-import { handleTree } from "@/utils/formatData";
-import { menuRoute } from "@/router/index";
+
 const modules = import.meta.glob("../views/**/*.vue");
 
 const resComponent = (name: string) => {
   return modules[`../views${name}.vue`];
 };
+
+//重新整理pid
+function handleTreeList(data: any, newList: any) {
+  data.forEach((childPar: any) => {
+    //如果没有parentId
+    if (!childPar.parentId) {
+      newList.push(childPar);
+    } else {
+      //如果有找parentId===id相同的
+      const arr = data.find((child: any) => {
+        return childPar.parentId === child.id;
+      });
+
+      if (arr) {
+        newList.push(childPar);
+      } else {
+        newList.push({ ...childPar, parentId: null });
+      }
+    }
+  });
+}
+//树形
+function handleTree(
+  data: any,
+  rootId?: any,
+  id?: any,
+  parentId?: any,
+  children?: any
+): any {
+  id = id || "id";
+  parentId = parentId || "parentId";
+  children = children || "children";
+  rootId = rootId || null;
+
+  //对源数据深度克隆
+  const cloneData = data;
+  //循环所有项
+  const treeData = cloneData.filter((father: any) => {
+    let branchArr = cloneData.filter((child: any) => {
+      //返回每一项的子级数组
+      return father[id] === child[parentId];
+    });
+    branchArr.length > 0 ? (father.children = branchArr) : "";
+
+    //返回第一层
+    return father[parentId] === rootId;
+  });
+
+  return treeData !== "" ? treeData : data;
+}
 
 export const useUserStore = defineStore({
   id: "user", // id必填，且需要唯一
@@ -23,34 +72,34 @@ export const useUserStore = defineStore({
   actions: {
     // 登录
     login(loginInfo: any) {
-      return Service.user
-        .login({ ...loginInfo, loginSystem: "system" })
-        .then((response: any) => {
-          if (response.code === 200) {
-            //加入Token
-            setToken(response.data.token);
-            this.userInfo = response.data.userInfo;
+      return Service.user.login({ ...loginInfo }).then((response: any) => {
+        if (response.code === 200) {
+          //加入Token
+          setToken(response.data.token);
+          this.userInfo = response.data.userInfo;
 
-            //1.记住密码
-            if (loginInfo.rememberMe) {
-              localStorage.setItem("rememberMe", JSON.stringify(loginInfo));
-            } else {
-              localStorage.removeItem("rememberMe");
-            }
-
-            return response.data;
+          //1.记住密码
+          if (loginInfo.rememberMe) {
+            localStorage.setItem("rememberMe", JSON.stringify(loginInfo));
+          } else {
+            localStorage.removeItem("rememberMe");
           }
-        });
+
+          return response.data;
+        }
+      });
     },
     getUserInfo() {
       return Service.user
-        .userInfo({ loginSystem: "system" })
+        .userInfo({})
         .then((response: any) => {
           if (response.code === 200) {
             this.userInfo = response.data.userInfo;
             const { menu, permission } = this.getMenu(response.data.menuList);
             this.asyncRoutes = this.getRoutes(response.data.menuList);
+
             this.roles = response.data.roles;
+
             this.menu = menu;
             this.permission = permission;
 
@@ -65,31 +114,36 @@ export const useUserStore = defineStore({
     },
     //获取路由
     getRoutes(routes: any) {
-      let myRoute: any = [];
+      //只获取菜单
+      const menuRouter = routes.filter((item: any) => {
+        return item.type === "menu";
+      });
+      //重新整理PID
+      const newList: any = [];
 
-      routes.forEach((item: any) => {
-        if (item.type === "menu") {
-          myRoute.push({
-            id: item.id,
-            parentId: item.parentId,
-            name: item.name,
+      handleTreeList(menuRouter, newList);
+      //组装数据
+      const myRoute = newList.map((item: any) => {
+        return {
+          id: item.id,
+          parentId: item.parentId,
+          name: item.name,
+          title: item.title,
+          component: resComponent(item.component),
+          path: item.path,
+          meta: {
             title: item.title,
-            component: resComponent(item.component),
-            path: item.path,
-            meta: {
-              title: item.title,
-              keepAlive: item.keepAlive,
-              icon: item.icon,
-            },
-          });
-        }
+            keepAlive: item.keepAlive,
+            icon: item.icon,
+          },
+        };
       });
 
       const route = [
         {
           path: "/",
           component: () => import("@/layouts/index.vue"),
-          children: myRoute,
+          children: handleTree(myRoute),
         },
         {
           path: "/:pathMatch(.*)*",
@@ -132,22 +186,21 @@ export const useUserStore = defineStore({
 
       menu.sort((a: any, b: any) => a.sort - b.sort);
 
-      const menuList = handleTree(menu);
+      const systemList = ["videoWeb", "system"];
 
-      const list = menuList[0].children.map((i: any) => {
-        return { ...i, parentId: null };
+      const menuList = handleTree(menu).filter((menus: any) => {
+        return systemList.indexOf(menus.name) !== -1;
       });
 
-      menuRoute.forEach((item: any) => {
-        list.push({
-          ...item,
-          meta: {
-            title: item.title,
-            alwaysShow: "1",
-            visible: "1",
-          },
+      let list = [];
+
+      if (menuList.length === 1) {
+        list = menuList[0].children.map((i: any) => {
+          return { ...i, parentId: null };
         });
-      });
+      } else {
+        list = menuList;
+      }
 
       return { menu: list, permission };
     },

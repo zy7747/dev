@@ -17,6 +17,7 @@
       </el-header>
 
       <el-container
+        class="app-main"
         :style="{ height: `calc(100vh - ${theme.headerHeight}px) !important` }"
       >
         <el-aside>
@@ -59,9 +60,6 @@ defineProps({
   padding: 0;
   display: flex;
   align-items: center;
-}
-.el-main {
-  padding: 0;
 }
 
 .el-aside {

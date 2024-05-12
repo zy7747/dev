@@ -9,13 +9,9 @@
     <div class="logo">
       <img class="logoPng" src="@/assets/images/logo/logo.png" alt="" />
     </div>
-    <span
-      class="appName"
-      :title="$t('system.Data Management Center', '数据管理中心')"
-      v-if="hasTitle || collapse"
-    >
-      {{ $t("system.Data Management Center", "数据管理中心") }}
-    </span>
+    <div class="appName" :title="theme.appName" v-if="hasTitle || collapse">
+      {{ theme.appName }}
+    </div>
   </div>
 </template>
 
@@ -56,18 +52,19 @@ defineProps({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  border-radius: 5px;
-  padding: 5px 15px;
-  font-weight: 700;
+  min-width: 120px;
+  font-weight: 600;
   font-size: 18px;
-  color: #fff;
+  color: #00aeec;
   text-align: center;
-  text-shadow: 1px -2px 0px black; /* 描边效果 */
+  line-height: 30px;
+  text-shadow: -2px -2px 0px rgb(233, 230, 230); /* 描边效果 */
   background-size: 100% 30px !important;
   background-position: 0;
+  font-family: "Microsoft Yahei";
   background: url("@/assets/images/button/输入框.png") no-repeat center;
   &:hover {
-    color: #f0f0f0;
+    color: #76d7fa;
   }
 }
 </style>

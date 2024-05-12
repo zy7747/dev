@@ -1,7 +1,7 @@
 <!-- 文件 file -->
 <template>
   <el-container>
-    <el-aside width="10vw">
+    <el-aside width="15vw">
       <Tree :data="tree" @node-click="nodeClick" />
     </el-aside>
     <el-main>

@@ -46,6 +46,9 @@ function menuClick(menu: any) {
 ::v-deep(.el-sub-menu.is-active .el-sub-menu__title) {
   border-bottom: none !important;
 }
+::v-deep(.el-sub-menu__title) {
+  padding-right: 15px !important;
+}
 
 ::v-deep(.el-sub-menu__icon-arrow) {
   display: none !important;

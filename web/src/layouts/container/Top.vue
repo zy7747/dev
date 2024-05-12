@@ -11,7 +11,12 @@
         <HeaderLine :width="theme.asideWidth" />
       </el-header>
 
-      <el-main>
+      <el-main
+        class="app-main"
+        :style="{
+          height: `calc(100vh - ${theme.headerHeight}px) !important`,
+        }"
+      >
         <Breadcrumb v-if="theme.breadcrumb" />
         <Tabs v-if="theme.tabs" />
         <AppMain />
@@ -39,10 +44,12 @@ defineProps({
   padding: 0;
   display: flex;
   align-items: center;
+  background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/banner/banner.png")
+    0 no-repeat;
+  background-size: 100%;
 }
 
 .el-main {
-  padding: 0;
-  overflow: auto;
+  padding: 0 100px;
 }
 </style>

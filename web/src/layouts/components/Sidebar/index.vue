@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="sidebar">
-    <div style="width: asWidth; margin-bottom: 5px">
+    <div :style="`width:${asWidth};margin-bottom: 5px`">
       <c-input
         v-if="collapse"
         v-model="query"

@@ -5,7 +5,7 @@
     :default-active="activeMenu"
     :unique-opened="true"
     :collapse-transition="true"
-    style="max-width: 600px"
+    style="width: 25vw; background: transparent"
   >
     <template v-for="item in list">
       <MenuItem :menu="item"></MenuItem>
