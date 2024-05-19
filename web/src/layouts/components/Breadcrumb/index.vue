@@ -20,5 +20,3 @@
 import { ArrowRight } from "@element-plus/icons-vue";
 const onBack = () => {};
 </script>
-
-<style lang="scss" scoped></style>

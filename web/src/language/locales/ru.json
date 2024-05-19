@@ -85,7 +85,8 @@
     "collection": "собирать",
     "history": "история",
     "message": "информация",
-    "Data Management Center": "Центр управления данными"
+    "Data Management Center": "Центр управления данными",
+    "Video Web": "видеосеть"
   },
   "table": {
     "createTime": "время создания",
@@ -105,5 +106,15 @@
     "uid": "ID пользователя",
     "user": "пользователь",
     "userType": "тип"
+  },
+  "file": {
+    "file": "документ",
+    "file list": "Список файлов",
+    "file view": "просмотр файла",
+    "fileName": "имя файла",
+    "filePath": "Путь к файлу",
+    "fileSize": "Размер файла",
+    "fileType": "тип файла",
+    "url": "URL-адрес"
   }
 }

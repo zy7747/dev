@@ -22,7 +22,8 @@
     "collection": "collect",
     "history": "history",
     "message": "information",
-    "Data Management Center": "Data Management Center"
+    "Data Management Center": "Data Management Center",
+    "Video Web": "video network"
   },
   "form": {
     "please input": "please input",
@@ -105,5 +106,15 @@
     "operatePlace": "operatePlace",
     "time": "time",
     "errorMsg": "errorMsg"
+  },
+  "file": {
+    "file": "document",
+    "file list": "File List",
+    "file view": "file view",
+    "fileName": "file name",
+    "filePath": "file path",
+    "fileSize": "File size",
+    "fileType": "file type",
+    "url": "url address"
   }
 }

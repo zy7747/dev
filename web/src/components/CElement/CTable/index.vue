@@ -57,9 +57,10 @@ import Columns from "./components/columns.vue";
 import lodash from "lodash";
 import { getFilter, getTableCols, getRules } from "@/hooks/table";
 
+const xGrid = ref<VxeGridInstance<any>>();
 const Route = useRoute();
 const paginationRef = ref();
-const xGrid = ref<VxeGridInstance<any>>();
+const tableData = ref();
 
 const total: Ref<number> = ref(0);
 const loading: any = ref(false);
@@ -73,8 +74,6 @@ const { tableConfig } = defineProps({
     },
   },
 });
-
-const tableData = ref();
 
 const options = computed(() => {
   return { ...gridOptions, ...tableConfig };
@@ -182,7 +181,7 @@ function query() {
     return tableConfig
       .list()
       .then((res: any) => {
-        tableData.value = res.data;
+        tableData.value = JSON.parse(JSON.stringify(res.data));
       })
       .finally(() => {
         loading.value = false;
@@ -229,7 +228,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
   printConfig: {
     columns: tableConfig.columns,
   },
-  loadingConfig: { icon: "vxe-icon-send roll", text: "正在拼命加载中..." },
+  loadingConfig: { text: "正在拼命加载中..." },
   checkboxConfig: {
     reserve: true,
     highlight: true,

@@ -2,7 +2,11 @@
 <template>
   <div
     class="flex justify-between items-center"
-    :style="{ width: `calc(100% - ${width}px)`, overflow: 'hidden' }"
+    :style="{
+      width: `calc(100% - ${width}px)`,
+      overflow: 'hidden',
+      color: 'white',
+    }"
   >
     <div class="flex items-center">
       <HeaderMenu />

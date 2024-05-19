@@ -1,3 +1,69 @@
-.btn{
-    margin-left: 12px
+.btn {
+  margin-left: 12px;
 }
+//logo
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  .logoPng {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+//app名称
+.app-name {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 120px;
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+  text-align: center;
+  line-height: 30px;
+  background-size: 100% 30px !important;
+  background-position: 0;
+  background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/system/%E8%BE%93%E5%85%A5%E6%A1%86.png")
+    no-repeat center;
+  &:hover {
+    color: #76d7fa;
+  }
+
+  //   &::before {
+  //     content: attr(appName);
+  //     position: absolute;
+  //     left: 26px;
+  //     text-shadow: 3px red;
+  //     animation: anil2 2s linear infinite alternate-reverse;
+  //   }
+
+  //   &::after {
+  //     content: attr(appName);
+  //     position: absolute;
+  //     left: 26px;
+  //     text-shadow: -3px blue;
+  //     animation: anil1 2s linear infinite alternate-reverse;
+  //   }
+}
+
+// @keyframes anil1 {
+//   $step: 25;
+//   @for $i from 0 through $step {
+//     #{percentage($i * (1/$step))} {
+//       clip-path: inset(random(100) + px 0 random(100) + px 0);
+//     }
+//   }
+// }
+
+// @keyframes anil2 {
+//   $step: 25;
+//   @for $i from 0 through $step {
+//     #{percentage($i * (1/$step))} {
+//       clip-path: inset(0 random(100) + px 0 random(100) + px);
+//     }
+//   }
+// }

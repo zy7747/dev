@@ -22,7 +22,8 @@
     "collection": "collect",
     "history": "history",
     "message": "information",
-    "Data Management Center": "Data Management Center"
+    "Data Management Center": "Data Management Center",
+    "Video Web": "video network"
   },
   "form": {
     "please input": "入力してください",
@@ -105,5 +106,15 @@
     "uid": "user id",
     "user": "user",
     "userType": "type"
+  },
+  "file": {
+    "file": "document",
+    "file list": "File List",
+    "file view": "file view",
+    "fileName": "file name",
+    "filePath": "file path",
+    "fileSize": "File size",
+    "fileType": "file type",
+    "url": "url address"
   }
 }

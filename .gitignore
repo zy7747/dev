@@ -18,6 +18,10 @@ dist-ssr
 web/node_modules
 web/.vscode
 web/.dist
+app/node_modules
+app/.vscode
+app/.dist
+
 service/booting/.target
 !.vscode/extensions.json
 .idea

@@ -22,7 +22,8 @@
     "collection": "모으다",
     "history": "역사",
     "message": "정보",
-    "Data Management Center": "데이터 관리 센터"
+    "Data Management Center": "데이터 관리 센터",
+    "Video Web": "비디오 네트워크"
   },
   "form": {
     "please input": "입력해주세요",
@@ -105,5 +106,15 @@
     "uid": "사용자 ID",
     "user": "사용자",
     "userType": "유형"
+  },
+  "file": {
+    "file": "문서",
+    "file list": "파일 목록",
+    "file view": "파일 보기",
+    "fileName": "파일 이름",
+    "filePath": "파일 경로",
+    "fileSize": "파일 크기",
+    "fileType": "파일 유형",
+    "url": "URL 주소"
   }
 }

@@ -77,11 +77,3 @@ function reset() {
   theme.value = JSON.parse(JSON.stringify(unref(systemTheme)));
 }
 </script>
-
-<style lang="scss" scoped>
-.theme {
-  position: fixed;
-  top: 48%;
-  left: 0;
-}
-</style>

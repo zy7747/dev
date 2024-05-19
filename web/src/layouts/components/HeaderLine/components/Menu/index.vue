@@ -5,7 +5,6 @@
     :default-active="activeMenu"
     :unique-opened="true"
     :collapse-transition="true"
-    style="width: 25vw; background: transparent"
   >
     <template v-for="item in list">
       <MenuItem :menu="item"></MenuItem>
@@ -32,13 +31,17 @@ const activeMenu: any = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.el-menu {
+  width: 25vw;
+  background: transparent;
+  border: none !important;
+}
 ::v-deep(.el-sub-menu__title) {
   border-bottom: none !important;
   padding-left: 0 !important;
-}
-
-::v-deep(.el-menu) {
-  border: none !important;
+  &:hover {
+    background-color: transparent !important;
+  }
 }
 
 .el-menu--horizontal.el-menu {

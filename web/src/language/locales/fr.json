@@ -85,7 +85,8 @@
     "collection": "collecter",
     "history": "histoire",
     "message": "information",
-    "Data Management Center": "Centre de gestion des données"
+    "Data Management Center": "Centre de gestion des données",
+    "Video Web": "réseau vidéo"
   },
   "table": {
     "createTime": "temps de creation",
@@ -105,5 +106,15 @@
     "uid": "ID de l'utilisateur",
     "user": "utilisateur",
     "userType": "taper"
+  },
+  "file": {
+    "file": "document",
+    "file list": "Liste des fichiers",
+    "file view": "vue du fichier",
+    "fileName": "nom de fichier",
+    "filePath": "chemin du fichier",
+    "fileSize": "Taille du fichier",
+    "fileType": "Type de fichier",
+    "url": "adresse URL"
   }
 }

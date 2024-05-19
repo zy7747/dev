@@ -32,5 +32,3 @@ const options = ref([
   { icon: "关闭", label: "退出登录", value: "logOut" },
 ]);
 </script>
-
-<style lang="scss" scoped></style>
