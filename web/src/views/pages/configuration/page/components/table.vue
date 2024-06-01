@@ -29,19 +29,16 @@ const formConfig = ref({
       label: "tab名称",
       prop: "title",
       type: "input",
-      span: 6,
     },
     {
       label: "接口",
       prop: "api",
       type: "input",
-      span: 6,
     },
     {
       label: "权限",
       prop: "permissions",
       type: "input",
-      span: 6,
     },
   ],
 });
@@ -59,62 +56,53 @@ const tableColumn = () => {
       field: "title",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "字段值", //字段值
       field: "field",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "类型", //字段值
       field: "type",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "值集", //值集
       field: "options",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "是否需要校验必填", //是否需要校验必填
       field: "rules",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "是否需要筛选", //是否需要筛选
       field: "isFilters",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "是否需要排序", //是否需要排序
       field: "sortable",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "表格栏位宽度", //基本宽度
       field: "width",
       sortable: true,
       isFilters: true,
-      width: 200,
     },
     {
       title: "操作",
       cType: "action",
       fixed: "right",
-      width: 250,
     },
   ];
 };

@@ -84,12 +84,7 @@ public interface OperationLogMapper extends BaseMapper<OperationLogEntity> {
      * 唯一性校验
      */
     default Result<OperationLogEntity> onlyValid(OperationLogEntity operationLog, List<OperationLogEntity> operationLogList) {
-        for (OperationLogEntity item : operationLogList) {
-            //修改跳过自己
-            if (operationLog.getId() != null && item.getId().equals(operationLog.getId())) {
-                continue;
-            }
-        }
+
         return Result.success(operationLog);
     }
 

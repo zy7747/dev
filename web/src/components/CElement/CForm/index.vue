@@ -9,7 +9,10 @@
     :validate-on-rule-change="false"
   >
     <template v-for="item in formConfig.formParams">
-      <el-col :span="item.span" v-show="item.show ? item.show() : true">
+      <el-col
+        :span="item.span ? item.span : 6"
+        v-show="item.show ? item.show() : true"
+      >
         <el-form-item :label="item.label" :prop="item.prop">
           <c-schema
             :item="item"

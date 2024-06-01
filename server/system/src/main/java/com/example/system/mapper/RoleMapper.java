@@ -79,19 +79,7 @@ public interface RoleMapper extends BaseMapper<RoleEntity> {
      * 唯一性校验
      */
     default Result<RoleEntity> onlyValid(RoleEntity role, List<RoleEntity> roleList) {
-        for (RoleEntity item : roleList) {
-            //修改跳过自己
-            if (role.getId() != null && item.getId().equals(role.getId())) {
-                continue;
-            }
 
-            if (!StrUtil.hasBlank(role.getRoleName()) && Objects.equals(role.getRoleName(), item.getRoleName())) {
-                return Result.fail("角色名称已被注册");
-            }
-            if (!StrUtil.hasBlank(role.getRoleCode()) && Objects.equals(role.getRoleCode(), item.getRoleCode())) {
-                return Result.fail("角色编码已被注册");
-            }
-        }
         return Result.success(role);
     }
 

@@ -6,7 +6,6 @@ import Pagination from "./Pagination/index.vue";
 import VideoPlay from "./Player/video.vue";
 import Tools from "./Tools/index.vue";
 import DictTag from "./DictTag/index.vue";
-import Dialog from "./Dialog/index.vue";
 import Modal from "./Modal/index.vue";
 
 import CTable from "./CElement/CTable/index.vue";
@@ -25,7 +24,6 @@ function setupComponents(app: any) {
   app.component("DictTag", DictTag);
   app.component("Icon", Icon);
 
-  app.component("CDialog", Dialog);
   app.component("CModal", Modal);
   app.component("CTable", CTable);
 

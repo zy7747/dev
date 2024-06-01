@@ -59,7 +59,6 @@ const formOptions = ref([
       label: "输入框",
       prop: "input",
       type: "input",
-      span: 6,
     },
   },
   {
@@ -74,7 +73,6 @@ const formOptions = ref([
           value: "测试",
         },
       ],
-      span: 6,
     },
   },
   {
@@ -89,7 +87,6 @@ const formOptions = ref([
           value: "测试",
         },
       ],
-      span: 6,
     },
   },
   {
@@ -104,7 +101,6 @@ const formOptions = ref([
           value: "测试",
         },
       ],
-      span: 6,
     },
   },
 ]);
@@ -130,7 +126,6 @@ const tableOptions = ref([
     attr: {
       title: "图片",
       cType: "picture",
-      width: 200,
     },
   },
   {
@@ -139,7 +134,6 @@ const tableOptions = ref([
       title: "操作",
       cType: "action",
       fixed: "right",
-      width: 250,
     },
   },
 ]);

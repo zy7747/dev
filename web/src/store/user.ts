@@ -164,7 +164,7 @@ export const useUserStore = defineStore({
           (item.type === "directory" ||
             item.type === "menu" ||
             item.type === "system") &&
-          item.status === "0" &&
+          item.status === "1" &&
           item.visible
         ) {
           menu.push({
@@ -176,7 +176,7 @@ export const useUserStore = defineStore({
               icon: item.icon,
             },
           });
-        } else if (item.type === "button" && item.status === "0") {
+        } else if (item.type === "button" && item.status === "1") {
           //按钮
           if (item.permission) {
             permission.push(item.permission);
@@ -186,7 +186,7 @@ export const useUserStore = defineStore({
 
       menu.sort((a: any, b: any) => a.sort - b.sort);
 
-      const systemList = ["videoWeb", "system"];
+      const systemList = ["apply", "video-web", "system"];
 
       const menuList = handleTree(menu).filter((menus: any) => {
         return systemList.indexOf(menus.name) !== -1;

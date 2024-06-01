@@ -80,20 +80,7 @@ public interface PageMapper extends BaseMapper<PageEntity> {
      * 唯一性校验
      */
     default Result<PageEntity> onlyValid(PageEntity page, List<PageEntity> pageList) {
-        for (PageEntity item : pageList) {
-            //修改跳过自己
-            if (page.getId() != null && item.getId().equals(page.getId())) {
-                continue;
-            }
 
-            if (page.getMenuId() != null && Objects.equals(page.getMenuId(), item.getMenuId())) {
-                return Result.fail("页面id已被注册");
-            }
-
-            if (!StrUtil.hasBlank(page.getPageCode()) && Objects.equals(page.getPageCode(), item.getPageCode())) {
-                return Result.fail("页面编码已被注册");
-            }
-        }
         return Result.success(page);
     }
 

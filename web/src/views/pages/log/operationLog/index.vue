@@ -19,25 +19,21 @@ const { pageOption, pageRef } = usePage({
         label: $t("operationLog.title", "标题"),
         prop: "title",
         type: "input",
-        span: 6,
       },
       {
         label: $t("operationLog.module", "操作模块"),
         prop: "module",
         type: "input",
-        span: 6,
       },
       {
         label: $t("operationLog.type", "操作类型"),
         prop: "type",
         type: "input",
-        span: 6,
       },
       {
         label: $t("operationLog.operateIp", "操作IP"),
         prop: "operateIp",
         type: "input",
-        span: 6,
       },
     ],
   },
@@ -56,9 +52,7 @@ const { pageOption, pageRef } = usePage({
       ],
       tableColumn: [
         {
-          title: $t("system.no", "序号"),
           type: "seq",
-          width: 80,
           fixed: "left",
         },
         {
@@ -71,9 +65,7 @@ const { pageOption, pageRef } = usePage({
           title: $t("table.creator", "创建人"),
           field: "creator",
           isFilters: true,
-          width: 200,
         },
-
         {
           title: $t("table.status", "状态"),
           field: "status",
@@ -96,19 +88,16 @@ const { pageOption, pageRef } = usePage({
           title: $t("operationLog.operateIp", "操作IP"),
           field: "operateIp",
           isFilters: true,
-          width: 200,
         },
         {
           title: $t("operationLog.operatePlace", "操作地"),
           field: "operatePlace",
           isFilters: true,
-          width: 200,
         },
         {
           title: $t("operationLog.time", "耗时"),
           field: "time",
           isFilters: true,
-          width: 200,
         },
         {
           title: $t("operationLog.type", "操作类型"),
@@ -117,7 +106,6 @@ const { pageOption, pageRef } = usePage({
           width: 150,
         },
         {
-          title: $t("system.action", "操作"),
           cType: "action",
           fixed: "right",
           width: 80,
@@ -146,43 +134,36 @@ const { pageOption, pageRef } = usePage({
               label: $t("operationLog.title", "标题"),
               prop: "title",
               type: "input",
-              span: 6,
             },
             {
               label: $t("operationLog.module", "操作模块"),
               prop: "module",
               type: "input",
-              span: 6,
             },
             {
               label: $t("operationLog.type", "操作类型"),
               prop: "type",
               type: "input",
-              span: 6,
             },
             {
               label: $t("operationLog.operateIp", "操作IP"),
               prop: "operateIp",
               type: "input",
-              span: 6,
             },
             {
               label: $t("operationLog.operatePlace", "操作地"),
               prop: "operatePlace",
               type: "input",
-              span: 6,
             },
             {
               label: $t("operationLog.time", "耗时"),
               prop: "time",
               type: "input",
-              span: 6,
             },
             {
               label: $t("operationLog.errorMsg", "错误信息"),
               prop: "errorMsg",
               type: "input",
-              span: 6,
             },
           ],
         },

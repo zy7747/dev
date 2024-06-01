@@ -22,7 +22,7 @@ const tableColumn = () => {
       field: "label",
       sortable: true,
       isFilters: true,
-      width: 200,
+
       rules: [
         {
           type: "date",
@@ -41,7 +41,7 @@ const tableColumn = () => {
       field: "prop",
       sortable: true,
       isFilters: true,
-      width: 200,
+
       rules: [
         {
           type: "date",
@@ -60,7 +60,7 @@ const tableColumn = () => {
       field: "type",
       sortable: true,
       isFilters: true,
-      width: 200,
+
       rules: [
         {
           type: "date",
@@ -81,7 +81,7 @@ const tableColumn = () => {
       field: "options",
       sortable: true,
       isFilters: true,
-      width: 200,
+
       form: {
         type: "select",
         params: {
@@ -94,7 +94,7 @@ const tableColumn = () => {
       field: "span",
       sortable: true,
       isFilters: true,
-      width: 200,
+
       form: {
         type: "number",
         params: {
@@ -108,7 +108,7 @@ const tableColumn = () => {
       field: "rules",
       sortable: true,
       isFilters: true,
-      width: 200,
+
       translate: "isNo",
       form: {
         type: "select",
@@ -121,7 +121,6 @@ const tableColumn = () => {
       title: "操作",
       cType: "action",
       fixed: "right",
-      width: 250,
     },
   ];
 };

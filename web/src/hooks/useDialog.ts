@@ -1,13 +1,13 @@
 import Dialog from "@/components/Dialog/index.vue";
 
-export function useDialog() {
+export function showDialog(config: any) {
   return new Promise(() => {
-    const mountNode = document.createElement("div");
+    const div = document.createElement("div");
 
-    let dialogApp: any = createApp(Dialog);
+    let dialogApp: any = createApp(Dialog, config);
 
-    document.body.appendChild(mountNode);
+    document.body.appendChild(div);
 
-    dialogApp.mount(mountNode);
+    dialogApp.mount(div);
   });
 }

@@ -71,19 +71,7 @@ public interface PermissionMapper extends BaseMapper<PermissionEntity> {
      * 唯一性校验
      */
     default Result<PermissionEntity> onlyValid(PermissionEntity permission, List<PermissionEntity> permissionList) {
-        for (PermissionEntity item : permissionList) {
-            //修改跳过自己
-            if (permission.getId() != null && item.getId().equals(permission.getId())) {
-                continue;
-            }
 
-            if (!StrUtil.hasBlank(permission.getName()) && Objects.equals(permission.getName(), item.getName())) {
-                return Result.fail("权限名称已被注册");
-            }
-            if (!StrUtil.hasBlank(permission.getPermission()) && Objects.equals(permission.getPermission(), item.getPermission())) {
-                return Result.fail("权限标识已被注册");
-            }
-        }
         return Result.success(permission);
     }
 

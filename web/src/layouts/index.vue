@@ -6,6 +6,7 @@
 
 <script lang="ts" setup>
 import { Normal, Left, Right, Top } from "./container";
+import applyTheme from "./config/applyTheme";
 import systemTheme from "./config/systemTheme";
 import videoTheme from "./config/videoTheme";
 import Theme from "./theme/index.vue";
@@ -29,8 +30,7 @@ function getConfig() {
   if (layout) {
     config.value = JSON.parse(layout);
   } else {
-    config.value = JSON.parse(JSON.stringify(unref(videoTheme)));
-    //config.value = JSON.parse(JSON.stringify(unref(systemTheme)));
+    config.value = JSON.parse(JSON.stringify(unref(applyTheme)));
   }
 }
 

@@ -24,13 +24,11 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
           label: $t("menu.title", "菜单名"),
           prop: "title",
           type: "input",
-          span: 6,
         },
         {
           label: $t("table.status", "状态"),
           prop: "status",
           type: "input",
-          span: 6,
         },
       ],
     },
@@ -55,7 +53,7 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 type: "add",
                 data: {
                   type: "menu",
-                  status: "0",
+                  status: "1",
                   alwaysShow: 1,
                   visible: 1,
                   keepAlive: 1,
@@ -118,7 +116,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             isFilters: true,
             treeNode: true,
             fixed: "left",
-            width: 200,
           },
           {
             title: $t("menu.name", "组件名"),
@@ -130,19 +127,16 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             title: $t("menu.component", "组件"),
             field: "component",
             isFilters: true,
-            width: 200,
           },
           {
             title: $t("menu.path", "路由路径"),
             field: "path",
             isFilters: true,
-            width: 200,
           },
           {
             title: $t("menu.permission", "权限标识"),
             field: "permission",
             isFilters: true,
-            width: 200,
           },
 
           {
@@ -150,7 +144,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             field: "visible",
             isFilters: true,
             translate: "isNo",
-            width: 200,
           },
           {
             title: $t("menu.keepAlive", "是否缓存"),
@@ -164,41 +157,34 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
             field: "alwaysShow",
             isFilters: true,
             translate: "isNo",
-            width: 200,
           },
           {
             title: $t("table.status", "状态"),
             field: "status",
             translate: "menu_status",
             isFilters: true,
-            width: 200,
           },
           {
             title: $t("table.creator", "创建人"),
             field: "creator",
             isFilters: true,
-            width: 200,
           },
           {
             title: $t("table.updater", "更新人"),
             field: "updater",
             isFilters: true,
-            width: 200,
           },
           {
             title: $t("table.createTime", "创建时间"),
             field: "createTime",
             isFilters: true,
-            width: 200,
           },
           {
             title: $t("table.updateTime", "更新时间"),
             field: "updateTime",
             isFilters: true,
-            width: 200,
           },
           {
-            title: $t("system.action", "操作"),
             cType: "action",
             fixed: "right",
             width: 280,
@@ -338,13 +324,11 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 prop: "status",
                 type: "select",
                 options: Dict("dict_status"),
-                span: 6,
               },
               {
                 label: $t("menu.sort", "排序"),
                 prop: "sort",
                 type: "number",
-                span: 6,
               },
               {
                 label: $t("menu.visible", "是否可见"),
@@ -352,7 +336,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 type: "radio",
                 options: Dict("isNo"),
                 show: () => pageData.editData.type !== "button",
-                span: 6,
               },
               {
                 label: $t("menu.keepAlive", "是否缓存"),
@@ -360,7 +343,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 type: "radio",
                 options: Dict("isNo"),
                 show: () => pageData.editData.type === "menu",
-                span: 6,
               },
               {
                 label: $t("menu.alwaysShow", "是否总是显示"),
@@ -368,7 +350,6 @@ const { pageOption, pageRef, ids, query, removeSuccess, submitSuccess } =
                 options: Dict("isNo"),
                 type: "radio",
                 show: () => pageData.editData.type === "menu",
-                span: 6,
               },
             ],
           },

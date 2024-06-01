@@ -55,6 +55,14 @@ export default ({ mode }: any) =>
             ], //字典
           },
           {
+            "@/hooks/tips": [
+              ["removeSuccess", "removeSuccess"],
+              ["submitSuccess", "submitSuccess"],
+              ["importSuccess", "importSuccess"],
+              ["exportSuccess", "exportSuccess"],
+            ], //字典
+          },
+          {
             "@/hooks/usePage": [["default", "usePage"]], //Hook
           },
           {
@@ -62,6 +70,9 @@ export default ({ mode }: any) =>
           },
           {
             "@/hooks/useTable": [["default", "useTable"]], //Hook
+          },
+          {
+            "@/hooks/useModal": [["showModal", "showModal"]], //Hook
           },
         ],
         resolvers: [ElementPlusResolver()],

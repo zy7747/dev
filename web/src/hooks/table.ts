@@ -10,54 +10,82 @@ export function getFilter(columns: any, filterMap: any) {
     }
   });
 }
+
+//列处理
+function tableColumns(item: any) {
+  if (!item.width) {
+    item.width = 200;
+  }
+
+  if (item.type === "checkbox") {
+    item.width = 50;
+  }
+
+  if (item.type === "seq") {
+    item.title = $t("system.no", "序号");
+    item.width = 100;
+  }
+
+  if (item.cType === "action") {
+    item.title = $t("system.action", "操作");
+    item.width = 250;
+  }
+
+  return item;
+}
+
+//插槽处理
+function tableSlot(item: any, filters: any) {
+  const col: any = {
+    resizable: true,
+    "show-header-overflow": "ellipsis",
+    slots: {},
+    params: {},
+    columns: {},
+  };
+
+  //编辑插槽
+  if (!item.editRender) {
+    if (item.form) {
+      col.editRender = {};
+      col.slots.edit = "tableEdit";
+
+      Object.assign(col.params, { form: item.form });
+    }
+  }
+
+  //自定义渲染插槽
+  if ((item.cType && item.cType !== "action") || item.translate) {
+    col.slots.default = "tableSlot";
+
+    Object.assign(col.params, item);
+  }
+
+  //过滤
+  if (item.isFilters) {
+    col.filters = filters.value[item.field];
+  }
+
+  //自定义插槽
+  if (item.slots) {
+    col.slots = item.slots;
+  }
+
+  if (item.children && item.children.length) {
+    col.children = getTableCols(item.children, filters);
+  }
+
+  if (item.cType === "action") {
+    col.slots = { default: "operate" };
+  }
+
+  return col;
+}
 //列
 export function getTableCols(columns: any, filters: any) {
   if (!columns) return [];
   return unref(columns).map((item: any) => {
-    const col: any = {
-      resizable: true,
-      "show-header-overflow": "ellipsis",
-      slots: {},
-      params: {},
-      columns: {},
-    };
-
-    //编辑插槽
-    if (!item.editRender) {
-      if (item.form) {
-        col.editRender = {};
-        col.slots.edit = "tableEdit";
-
-        Object.assign(col.params, { form: item.form });
-      }
-    }
-
-    //自定义渲染插槽
-    if ((item.cType && item.cType !== "action") || item.translate) {
-      col.slots.default = "tableSlot";
-
-      Object.assign(col.params, item);
-    }
-
-    //过滤
-    if (item.isFilters) {
-      col.filters = filters.value[item.field];
-    }
-
-    //自定义插槽
-    if (item.slots) {
-      col.slots = item.slots;
-    }
-
-    if (item.children && item.children.length) {
-      col.children = getTableCols(item.children, filters);
-    }
-
-    if (item.cType === "action") {
-      col.slots = { default: "operate" };
-    }
-
-    return { ...item, ...col };
+    return { ...tableColumns(item), ...tableSlot(item, filters) };
   });
 }
 //校验
