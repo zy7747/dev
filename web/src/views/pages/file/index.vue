@@ -34,7 +34,7 @@ const nodeInfo: any = ref({
 const list: any = ref([]);
 const tree: any = ref([]);
 
-const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
+const { pageOption, pageRef, ids, query } = usePage({
   createLoad: true,
   title: $t("file.file", "文件"),
   formConfig: {
@@ -47,7 +47,7 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
       {
         label: $t("file.fileType", "文件类型"),
         prop: "fileType",
-        type: "input",
+        type: "select",
       },
       {
         label: $t("table.status", "状态"),
@@ -65,7 +65,7 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
           permission: ["file:remove"],
           click() {
             return Service.file.remove(ids()).then((res: any) => {
-              removeSuccess(res);
+              removeSuccess(res, pageRef);
             });
           },
         },
@@ -175,7 +175,7 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
           permission: ["file:remove"],
           click({ row }: any) {
             return Service.file.remove([row.id]).then((res: any) => {
-              removeSuccess(res);
+              removeSuccess(res, pageRef);
             });
           },
         },
@@ -246,11 +246,11 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
           return Service.file
             .save(unref(pageData).editData)
             .then((res: any) => {
-              submitSuccess(res);
+              submitSuccess(res, pageRef);
             });
         },
       },
-      data: unref(list),
+      list: () => queryFile(),
     },
     {
       title: $t("file.file view", "文件视图"),
@@ -262,25 +262,33 @@ const { pageOption, pageRef, ids, removeSuccess, submitSuccess } = usePage({
 function getList() {
   Service.file.list({ fileType: "folder" }).then((res: any) => {
     tree.value = handleTree(res.data);
-    queryFile();
+    query();
   });
 }
 //查询文件详情
 function queryFile() {
-  Service.file
-    .fileDetailList({ parentId: unref(nodeInfo).id })
+  return Service.file
+    .fileDetailList({ parentId: unref(nodeInfo).id, ...pageData.queryData })
     .then((res: any) => {
       list.value.splice(0);
       nextTick(() => {
         list.value.push(...res.data);
       });
+
+      return res;
     });
 }
 //左侧树节点触发
 function nodeClick(data: any) {
   nodeInfo.value = data;
-  queryFile();
+
+  if (unref(pageRef).getActive() === 1) {
+    queryFile();
+  } else {
+    query();
+  }
 }
+
 getList();
 </script>
 <style lang="scss" scoped></style>

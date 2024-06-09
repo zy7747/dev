@@ -20,7 +20,7 @@
         class="app-main"
         :style="{ height: `calc(100vh - ${theme.headerHeight}px) !important` }"
       >
-        <el-aside>
+        <el-aside :width="theme.asideWidth">
           <Sidebar :width="theme.asideWidth" :collapse="theme.collapse" />
         </el-aside>
 
@@ -62,7 +62,7 @@ defineProps({
   align-items: center;
 }
 
-.el-aside {
-  width: auto;
+.el-main {
+  padding: 0 10px;
 }
 </style>

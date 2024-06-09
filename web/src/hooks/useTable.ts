@@ -20,7 +20,7 @@ function useTable(config: any = {}) {
     return api;
   }
 
-  function ids() {
+  function tableIds() {
     const list = unref(tableRef).checkboxData();
     if (list.length) {
       return list.map((item: any) => {
@@ -32,7 +32,7 @@ function useTable(config: any = {}) {
   }
 
   return {
-    ids,
+    tableIds,
     apis,
     tableConfig,
     tableRef,

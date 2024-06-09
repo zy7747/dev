@@ -35,10 +35,13 @@ const activeMenu: any = computed(() => {
   width: 25vw;
   background: transparent;
   border: none !important;
+  padding: 0 !important;
 }
+
 ::v-deep(.el-sub-menu__title) {
+  margin-right: 15px;
   border-bottom: none !important;
-  padding-left: 0 !important;
+  padding: 0 !important;
   &:hover {
     background-color: transparent !important;
   }

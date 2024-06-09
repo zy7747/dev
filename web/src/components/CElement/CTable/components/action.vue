@@ -123,6 +123,7 @@ const { xGrid } = defineProps({
       return {};
     },
   },
+
   actions: {
     text: "操作栏",
     type: [Array] as any,
@@ -195,7 +196,7 @@ const saveRowEvent = async (row: any) => {
 //删除
 const removeRowEvent = async (row: any, remove?: any) => {
   if (row.id) {
-    remove(row.id);
+    remove(row);
     return;
   }
 

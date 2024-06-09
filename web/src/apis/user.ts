@@ -49,7 +49,7 @@ export default {
   },
   imports: {
     url: "/user/import",
-    method: "get",
+    method: "post",
     app: "user",
     text: "用户导入",
   },

@@ -23,7 +23,7 @@ function apis(params: String) {
 
 //页面渲染
 function render(config: any) {
-  const { pageOption, ids, query, removeSuccess, submitSuccess } = usePage({
+  const { pageOption, ids } = usePage({
     pageRef,
     createLoad: true,
     title: config.title,
@@ -47,8 +47,8 @@ function render(config: any) {
             operation: "remove",
             permission: [],
             click() {
-              api.remove(ids()).then((res: any) => {
-                removeSuccess(res);
+              return api.remove(ids()).then((res: any) => {
+                removeSuccess(res, pageRef);
               });
             },
           },
@@ -56,8 +56,8 @@ function render(config: any) {
             operation: "import",
             permission: [],
             api(files: any) {
-              return api.imports(files).then(() => {
-                query();
+              return api.imports(files).then((res: any) => {
+                importSuccess(res, pageRef);
               });
             },
           },
@@ -79,7 +79,7 @@ function render(config: any) {
           //提交
           handleConfirm() {
             api.save(unref(pageData).editData).then((res: any) => {
-              submitSuccess(res);
+              submitSuccess(res, pageRef);
             });
           },
         },
@@ -113,18 +113,13 @@ function render(config: any) {
             permission: [],
             click({ row }: any) {
               api.remove([row.id]).then((res: any) => {
-                removeSuccess(res);
+                removeSuccess(res, pageRef);
               });
             },
           },
         ],
-        query: (pages: any) => {
-          return api
-            .page({ ...pages, ...unref(pageData).queryData })
-            .then((res: any) => {
-              return res;
-            });
-        },
+        query: (pages: any) =>
+          api.page({ ...pages, ...unref(pageData).queryData }),
       };
     }),
   });

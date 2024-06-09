@@ -49,3 +49,87 @@
     opacity: 1;
   }
 }
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes twisterInDown {
+  0% {
+    opacity: 0;
+    transform-origin: 0 100%;
+    transform: scale(0, 0) rotate(360deg) translateY(-100%);
+  }
+  30% {
+    transform-origin: 0 100%;
+    transform: scale(0, 0) rotate(360deg) translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: 100% 100%;
+    transform: scale(1, 1) rotate(0deg) translateY(0%);
+  }
+}
+
+.twisterInDown {
+  animation-name: twisterInDown;
+}
+
+@keyframes circle-in-top-right {
+  from {
+    clip-path: circle(0%);
+  }
+  to {
+    clip-path: circle(150% at top right);
+  }
+}
+
+@keyframes circle-out-top-left {
+  from {
+    clip-path: circle(125%);
+  }
+  to {
+    clip-path: circle(0% at top left);
+  }
+}
+
+@keyframes circle-out-bottom-right {
+  from {
+    clip-path: circle(125%);
+  }
+  to {
+    clip-path: circle(0% at bottom right);
+  }
+}
+
+@keyframes circle-out-bottom-left {
+  from {
+    clip-path: circle(125%);
+  }
+  to {
+    clip-path: circle(0% at bottom left);
+  }
+}
+
+@keyframes wipe-in-left {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes wipe-out-top-left {
+  from {
+    clip-path: polygon(-50% 0%, 200% 0, 0 200%, 0 -50%);
+  }
+  to {
+    clip-path: polygon(0 0, 0 0, 0 0, 0 50%);
+  }
+}

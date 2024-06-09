@@ -105,7 +105,7 @@ defineExpose({
 
 .vxe-modal--footer {
   border-top: 1px solid #e1e3e7;
-  padding: 10px 0 !important;
+  padding: 10px 15px !important;
 }
 
 .vxe-modal--content {

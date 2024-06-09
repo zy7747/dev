@@ -114,6 +114,28 @@ public interface UserMapper extends BaseMapper<UserEntity> {
      */
     default Result<UserEntity> onlyValid(UserEntity user, List<UserEntity> userList) {
 
+        for (UserEntity item : userList) {
+            //修改跳过自己
+            if (user.getId() != null && item.getId().equals(user.getId())) {
+                continue;
+            }
+            if (!StrUtil.hasBlank(user.getPhone()) && Objects.equals(user.getPhone(), item.getPhone())) {
+                return Result.fail("电话号码已被注册");
+            }
+            if (!StrUtil.hasBlank(user.getEmail()) && Objects.equals(user.getEmail(), item.getEmail())) {
+                return Result.fail("电子邮箱已被注册");
+            }
+            if (!StrUtil.hasBlank(user.getAccount()) && Objects.equals(user.getAccount(), item.getAccount())) {
+                return Result.fail("账号已被注册");
+            }
+            if (!StrUtil.hasBlank(user.getUser()) && Objects.equals(user.getUser(), item.getUser())) {
+                return Result.fail("用户名已被注册");
+            }
+            if (!StrUtil.hasBlank(user.getNickname()) && Objects.equals(user.getNickname(), item.getNickname())) {
+                return Result.fail("昵称已被注册");
+            }
+        }
+        
         return Result.success(user);
     }
 

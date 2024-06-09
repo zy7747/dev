@@ -108,6 +108,18 @@ public interface MenuMapper extends BaseMapper<MenuEntity> {
      * 唯一性校验
      */
     default Result<MenuEntity> onlyValid(MenuEntity menu, List<MenuEntity> menuList) {
+        for (MenuEntity item : menuList) {
+            //修改跳过自己
+            if (menu.getId() != null && item.getId().equals(menu.getId())) {
+                continue;
+            }
+            if (!StrUtil.hasBlank(menu.getName()) && Objects.equals(menu.getName(), item.getName())) {
+                return Result.fail("组件名已被注册");
+            }
+            if (!StrUtil.hasBlank(menu.getPermission()) && Objects.equals(menu.getPermission(), item.getPermission())) {
+                return Result.fail("权限标识已被注册");
+            }
+        }
 
         return Result.success(menu);
     }

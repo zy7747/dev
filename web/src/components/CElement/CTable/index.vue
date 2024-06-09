@@ -9,7 +9,7 @@
     :loading="loading"
   >
     <template #toolbar_buttons>
-      <Tools :tools="tableConfig.tools" />
+      <Tools :tools="tableConfig.tools" :checkboxData="checkboxData()" />
     </template>
 
     <template #tableSlot="{ row, column }: any">
@@ -203,12 +203,16 @@ const gridOptions = reactive<VxeGridProps<any>>({
   keepSource: true,
   id: `${Route.fullPath}/${tableConfig.title}`, //缓存列状态
   showHeaderOverflow: "title",
+  showOverflow: "tooltip",
   scrollX: { enabled: true, gt: 20 },
   scrollY: { enabled: true, gt: 50 },
   rowConfig: {
     keyField: "_row_index",
     isHover: false,
     isCurrent: false,
+  },
+  resizableConfig: {
+    minWidth: 80,
   },
   columnConfig: { isCurrent: false, isHover: false },
   editConfig: {
@@ -223,7 +227,9 @@ const gridOptions = reactive<VxeGridProps<any>>({
       visible: true,
       resizable: true,
       fixed: true,
+      sort: true,
     },
+    mode: "popup",
   },
   printConfig: {
     columns: tableConfig.columns,

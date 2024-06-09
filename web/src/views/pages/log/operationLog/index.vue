@@ -70,6 +70,7 @@ const { pageOption, pageRef } = usePage({
           title: $t("table.status", "状态"),
           field: "status",
           isFilters: true,
+          translate: "operationLog_status",
           width: 80,
         },
         {
@@ -108,7 +109,6 @@ const { pageOption, pageRef } = usePage({
         {
           cType: "action",
           fixed: "right",
-          width: 80,
         },
       ],
       actions: [
@@ -168,13 +168,11 @@ const { pageOption, pageRef } = usePage({
           ],
         },
       },
-      query: (pages: any) => {
-        return Service.log.operationLog
-          .page({ ...pages, ...pageData.queryData })
-          .then((res: any) => {
-            return res;
-          });
-      },
+      query: (pages: any) =>
+        Service.log.operationLog.page({
+          ...pages,
+          ...pageData.queryData,
+        }),
     },
   ],
 });

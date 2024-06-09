@@ -2,7 +2,7 @@
   <div
     class="flex items-center justify-center cursor-pointer"
     :style="{
-      width: theme.asideWidth ? theme.asideWidth + 'px' : 'auto',
+      width: theme.asideWidth ? theme.asideWidth + 30 + 'px' : 'auto',
       height: theme.height + 'px',
     }"
   >

@@ -101,7 +101,25 @@ public interface DictMapper extends BaseMapper<DictEntity> {
      * 唯一性校验
      */
     default Result<DictEntity> onlyValid(DictEntity dict, List<DictEntity> dictList) {
-     
+        for (DictEntity item : dictList) {
+            //修改跳过自己
+            if (dict.getId() != null && item.getId().equals(dict.getId())) {
+                continue;
+            }
+            if (!StrUtil.hasBlank(dict.getDictName()) && Objects.equals(dict.getDictName(), item.getDictName())) {
+                return Result.fail("字典名称已被注册");
+            }
+            if (!StrUtil.hasBlank(dict.getDictCode()) && dict.getParentId() != null && Objects.equals(dict.getDictCode(), item.getDictCode())) {
+                return Result.fail("字典编码已被注册");
+            }
+            if (!StrUtil.hasBlank(dict.getLabel()) && Objects.equals(dict.getDictCode(), item.getDictCode()) && Objects.equals(dict.getLabel(), item.getLabel())) {
+                return Result.fail("名已被注册");
+            }
+            if (!StrUtil.hasBlank(dict.getValue()) && Objects.equals(dict.getDictCode(), item.getDictCode()) && Objects.equals(dict.getValue(), item.getValue())) {
+                return Result.fail("值已被注册");
+            }
+        }
+
         return Result.success(dict);
     }
 

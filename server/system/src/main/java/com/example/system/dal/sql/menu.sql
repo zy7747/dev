@@ -17,7 +17,7 @@ CREATE TABLE `menu`
     `description` VARCHAR(512) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '描述',
     `meta`        VARCHAR(512) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '其他信息',
     `status`      VARCHAR(64) COLLATE utf8mb4_unicode_ci           DEFAULT NULL COMMENT '状态',
-    `remark`      text COLLATE utf8mb4_unicode_ci COMMENT '备注',
+     `remark`      VARCHAR(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
     `creator`     VARCHAR(64) COLLATE utf8mb4_unicode_ci           DEFAULT '' COMMENT '创建人',
     `updater`     VARCHAR(64) COLLATE utf8mb4_unicode_ci           DEFAULT '' COMMENT '更新人',
     `create_time` datetime                                         DEFAULT NULL COMMENT '创建时间',

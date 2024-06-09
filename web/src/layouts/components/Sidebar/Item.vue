@@ -3,7 +3,7 @@
   <el-sub-menu v-if="menu.children && menu.children.length" :index="menu.path">
     <template #title>
       <svg-icon :name="menu.icon" class="icon" />
-      <el-text>{{ menu.title }}</el-text>
+      <el-text class="menu-text">{{ menu.title }}</el-text>
     </template>
 
     <template v-for="item in menu.children">
@@ -19,7 +19,7 @@
   >
     <svg-icon :name="menu.icon" class="icon" />
     <template #title>
-      {{ menu.title }}
+      <el-text class="menuItem">{{ menu.title }}</el-text>
     </template>
   </el-menu-item>
 </template>
@@ -44,8 +44,32 @@ function menuClick(menu: any) {
 
 <style lang="scss" scoped>
 .icon {
-  margin: 0 5px;
+  margin: 10px;
   width: 17px;
   height: 17px;
 }
+
+::v-deep(.el-menu-item) {
+  height: 40px;
+  padding: 0 !important;
+  border-radius: 5px;
+}
+
+.el-menu-item.is-active {
+  background-color: #525252 !important;
+  color: #fff;
+  span {
+    color: #fff !important;
+  }
+}
+
+.menu-text {
+  font-weight: 550 !important;
+  font-size: 15px;
+}
+
+//不要箭头
+// ::v-deep(.el-sub-menu__icon-arrow) {
+//   display: none !important;
+// }
 </style>

@@ -1,9 +1,10 @@
 <!--CPage-->
 <template>
   <div class="CPage">
-    <Collapse :title="pageOption.title">
+    <Collapse :isShow="false" title="筛选">
       <template #tools>
         <c-button
+          v-if="pageOption.query === false ? pageOption.query : true"
           size="small"
           type="primary"
           @handleClick="query"
@@ -12,6 +13,7 @@
         />
         <c-button
           plain
+          v-if="pageOption.reset === false ? pageOption.reset : true"
           size="small"
           @handleClick="reset"
           :text="$t('system.reset')"
@@ -189,6 +191,9 @@ function dialogConfig(config: any) {
     ],
   };
 }
+function getActive() {
+  return unref(active);
+}
 
 onMounted(() => {
   if (pageOption.createLoad) {
@@ -204,6 +209,7 @@ defineExpose({
   checkboxData,
   handleOpen,
   handleClose,
+  getActive,
 });
 </script>
 

@@ -81,6 +81,8 @@ function refresh() {
   location.reload();
 }
 
+useTab.setTab();
+
 watch(
   Route,
   (value) => {
@@ -92,11 +94,10 @@ watch(
 
 <style lang="scss" scoped>
 .tabs {
-  background-color: var(--el-bg-color);
+  border: 1px solid var(--el-border-color-darker);
+  background-color: var(--el-fill-color-light);
   .tag {
     padding: 0 10px;
-    border-radius: 5px;
-    margin-right: 5px;
     max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
@@ -135,7 +136,7 @@ watch(
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--el-border-color-darker);
+    border-left: 1px solid var(--el-border-color-darker);
     padding: 0 10px;
     &:hover {
       cursor: pointer;

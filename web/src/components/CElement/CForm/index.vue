@@ -112,8 +112,22 @@ defineExpose({
 .el-col {
   padding: 0 7px;
 }
+
 .el-form {
   display: flex;
   flex-wrap: wrap;
+}
+</style>
+
+<style lang="scss">
+.el-form-item__label {
+  font-size: 13px;
+  font-weight: 551 !important;
+  line-height: 16px !important;
+  margin-bottom: 0 !important;
+}
+
+.el-form-item {
+  margin-bottom: 13px !important;
 }
 </style>

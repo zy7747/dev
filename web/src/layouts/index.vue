@@ -30,7 +30,7 @@ function getConfig() {
   if (layout) {
     config.value = JSON.parse(layout);
   } else {
-    config.value = JSON.parse(JSON.stringify(unref(applyTheme)));
+    config.value = JSON.parse(JSON.stringify(unref(systemTheme)));
   }
 }
 

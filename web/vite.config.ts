@@ -40,7 +40,7 @@ export default ({ mode }: any) =>
           "vue-router",
           "pinia",
           {
-            "@/plugins/download": [["default", "Download"]],
+            "@/plugins/download": [["default", "Download"]], //全局下载
           },
           {
             "@/plugins/service": [["default", "Service"]], //api
@@ -52,6 +52,7 @@ export default ({ mode }: any) =>
             "@/dict": [
               ["Dict", "Dict"],
               ["DictService", "DictService"],
+              ["useDict", "useDict"],
             ], //字典
           },
           {
@@ -60,13 +61,10 @@ export default ({ mode }: any) =>
               ["submitSuccess", "submitSuccess"],
               ["importSuccess", "importSuccess"],
               ["exportSuccess", "exportSuccess"],
-            ], //字典
+            ], //提示
           },
           {
             "@/hooks/usePage": [["default", "usePage"]], //Hook
-          },
-          {
-            "@/hooks/useDict": [["default", "useDict"]], //Hook
           },
           {
             "@/hooks/useTable": [["default", "useTable"]], //Hook

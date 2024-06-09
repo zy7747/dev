@@ -112,9 +112,7 @@ const { pageOption, pageRef, ids } = usePage({
           operation: "export",
           permission: ["user:export"],
           api() {
-            return Service.user.exports(pageData.queryData).then((res: any) => {
-              exportSuccess(res);
-            });
+            return Service.user.exports(pageData.queryData);
           },
           fileName: $t("user.user", "用户"),
         },

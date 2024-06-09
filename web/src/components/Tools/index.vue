@@ -20,6 +20,7 @@
           size="small"
           :text="$t('system.delete in bulk')"
           :icon="Delete"
+          :disabled="!checkboxData.length"
           @handleClick="item.click"
         />
 
@@ -90,6 +91,13 @@ defineProps({
       return [];
     },
   },
+  checkboxData: {
+    text: "多选",
+    type: [Array],
+    default: () => {
+      return [];
+    },
+  },
 });
 
 //导入
@@ -115,20 +123,10 @@ function httpRequest(params: any, item: any) {
 
   formData.append("file", params.file);
 
-  item
-    .api(formData)
-    .then((res: any) => {
-      if (res.code === 200) {
-        ElMessage({
-          message: "导入成功",
-          type: "success",
-        });
-      }
-    })
-    .finally(() => {
-      unref(uploadRef)[0].clearFiles();
-      loading.value = false;
-    });
+  item.api(formData).finally(() => {
+    unref(uploadRef)[0].clearFiles();
+    loading.value = false;
+  });
 }
 
 //导出
@@ -139,10 +137,7 @@ function handleExport(item: any) {
       const fileName = item.fileName || "导出文件";
       Download.excel(res, fileName);
 
-      ElMessage({
-        message: "导出成功",
-        type: "success",
-      });
+      exportSuccess(res);
     })
     .catch(() => {
       ElMessage({

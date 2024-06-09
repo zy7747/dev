@@ -27,15 +27,22 @@
 <script lang="ts" setup>
 import { ArrowDownBold, ArrowUpBold } from "@element-plus/icons-vue";
 
-defineProps({
+const prop = defineProps({
   title: {
     text: "标题",
     type: [String, Function],
     default: "",
   },
+  isShow: {
+    text: "是否默认展开",
+    type: [Boolean, Function],
+    default: true,
+  },
 });
 
-const show = ref(true);
+const show: any = ref(true);
+
+show.value = prop.isShow;
 </script>
 
 <style lang="scss" scoped>
@@ -48,6 +55,11 @@ const show = ref(true);
   justify-content: space-between;
   display: flex;
   border: 1px solid var(--el-border-color-darker);
+  background-color: var(--el-fill-color-light);
+}
+
+.el-main {
+  padding: 10px;
 }
 
 .tools {

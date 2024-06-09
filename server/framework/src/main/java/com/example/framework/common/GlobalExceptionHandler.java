@@ -1,5 +1,7 @@
 package com.example.framework.common;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -14,16 +16,23 @@ import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 //校验全局异常
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     //捕获所有异常
     @ExceptionHandler(Exception.class)
     public Result<String> exceptionHandler(Exception e) {
+
         if (e instanceof BindException) {
             BindException bindException = (BindException) e;
             return Result.fail(bindException.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        } else if (e instanceof DuplicateKeyException) {
+            DuplicateKeyException duplicateKeyException = (DuplicateKeyException) e;
+
+            return Result.error(duplicateKeyException.getMessage());
         } else {
             return Result.error(e.getMessage());
         }

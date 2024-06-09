@@ -1,5 +1,8 @@
 import { useDictStore } from "@/store/dict";
 
+const dictStore = useDictStore();
+const dictMap: any = dictStore.dictMap;
+
 const service = import.meta.glob(["@/dict/service/**.ts"], {
   eager: true,
 });
@@ -10,10 +13,6 @@ Object.values(service).map((value: any) => {
     serviceMap[key] = value[key];
   });
 });
-
-const useDict = useDictStore();
-
-const dictMap: any = useDict.dictMap;
 
 export function Dict(dictCode: string) {
   //获取字典
@@ -26,4 +25,22 @@ export function DictService(dictCode: string, params?: any) {
   //获取字典
 
   return serviceMap[dictCode](params);
+}
+
+export function useDict(dictMap: any = {}) {
+  const dict: any = reactive({});
+
+  Object.keys(dictMap).forEach((key: any) => {
+    Object.assign(dict, { [key]: [] });
+  });
+
+  Object.keys(dictMap).forEach(async (key: any) => {
+    const arr = await dictMap[key];
+
+    Object.assign(dict, { [key]: arr });
+  });
+
+  return {
+    dict,
+  };
 }

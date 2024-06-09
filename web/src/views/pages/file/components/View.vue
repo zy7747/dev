@@ -43,6 +43,7 @@ function fileIcon(item: any) {
     return obj["folder"];
   } else if (
     item.fileType === "jpg" ||
+    item.fileType === "jpeg" ||
     item.fileType === "png" ||
     item.fileType === "gif"
   ) {
@@ -66,8 +67,24 @@ function fileIcon(item: any) {
   }
 }
 
-function openFile(row: any) {
-  window.open(fileUrl + row.url);
+function openFile(item: any) {
+  if (item.fileType === "folder") {
+  } else if (
+    item.fileType === "jpg" ||
+    item.fileType === "jpeg" ||
+    item.fileType === "png" ||
+    item.fileType === "gif"
+  ) {
+    window.open(fileUrl + item.url);
+  } else if (item.fileType === "pdf") {
+  } else if (item.fileType === "xls" || item.fileType === "xlsx") {
+  } else if (item.fileType === "docx") {
+  } else if (item.fileType === "txt") {
+  } else if (item.fileType === "mp3") {
+  } else if (item.fileType === "mp4") {
+    window.open(fileUrl + item.url);
+  } else {
+  }
 }
 </script>
 

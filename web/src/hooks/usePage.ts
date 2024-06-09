@@ -24,6 +24,9 @@ function usePage(config: any = {}) {
   function query() {
     unref(pageRef).query();
   }
+  function getActive() {
+    unref(pageRef).getActive();
+  }
 
   //删除成功后提示
   function removeSuccess(res: any) {
@@ -51,6 +54,7 @@ function usePage(config: any = {}) {
   return {
     ids,
     query,
+    getActive,
     removeSuccess,
     submitSuccess,
     pageOption,
