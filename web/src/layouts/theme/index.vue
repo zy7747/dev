@@ -1,6 +1,11 @@
 <!--  -->
 <template>
-  <el-drawer v-model="themeStore.drawer" title="主题" direction="rtl">
+  <el-drawer
+    size="350px"
+    v-model="themeStore.drawer"
+    title="主题"
+    direction="rtl"
+  >
     <div>日夜模式</div>
     <el-switch
       v-model="isDark"

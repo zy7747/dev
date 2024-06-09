@@ -1,7 +1,10 @@
 <!--  -->
 <template>
-  <div class="flex justify-between tabs">
-    <div class="flex tags">
+  <div class="flex tabs">
+    <div class="action-right" @click="leftSlide">
+      <el-icon><ArrowLeftBold /></el-icon>
+    </div>
+    <div class="flex tags" ref="tags">
       <router-link
         v-for="(tag, index) in visitedViews"
         class="tag flex items-center"
@@ -21,7 +24,9 @@
         </el-icon>
       </router-link>
     </div>
-
+    <div class="action" @click="rightSlide">
+      <el-icon><ArrowRightBold /></el-icon>
+    </div>
     <ul class="flex">
       <li class="action" @click="refresh">
         <el-icon><Refresh /></el-icon>
@@ -29,8 +34,12 @@
       <li class="action" @click="themeOpen">
         <el-icon><Tools /></el-icon>
       </li>
-      <li class="action">
-        <el-icon><ArrowDownBold /></el-icon>
+      <li class="action" @click="otherClick">
+        <CDropdown :options="options" @command="command">
+          <template #title>
+            <el-icon><ArrowDownBold /></el-icon>
+          </template>
+        </CDropdown>
       </li>
     </ul>
   </div>
@@ -39,6 +48,8 @@
 <script lang="ts" setup>
 import {
   ArrowDownBold,
+  ArrowLeftBold,
+  ArrowRightBold,
   Tools,
   Refresh,
   CircleCloseFilled,
@@ -51,11 +62,37 @@ const Route = useRoute();
 const Router = useRouter();
 const useTab = useTabStore();
 const visitedViews = useTab.visitedViews;
+const tags = ref();
 
 // 是否选中标签
 function isActive(route: any) {
   return route.path === Route.path;
 }
+//左滑块
+function leftSlide() {
+  if (unref(tags).scrollLeft - 500 > 0) {
+    unref(tags).scrollLeft -= 500;
+  } else {
+    unref(tags).scrollLeft = 0;
+  }
+}
+//右滑块
+function rightSlide() {
+  unref(tags).scrollLeft += 500;
+}
+//
+function otherClick() {}
+
+function command(row: any) {
+  console.log(row);
+}
+
+const options = ref([
+  { icon: "访客", label: "关闭其他", value: "closeOther" },
+  { icon: "切换账号", label: "关闭左侧", value: "closeLeft" },
+  { icon: "关闭", label: "关闭右侧", value: "closeRight" },
+]);
+
 //删除路由
 function removeTab(index: number) {
   useTab.removeTab(visitedViews[index]);
@@ -93,12 +130,21 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+.tags {
+  width: calc(100% - 185px);
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
 .tabs {
   border: 1px solid var(--el-border-color-darker);
   background-color: var(--el-fill-color-light);
   .tag {
+    display: flex;
+    justify-content: center;
     padding: 0 10px;
-    max-width: 300px;
+    max-width: 500px;
+    min-width: 130px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -137,6 +183,17 @@ watch(
     justify-content: center;
     align-items: center;
     border-left: 1px solid var(--el-border-color-darker);
+    padding: 0 10px;
+    &:hover {
+      cursor: pointer;
+      color: #245fd4;
+    }
+  }
+  .action-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid var(--el-border-color-darker);
     padding: 0 10px;
     &:hover {
       cursor: pointer;
