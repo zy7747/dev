@@ -214,7 +214,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
   resizableConfig: {
     minWidth: 80,
   },
-  columnConfig: { isCurrent: false, isHover: false },
+  columnConfig: { isCurrent: false, isHover: false, maxFixedSize: 12 },
   editConfig: {
     trigger: "manual",
     mode: "row",

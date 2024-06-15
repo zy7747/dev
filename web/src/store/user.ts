@@ -61,6 +61,7 @@ export const useUserStore = defineStore({
   id: "user", // id必填，且需要唯一
   state: () => {
     return {
+      userId: {} as any, //用户Id
       userInfo: {} as any, //用户信息
       roles: [] as any, //角色
       menu: [] as any, //菜单
@@ -76,7 +77,9 @@ export const useUserStore = defineStore({
         if (response.code === 200) {
           //加入Token
           setToken(response.data.token);
+
           this.userInfo = response.data.userInfo;
+          this.userId = response.data.userInfo.id;
 
           //1.记住密码
           if (loginInfo.rememberMe) {
@@ -95,6 +98,7 @@ export const useUserStore = defineStore({
         .then((response: any) => {
           if (response.code === 200) {
             this.userInfo = response.data.userInfo;
+            this.userId = response.data.userInfo.id;
             const { menu, permission } = this.getMenu(response.data.menuList);
             this.asyncRoutes = this.getRoutes(response.data.menuList);
 

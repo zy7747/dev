@@ -67,7 +67,13 @@ const { pageOption, pageRef, ids } = usePage({
           operation: "add",
           permission: ["message:add"],
           click() {
-            unref(pageRef).handleOpen({ type: "add", data: {} });
+            unref(pageRef).handleOpen({
+              type: "add",
+              data: {
+                isRead: "0",
+                status: "1",
+              },
+            });
           },
         },
         {
@@ -140,6 +146,7 @@ const { pageOption, pageRef, ids } = usePage({
           translate: "user",
           isFilters: true,
         },
+
         {
           title: $t("message.status", "状态"),
           field: "status",
@@ -240,6 +247,15 @@ const { pageOption, pageRef, ids } = usePage({
               prop: "receiverList",
               type: "allSelect",
               options: Dict("user"),
+            },
+            {
+              label: $t("message.receiver", "收件人"),
+              prop: "receiver",
+              type: "select",
+              options: Dict("user"),
+              params: {
+                disabled: true,
+              },
             },
             {
               label: $t("message.remark", "备注"),

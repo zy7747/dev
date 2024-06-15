@@ -8,7 +8,15 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { getWebsocket } from "@/utils/websocket";
+
+function getMessage() {
+  console.log(123);
+}
+
+getWebsocket(getMessage);
+</script>
 
 <style lang="scss" scoped>
 .icon {

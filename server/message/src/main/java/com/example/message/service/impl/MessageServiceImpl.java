@@ -1,9 +1,10 @@
 package com.example.message.service.impl;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
+import com.example.framework.dal.dto.SendMessageDTO;
+import com.example.framework.service.WebSocketService;
 import com.example.framework.utils.ExcelUtils;
 import com.example.message.convert.MessageConvert;
 import com.example.message.dal.dto.message.MessageQueryDTO;
@@ -30,6 +31,9 @@ import java.util.List;
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageEntity> implements MessageService {
     @Resource
     MessageMapper messageMapper;
+
+    @Resource
+    WebSocketService webSocketService;
 
     /**
      * 获取列表分页
@@ -78,6 +82,8 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageEntity
         if (valid.getCode() == 200) {
             if (message.getId() == null && message.getReceiverList().size() > 0) {
                 List<MessageEntity> messageArr = new ArrayList<>();
+                SendMessageDTO messageMsg = new SendMessageDTO();
+                messageMsg.setMessage("推送消息");
 
                 message.getReceiverList().forEach(item -> {
                     MessageEntity newData = new MessageEntity();
@@ -88,6 +94,12 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageEntity
                 });
 
                 this.saveOrUpdateBatch(messageArr);
+
+                message.getReceiverList().forEach(item -> {
+                    messageMsg.setUserId(item);
+                    webSocketService.sendOneMessage(messageMsg);
+                });
+
             } else {
                 this.saveOrUpdate(messageData);
             }
