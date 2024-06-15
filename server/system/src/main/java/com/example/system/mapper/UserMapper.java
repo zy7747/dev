@@ -49,10 +49,6 @@ public interface UserMapper extends BaseMapper<UserEntity> {
         if (!StrUtil.hasBlank(user.getUser())) {
             wrapper.eq("user", user.getUser());
         }
-        /* 密码 */
-        if (!StrUtil.hasBlank(user.getPassword())) {
-            wrapper.eq("password", user.getPassword());
-        }
         /* 昵称 */
         if (!StrUtil.hasBlank(user.getNickname())) {
             wrapper.eq("nickname", user.getNickname());
@@ -135,7 +131,7 @@ public interface UserMapper extends BaseMapper<UserEntity> {
                 return Result.fail("昵称已被注册");
             }
         }
-        
+
         return Result.success(user);
     }
 
@@ -182,4 +178,7 @@ public interface UserMapper extends BaseMapper<UserEntity> {
 
     @Insert("INSERT INTO user_permission(user_id, permission_id) VALUES (#{userId}, #{permissionId})")
     void insertUserPermission(Long userId, Long permissionId);
+
+    @Delete("DELETE FROM user WHERE is_deleted = 1")
+    void clearUser();
 }

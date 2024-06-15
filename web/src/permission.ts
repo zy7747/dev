@@ -25,6 +25,7 @@ router.beforeEach(async (to: any, _from, next) => {
     if (!userStore.asyncRoutes.length) {
       //字典
       useDict.getDictMap();
+      useDict.getService();
       //用户信息
       await userStore.getUserInfo();
       //路由

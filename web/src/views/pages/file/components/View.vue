@@ -23,6 +23,7 @@
 
 <script lang="ts" setup>
 const fileUrl = import.meta.env.VITE_APP_FILE_URL;
+const emit = defineEmits(["nodeClick"]);
 
 function fileIcon(item: any) {
   const url =
@@ -69,6 +70,7 @@ function fileIcon(item: any) {
 
 function openFile(item: any) {
   if (item.fileType === "folder") {
+    emit("nodeClick", item);
   } else if (
     item.fileType === "jpg" ||
     item.fileType === "jpeg" ||

@@ -45,6 +45,25 @@
           </el-upload>
         </template>
 
+        <template v-else-if="item.operation === 'uploadFile'">
+          <el-upload
+            ref="uploadRef"
+            action=""
+            :show-file-list="false"
+            :http-request="(params:any):any => httpRequest(params, item)"
+          >
+            <c-button
+              :loading="loading"
+              v-bind="item"
+              class="btn"
+              type="success"
+              size="small"
+              :text="$t('system.uploadFile')"
+              :icon="Upload"
+            />
+          </el-upload>
+        </template>
+
         <c-button
           v-else-if="item.operation === 'export'"
           v-bind="item"

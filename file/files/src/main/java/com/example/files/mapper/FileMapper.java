@@ -31,7 +31,7 @@ public interface FileMapper extends BaseMapper<FileEntity> {
         }
         /* 文件名称 */
         if (!StrUtil.hasBlank(file.getFileName())) {
-            wrapper.eq("file_name", file.getFileName());
+            wrapper.like("file_name", file.getFileName());
         }
         /* url地址 */
         if (!StrUtil.hasBlank(file.getUrl())) {

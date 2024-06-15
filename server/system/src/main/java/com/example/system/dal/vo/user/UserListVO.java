@@ -36,11 +36,6 @@ public class UserListVO extends BaseParamsVO {
     @ApiModelProperty(value = "用户名")
     private String user;
     /**
-     * 密码
-     */
-    @ApiModelProperty(value = "密码")
-    private String password;
-    /**
      * 昵称
      */
     @ApiModelProperty(value = "昵称")

@@ -23,7 +23,8 @@
     "message": "消 息",
     "history": "历 史",
     "collection": "收 藏",
-    "is no null": "不能为空"
+    "is no null": "不能为空",
+    "uploadFile": "文件上传"
   },
   "form": {
     "search": "搜索",
@@ -109,6 +110,7 @@
   },
   "file": {
     "file": "文件",
+    "parentId": "父节点",
     "file view": "文件视图",
     "file list": "文件列表",
     "fileName": "文件名称",
@@ -116,5 +118,34 @@
     "fileType": "文件类型",
     "filePath": "文件路径",
     "fileSize": "文件大小"
+  },
+  "job": {
+    "job": "定时任务",
+    "id": "id",
+    "jobName": "任务名称",
+    "jobCode": "任务编码",
+    "startTime": "计划开始时间",
+    "executeCount": "执行次数",
+    "executeInterval": "执行间隔",
+    "cron": "cron表达式",
+    "status": "状态",
+    "remark": "备注",
+    "creator": "创建人",
+    "updater": "更新人",
+    "createTime": "创建时间",
+    "updateTime": "触发时间"
+  },
+  "message": {
+    "message": "消息通知",
+    "messageName": "消息名称",
+    "messageContent": "消息内容",
+    "module": "推送模块",
+    "type": "类型",
+    "isRead": "是否已读",
+    "receiver": "收件人",
+    "status": "状态",
+    "remark": "备注",
+    "creator": "发送人",
+    "createTime": "创建时间"
   }
 }

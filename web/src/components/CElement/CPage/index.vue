@@ -11,6 +11,11 @@
           :text="$t('system.query')"
           :icon="Search"
         />
+        <Tools
+          v-if="pageOption.actions && pageOption.actions.length"
+          :tools="pageOption.actions"
+          style="margin-right: 10px"
+        />
         <c-button
           plain
           v-if="pageOption.reset === false ? pageOption.reset : true"
@@ -115,8 +120,13 @@ function query() {
 //重置
 function reset() {
   unref(formRef).resetForm();
-  unref(tableRef)[unref(active)].reset();
-  query();
+
+  if (unref(tableRef)[unref(active)]) {
+    unref(tableRef)[unref(active)].reset();
+    query();
+  } else if (pageOption.tableConfig[unref(active)].slotQuery) {
+    return pageOption.tableConfig[unref(active)].slotQuery();
+  }
 }
 //编辑弹窗
 function handleOpen({ type, data }: any) {

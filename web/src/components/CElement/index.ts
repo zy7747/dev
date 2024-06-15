@@ -2,6 +2,7 @@ import CButton from "./src/CButton/index.vue";
 import CDropdown from "./src/CDropdown/index.vue";
 import CTabs from "./src/CTabs/index.vue";
 import CTree from "./src/CTree/index.vue";
+import CUpload from "./src/CUpload/index.vue";
 import CCarousel from "./src/CCarousel/index.vue";
 
 export function setupElement(app: any) {
@@ -10,4 +11,5 @@ export function setupElement(app: any) {
   app.component("CTabs", CTabs);
   app.component("CCarousel", CCarousel);
   app.component("CTree", CTree);
+  app.component("CUpload", CUpload);
 }

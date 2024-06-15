@@ -1,5 +1,6 @@
 package com.example.files.controller;
 
+import com.example.files.dal.dto.file.FileUploadDTO;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
@@ -92,5 +93,11 @@ public class FileController {
     @ApiOperation(value = "导出")
     public void fileExport(HttpServletResponse response, FileQueryDTO file) throws IOException {
         fileService.fileExport(response, file);
+    }
+
+    @PostMapping("/uploadFile")
+    @ApiOperation(value = "文件上传")
+    public Result<FileEntity> uploadFileService(@RequestParam("file") MultipartFile file, FileUploadDTO params) {
+        return fileService.uploadFileService(file, params);
     }
 }

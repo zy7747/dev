@@ -1,5 +1,6 @@
 package com.example.files.service;
 
+import com.example.files.dal.dto.file.FileUploadDTO;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.files.dal.dto.file.FileQueryDTO;
@@ -9,6 +10,7 @@ import com.example.files.dal.vo.file.FileDetailVO;
 import com.example.files.dal.vo.file.FileListVO;
 import com.example.files.dal.vo.file.FilePageVO;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -72,4 +74,15 @@ public interface FileService {
      * @param response,file 入参
      */
     void fileExport(HttpServletResponse response, FileQueryDTO file) throws IOException;
+
+
+    /**
+     * 文件上传
+     *
+     * @param file 文件
+     * @return 文件上传信息
+     */
+    Result<FileEntity> uploadFileService(MultipartFile file, FileUploadDTO params);
+
+
 }

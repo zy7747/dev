@@ -29,6 +29,16 @@
             <groupId>com.example</groupId>
             <artifactId>system</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>job</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>message</artifactId>
+        </dependency>
     </dependencies>
 
 

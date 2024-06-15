@@ -141,4 +141,7 @@ public interface MenuMapper extends BaseMapper<MenuEntity> {
 
     @Delete("DELETE FROM role_menu WHERE role_id = #{roleId}")
     void deleteRoleMenu(Long roleId);
+
+    @Delete("DELETE FROM menu WHERE is_deleted = 1")
+    void clearMenu();
 }

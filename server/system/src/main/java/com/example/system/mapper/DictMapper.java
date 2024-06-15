@@ -9,6 +9,7 @@ import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.system.dal.dto.dict.DictQueryDTO;
 import com.example.system.dal.entity.DictEntity;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.*;
@@ -187,4 +188,7 @@ public interface DictMapper extends BaseMapper<DictEntity> {
 
         return dictMap;
     }
+
+    @Delete("DELETE FROM dict WHERE is_deleted = 1")
+    void clearDict();
 }

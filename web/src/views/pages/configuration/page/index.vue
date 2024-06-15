@@ -110,11 +110,13 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("table.creator", "创建人"),
           field: "creator",
+          translate: "user",
           isFilters: true,
         },
         {
           title: $t("table.updater", "更新人"),
           field: "updater",
+          translate: "user",
           isFilters: true,
         },
         {

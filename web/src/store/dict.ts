@@ -9,7 +9,7 @@ export const useDictStore = defineStore({
   },
   actions: {
     getDictMap() {
-      return Service.configuration.dict.dictMap().then((response: any) => {
+      Service.configuration.dict.dictMap().then((response: any) => {
         if (response.code === 200) {
           for (const key in response.data) {
             this.dictMap[key] = response.data[key].map((item: any) => {
@@ -32,6 +32,15 @@ export const useDictStore = defineStore({
               }
             });
           }
+        }
+      });
+    },
+    getService() {
+      Service.user.list().then((response: any) => {
+        if (response.code === 200) {
+          this.dictMap["user"] = response.data.map((item: any) => {
+            return { label: item.nickname, value: item.id, color: "success" };
+          });
         }
       });
     },

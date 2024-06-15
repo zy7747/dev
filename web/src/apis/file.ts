@@ -57,6 +57,13 @@ export default {
     text: "文件导入",
     baseUrl,
   },
+  uploadFile: {
+    url: "/file/uploadFile",
+    method: "post",
+    app: "file",
+    text: "文件上传",
+    baseUrl,
+  },
   exports: {
     url: "/file/export",
     method: "get",

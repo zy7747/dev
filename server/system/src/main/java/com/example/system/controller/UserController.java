@@ -77,7 +77,7 @@ public class UserController {
 
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除")
-    @PreAuthorize("hasAuthority('user:delete')")
+    @PreAuthorize("hasAuthority('user:remove')")
     @Log(title = "用户删除", module = "用户模块", content = "用户删除", type = OperateType.DELETE)
     public Result<Object> userDelete(@RequestBody List<Long> ids) {
         userMapper.deleteBatchIds(ids);

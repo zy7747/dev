@@ -26,6 +26,8 @@
         <module>booting</module>
         <module>framework</module>
         <module>system</module>
+        <module>job</module>
+        <module>message</module>
     </modules>
 
     <!--  版本  -->
@@ -62,6 +64,20 @@
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>system</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <!-- 定时任务模块 -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>job</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <!-- 消息模块 -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>message</artifactId>
                 <version>${version}</version>
             </dependency>
 

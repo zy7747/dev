@@ -123,4 +123,7 @@ public interface RoleMapper extends BaseMapper<RoleEntity> {
 
     @Insert("INSERT INTO role_menu(role_id, menu_id) VALUES (#{userId}, #{menuId})")
     void insertRoleMenu(Long userId, Long menuId);
+
+    @Delete("DELETE FROM role WHERE is_deleted = 1")
+    void clearRole();
 }

@@ -16,6 +16,7 @@
       v-model="value"
       v-bind="params"
     />
+    <c-date v-else-if="type === 'date'" v-model="value" v-bind="params" />
     <c-checkbox
       v-else-if="type === 'checkbox'"
       :options="options"
@@ -44,6 +45,25 @@
         $t('form.please select') + ' ' + (item.label ? item.label : item.title)
       "
       :options="options"
+      v-model="value"
+      v-bind="params"
+    />
+    <c-treeSelect
+      v-else-if="type === 'allSelect'"
+      :placeholder="
+        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
+      "
+      :options="[
+        {
+          label: '全部',
+          value: 'all',
+          children: options,
+        },
+      ]"
+      multiple
+      collapse-tags
+      check-on-click-node
+      show-checkbox
       v-model="value"
       v-bind="params"
     />
