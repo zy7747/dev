@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import { removeToken, setToken } from "@/utils/auth";
+import { getLoginInfo, setLoginInfo, removeLoginInfo } from "@/utils/loginInfo";
+import { router } from "@/router";
 
 const modules = import.meta.glob("../views/**/*.vue");
 
@@ -62,6 +64,8 @@ export const useUserStore = defineStore({
   state: () => {
     return {
       userId: {} as any, //用户Id
+      loginId: null, //当次登录ID
+      loginTime: null, //当次登录时间
       userInfo: {} as any, //用户信息
       roles: [] as any, //角色
       menu: [] as any, //菜单
@@ -80,6 +84,12 @@ export const useUserStore = defineStore({
 
           this.userInfo = response.data.userInfo;
           this.userId = response.data.userInfo.id;
+          setLoginInfo(
+            JSON.stringify({
+              loginId: response.data.loginId,
+              loginTime: response.data.loginTime,
+            })
+          );
 
           //1.记住密码
           if (loginInfo.rememberMe) {
@@ -91,6 +101,28 @@ export const useUserStore = defineStore({
           return response.data;
         }
       });
+    },
+    logout() {
+      const loginInfo: any = getLoginInfo();
+
+      return Service.user
+        .logout({ id: JSON.parse(loginInfo).loginId })
+        .then((response: any) => {
+          if (response.code === 200) {
+            this.userInfo = [];
+            this.userId = [];
+            this.userId = [];
+            this.roles = [];
+            this.menu = [];
+            this.menuList = [];
+            this.asyncRoutes = [];
+
+            removeToken();
+            removeLoginInfo();
+
+            router.push("/login");
+          }
+        });
     },
     getUserInfo() {
       return Service.user

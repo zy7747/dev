@@ -84,7 +84,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageEntity
                 List<MessageEntity> messageArr = new ArrayList<>();
                 SendMessageDTO messageMsg = new SendMessageDTO();
                 messageMsg.setMessage("推送消息");
-
+                //新增收件人
                 message.getReceiverList().forEach(item -> {
                     MessageEntity newData = new MessageEntity();
 
@@ -95,6 +95,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageEntity
 
                 this.saveOrUpdateBatch(messageArr);
 
+                //推送消息
                 message.getReceiverList().forEach(item -> {
                     messageMsg.setUserId(item);
                     webSocketService.sendOneMessage(messageMsg);

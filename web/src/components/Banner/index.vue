@@ -24,7 +24,7 @@ defineProps({
     text: "图片列表",
     type: [Array as any],
     default: () => {
-      return [{}];
+      return [];
     },
   },
 });

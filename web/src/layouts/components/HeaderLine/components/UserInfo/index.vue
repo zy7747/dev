@@ -24,6 +24,9 @@ const userInfo = userStore.userInfo;
 
 function command(row: any) {
   console.log(row);
+  if (row.value === "logOut") {
+    logOut();
+  }
 }
 
 const options = ref([
@@ -31,4 +34,8 @@ const options = ref([
   { icon: "切换账号", label: "切换账号", value: "changeAccount" },
   { icon: "关闭", label: "退出登录", value: "logOut" },
 ]);
+
+function logOut() {
+  userStore.logout();
+}
 </script>

@@ -3,6 +3,7 @@ package com.example.system.service;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.system.dal.dto.user.LoginDTO;
+import com.example.system.dal.dto.user.LogoutDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
@@ -76,9 +77,17 @@ public interface UserService {
     Result<UserInfoVO> login(LoginDTO loginInfo);
 
     /**
+     * 登出接口
+     *
+     * @param logoutInfo 登出信息
+     * @return 登出
+     */
+    Result<Object> logout(@Valid LogoutDTO logoutInfo);
+
+    /**
      * 通过token获取用户信息
      *
-     * @param loginSystem,token 登录系统
+     * @param loginSystem,token 获取用户信息
      * @return 用户信息
      */
     Result<UserInfoVO> userInfo(String loginSystem, String token);

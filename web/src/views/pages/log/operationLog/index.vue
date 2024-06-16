@@ -64,7 +64,9 @@ const { pageOption, pageRef } = usePage({
         {
           title: $t("table.creator", "创建人"),
           field: "creator",
+          translate: "user",
           isFilters: true,
+          width: 150,
         },
         {
           title: $t("table.status", "状态"),

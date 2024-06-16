@@ -11,7 +11,7 @@ export function getWebsocket(fun: any) {
   const userId = unref(userStore.userId);
 
   //判断当前浏览器是否支持WebSocket
-  if ("WebSocket" in window) {
+  if ("WebSocket" in window && !websocket) {
     websocket = new WebSocket(wsUrl + "/websocket/" + userId);
   } else {
     alert("当前浏览器 不支持 websocket");

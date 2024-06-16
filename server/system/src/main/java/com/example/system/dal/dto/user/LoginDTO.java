@@ -40,6 +40,9 @@ public class LoginDTO {
     @ApiModelProperty(value = "登录IP")
     private String loginIp;
 
+    @ApiModelProperty(value = "登录设备")
+    private String loginDevice;
+
     @ApiModelProperty(value = "登录系统")
     private String loginSystem;
 }

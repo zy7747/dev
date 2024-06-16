@@ -8,21 +8,25 @@ import com.example.framework.utils.ExcelUtils;
 import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.menu.MenuQueryDTO;
 import com.example.system.dal.dto.user.LoginDTO;
+import com.example.system.dal.dto.user.LogoutDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.MenuEntity;
 import com.example.system.dal.entity.RoleEntity;
 import com.example.system.dal.entity.UserEntity;
+import com.example.system.dal.entity.UserOnlineEntity;
 import com.example.system.dal.vo.user.*;
 import com.example.system.mapper.MenuMapper;
 import com.example.system.mapper.UserMapper;
 import com.example.system.service.UserService;
 import com.example.system.utils.JwtUtil;
+import com.example.system.utils.OnlineUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
 
     @Resource
     MenuMapper menuMapper;
+
 
     /**
      * 获取列表分页
@@ -171,12 +176,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         if (userInfo != null) {
             //1.生成Token
             String Token = new JwtUtil().getToken(userInfo);
+            //2.记录登录
+            UserOnlineEntity userOnline = new OnlineUtil().setUserOnlineInfoSuccess(userInfo, loginInfo);
+
+            UserInfoVO userInfoVO = userInfo(loginInfo.getLoginSystem(), Token).getData();
+
+            userInfoVO.setLoginId(userOnline.getId());
+
+            userInfoVO.setLoginTime(userOnline.getCreateTime());
             //返回用户信息和Token
-            return userInfo(loginInfo.getLoginSystem(), Token);
+            return Result.success(userInfoVO);
         } else {
             return Result.fail("登录失败,请检查账号密码是否正确");
         }
     }
+
+    /**
+     * 登出接口
+     *
+     * @param logoutInfo 登出信息
+     * @return 登出
+     */
+    @Override
+    public Result<Object> logout(@Valid LogoutDTO logoutInfo) {
+        new OnlineUtil().Logout(logoutInfo);
+
+        return Result.success("登出成功");
+    }
+
 
     /**
      * 通过token获取用户信息

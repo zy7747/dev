@@ -147,5 +147,16 @@
     "remark": "备注",
     "creator": "发送人",
     "createTime": "创建时间"
+  },
+  "userOnline": {
+    "userOnline": "在线用户",
+    "uid": "用户",
+    "account": "账号",
+    "loginIp": "登录IP",
+    "loginPlace": "登录地",
+    "loginDevice": "登录设备",
+    "operateResults": "操作结果",
+    "status": "状态",
+    "createTime": "登录时间"
   }
 }

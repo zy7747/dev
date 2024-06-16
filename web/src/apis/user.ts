@@ -5,6 +5,12 @@ export default {
     app: "user",
     text: "登录",
   },
+  logout: {
+    url: "/user/logout",
+    method: "get",
+    app: "user",
+    text: "登出",
+  },
   userInfo: {
     url: "/user/userInfo",
     method: "get",

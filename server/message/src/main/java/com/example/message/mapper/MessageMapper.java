@@ -12,7 +12,6 @@ import com.example.message.dal.entity.MessageEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Objects;
 
 @Mapper
 public interface MessageMapper extends BaseMapper<MessageEntity> {
@@ -54,10 +53,7 @@ public interface MessageMapper extends BaseMapper<MessageEntity> {
         if (!StrUtil.hasBlank(message.getStatus())) {
             wrapper.eq("status", message.getStatus());
         }
-        /* 备注 */
-        if (!StrUtil.hasBlank(message.getRemark())) {
-            wrapper.eq("remark", message.getRemark());
-        }
+
         /* 发送人 */
         if (!StrUtil.hasBlank(message.getCreator())) {
             wrapper.eq("creator", message.getCreator());
@@ -85,12 +81,7 @@ public interface MessageMapper extends BaseMapper<MessageEntity> {
      * 唯一性校验
      */
     default Result<MessageEntity> onlyValid(MessageEntity message, List<MessageEntity> messageList) {
-        for (MessageEntity item : messageList) {
-            //修改跳过自己
-            if (message.getId() != null && item.getId().equals(message.getId())) {
-                continue;
-            }
-        }
+
         return Result.success(message);
     }
 

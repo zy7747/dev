@@ -7,6 +7,7 @@ import com.example.system.annotation.dict.DictClass;
 import com.example.system.annotation.log.Log;
 import com.example.system.convert.UserConvert;
 import com.example.system.dal.dto.user.LoginDTO;
+import com.example.system.dal.dto.user.LogoutDTO;
 import com.example.system.dal.dto.user.UserQueryDTO;
 import com.example.system.dal.dto.user.UserSaveDTO;
 import com.example.system.dal.entity.UserEntity;
@@ -105,6 +106,12 @@ public class UserController {
     @ApiOperation(value = "登录")
     public Result<UserInfoVO> login(@Valid LoginDTO loginInfo) {
         return userService.login(loginInfo);
+    }
+
+    @GetMapping("/logout")
+    @ApiOperation(value = "登出")
+    public Result<Object> logout(@Valid LogoutDTO logoutInfo) {
+        return userService.logout(logoutInfo);
     }
 
 
