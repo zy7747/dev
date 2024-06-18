@@ -49,9 +49,10 @@ const { pageOption, pageRef, ids } = usePage({
         type: "input",
       },
       {
-        label: $t("user.user", "用户名"),
+        label: $t("user.user", "用户"),
         prop: "user",
-        type: "input",
+        type: "select",
+        options: Dict("user"),
       },
       {
         label: $t("user.nickname", "昵称"),
@@ -149,6 +150,7 @@ const { pageOption, pageRef, ids } = usePage({
               title: $t("user.phone", "电话号码"),
               field: "phone",
               isFilters: true,
+              sortable: true,
             },
             {
               title: $t("user.email", "电子邮箱"),
@@ -186,10 +188,12 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("table.createTime", "创建时间"),
           field: "createTime",
+          sortable: true,
         },
         {
           title: $t("table.updateTime", "更新时间"),
           field: "updateTime",
+          sortable: true,
         },
         {
           cType: "action",

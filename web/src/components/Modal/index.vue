@@ -12,9 +12,6 @@
     destroy-on-close
     esc-closable
   >
-    <template #corner>
-      <vxe-icon name="minus" class="close"></vxe-icon>
-    </template>
     <template #default>
       <slot name="body" />
     </template>

@@ -7,9 +7,29 @@
     :data="tableData"
     v-bind="options"
     :loading="loading"
+    @menu-click="contextMenuClickEvent"
   >
     <template #toolbar_buttons>
       <Tools :tools="tableConfig.tools" :checkboxData="checkboxData()" />
+    </template>
+
+    <template #toolbar_tools>
+      <div class="flex">
+        <c-schema
+          class="btnR"
+          :params="{ size: 'small' }"
+          type="input"
+          v-model="search"
+        />
+        <c-button
+          size="small"
+          type="primary"
+          class="btnR"
+          @handleClick="query"
+          :text="$t('system.table query')"
+          :icon="Search"
+        />
+      </div>
     </template>
 
     <template #tableSlot="{ row, column }: any">
@@ -51,16 +71,21 @@
 </template>
 
 <script lang="ts" setup>
-import { VxeGridProps, VxeGridInstance } from "vxe-table";
+import "./tsx/filter.tsx";
+
 import Action from "./components/action.vue";
 import Columns from "./components/columns.vue";
 import lodash from "lodash";
+
+import { VxeUI } from "vxe-table";
+import { Search } from "@element-plus/icons-vue";
 import { getFilter, getTableCols, getRules } from "@/hooks/table";
 
-const xGrid = ref<VxeGridInstance<any>>();
+const xGrid = ref<any>();
 const Route = useRoute();
 const paginationRef = ref();
 const tableData = ref();
+const search = ref();
 
 const total: Ref<number> = ref(0);
 const loading: any = ref(false);
@@ -193,8 +218,29 @@ function reset() {
   unref(paginationRef).reset();
 }
 
+const contextMenuClickEvent: any = ({ menu, row, column }: any) => {
+  switch (menu.code) {
+    case "copy":
+      // 复制
+      if (row && column) {
+        if (VxeUI.clipboard.copy(row[column.field])) {
+          VxeUI.modal.message({
+            content: "已复制到剪贴板！",
+            status: "success",
+          });
+        }
+      }
+      break;
+    case "query":
+      query();
+      break;
+    default:
+      VxeUI.modal.alert(`点击了 ${menu.name} 选项`);
+  }
+};
+
 //基本配置
-const gridOptions = reactive<VxeGridProps<any>>({
+const gridOptions = reactive<any>({
   border: true,
   round: true,
   size: "small",
@@ -222,14 +268,31 @@ const gridOptions = reactive<VxeGridProps<any>>({
     showStatus: false,
     showIcon: false,
   },
-  customConfig: {
-    storage: {
-      visible: true,
-      resizable: true,
-      fixed: true,
-      sort: true,
+  menuConfig: {
+    body: {
+      options: [
+        [
+          {
+            code: "copy",
+            name: "复制",
+            prefixIcon: "vxe-icon-copy",
+            className: "my-copy-item",
+          },
+        ],
+        [
+          {
+            code: "query",
+            name: "刷新",
+            prefixIcon: "vxe-icon-refresh",
+          },
+        ],
+      ],
     },
+  },
+  customConfig: {
+    storage: true,
     mode: "popup",
+    immediate: true,
   },
   printConfig: {
     columns: tableConfig.columns,
@@ -242,6 +305,7 @@ const gridOptions = reactive<VxeGridProps<any>>({
   toolbarConfig: {
     slots: {
       buttons: "toolbar_buttons",
+      tools: "toolbar_tools",
     },
     refresh: {
       queryMethod() {
@@ -251,8 +315,9 @@ const gridOptions = reactive<VxeGridProps<any>>({
     print: true, // 显示打印按钮
     zoom: true, // 显示全屏按钮
     custom: true, // 显示自定义列按钮
-    export: true,
+    export: true, // 显示导出按钮
   },
+  exportConfig: {},
   editRules: rules,
 });
 

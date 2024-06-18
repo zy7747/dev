@@ -94,6 +94,7 @@ declare module 'vue' {
     ElTreeV2: typeof import('element-plus/es')['ElTreeV2']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
+    Filter: typeof import('./src/components/CElement/CTable/components/filter.vue')['default']
     IconSelect: typeof import('./src/components/CElement/CForm/src/IconSelect/index.vue')['default']
     Modal: typeof import('./src/components/Modal/index.vue')['default']
     Modal2: typeof import('./src/components/Modal2/index.vue')['default']

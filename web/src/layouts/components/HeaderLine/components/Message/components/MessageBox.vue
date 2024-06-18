@@ -4,7 +4,12 @@
     <c-button class="btn" text="清除已读"></c-button>
     <c-button text="清除所有"></c-button>
 
-    <vxe-list height="550" :data="list" :scroll-y="{ enabled: true }">
+    <vxe-list
+      v-if="list.length"
+      height="550"
+      :data="list"
+      :scroll-y="{ enabled: true }"
+    >
       <template #default="{ items }">
         <li
           :class="
@@ -36,7 +41,7 @@ defineProps({
     text: "消息列表",
     type: [Array as any],
     default: () => {
-      return [];
+      return [{}];
     },
   },
 });

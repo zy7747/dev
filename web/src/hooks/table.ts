@@ -14,7 +14,7 @@ export function getFilter(columns: any, filterMap: any) {
 //列处理
 function tableColumns(item: any) {
   if (!item.width) {
-    item.width = 200;
+    item.minWidth = 140;
   }
 
   if (item.type === "checkbox") {
@@ -65,6 +65,7 @@ function tableSlot(item: any, filters: any) {
   //过滤
   if (item.isFilters) {
     col.filters = filters.value[item.field];
+    // col.filterRender = { name: "FilterInput" };
   }
 
   //自定义插槽

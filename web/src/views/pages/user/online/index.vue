@@ -33,27 +33,11 @@ const { pageOption, pageRef, ids } = usePage({
       title: $t("userOnline.userOnline", "在线用户"),
       tools: [
         {
-          operation: "add",
-          permission: ["userOnline:add"],
-          click() {
-            unref(pageRef).handleOpen({ type: "add", data: {} });
-          },
-        },
-        {
           operation: "remove",
           permission: ["userOnline:remove"],
           click() {
             return Service.log.userOnline.remove(ids()).then((res: any) => {
               removeSuccess(res, pageRef);
-            });
-          },
-        },
-        {
-          operation: "import",
-          permission: ["userOnline:import"],
-          api(files: any) {
-            return Service.log.userOnline.imports(files).then((res: any) => {
-              importSuccess(res, pageRef);
             });
           },
         },
@@ -101,7 +85,6 @@ const { pageOption, pageRef, ids } = usePage({
           field: "createTime",
           isFilters: true,
         },
-
         {
           title: $t("userOnline.loginIp", "登录IP"),
           field: "loginIp",
@@ -129,20 +112,6 @@ const { pageOption, pageRef, ids } = usePage({
         },
       ],
       actions: [
-        {
-          operation: "edit",
-          permission: ["userOnline:edit"],
-          click({ row }: any) {
-            return Service.log.userOnline
-              .detail({ id: row.id })
-              .then((res: any) => {
-                unref(pageRef).handleOpen({
-                  type: "edit",
-                  data: res.data,
-                });
-              });
-          },
-        },
         {
           operation: "detail",
           click({ row }: any) {
@@ -200,6 +169,12 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("userOnline.operateResults", "操作结果"),
               prop: "operateResults",
               type: "input",
+            },
+            {
+              label: $t("userOnline.status", "状态"),
+              prop: "status",
+              type: "select",
+              options: Dict("online_status"),
             },
           ],
         },

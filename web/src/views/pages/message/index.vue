@@ -216,22 +216,42 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("message.messageName", "消息名称"),
               prop: "messageName",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("message.messageContent", "消息内容"),
               prop: "messageContent",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("message.module", "推送模块"),
               prop: "module",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("message.type", "类型"),
               prop: "type",
               type: "select",
               options: Dict("notice_type"),
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("message.isRead", "是否已读"),
@@ -241,6 +261,11 @@ const { pageOption, pageRef, ids } = usePage({
               params: {
                 disabled: true,
               },
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("message.receiver", "收件人"),

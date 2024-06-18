@@ -14,7 +14,7 @@
         <Tools
           v-if="pageOption.actions && pageOption.actions.length"
           :tools="pageOption.actions"
-          style="margin-right: 10px"
+          class="btnR"
         />
         <c-button
           plain

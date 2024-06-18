@@ -2,7 +2,10 @@
 <template>
   <el-popover placement="bottom" trigger="click" :width="400">
     <template #reference>
-      <el-badge :is-dot="isDot" class="dot cursor-pointer">
+      <el-badge
+        :is-dot="isDot"
+        class="dot cursor-pointer flex items-center flex-col"
+      >
         <svg-icon name="邮件" class="icon" />
         <span style="font-size: 12px; margin-top: 3px">
           {{ $t("system.message") }}

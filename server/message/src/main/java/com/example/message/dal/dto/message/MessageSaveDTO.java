@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -15,11 +16,13 @@ public class MessageSaveDTO extends BaseParamsDTO {
     /**
      * 消息名称
      */
+    @NotBlank(message = "消息名称不能为空")
     @ApiModelProperty(value = "消息名称")
     private String messageName;
     /**
      * 消息内容
      */
+    @NotBlank(message = "消息内容不能为空")
     @ApiModelProperty(value = "消息内容")
     private String messageContent;
     /**
@@ -35,6 +38,7 @@ public class MessageSaveDTO extends BaseParamsDTO {
     /**
      * 是否已读
      */
+    @NotBlank(message = "是否已读不能为空")
     @ApiModelProperty(value = "是否已读")
     private String isRead;
     /**

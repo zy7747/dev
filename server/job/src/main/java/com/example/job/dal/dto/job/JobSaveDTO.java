@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -17,11 +18,13 @@ public class JobSaveDTO extends BaseParamsDTO {
     /**
      * 任务名称
      */
+    @NotBlank(message = "任务名称不能为空")
     @ApiModelProperty(value = "任务名称")
     private String jobName;
     /**
      * 任务编码
      */
+    @NotBlank(message = "任务编码不能为空")
     @ApiModelProperty(value = "任务编码")
     private String jobCode;
     /**

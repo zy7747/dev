@@ -8,6 +8,7 @@ import Components from "unplugin-vue-components/vite";
 import Icons from "unplugin-icons/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import VueDevTools from "vite-plugin-vue-devtools";
+import vueJsx from "@vitejs/plugin-vue-jsx"; // 添加这一句
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { resolve } from "path";
 // import basicSsl from "@vitejs/plugin-basic-ssl";
@@ -22,6 +23,7 @@ export default ({ mode }: any) =>
     plugins: [
       VueDevTools(),
       vue(),
+      vueJsx(),
       // basicSsl(),
       WindiCSS(),
       svgLoader(),

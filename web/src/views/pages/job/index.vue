@@ -183,11 +183,21 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("job.jobName", "任务名称"),
               prop: "jobName",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("job.jobCode", "任务编码"),
               prop: "jobCode",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("job.startTime", "计划开始时间"),

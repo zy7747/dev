@@ -2,7 +2,7 @@
 <template>
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
     <template #dialog0>
-      <Collapse title="树" v-if="pageData.editData.id">
+      <Collapse :title="$t('menu.menu')" v-if="pageData.editData.id">
         <template #content>
           <CTree :options="dict.menus" v-model="pageData.editData.menus" />
         </template>

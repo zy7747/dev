@@ -27,7 +27,8 @@ const { pageOption, pageRef, ids } = usePage({
       {
         label: $t("table.status", "状态"),
         prop: "status",
-        type: "input",
+        type: "select",
+        options: Dict("menu_status"),
       },
     ],
   },
@@ -214,7 +215,7 @@ const { pageOption, pageRef, ids } = usePage({
               data: {
                 parentId: row.id,
                 type,
-                status: "0",
+                status: "1",
                 alwaysShow: 1,
                 visible: 1,
                 keepAlive: 1,
@@ -277,6 +278,11 @@ const { pageOption, pageRef, ids } = usePage({
               params: {
                 "check-strictly": true,
               },
+              rules: [
+                {
+                  required: true,
+                },
+              ],
               show: () => pageData.editData.type !== "system",
               options: menuTree.value,
               span: 12,
@@ -293,6 +299,11 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("menu.title", "菜单名"),
               prop: "title",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
               span: 12,
             },
             {
@@ -300,12 +311,22 @@ const { pageOption, pageRef, ids } = usePage({
               prop: "name",
               type: "input",
               show: () => pageData.editData.type !== "button",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
               span: 12,
             },
             {
               label: $t("menu.component", "组件"),
               prop: "component",
               show: () => pageData.editData.type === "menu",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
               type: "input",
               span: 12,
             },
@@ -314,6 +335,11 @@ const { pageOption, pageRef, ids } = usePage({
               prop: "path",
               type: "input",
               show: () => pageData.editData.type !== "button",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
               span: 12,
             },
             {
@@ -326,12 +352,22 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("table.status", "状态"),
               prop: "status",
               type: "select",
-              options: Dict("dict_status"),
+              options: Dict("menu_status"),
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("menu.sort", "排序"),
               prop: "sort",
               type: "number",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("menu.visible", "是否可见"),

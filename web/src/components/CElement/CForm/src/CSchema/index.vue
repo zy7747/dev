@@ -3,9 +3,7 @@
   <div style="width: 100%">
     <c-select
       v-if="type === 'select'"
-      :placeholder="
-        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
-      "
+      :placeholder="getPlaceholder('select', item)"
       :options="options"
       v-model="value"
       v-bind="params"
@@ -25,34 +23,26 @@
     />
     <c-input
       v-else-if="type === 'input'"
-      :placeholder="
-        $t('form.please input') + ' ' + (item.label ? item.label : item.title)
-      "
+      :placeholder="getPlaceholder('input', item)"
       v-model="value"
       v-bind="params"
     />
     <c-number
       v-else-if="type === 'number'"
-      :placeholder="
-        $t('form.please input') + ' ' + (item.label ? item.label : item.title)
-      "
+      :placeholder="getPlaceholder('input', item)"
       v-model="value"
       v-bind="params"
     />
     <c-treeSelect
       v-else-if="type === 'treeSelect'"
-      :placeholder="
-        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
-      "
+      :placeholder="getPlaceholder('select', item)"
       :options="options"
       v-model="value"
       v-bind="params"
     />
     <c-treeSelect
       v-else-if="type === 'allSelect'"
-      :placeholder="
-        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
-      "
+      :placeholder="getPlaceholder('select', item)"
       :options="[
         {
           label: '全部',
@@ -69,9 +59,7 @@
     />
     <IconSelect
       v-else-if="type === 'icon'"
-      :placeholder="
-        $t('form.please select') + ' ' + (item.label ? item.label : item.title)
-      "
+      :placeholder="getPlaceholder('select', item)"
       :options="options"
       v-model="value"
       v-bind="params"
@@ -110,6 +98,26 @@ defineProps({
     },
   },
 });
+
+function getPlaceholder(type: string, item: any) {
+  if (type === "select") {
+    if (item.label) {
+      return $t("form.please select", "请选择") + " " + item.label;
+    } else if (item.title) {
+      return $t("form.please select", "请选择") + " " + item.title;
+    } else {
+      return $t("form.please select", "请选择");
+    }
+  } else if (type === "input") {
+    if (item.label) {
+      return $t("form.please input", "请输入") + " " + item.label;
+    } else if (item.title) {
+      return $t("form.please input", "请输入") + " " + item.title;
+    } else {
+      return $t("form.please input", "请输入");
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

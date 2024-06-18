@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @ApiModel(value = "保存")
 @EqualsAndHashCode(callSuper = true)
@@ -15,6 +17,7 @@ public class MenuSaveDTO extends BaseParamsDTO {
     /**
      * 菜单名
      */
+    @NotBlank(message = "菜单名称不能为空")
     @ApiModelProperty(value = "菜单名")
     private String title;
     /**
@@ -30,6 +33,7 @@ public class MenuSaveDTO extends BaseParamsDTO {
     /**
      * 类型
      */
+    @NotBlank(message = "类型不能为空")
     @ApiModelProperty(value = "类型")
     private String type;
     /**

@@ -184,17 +184,32 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("permission.name", "权限名称"),
               prop: "name",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("permission.permission", "权限标识"),
               prop: "permission",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("permission.type", "类型"),
               prop: "type",
               type: "select",
               options: Dict("permission_type"),
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("permission.description", "描述"),

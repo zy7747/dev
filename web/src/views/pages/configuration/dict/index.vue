@@ -57,6 +57,7 @@ const { pageOption, pageRef, ids } = usePage({
               type: "add",
               data: {
                 dictType: "string",
+                status: "1",
               },
             });
           },
@@ -198,23 +199,43 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("dict.dictName", "字典名称"),
               prop: "dictName",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("dict.dictCode", "字典编码"),
               prop: "dictCode",
               type: "input",
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("dict.dictType", "字典类型"),
               prop: "dictType",
               type: "select",
               options: Dict("dict_type"),
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
             {
               label: $t("table.status", "状态"),
               prop: "status",
               type: "select",
               options: Dict("dict_status"),
+              rules: [
+                {
+                  required: true,
+                },
+              ],
             },
           ],
         },
@@ -280,6 +301,11 @@ const { tableConfig, tableRef, tableIds } = useTable({
       form: {
         type: "input",
       },
+      rules: [
+        {
+          required: true,
+        },
+      ],
     },
     {
       title: $t("dict.value", "值"),
@@ -288,8 +314,12 @@ const { tableConfig, tableRef, tableIds } = useTable({
       form: {
         type: "input",
       },
+      rules: [
+        {
+          required: true,
+        },
+      ],
     },
-
     {
       title: $t("dict.color", "自定义颜色"),
       field: "color",
@@ -321,6 +351,11 @@ const { tableConfig, tableRef, tableIds } = useTable({
           options: Dict("dict_status"),
         },
       },
+      rules: [
+        {
+          required: true,
+        },
+      ],
     },
     {
       title: "操作",
