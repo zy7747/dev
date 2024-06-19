@@ -222,7 +222,7 @@ export const useUserStore = defineStore({
 
       menu.sort((a: any, b: any) => a.sort - b.sort);
 
-      const systemList = ["apply", "video-web", "system"];
+      const systemList = ["apply", "video-web", "system", "video-system"];
 
       const menuList = handleTree(menu).filter((menus: any) => {
         return systemList.indexOf(menus.name) !== -1;

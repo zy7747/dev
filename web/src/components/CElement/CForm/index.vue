@@ -11,7 +11,7 @@
     <template v-for="item in formConfig.formParams">
       <el-col
         :span="item.span ? item.span : 6"
-        v-show="item.show ? item.show() : true"
+        v-if="item.show ? item.show() : true"
       >
         <el-form-item :label="item.label" :prop="item.prop">
           <c-schema

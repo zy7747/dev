@@ -19,7 +19,7 @@ const getTarget = (mode: string, target: string) => {
 
 export default ({ mode }: any) =>
   defineConfig({
-    base: "/system/",
+    base: "/",
     plugins: [
       VueDevTools(),
       vue(),
