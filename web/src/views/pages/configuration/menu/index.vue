@@ -127,9 +127,8 @@ const { pageOption, pageRef, ids } = usePage({
           width: 150,
         },
         {
-          title: $t("menu.component", "组件"),
+          title: $t("menu.component", "组件文件路径"),
           field: "component",
-          isFilters: true,
         },
         {
           title: $t("menu.path", "路由路径"),
@@ -141,12 +140,12 @@ const { pageOption, pageRef, ids } = usePage({
           field: "permission",
           isFilters: true,
         },
-
         {
           title: $t("menu.visible", "是否可见"),
           field: "visible",
           isFilters: true,
           translate: "isNo",
+          width: 100,
         },
         {
           title: $t("menu.keepAlive", "是否缓存"),
@@ -160,12 +159,14 @@ const { pageOption, pageRef, ids } = usePage({
           field: "alwaysShow",
           isFilters: true,
           translate: "isNo",
+          width: 120,
         },
         {
           title: $t("table.status", "状态"),
           field: "status",
           translate: "menu_status",
           isFilters: true,
+          width: 100,
         },
         {
           title: $t("table.creator", "创建人"),
@@ -182,12 +183,14 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("table.createTime", "创建时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           title: $t("table.updateTime", "更新时间"),
           field: "updateTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           cType: "action",
@@ -232,6 +235,21 @@ const { pageOption, pageRef, ids } = usePage({
               .then((res: any) => {
                 unref(pageRef).handleOpen({
                   type: "edit",
+                  data: res.data,
+                });
+              });
+          },
+        },
+        {
+          operation: "copy",
+          permission: ["menu:add"],
+          click({ row }: any) {
+            Service.configuration.menu
+              .detail({ id: row.id })
+              .then((res: any) => {
+                delete res.data.id;
+                unref(pageRef).handleOpen({
+                  type: "add",
                   data: res.data,
                 });
               });

@@ -112,29 +112,32 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("table.remark", "备注"),
           field: "remark",
-          isFilters: true,
         },
         {
           title: $t("table.creator", "创建人"),
           field: "creator",
           translate: "user",
           isFilters: true,
+          width: "120px",
         },
         {
           title: $t("table.updater", "更新人"),
           field: "updater",
           translate: "user",
           isFilters: true,
+          width: "120px",
         },
         {
           title: $t("table.createTime", "创建时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
+          width: "180px",
         },
         {
           title: $t("table.updateTime", "更新时间"),
           field: "updateTime",
-          isFilters: true,
+          sortable: true,
+          width: "180px",
         },
         {
           cType: "action",

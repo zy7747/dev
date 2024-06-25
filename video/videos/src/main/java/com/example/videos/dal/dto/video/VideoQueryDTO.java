@@ -73,6 +73,11 @@ public class VideoQueryDTO extends PageDTO {
     @ApiModelProperty(value = "作者")
     private String author;
     /**
+     * 作者
+     */
+    @ApiModelProperty(value = "作者")
+    private String sortWay;
+    /**
      * 季
      */
     @ApiModelProperty(value = "季")
@@ -102,4 +107,9 @@ public class VideoQueryDTO extends PageDTO {
      */
     @ApiModelProperty(value = "创作年份")
     private Date createYear;
+    /**
+     * 月份
+     */
+    @ApiModelProperty(value = "月份")
+    private Date month;
 }

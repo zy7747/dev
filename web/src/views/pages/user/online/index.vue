@@ -83,7 +83,8 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("userOnline.createTime", "登录时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           title: $t("userOnline.loginIp", "登录IP"),
@@ -104,6 +105,7 @@ const { pageOption, pageRef, ids } = usePage({
           title: $t("userOnline.operateResults", "操作结果"),
           field: "operateResults",
           isFilters: true,
+          translate: "user_online_operateResults",
         },
 
         {
@@ -168,7 +170,8 @@ const { pageOption, pageRef, ids } = usePage({
             {
               label: $t("userOnline.operateResults", "操作结果"),
               prop: "operateResults",
-              type: "input",
+              type: "select",
+              options: Dict("user_online_operateResults"),
             },
             {
               label: $t("userOnline.status", "状态"),

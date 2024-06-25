@@ -1,6 +1,7 @@
 package com.example.videos.dal.vo.video;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,11 +16,13 @@ public class VideoPageVO extends BaseParamsVO {
     /**
      * 父节点id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)//雪花算法丢失精度问题
     @ApiModelProperty(value = "父节点id")
     private Long parentId;
     /**
      * 视频存储节点
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)//雪花算法丢失精度问题
     @ApiModelProperty(value = "视频存储节点")
     private Long savePath;
     /**
@@ -100,6 +103,7 @@ public class VideoPageVO extends BaseParamsVO {
     /**
      * 创作年份
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创作年份")
     private Date createYear;
 }

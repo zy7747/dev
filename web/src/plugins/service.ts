@@ -1,5 +1,6 @@
 import request from "@/utils/request";
 import lodash from "lodash";
+const baseUrl = import.meta.env.VITE_APP_BASE_API;
 
 const modules = import.meta.glob(["@/apis/**.ts", "@/apis/**/*.ts"], {
   import: "default",
@@ -26,6 +27,12 @@ function config(api: any = {}, data: any) {
 
   if (api.baseUrl) {
     config.baseURL = api.baseUrl;
+  } else {
+    config.baseURL = baseUrl;
+  }
+
+  if (api.app) {
+    config.baseURL = config.baseURL + api.app;
   }
 
   if (api.headers) {

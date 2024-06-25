@@ -2,6 +2,7 @@ package com.example.videos.dal.vo.video;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.example.framework.dal.vo.ExcelVO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,11 +16,13 @@ public class VideoExportVO extends ExcelVO {
     /**
      * 父节点id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)//雪花算法丢失精度问题
     @ExcelProperty("父节点id")
     private Long parentId;
     /**
      * 视频存储节点
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)//雪花算法丢失精度问题
     @ExcelProperty("视频存储节点")
     private Long savePath;
     /**
@@ -100,6 +103,7 @@ public class VideoExportVO extends ExcelVO {
     /**
      * 创作年份
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ExcelProperty("创作年份")
     private Date createYear;
 }

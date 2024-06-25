@@ -14,7 +14,12 @@
       v-model="value"
       v-bind="params"
     />
-    <c-date v-else-if="type === 'date'" v-model="value" v-bind="params" />
+    <c-date
+      style="width: 100%"
+      v-else-if="type === 'date'"
+      v-model="value"
+      v-bind="params"
+    />
     <c-checkbox
       v-else-if="type === 'checkbox'"
       :options="options"

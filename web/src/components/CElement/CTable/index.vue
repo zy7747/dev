@@ -26,7 +26,7 @@
           type="primary"
           class="btnR"
           @handleClick="query"
-          :text="$t('system.table query')"
+          :text="$t('system.table search')"
           :icon="Search"
         />
       </div>
@@ -244,12 +244,11 @@ const gridOptions = reactive<any>({
   border: true,
   round: true,
   size: "small",
-  height: 500,
+  height: 600,
   align: "center",
   keepSource: true,
   id: `${Route.fullPath}/${tableConfig.title}`, //缓存列状态
   showHeaderOverflow: "title",
-  showOverflow: "tooltip",
   scrollX: { enabled: true, gt: 20 },
   scrollY: { enabled: true, gt: 50 },
   rowConfig: {

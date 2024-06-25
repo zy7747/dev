@@ -18,17 +18,17 @@ public class UserExportVO extends ExcelVO {
     /**
      * 电话号码
      */
-    @ExcelProperty("电话号码")
+    @ExcelProperty({"基础数据", "电话号码"})
     private String phone;
     /**
      * 电子邮箱
      */
-    @ExcelProperty("电子邮箱")
+    @ExcelProperty({"基础数据", "电子邮箱"})
     private String email;
     /**
      * 账号
      */
-    @ExcelProperty("账号")
+    @ExcelProperty({"基础数据", "账号"})
     private String account;
     /**
      * 用户名

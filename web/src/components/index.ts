@@ -1,12 +1,11 @@
-import { Icon } from "@iconify/vue";
-
 import SvgIcon from "./SvgIcon/index.vue";
 import Collapse from "./Collapse/index.vue";
 import Pagination from "./Pagination/index.vue";
-import VideoPlay from "./Player/video.vue";
+import VideoPlayer from "./Player/video.vue";
 import Tools from "./Tools/index.vue";
 import DictTag from "./DictTag/index.vue";
 import Modal from "./Modal/index.vue";
+import Episode from "./Episode/index.vue";
 
 import CTable from "./CElement/CTable/index.vue";
 import CGrid from "./CElement/CGrid/index.vue";
@@ -20,9 +19,9 @@ function setupComponents(app: any) {
   app.component("Tools", Tools);
   app.component("Collapse", Collapse);
   app.component("Pagination", Pagination);
-  app.component("VideoPlay", VideoPlay);
+  app.component("VideoPlayer", VideoPlayer);
+  app.component("Episode", Episode);
   app.component("DictTag", DictTag);
-  app.component("Icon", Icon);
 
   app.component("CModal", Modal);
   app.component("CTable", CTable);

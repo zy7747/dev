@@ -124,12 +124,14 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("table.createTime", "创建时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           title: $t("table.updateTime", "更新时间"),
           field: "updateTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           cType: "action",

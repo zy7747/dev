@@ -119,11 +119,6 @@ const { pageOption, pageRef, ids } = usePage({
           isFilters: true,
         },
         {
-          title: $t("message.messageContent", "消息内容"),
-          field: "messageContent",
-          isFilters: true,
-        },
-        {
           title: $t("message.module", "推送模块"),
           field: "module",
           isFilters: true,
@@ -141,33 +136,26 @@ const { pageOption, pageRef, ids } = usePage({
           isFilters: true,
         },
         {
-          title: $t("message.receiver", "收件人"),
-          field: "receiver",
-          translate: "user",
-          isFilters: true,
-        },
-
-        {
-          title: $t("message.status", "状态"),
-          field: "status",
-          translate: "notice_status",
-          isFilters: true,
-        },
-        {
-          title: $t("message.remark", "备注"),
-          field: "remark",
-          isFilters: true,
-        },
-        {
           title: $t("message.creator", "发送人"),
           field: "creator",
           translate: "user",
           isFilters: true,
         },
         {
+          title: $t("message.receiver", "收件人"),
+          field: "receiver",
+          translate: "user",
+          isFilters: true,
+        },
+        {
+          title: $t("message.remark", "备注"),
+          field: "remark",
+        },
+        {
           title: $t("message.createTime", "创建时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           cType: "action",
@@ -223,16 +211,6 @@ const { pageOption, pageRef, ids } = usePage({
               ],
             },
             {
-              label: $t("message.messageContent", "消息内容"),
-              prop: "messageContent",
-              type: "input",
-              rules: [
-                {
-                  required: true,
-                },
-              ],
-            },
-            {
               label: $t("message.module", "推送模块"),
               prop: "module",
               type: "input",
@@ -254,6 +232,30 @@ const { pageOption, pageRef, ids } = usePage({
               ],
             },
             {
+              label: $t("message.receiver", "收件人"),
+              prop: "receiverList",
+              type: "allSelect",
+              options: Dict("user"),
+            },
+            {
+              label: $t("message.messageContent", "消息内容"),
+              prop: "messageContent",
+              type: "input",
+              params: {
+                type: "textarea",
+                "show-word-limit": true,
+                maxlength: 500,
+                autosize: { minRows: 8, maxRows: 16 },
+              },
+              span: 24,
+              rules: [
+                {
+                  required: true,
+                },
+              ],
+            },
+
+            {
               label: $t("message.isRead", "是否已读"),
               prop: "isRead",
               type: "select",
@@ -267,12 +269,7 @@ const { pageOption, pageRef, ids } = usePage({
                 },
               ],
             },
-            {
-              label: $t("message.receiver", "收件人"),
-              prop: "receiverList",
-              type: "allSelect",
-              options: Dict("user"),
-            },
+
             {
               label: $t("message.receiver", "收件人"),
               prop: "receiver",

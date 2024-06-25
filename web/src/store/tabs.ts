@@ -46,6 +46,8 @@ export const useTabStore = defineStore({
       const str = sessionStorage.getItem("tabs");
       const list = str ? JSON.parse(str) : [];
 
+      this.visitedViews.splice(0);
+
       this.visitedViews.push(...list);
     },
   },

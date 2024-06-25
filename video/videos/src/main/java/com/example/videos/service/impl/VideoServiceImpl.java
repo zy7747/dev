@@ -58,7 +58,12 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, VideoEntity> impl
      */
     @Override
     public Result<VideoDetailVO> videoDetail(Long id) {
-        return Result.success(VideoConvert.INSTANCE.detail(videoMapper.selectById(id)));
+        VideoDetailVO videoInfo = VideoConvert.INSTANCE.detail(videoMapper.selectById(id));
+
+        videoInfo.setVideoList(videoMapper.queryDetailList(id,videoInfo.getIsCollection()));
+
+
+        return Result.success(videoInfo);
     }
 
     /**

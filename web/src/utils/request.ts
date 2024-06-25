@@ -2,10 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 import { useUserStore } from "@/store/user";
 
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
-
 const service = axios.create({
-  baseURL: baseUrl,
+  baseURL: "",
   timeout: 5000,
 });
 

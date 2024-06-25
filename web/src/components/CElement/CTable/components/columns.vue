@@ -2,7 +2,7 @@
 <template>
   <el-image
     v-if="type === 'img'"
-    style="width: 50px; height: 50px; border-radius: 5px"
+    style="width: 60px; height: 70px; border-radius: 5px"
     :src="fileUrl + value"
     :zoom-rate="1.2"
     :max-scale="7"

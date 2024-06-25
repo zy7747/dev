@@ -127,6 +127,7 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("user.avatar", "头像"),
           field: "avatar",
+          cType: "img",
         },
         {
           title: $t("user.user", "用户名"),
@@ -208,6 +209,20 @@ const { pageOption, pageRef, ids } = usePage({
             return Service.user.detail({ id: row.id }).then((res: any) => {
               unref(pageRef).handleOpen({
                 type: "edit",
+                data: res.data,
+              });
+            });
+          },
+        },
+        {
+          operation: "copy",
+          permission: ["user:add"],
+          click({ row }: any) {
+            return Service.user.detail({ id: row.id }).then((res: any) => {
+              delete res.data.id;
+              delete res.data.permissions;
+              unref(pageRef).handleOpen({
+                type: "add",
                 data: res.data,
               });
             });

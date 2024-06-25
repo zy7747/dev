@@ -67,6 +67,16 @@
       />
 
       <c-button
+        v-else-if="item.operation === 'copy'"
+        link
+        :text="$t('system.copy')"
+        v-bind="item"
+        type="primary"
+        :icon="CopyDocument"
+        @handleClick="item.click({ row })"
+      />
+
+      <c-button
         v-else-if="item.operation === 'detail'"
         link
         :text="$t('system.detail')"
@@ -78,7 +88,7 @@
 
       <el-popconfirm
         v-else-if="item.operation === 'remove'"
-        title="是否删除数据?"
+        :title="$t('system.is remove data')"
         @confirm="item.click({ row })"
       >
         <template #reference>
@@ -112,6 +122,7 @@ import {
   SwitchFilled,
   CircleCloseFilled,
   CircleCheckFilled,
+  CopyDocument,
   Plus,
 } from "@element-plus/icons-vue";
 

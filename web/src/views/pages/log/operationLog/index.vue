@@ -58,7 +58,7 @@ const { pageOption, pageRef } = usePage({
         {
           title: $t("table.createTime", "创建时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
           width: 150,
         },
         {
@@ -100,7 +100,7 @@ const { pageOption, pageRef } = usePage({
         {
           title: $t("operationLog.time", "耗时"),
           field: "time",
-          isFilters: true,
+          sortable: true,
         },
         {
           title: $t("operationLog.type", "操作类型"),

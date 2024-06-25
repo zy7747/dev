@@ -24,11 +24,6 @@ public interface VideoMapper extends BaseMapper<VideoEntity> {
         if (video.getId() != null) {
             wrapper.eq("id", video.getId());
         }
-
-        /* 父节点id */
-        if (video.getParentId() != null) {
-            wrapper.eq("parent_id", video.getParentId());
-        }
         /* 视频存储节点 */
         if (video.getSavePath() != null) {
             wrapper.eq("save_path", video.getSavePath());
@@ -105,6 +100,24 @@ public interface VideoMapper extends BaseMapper<VideoEntity> {
         if (video.getUpdateTime() != null) {
             wrapper.eq("update_time", video.getUpdateTime());
         }
+
+        /* 按月份查询 */
+        if (video.getMonth() != null) {
+            wrapper.apply("DATE_FORMAT(create_time, '%Y-%m') = {0}", video.getMonth());
+        }
+
+        //排序方式
+        if (!StrUtil.hasBlank(video.getSortWay())) {
+            if ("playNum".equals(video.getSortWay())) {
+                wrapper.orderByDesc("play_num");
+            } else {
+                wrapper.orderByDesc("create_time");
+            }
+        } else {
+            wrapper.orderByDesc("create_time");
+        }
+
+        wrapper.isNull("parent_id");
         wrapper.orderByDesc("create_time");
         return wrapper;
     }
@@ -149,5 +162,21 @@ public interface VideoMapper extends BaseMapper<VideoEntity> {
      */
     default List<VideoEntity> queryList(VideoQueryDTO video) {
         return selectList(search(video));
+    }
+
+    /**
+     * 集合查询
+     */
+    default List<VideoEntity> queryDetailList(Long id, int isCollection) {
+        QueryWrapper<VideoEntity> wrapper = new QueryWrapper<>();
+        //  如果不是集合查自己
+        if (isCollection == 0) {
+            wrapper.eq("id", id);
+        } else {
+            wrapper.eq("parent_id", id);
+        }
+
+
+        return selectList(wrapper);
     }
 }

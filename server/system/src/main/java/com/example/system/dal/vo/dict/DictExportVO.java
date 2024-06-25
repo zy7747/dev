@@ -1,6 +1,7 @@
 package com.example.system.dal.vo.dict;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.example.framework.dal.vo.ExcelVO;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -18,11 +19,13 @@ public class DictExportVO extends ExcelVO {
     /**
      * 字典名称
      */
+    @ColumnWidth(30)
     @ExcelProperty("字典名称")
     private String dictName;
     /**
      * 字典编码
      */
+    @ColumnWidth(30)
     @ExcelProperty("字典编码")
     private String dictCode;
     /**

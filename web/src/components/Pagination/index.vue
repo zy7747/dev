@@ -5,7 +5,7 @@
     background
     v-model:current-page="page"
     :page-size="size"
-    :page-sizes="[10, 20, 50, 100, 500, 1000]"
+    :page-sizes="[20, 50, 100, 500, 1000]"
     layout="total, sizes, prev, pager, next, jumper"
     :total="total"
     @size-change="handleSizeChange"
@@ -15,15 +15,25 @@
 
 <script lang="ts" setup>
 const emit = defineEmits(["query"]);
-defineProps({
+const prop = defineProps({
   total: {
     text: "条数",
     type: [Number],
   },
+  pages: {
+    text: "当页页码",
+    type: [Number],
+    default: 1,
+  },
+  sizes: {
+    text: "条数",
+    type: [Number],
+    default: 20,
+  },
 });
 
-const page = ref(1);
-const size = ref(10);
+const page = ref(prop.pages);
+const size = ref(prop.sizes);
 
 function handleSizeChange(val: number) {
   size.value = val;
@@ -36,7 +46,7 @@ function handleCurrentChange(val: number) {
 
 function reset() {
   page.value = 1;
-  size.value = 10;
+  size.value = prop.sizes;
 }
 
 defineExpose({

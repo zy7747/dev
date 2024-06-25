@@ -15,7 +15,11 @@ function download(data: any, fileName: any, mineType: any) {
 const downloadFun = {
   // 下载 Excel 方法
   excel(data: any, fileName: any) {
-    download(data, fileName, "application/vnd.ms-excel;charset=utf-8'");
+    download(
+      data,
+      fileName + ".xlsx",
+      "application/vnd.ms-excel;charset=utf-8'"
+    );
   },
 
   // 下载 Zip 方法

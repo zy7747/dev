@@ -7,6 +7,7 @@
     @click="click"
     v-hasPermission="attrs.permission"
   >
+    <vxe-icon :name="vxeIcon" v-if="vxeIcon"></vxe-icon>
     {{ text }}
   </el-button>
 </template>
@@ -16,6 +17,10 @@ import { useAttrs } from "vue";
 const attrs: any = useAttrs();
 
 defineProps({
+  vxeIcon: {
+    text: "vxe图标",
+    type: [String],
+  },
   text: {
     text: "按钮名称",
     type: [String],

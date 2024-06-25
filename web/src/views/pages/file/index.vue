@@ -136,12 +136,12 @@ const { pageOption, pageRef, ids, query } = usePage({
           title: $t("file.fileType", "文件类型"),
           field: "fileType",
           isFilters: true,
-          width: 150,
+          width: 120,
         },
         {
           title: $t("file.fileSize", "文件大小"),
           field: "fileSize",
-          isFilters: true,
+          sortable: true,
           width: 100,
           formatter: ({ row }: any) => {
             const value = row.fileSize;
@@ -156,17 +156,6 @@ const { pageOption, pageRef, ids, query } = usePage({
         {
           title: $t("file.url", "url地址"),
           field: "url",
-          isFilters: true,
-        },
-        {
-          title: $t("file.filePath", "文件路径"),
-          field: "filePath",
-          isFilters: true,
-        },
-        {
-          title: $t("table.status", "状态"),
-          field: "status",
-          isFilters: true,
         },
         {
           title: $t("table.creator", "创建人"),
@@ -183,12 +172,14 @@ const { pageOption, pageRef, ids, query } = usePage({
         {
           title: $t("table.createTime", "创建时间"),
           field: "createTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           title: $t("table.updateTime", "更新时间"),
           field: "updateTime",
-          isFilters: true,
+          sortable: true,
+          width: 150,
         },
         {
           cType: "action",

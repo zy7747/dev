@@ -23,12 +23,12 @@ function tableColumns(item: any) {
 
   if (item.type === "seq") {
     item.title = $t("system.no", "序号");
-    item.width = 100;
+    item.width = 60;
   }
 
   if (item.cType === "action") {
     item.title = $t("system.action", "操作");
-    item.minWidth = 250;
+    item.minWidth = 150;
     item.fixed = "right";
   }
 
@@ -65,7 +65,7 @@ function tableSlot(item: any, filters: any) {
   //过滤
   if (item.isFilters) {
     col.filters = filters.value[item.field];
-    // col.filterRender = { name: "FilterInput" };
+    col.filterRender = { name: "FilterInput" };
   }
 
   //自定义插槽

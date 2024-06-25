@@ -1,23 +1,55 @@
 <template>
-  <div class=".my-filter-content">
+  <div class="filter-content">
     <template v-if="params.column.filters.length">
-      <ul class="my-fc-search-list my-fc-search-list-body">
-        <li
-          class="my-fc-search-item"
-          v-for="(item, sIndex) in params.column.filters"
-          :key="sIndex"
-        >
-          <vxe-checkbox v-model="item.checked">{{ item.value }}</vxe-checkbox>
+      <c-input
+        class="filterInput"
+        size="small"
+        :suffix-icon="Search"
+        v-model="_data.filterText"
+      />
+
+      <ul class="filterList">
+        <li class="checkedAll">
+          <vxe-checkbox
+            v-model="_data.checkedAll"
+            @change="checkAllFn(_data.checkedAll)"
+          >
+            全选
+          </vxe-checkbox>
+        </li>
+        <li v-for="(item, sIndex) in _data.valList" :key="sIndex">
+          <vxe-checkbox v-model="item.checked" @change="checkFn()">
+            {{ item.value }}
+          </vxe-checkbox>
         </li>
       </ul>
+
+      <div class="actionBtn">
+        <c-button
+          size="small"
+          type="primary"
+          @handleClick="confirm"
+          :text="$t('system.filter')"
+          :icon="SuccessFilled"
+        />
+        <c-button
+          :icon="RefreshLeft"
+          size="small"
+          :text="$t('system.reset')"
+          @handleClick="reset"
+        />
+      </div>
     </template>
+
     <template v-else>
-      <div class="my-fc-search-empty">无匹配项</div>
+      <div>无匹配项</div>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { SuccessFilled, RefreshLeft, Search } from "@element-plus/icons-vue";
+
 const prop = defineProps({
   params: {
     text: "类型",
@@ -25,51 +57,102 @@ const prop = defineProps({
   },
 });
 
-console.log(prop.params.column);
+const _data: any = reactive({
+  checkedAll: false,
+  filterText: "",
+  valList: [], // 过滤后
+});
+
+//过滤文字
+watch(
+  () => _data.filterText,
+  (val) => {
+    const list = prop.params.column.filters;
+    if (val) {
+      _data.valList = list.filter((item: any) => {
+        return item.value.indexOf(val) !== -1;
+      });
+    } else {
+      _data.valList = list;
+    }
+  }
+);
+//全选
+function checkAllFn(val: boolean) {
+  const list = prop.params.column.filters;
+  if (val) {
+    list.forEach((item: any) => {
+      item.checked = true;
+    });
+  } else {
+    list.forEach((item: any) => {
+      item.checked = false;
+    });
+  }
+}
+//单选
+function checkFn() {
+  const list = prop.params.column.filters;
+  _data.checkedAll = list.every((item: any) => {
+    return item.checked === true;
+  });
+}
+//筛选
+function confirm() {
+  const { $panel } = prop.params;
+  _data.valList.forEach((item: any) => {
+    $panel.changeOption(null, item.checked, item);
+  });
+  $panel.confirmFilter();
+}
+//重置
+function reset() {
+  const list = prop.params.column.filters;
+
+  list.forEach((item: any) => {
+    item.checked = false;
+  });
+
+  _data.checkedAll = false;
+
+  _data.filterText = "";
+
+  const { $panel } = prop.params;
+  $panel.resetFilter();
+}
+
+_data.valList = prop.params.column.filters;
+checkFn();
 </script>
 
 <style lang="scss" scoped>
-.my-filter-content {
+.filter-content {
   padding: 10px;
-  user-select: none;
 }
-.my-filter-content .my-fc-search .my-fc-search-top {
-  position: relative;
-  padding: 5px 0;
+
+.actionBtn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
 }
-.my-filter-content .my-fc-search .my-fc-search-top > input {
-  border: 1px solid #ababab;
-  padding: 0 20px 0 2px;
-  width: 200px;
-  height: 22px;
-  line-height: 22px;
+
+.filterInput {
+  margin-bottom: 5px;
 }
-.my-filter-content .my-fc-search .my-fc-search-content {
-  padding: 2px 10px;
-}
-.my-filter-content .my-fc-search-empty {
-  text-align: center;
-  padding: 20px 0;
-}
-.my-filter-content .my-fc-search-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.my-filter-content .my-fc-search-list-body {
+
+.filterList {
+  max-height: 300px;
   overflow: auto;
-  height: 120px;
-}
-.my-filter-content .my-fc-search-list .my-fc-search-item {
-  padding: 2px 0;
-  display: block;
-}
-.my-filter-content .my-fc-footer {
-  text-align: right;
-  padding-top: 10px;
-}
-.my-filter-content .my-fc-footer button {
-  padding: 0 15px;
-  margin-left: 15px;
+  position: relative;
+  .checkedAll {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+  }
+
+  li {
+    width: 100%;
+  }
 }
 </style>

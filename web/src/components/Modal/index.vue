@@ -5,12 +5,13 @@
     :title="title ? title : dialogConfig.title"
     :width="dialogConfig.width ? dialogConfig.width : '500px'"
     show-zoom
-    resize
     show-footer
+    resize
     remember
+    escClosable
     :mask="false"
+    :lockView="false"
     destroy-on-close
-    esc-closable
   >
     <template #default>
       <slot name="body" />
@@ -105,7 +106,7 @@ defineExpose({
   padding: 10px 15px !important;
 }
 
-.vxe-modal--content {
+.vxe-modal--body {
   padding: 0 !important;
 }
 </style>

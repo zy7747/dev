@@ -12,13 +12,13 @@ import vueJsx from "@vitejs/plugin-vue-jsx"; // 添加这一句
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import { resolve } from "path";
 // import basicSsl from "@vitejs/plugin-basic-ssl";
-
 const getTarget = (mode: string, target: string) => {
   return loadEnv(mode, process.cwd())[target];
 };
 
-export default ({ mode }: any) =>
-  defineConfig({
+export default ({ mode }: any) => {
+  const env = loadEnv(mode, process.cwd());
+  return defineConfig({
     base: "/",
     plugins: [
       VueDevTools(),
@@ -100,9 +100,29 @@ export default ({ mode }: any) =>
       extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".scss"], // 使用路径别名时想要省略的后缀名，可以自己 增减
     },
     server: {
-      // Listening on all local IPs
       host: true,
-      port: 80,
+      port: 8000,
       // 设置代理
+      proxy: {
+        "/video-api": {
+          // '/api'是代理标识，用于告诉node，url前面是/api的就是使用代理的
+          target: `${env.VITE_APP_BASE_DOMAIN}:8082`, //这里填入你要请求的接口的前缀
+          changeOrigin: true, //是否跨域
+          rewrite: (path) => path.replace(/^\/video-api/, ""),
+        },
+        "/system-api": {
+          // '/api'是代理标识，用于告诉node，url前面是/api的就是使用代理的
+          target: `${env.VITE_APP_BASE_DOMAIN}:8080`, //这里填入你要请求的接口的前缀
+          changeOrigin: true, //是否跨域
+          rewrite: (path) => path.replace(/^\/system-api/, ""),
+        },
+        "/file-api": {
+          // '/api'是代理标识，用于告诉node，url前面是/api的就是使用代理的
+          target: `${env.VITE_APP_BASE_DOMAIN}:8081`, //这里填入你要请求的接口的前缀
+          changeOrigin: true, //是否跨域
+          rewrite: (path) => path.replace(/^\/file-api/, ""),
+        },
+      },
     },
   });
+};
