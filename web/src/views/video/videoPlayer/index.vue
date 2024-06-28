@@ -2,12 +2,13 @@
 <template>
   <div class="flex">
     <el-image
-      style="width: 70px; height: 80px"
-      :src="videoInfo.picture"
+      style="width: 200px; height: 100px"
+      :src="fileUrl + videoInfo.picture"
       :zoom-rate="1.2"
       :max-scale="7"
       :min-scale="0.2"
       :initial-index="4"
+      :preview-src-list="[fileUrl + videoInfo.picture]"
       fit="cover"
     />
 
@@ -48,6 +49,7 @@
 </template>
 
 <script lang="ts" setup>
+const fileUrl = import.meta.env.VITE_APP_FILE_API;
 const Route = useRoute();
 const videoInfo: any = ref({});
 const videoList = ref<any[]>([]);

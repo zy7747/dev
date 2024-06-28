@@ -53,11 +53,13 @@ function menuClick(menu: any) {
   height: 40px;
   padding: 0 !important;
   border-radius: 5px;
+  // justify-content: center;
 }
 
 .el-menu-item.is-active {
-  background-color: #525252 !important;
+  background-color: #fb8c55 !important;
   color: #fff;
+  font-weight: 550;
   span {
     color: #fff !important;
   }
@@ -72,4 +74,10 @@ function menuClick(menu: any) {
 // ::v-deep(.el-sub-menu__icon-arrow) {
 //   display: none !important;
 // }
+</style>
+
+<style lang="scss">
+.el-sub-menu .el-menu {
+  background-color: transparent !important;
+}
 </style>

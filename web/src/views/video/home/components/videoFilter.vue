@@ -5,7 +5,7 @@
     class="btnR"
     type="success"
     link
-    text="更多筛选:"
+    :text="$t('system.more filter') + ':'"
   />
   <div v-show="more">
     <ul class="flex filterList">
@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-const more = ref(false);
+const more = ref(true);
 const emit = defineEmits(["query"]);
 const videoSortWay = Dict("video_sort_way");
 const videoType = Dict("video_type");

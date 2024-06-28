@@ -19,6 +19,7 @@
       <li><Collection /></li>
       <li><Language /></li>
       <li><UserInfo /></li>
+      <li><Times /></li>
     </ul>
   </div>
 </template>
@@ -32,6 +33,7 @@ import {
   Collection,
   Search,
   History,
+  Times,
 } from "./components/index.ts";
 
 defineProps({

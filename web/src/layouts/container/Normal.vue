@@ -1,37 +1,41 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header
-        :style="{
-          height: `${theme.headerHeight}px`,
-        }"
-      >
-        <Logo
-          :hasTitle="true"
-          :collapse="true"
-          :width="theme.asideWidth"
-          :height="theme.headerHeight"
-          :theme="theme"
-        />
-        <HeaderLine :width="theme.asideWidth" />
-      </el-header>
+  <el-container>
+    <el-header
+      :style="{
+        height: `${theme.headerHeight}px`,
+        backgroundColor: theme.headerBackgroundColor,
+      }"
+    >
+      <Logo
+        :hasTitle="true"
+        :collapse="true"
+        :width="theme.asideWidth"
+        :height="theme.headerHeight"
+        :theme="theme"
+      />
+      <HeaderLine :width="theme.asideWidth" />
+    </el-header>
 
-      <el-container
-        class="app-main"
-        :style="{ height: `calc(100vh - ${theme.headerHeight}px) !important` }"
+    <el-container
+      class="app-main"
+      :style="{
+        height: `calc(100vh - ${theme.headerHeight}px) !important`,
+      }"
+    >
+      <el-aside
+        :width="theme.asideWidth"
+        :style="{ backgroundColor: theme.asideBackgroundColor }"
       >
-        <el-aside :width="theme.asideWidth">
-          <Sidebar :width="theme.asideWidth" :collapse="theme.collapse" />
-        </el-aside>
+        <Sidebar :width="theme.asideWidth" :collapse="theme.collapse" />
+      </el-aside>
 
-        <el-main>
-          <Breadcrumb class="breadcrumb" v-if="theme.breadcrumb" />
-          <Tabs class="tabs" v-if="theme.tabs" />
-          <AppMain class="app-main" />
-        </el-main>
-      </el-container>
+      <el-main>
+        <Breadcrumb class="breadcrumb" v-if="theme.breadcrumb" />
+        <Tabs class="tabs" v-if="theme.tabs" />
+        <AppMain class="app-main" />
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts" setup>
@@ -63,6 +67,6 @@ defineProps({
 }
 
 .el-main {
-  padding: 0 10px;
+  padding: 0;
 }
 </style>

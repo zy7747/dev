@@ -3,7 +3,7 @@ const data = ref({
   container: "Normal",
   headerBackgroundColor: "#f5f7fa",
   headerColor: "#fff",
-  asideBackgroundColor: "#f5f7fa",
+  asideBackgroundColor: "#f0f3f6",
   breadcrumb: false,
   tabs: true,
   headerHeight: 60,

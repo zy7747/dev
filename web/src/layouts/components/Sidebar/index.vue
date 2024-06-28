@@ -65,12 +65,16 @@ const asWidth = computed(() => {
 .el-menu:not(.el-menu--collapse) {
   --menuWidth: v-bind(asWidth);
   width: var(--menuWidth);
+  background-color: transparent !important;
+  border-right: 0;
 }
 
 ::v-deep(.el-sub-menu__title) {
   height: 40px;
   border-radius: 5px;
   padding: 0 !important;
+  background-color: transparent !important;
+  // justify-content: center;
 }
 
 .sidebar {
@@ -79,8 +83,15 @@ const asWidth = computed(() => {
   flex-direction: column;
   align-items: center;
 }
+</style>
 
+<style lang="scss">
 .el-menu {
-  border-right: none;
+  background-color: transparent !important;
+  border-right: 0;
+}
+
+.el-sub-menu__title {
+  padding: 0 !important;
 }
 </style>

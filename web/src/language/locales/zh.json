@@ -1,6 +1,6 @@
 {
   "system": {
-    "Data Management Center": "数据管理中心",
+    "Data Management Center": "数 据 管 理",
     "Video Web": "视 频 网",
     "action": "操作",
     "add": "新增",
@@ -28,6 +28,7 @@
     "collection": "收 藏",
     "is no null": "不能为空",
     "filter": "筛选",
+    "more filter": "更多筛选",
     "is remove data": "是否删除数据",
     "uploadFile": "文件上传"
   },

@@ -1,6 +1,14 @@
 <!-- 视频 video -->
 <template>
-  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
+  <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
+    <template #dialog0>
+      <Collapse title="视频列表" v-if="pageData.editData.id">
+        <template #content>
+          <CUpload v-model="pageData.editData.videoList"></CUpload>
+        </template>
+      </Collapse>
+    </template>
+  </c-page>
 </template>
 <script lang="ts" setup>
 const fileUrl = import.meta.env.VITE_APP_FILE_URL;
@@ -240,6 +248,7 @@ const { pageOption, pageRef, ids } = usePage({
       dialogConfig: {
         width: "1000px",
         formConfig: {
+          isShow: false,
           formParams: [
             {
               label: $t("video.savePath", "视频存储节点"),

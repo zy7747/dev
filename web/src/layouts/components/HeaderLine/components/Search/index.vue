@@ -52,16 +52,26 @@ watch(
 const querySearch: any = async (queryString: string, cb: any) => {
   let results: any;
   if (queryString) {
-    results = [{ label: queryString, value: queryString }];
+    results = await Service.video.list
+      .page({
+        videoName: queryString,
+        page: 1,
+        size: 20,
+      })
+      .then((res: any) => {
+        return res.data.list.map((item: any) => {
+          return { ...item, value: item.videoName };
+        });
+      });
   } else {
-    results = [{ label: "推荐", value: "推荐" }];
+    results = [];
   }
 
   cb(results);
 };
 
 function searchVideo(keyword: any) {
-  Router.push({ path: "/videoSearch", query: { videoName: keyword } });
+  Router.push({ path: "/video/videoSearch", query: { videoName: keyword } });
 }
 </script>
 

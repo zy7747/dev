@@ -13,15 +13,22 @@
       </li>
     </ul>
   </div>
-  <RouterView></RouterView>
+  <RouterView />
 </template>
 
 <script lang="ts" setup>
+defineOptions({
+  name: "VideoIndex",
+});
 const router = useRouter();
 const route = useRoute();
 const current = ref<string>(route.path);
 
-const menus: any = Dict("video_category");
+const menus: any = computed(() => {
+  return [{ label: "首页", value: "home", params: "/videoIndex/home" }].concat(
+    Dict("video_category")
+  );
+});
 
 function menuClick(menu: any) {
   current.value = menu.params;

@@ -84,7 +84,9 @@ function rightSlide() {
 function otherClick() {}
 
 function command(row: any) {
-  console.log(row);
+  if (row.value === "closeOther") {
+    console.log(row);
+  }
 }
 
 const options = ref([

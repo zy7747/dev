@@ -32,7 +32,7 @@ const activeMenu: any = computed(() => {
 
 <style lang="scss" scoped>
 .el-menu {
-  width: 25vw;
+  width: 30vw;
   background: transparent;
   border: none !important;
   padding: 0 !important;

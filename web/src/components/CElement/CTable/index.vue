@@ -5,7 +5,7 @@
     keep-source
     :columns="tableColumn"
     :data="tableData"
-    v-bind="options"
+    v-bind="gridOptions"
     :loading="loading"
     @menu-click="contextMenuClickEvent"
   >
@@ -83,8 +83,10 @@ import { getFilter, getTableCols, getRules } from "@/hooks/table";
 
 const xGrid = ref<any>();
 const Route = useRoute();
+
 const paginationRef = ref();
 const tableData = ref();
+const filters: any = ref({});
 const search = ref();
 
 const total: Ref<number> = ref(0);
@@ -100,44 +102,31 @@ const { tableConfig } = defineProps({
   },
 });
 
-const options = computed(() => {
-  return { ...gridOptions, ...tableConfig };
-});
-//校验
-const rules: any = computed(() => {
+function Rules() {
   let rules = {};
 
   getRules(tableConfig.tableColumn, rules);
 
   return rules;
-});
+}
 
-const filters: any = computed(() => {
-  const filterMap: any = {};
+function getFilters() {
+  getFilter(tableConfig.tableColumn, unref(filters));
+}
 
-  if (!tableData.value) {
-    return filterMap;
-  }
-
-  //数据平铺
-  getFilter(tableConfig.tableColumn, filterMap);
-
+function setFilter() {
   //数据装入
   tableData.value.forEach((item: any) => {
-    Object.keys(filterMap).forEach((key: any) => {
-      if (item[key]) {
-        filterMap[key].push({ label: item[key], value: item[key] });
-      }
+    Object.keys(unref(filters)).forEach((key: any) => {
+      unref(filters)[key].push({ label: item[key], value: item[key] });
     });
   });
 
   //数据去重
-  Object.keys(filterMap).map((key) => {
-    filterMap[key] = lodash.uniqBy(filterMap[key], "value");
+  Object.keys(unref(filters)).map((key) => {
+    unref(filters)[key] = lodash.uniqBy(unref(filters)[key], "value");
   });
-
-  return filterMap;
-});
+}
 //列
 const tableColumn: any = computed(() => {
   return getTableCols(tableConfig.tableColumn, filters);
@@ -199,6 +188,7 @@ function query() {
         })
         .finally(() => {
           loading.value = false;
+          setFilter();
         });
     });
   } else if (tableConfig.list) {
@@ -210,6 +200,7 @@ function query() {
       })
       .finally(() => {
         loading.value = false;
+        setFilter();
       });
   }
 }
@@ -218,7 +209,7 @@ function reset() {
   unref(paginationRef).reset();
 }
 
-const contextMenuClickEvent: any = ({ menu, row, column }: any) => {
+function contextMenuClickEvent({ menu, row, column }: any) {
   switch (menu.code) {
     case "copy":
       // 复制
@@ -237,7 +228,7 @@ const contextMenuClickEvent: any = ({ menu, row, column }: any) => {
     default:
       VxeUI.modal.alert(`点击了 ${menu.name} 选项`);
   }
-};
+}
 
 //基本配置
 const gridOptions = reactive<any>({
@@ -317,8 +308,11 @@ const gridOptions = reactive<any>({
     export: true, // 显示导出按钮
   },
   exportConfig: {},
-  editRules: rules,
+  editRules: Rules(),
 });
+
+getFilters();
+Object.assign(gridOptions, tableConfig);
 
 defineExpose({
   query,

@@ -5,10 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { Normal, Left, Right, Top } from "./container";
-import applyTheme from "./config/applyTheme";
-import systemTheme from "./config/systemTheme";
 import videoTheme from "./config/videoTheme";
+import { Normal, Left, Right, Top } from "./container";
+
 import Theme from "./theme/index.vue";
 const config = ref();
 

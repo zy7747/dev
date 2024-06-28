@@ -64,7 +64,7 @@ function tableSlot(item: any, filters: any) {
 
   //过滤
   if (item.isFilters) {
-    col.filters = filters.value[item.field];
+    col.filters = unref(filters)[item.field];
     col.filterRender = { name: "FilterInput" };
   }
 

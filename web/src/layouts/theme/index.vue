@@ -20,6 +20,14 @@
         {{ item.label }}
       </el-radio-button>
     </el-radio-group>
+
+    <div>使用预置设置</div>
+    <el-radio-group v-model="preset" @change="setTheme">
+      <el-radio-button v-for="item in presets" :label="item.value">
+        {{ item.label }}
+      </el-radio-button>
+    </el-radio-group>
+
     <div>Header背景颜色</div>
     <el-color-picker v-model="theme.headerBackgroundColor" />
     <div>Aside背景颜色</div>
@@ -58,19 +66,29 @@
 <script lang="ts" setup>
 import { useDark } from "@vueuse/core";
 import { useThemeStore } from "@/store/theme";
-import systemTheme from "../config/systemTheme";
 import Moon from "@/icons/system/moon.svg";
 import Sunny from "@/icons/system/sunny.svg";
+
+import applyTheme from "../config/applyTheme";
+import systemTheme from "../config/systemTheme";
+import videoTheme from "../config/videoTheme";
 
 const isDark = useDark();
 const theme: any = defineModel();
 const themeStore = useThemeStore();
+const preset = ref();
 
 const options = ref([
   { label: "左菜单", value: "Left" },
   { label: "上菜单", value: "Top" },
   { label: "右菜单", value: "Right" },
   { label: "常规", value: "Normal" },
+]);
+
+const presets = ref([
+  { label: "视频网站", value: "videoTheme" },
+  { label: "系统", value: "systemTheme" },
+  { label: "应用中心", value: "applyTheme" },
 ]);
 
 function save() {
@@ -80,5 +98,15 @@ function save() {
 function reset() {
   localStorage.setItem("theme", JSON.stringify(systemTheme.value));
   theme.value = JSON.parse(JSON.stringify(unref(systemTheme)));
+}
+
+function setTheme(value: any) {
+  if (value === "videoTheme") {
+    theme.value = JSON.parse(JSON.stringify(unref(videoTheme)));
+  } else if (value === "applyTheme") {
+    theme.value = JSON.parse(JSON.stringify(unref(applyTheme)));
+  } else if (value === "systemTheme") {
+    theme.value = JSON.parse(JSON.stringify(unref(systemTheme)));
+  }
 }
 </script>

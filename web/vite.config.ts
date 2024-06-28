@@ -55,6 +55,8 @@ export default ({ mode }: any) => {
               ["Dict", "Dict"],
               ["DictService", "DictService"],
               ["useDict", "useDict"],
+              ["getDictTag", "getDictTag"],
+              ["getDictName", "getDictName"],
             ], //字典
           },
           {
@@ -101,7 +103,7 @@ export default ({ mode }: any) => {
     },
     server: {
       host: true,
-      port: 8000,
+      port: 80,
       // 设置代理
       proxy: {
         "/video-api": {

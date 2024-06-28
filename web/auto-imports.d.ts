@@ -26,6 +26,8 @@ declare global {
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getDictName: typeof import('@/dict')['getDictName']
+  const getDictTag: typeof import('@/dict')['getDictTag']
   const h: typeof import('vue')['h']
   const importSuccess: typeof import('@/hooks/tips')['importSuccess']
   const inject: typeof import('vue')['inject']

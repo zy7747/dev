@@ -13,19 +13,15 @@ export const useTabStore = defineStore({
       //判断是否添加过路由
       if (this.visitedViews.some((v: any) => v.path === route.path)) return;
       //找到菜单对应的路由
-      const view = {
-        ...route,
-        ...route.meta,
-      };
-
-      const { matched, redirectedFrom, ...routeInfo } = view;
 
       //可视路由
-      this.visitedViews.push(routeInfo);
+      this.visitedViews.push({ ...route, ...route.meta });
+
       //缓存路由
-      if (routeInfo && routeInfo.meta && routeInfo.meta.keepAlive) {
-        this.keepViews.push(routeInfo.name);
+      if (route && route.meta && route.meta.keepAlive) {
+        this.keepViews.push(route.name);
       }
+
       this.saveTab();
     },
     removeTab(route: any) {
@@ -50,5 +46,6 @@ export const useTabStore = defineStore({
 
       this.visitedViews.push(...list);
     },
+    // closeOther(route) {},
   },
 });

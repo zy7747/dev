@@ -1,7 +1,7 @@
 const data = ref({
   appName: $t("system.Video Web", "视频网"),
   container: "Top",
-  headerBackgroundColor: "#d9e0ee",
+  headerBackgroundColor: "#505050",
   asideBackgroundColor: "#d9e0ee",
   breadcrumb: false,
   tabs: true,

@@ -62,7 +62,11 @@
         :dialogConfig="dialogConfig(item.dialogConfig)"
       >
         <template #body>
-          <Collapse title="表单" v-if="item.dialogConfig.formConfig">
+          <Collapse
+            title="表单"
+            v-if="item.dialogConfig.formConfig"
+            v-bind="item.dialogConfig.formConfig"
+          >
             <template #content>
               <c-form
                 :ref="(el) => setEditRef(el, index)"

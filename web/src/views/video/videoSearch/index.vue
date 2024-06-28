@@ -1,14 +1,13 @@
 <!--  -->
 <template>
-  <VideoPage category="original" />
+  <VideoPage />
 </template>
 
 <script lang="ts" setup>
-import VideoPage from "../components/videoPage.vue";
-
 defineOptions({
-  name: "Original",
+  name: "VideoSearch",
 });
+import VideoPage from "../home/components/videoPage.vue";
 </script>
 
 <style lang="scss" scoped></style>

@@ -5,6 +5,7 @@
       <el-header
         :style="{
           height: `${theme.headerHeight}px`,
+          backgroundColor: theme.headerBackgroundColor,
         }"
       >
         <Logo :hasTitle="true" :collapse="true" :theme="theme" />
@@ -44,8 +45,8 @@ defineProps({
   padding: 0;
   display: flex;
   align-items: center;
-  background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/banner/banner.png")
-    0 no-repeat;
+  // background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/banner/banner.png")
+  //   0 no-repeat;
   background-size: 100%;
 }
 

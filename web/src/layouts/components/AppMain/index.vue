@@ -2,11 +2,8 @@
 <template>
   <div class="font-mono">
     <el-backtop style="z-index: 10" target=".app-main" />
-    <el-watermark
-      :content="$t('system.watermark')"
-      :font="font"
-      :gap="[150, 150]"
-    >
+    <!-- $t('system.watermark') -->
+    <el-watermark content="" :font="font" :gap="[150, 150]">
       <RouterView v-slot="{ Component, route }">
         <keep-alive :include="include" :max="10">
           <component :is="Component" :key="route.fullPath" />

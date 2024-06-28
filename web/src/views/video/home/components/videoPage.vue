@@ -18,6 +18,7 @@ import videoFilter from "./videoFilter.vue";
 import VideoList from "./videoList.vue";
 const total: Ref<number> = ref(0);
 const paginationRef = ref();
+const Route = useRoute();
 const videoList = ref([]);
 
 const prop = defineProps({
@@ -33,7 +34,13 @@ function query(data: any) {
     const size = unref(paginationRef).size;
 
     Service.video.list
-      .page({ page, size, category: prop.category, ...data })
+      .page({
+        page,
+        size,
+        category: prop.category,
+        ...data,
+        ...Route.query,
+      })
       .then((res: any) => {
         videoList.value = res.data.list;
         total.value = res.data.total;
