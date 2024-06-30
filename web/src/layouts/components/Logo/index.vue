@@ -19,7 +19,9 @@
       :title="theme.appName"
       v-if="hasTitle || collapse"
     >
-      {{ theme.appName }}
+      <div class="animated animate__rubberBand">
+        {{ theme.appName }}
+      </div>
     </div>
   </div>
 </template>

@@ -65,8 +65,6 @@ import {
   DocumentChecked,
 } from "@element-plus/icons-vue";
 
-import { useDialog } from "@/hooks/useDialog";
-
 //页面数据
 const pageData: any = reactive({
   tabIndex: "0",
@@ -155,9 +153,7 @@ function back() {
   });
 }
 
-function dialog() {
-  useDialog();
-}
+function dialog() {}
 
 load();
 </script>

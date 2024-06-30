@@ -7,7 +7,7 @@
 import "xgplayer/dist/index.min.css";
 import Player from "xgplayer";
 
-const fileUrl = import.meta.env.VITE_APP_FILE_API;
+const fileUrl = import.meta.env.VITE_APP_FILE_URL;
 let player = ref<any>(null);
 
 const path = ref<string>("");

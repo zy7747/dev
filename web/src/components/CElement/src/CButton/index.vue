@@ -4,6 +4,7 @@
     :size="size"
     v-show="show"
     :loading="attrs.loading || loading"
+    :title="tip"
     @click="click"
     v-hasPermission="attrs.permission"
   >
@@ -22,6 +23,13 @@ defineProps({
     type: [String],
   },
   text: {
+    text: "按钮名称",
+    type: [String],
+    default: () => {
+      return "";
+    },
+  },
+  tip: {
     text: "按钮名称",
     type: [String],
     default: () => {

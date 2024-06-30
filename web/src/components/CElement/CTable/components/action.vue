@@ -6,7 +6,7 @@
         <template v-if="hasActiveEditRow(row)">
           <c-button
             link
-            :text="$t('system.save')"
+            :tip="$t('system.save')"
             type="primary"
             :icon="CircleCheckFilled"
             @click="saveRowEvent(row)"
@@ -14,7 +14,7 @@
 
           <c-button
             link
-            :text="$t('system.cancel')"
+            :tip="$t('system.cancel')"
             type="info"
             :icon="CircleCloseFilled"
             @click="clearRowEvent(row)"
@@ -24,7 +24,7 @@
         <template v-else>
           <c-button
             link
-            :text="$t('system.edit')"
+            :tip="$t('system.edit')"
             type="primary"
             :icon="Edit"
             @click="editRowEvent(row)"
@@ -36,7 +36,7 @@
           >
             <template #reference>
               <c-button
-                :text="$t('system.delete')"
+                :tip="$t('system.delete')"
                 :icon="Delete"
                 type="danger"
                 link
@@ -49,7 +49,7 @@
       <c-button
         v-else-if="item.operation === 'add'"
         link
-        :text="$t('system.add')"
+        :tip="$t('system.add')"
         v-bind="item"
         type="primary"
         :icon="Plus"
@@ -59,7 +59,7 @@
       <c-button
         v-else-if="item.operation === 'edit'"
         link
-        :text="$t('system.edit')"
+        :tip="$t('system.edit')"
         v-bind="item"
         type="primary"
         :icon="Edit"
@@ -69,7 +69,7 @@
       <c-button
         v-else-if="item.operation === 'copy'"
         link
-        :text="$t('system.copy')"
+        :tip="$t('system.copy')"
         v-bind="item"
         type="primary"
         :icon="CopyDocument"
@@ -79,7 +79,7 @@
       <c-button
         v-else-if="item.operation === 'detail'"
         link
-        :text="$t('system.detail')"
+        :tip="$t('system.detail')"
         v-bind="item"
         type="warning"
         :icon="Share"
@@ -97,7 +97,7 @@
             v-bind="item"
             :icon="Delete"
             type="danger"
-            :text="$t('system.delete')"
+            :tip="$t('system.delete')"
           />
         </template>
       </el-popconfirm>
@@ -108,7 +108,7 @@
         @handleClick="item.click({ row })"
         :icon="SwitchFilled"
         link
-        :text="item.text"
+        :tip="item.text"
       />
     </template>
   </template>

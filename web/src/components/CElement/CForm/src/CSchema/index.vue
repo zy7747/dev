@@ -45,6 +45,12 @@
       v-model="value"
       v-bind="params"
     />
+    <Editor
+      v-else-if="type === 'editor'"
+      :placeholder="getPlaceholder('input', item)"
+      v-model="value"
+      v-bind="params"
+    />
     <c-treeSelect
       v-else-if="type === 'allSelect'"
       :placeholder="getPlaceholder('select', item)"

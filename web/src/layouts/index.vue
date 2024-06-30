@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import videoTheme from "./config/videoTheme";
+import systemTheme from "./config/systemTheme";
 import { Normal, Left, Right, Top } from "./container";
 
 import Theme from "./theme/index.vue";
@@ -29,7 +29,7 @@ function getConfig() {
   if (layout) {
     config.value = JSON.parse(layout);
   } else {
-    config.value = JSON.parse(JSON.stringify(unref(videoTheme)));
+    config.value = JSON.parse(JSON.stringify(unref(systemTheme)));
   }
 }
 

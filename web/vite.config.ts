@@ -19,7 +19,7 @@ const getTarget = (mode: string, target: string) => {
 export default ({ mode }: any) => {
   const env = loadEnv(mode, process.cwd());
   return defineConfig({
-    base: "/",
+    base: "/system",
     plugins: [
       VueDevTools(),
       vue(),
@@ -99,7 +99,16 @@ export default ({ mode }: any) => {
       alias: {
         "@": resolve(__dirname, "src"), // 路径别名
       },
-      extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".scss"], // 使用路径别名时想要省略的后缀名，可以自己 增减
+      extensions: [
+        ".mjs",
+        ".js",
+        ".ts",
+        "vue",
+        ".jsx",
+        ".tsx",
+        ".json",
+        ".scss",
+      ], // 使用路径别名时想要省略的后缀名，可以自己 增减
     },
     server: {
       host: true,

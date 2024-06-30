@@ -22,10 +22,8 @@ function setupComponents(app: any) {
   app.component("VideoPlayer", VideoPlayer);
   app.component("Episode", Episode);
   app.component("DictTag", DictTag);
-
   app.component("CModal", Modal);
   app.component("CTable", CTable);
-
   app.component("CPage", CPage);
   app.component("CGrid", CGrid);
 

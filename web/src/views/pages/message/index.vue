@@ -240,13 +240,7 @@ const { pageOption, pageRef, ids } = usePage({
             {
               label: $t("message.messageContent", "消息内容"),
               prop: "messageContent",
-              type: "input",
-              params: {
-                type: "textarea",
-                "show-word-limit": true,
-                maxlength: 500,
-                autosize: { minRows: 8, maxRows: 16 },
-              },
+              type: "editor",
               span: 24,
               rules: [
                 {

@@ -28,7 +28,7 @@ function tableColumns(item: any) {
 
   if (item.cType === "action") {
     item.title = $t("system.action", "操作");
-    item.minWidth = 150;
+    item.minWidth = 200;
     item.fixed = "right";
   }
 

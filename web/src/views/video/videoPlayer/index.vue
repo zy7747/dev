@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-const fileUrl = import.meta.env.VITE_APP_FILE_API;
+const fileUrl = import.meta.env.VITE_APP_FILE_URL;
 const Route = useRoute();
 const videoInfo: any = ref({});
 const videoList = ref<any[]>([]);
