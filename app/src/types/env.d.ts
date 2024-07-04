@@ -8,3 +8,4 @@ declare module "*.vue" {
 }
 
 declare module "uview-plus";
+declare module "lodash";

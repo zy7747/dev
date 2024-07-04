@@ -1,35 +1,220 @@
-import { userLogin } from "@/apis/user";
 import { defineStore } from "pinia";
-import { getToken, setToken } from "@/utils/auth";
+import { removeToken, setToken } from "@/utils/auth";
+import { getLoginInfo, setLoginInfo, removeLoginInfo } from "@/utils/loginInfo";
+
+const modules = import.meta.glob("../views/**/*.vue");
+
+const resComponent = (name: string) => {
+  return modules[`../views${name}.vue`];
+};
+
+//重新整理pid
+function handleTreeList(data: any, newList: any) {
+  data.forEach((childPar: any) => {
+    //如果没有parentId
+    if (!childPar.parentId) {
+      newList.push(childPar);
+    } else {
+      //如果有找parentId===id相同的
+      const arr = data.find((child: any) => {
+        return childPar.parentId === child.id;
+      });
+
+      if (arr) {
+        newList.push(childPar);
+      } else {
+        newList.push({ ...childPar, parentId: null });
+      }
+    }
+  });
+}
+//树形
+function handleTree(
+  data: any,
+  rootId?: any,
+  id?: any,
+  parentId?: any,
+  children?: any
+): any {
+  id = id || "id";
+  parentId = parentId || "parentId";
+  children = children || "children";
+  rootId = rootId || null;
+
+  //对源数据深度克隆
+  const cloneData = data;
+  //循环所有项
+  const treeData = cloneData.filter((father: any) => {
+    let branchArr = cloneData.filter((child: any) => {
+      //返回每一项的子级数组
+      return father[id] === child[parentId];
+    });
+    branchArr.length > 0 ? (father.children = branchArr) : "";
+
+    //返回第一层
+    return father[parentId] === rootId;
+  });
+
+  return treeData !== "" ? treeData : data;
+}
 
 export const useUserStore = defineStore({
   id: "user", // id必填，且需要唯一
   state: () => {
     return {
-      userInfo: {} as any,
-      token: getToken(),
-      permission: [], //权限
+      userId: {} as any, //用户Id
+      loginId: null, //当次登录ID
+      loginTime: null, //当次登录时间
+      userInfo: {} as any, //用户信息
+      roles: [] as any, //角色
+      menu: [] as any, //菜单
+      menuList: [] as any, //菜单
+      permission: [] as any, //权限
       asyncRoutes: [] as any, //路由
     };
   },
   actions: {
     // 登录
     login(loginInfo: any) {
-      return userLogin({ ...loginInfo, loginSystem: "videoWeb" }).then(
-        (response: any) => {
-          if (response.code === 200) {
-            this.token = response.data.token;
-            this.userInfo = response.data.userInfo;
-            this.asyncRoutes = response.data.menuList;
+      return Service.user.login({ ...loginInfo }).then((response: any) => {
+        if (response.code === 200) {
+          //加入Token
+          setToken(response.data.token);
 
-            setToken(response.data.token);
+          this.userInfo = response.data.userInfo;
+          this.userId = response.data.userInfo.id;
+          setLoginInfo(
+            JSON.stringify({
+              loginId: response.data.loginId,
+              loginTime: response.data.loginTime,
+            })
+          );
+
+          return response.data;
+        }
+      });
+    },
+    logout() {
+      const loginInfo: any = getLoginInfo();
+
+      return Service.user
+        .logout({ id: JSON.parse(loginInfo).loginId })
+        .then((response: any) => {
+          if (response.code === 200) {
+            this.userInfo = [];
+            this.userId = [];
+            this.userId = [];
+            this.roles = [];
+            this.menu = [];
+            this.menuList = [];
+            this.asyncRoutes = [];
+
+            removeToken();
+            removeLoginInfo();
+          }
+        });
+    },
+    getUserInfo() {
+      return Service.user
+        .userInfo({})
+        .then((response: any) => {
+          if (response.code === 200) {
+            this.userInfo = response.data.userInfo;
+            this.userId = response.data.userInfo.id;
+            const { menu, permission } = this.getMenu(response.data.menuList);
+            this.asyncRoutes = this.getRoutes(response.data.menuList);
+
+            this.roles = response.data.roles;
+
+            this.menu = menu;
+            this.permission = permission;
 
             return response.data;
           } else {
-            return false;
+            removeToken();
+          }
+        })
+        .catch(() => {
+          removeToken();
+        });
+    },
+    //获取路由
+    getRoutes(routes: any) {
+      //只获取菜单
+      const menuRouter = routes.filter((item: any) => {
+        return item.type === "menu";
+      });
+      //重新整理PID
+      const newList: any = [];
+
+      handleTreeList(menuRouter, newList);
+      //组装数据
+      const myRoute = newList.map((item: any) => {
+        return {
+          id: item.id,
+          parentId: item.parentId,
+          name: item.name,
+          title: item.title,
+          component: resComponent(item.component),
+          path: item.path,
+          meta: {
+            title: item.title,
+            keepAlive: item.keepAlive,
+            icon: item.icon,
+          },
+        };
+      });
+
+      this.menuList = myRoute;
+    },
+    getMenu(data: any) {
+      const menu: any = [];
+      const permission: any = [];
+
+      data.forEach((item: any) => {
+        if (
+          (item.type === "directory" ||
+            item.type === "menu" ||
+            item.type === "system") &&
+          item.status === "1" &&
+          item.visible
+        ) {
+          menu.push({
+            ...item,
+            meta: {
+              title: item.title,
+              alwaysShow: item.alwaysShow,
+              visible: item.visible,
+              icon: item.icon,
+            },
+          });
+        } else if (item.type === "button" && item.status === "1") {
+          //按钮
+          if (item.permission) {
+            permission.push(item.permission);
           }
         }
-      );
+      });
+
+      menu.sort((a: any, b: any) => a.sort - b.sort);
+
+      const systemList = ["apply", "video-web", "system", "video-system"];
+
+      const menuList = handleTree(menu).filter((menus: any) => {
+        return systemList.indexOf(menus.name) !== -1;
+      });
+
+      let list = [];
+
+      if (menuList.length === 1) {
+        list = menuList[0].children.map((i: any) => {
+          return { ...i, parentId: null };
+        });
+      } else {
+        list = menuList;
+      }
+
+      return { menu: list, permission };
     },
   },
 });

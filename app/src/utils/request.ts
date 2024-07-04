@@ -1,16 +1,20 @@
 // 请求拦截
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
+
 import { getToken } from "@/utils/auth";
+import { useUserStore } from "@/store/user";
 
 function service(params: any) {
+  const userStore = useUserStore();
+
   return new Promise((resolve, reject) => {
     uni.request({
       ...params,
-      url: baseUrl + params.url,
+      url: params.baseURL + params.url,
       data: params.params,
       header: {
         "ngrok-skip-browser-warning": 69420,
         Authorization: getToken(),
+        UserId: userStore.userInfo.id,
       },
       success: (res: any) => {
         resolve(res.data);

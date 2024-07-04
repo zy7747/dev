@@ -24,8 +24,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { videoPage } from "@/apis/video";
 const fileUrl = import.meta.env.VITE_APP_FILE_API;
 
 const queryParams = ref<any>({
@@ -38,7 +36,7 @@ const videoList = ref<any[]>();
 const current = ref<number>(0);
 
 function getVideoPage() {
-  videoPage(queryParams.value).then((res: any) => {
+  Service.videoPage(queryParams.value).then((res: any) => {
     videoList.value = res.data.list.map((item: any) => {
       return { ...item, url: fileUrl + item.url, title: item.videoName };
     });

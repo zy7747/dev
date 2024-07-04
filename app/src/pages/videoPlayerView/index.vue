@@ -3,16 +3,6 @@
   <div class="">
     <!-- APP用上面这个 -->
     <view v-html="videoHtm(src)"></view>
-    <!-- 小程序用下面这个 -->
-    <!-- <div>
-      <video
-        controls
-        style="width: 100%; height: 30vh"
-        :src="src"
-        title="123"
-        cover
-      />
-    </div> -->
 
     <Episode @changeVideo="changeVideo" :episodeList="videoList"></Episode>
     <u-divider text="分割线" :dashed="true"></u-divider>
@@ -26,8 +16,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { playNum, videoDetail } from "@/apis/video";
 import { onLoad } from "@dcloudio/uni-app";
 import Episode from "@/components/Episode/index.vue";
 
@@ -42,7 +30,7 @@ onLoad((options: any) => {
   id.value = options.id;
 
   //初始化渲染
-  videoDetail({ id: id.value }).then((res: any) => {
+  Service.videoDetail({ id: id.value }).then((res: any) => {
     const src = res.data.videoList[0].url;
     videoList.value = res.data.videoList;
     videoInfo.value = res.data;
@@ -60,7 +48,7 @@ const changeVideo = (url: string) => {
   //修改src
   src.value = baseUrl + url;
   //记录播放量
-  playNum({ id: id.value });
+  Service.playNum({ id: id.value });
 };
 </script>
 

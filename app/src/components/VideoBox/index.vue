@@ -26,8 +26,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-
 const fileUrl = import.meta.env.VITE_APP_BASE_API;
 
 const show = computed(() => {

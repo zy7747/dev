@@ -57,10 +57,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
 import VideoList from "@/components/VideoList/index.vue";
 import { useDictStore } from "@/store/dict";
-import { videoPage } from "@/apis/video";
 
 const dictStore: any = useDictStore();
 
@@ -131,7 +129,7 @@ function tabsChange(key: string, item: any) {
 }
 
 function getVideoPage() {
-  videoPage(queryParams.value).then((res: any) => {
+  Service.videoPage(queryParams.value).then((res: any) => {
     videoList.value = res.data.list;
     total.value = res.data.total;
   });

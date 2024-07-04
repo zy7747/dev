@@ -1,21 +1,18 @@
-import { dictAllList } from "@/apis/dict";
 import { defineStore } from "pinia";
 
 export const useDictStore = defineStore({
   id: "dict", // id必填，且需要唯一
   state: () => {
     return {
-      dict: {},
+      dictMap: {} as any,
     };
   },
   actions: {
     getDict() {
-      return dictAllList().then((res: any) => {
-        if (res.code === 200) {
-          let dictList = res.data;
-
-          for (const key in dictList) {
-            dictList[key] = dictList[key].map((item: any) => {
+      Service.configuration.dict.dictMap().then((response: any) => {
+        if (response.code === 200) {
+          for (const key in response.data) {
+            this.dictMap[key] = response.data[key].map((item: any) => {
               //字典类型转换
               if (item.dictType) {
                 if (item.dictType === "string") {
@@ -35,7 +32,15 @@ export const useDictStore = defineStore({
               }
             });
           }
-          this.dict = dictList;
+        }
+      });
+    },
+    getService() {
+      Service.user.list().then((response: any) => {
+        if (response.code === 200) {
+          this.dictMap["user"] = response.data.map((item: any) => {
+            return { label: item.nickname, value: item.id, color: "success" };
+          });
         }
       });
     },

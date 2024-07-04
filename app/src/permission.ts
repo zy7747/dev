@@ -17,9 +17,35 @@ function checkWhite(url: string) {
   return whiteList.indexOf(path) !== -1;
 }
 
-// 页面跳转验证拦截器
-
+// 路由拦截器
 uni.addInterceptor("navigateTo", {
+  invoke(to) {
+    //判断是否有TOKEN
+
+    if (getToken()) {
+      if (to.url === loginPage) {
+        uni.reLaunch({ url: "/" });
+        return false;
+      }
+
+      return true;
+    } else {
+      //如果在白名单
+      if (checkWhite(to.url)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+  fail(err) {
+    // 失败回调拦截
+    console.log(err);
+  },
+});
+
+// Tab拦截器
+uni.addInterceptor("switchTab", {
   invoke(to) {
     //判断是否有TOKEN
     if (getToken()) {
@@ -39,7 +65,7 @@ uni.addInterceptor("navigateTo", {
         userStore.login({
           loginType: "account",
           account: "visitor",
-          password: "a123456",
+          password: "user123",
         });
 
         return false;
