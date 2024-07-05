@@ -5,7 +5,7 @@ import en from "./locales/en.json";
 import jp from "./locales/jp.json";
 import kr from "./locales/kr.json";
 
-const i18n = createI18n({
+export const i18n = createI18n({
   //这里是语种的持久化，刷新也存在
   locale: uni.getLocale() || "zh", // 默认是中文
   fallbackLocale: "zh", // 语言切换的时候是英文
@@ -14,4 +14,8 @@ const i18n = createI18n({
   messages: { en, zh, jp, kr }, //需要做国际化的语种
 });
 
-export default i18n;
+function $t(key: string, cn: string) {
+  return i18n.global.t(key, { msg: cn });
+}
+
+export default $t;

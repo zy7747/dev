@@ -1,12 +1,8 @@
 <!-- 消息 -->
 <template>
-  <div class="">
-    <TermsFilter></TermsFilter>
-  </div>
+  <div class="">分类</div>
 </template>
 
-<script lang="ts" setup>
-import TermsFilter from "@/components/TermsFilter/index.vue";
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped></style>

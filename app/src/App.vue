@@ -15,14 +15,8 @@ onLaunch(async () => {
   });
 
   dictStore.getDict();
-
-  console.log(dictStore, userStore);
 });
-onShow(() => {
-  console.log("App Show");
-});
-onHide(() => {
-  console.log("App Hide");
-});
+onShow(() => {});
+onHide(() => {});
 </script>
 <style lang="scss"></style>

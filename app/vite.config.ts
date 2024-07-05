@@ -14,6 +14,9 @@ export default defineConfig({
         {
           "@/plugins/service": [["default", "Service"]], //全局下载
         },
+        {
+          "@/language/index": [["default", "$t"]], //翻译
+        },
       ],
     }),
   ],

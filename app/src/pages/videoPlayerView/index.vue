@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import { onLoad } from "@dcloudio/uni-app";
-import Episode from "@/components/Episode/index.vue";
+import Episode from "./components/Episode/index.vue";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
 

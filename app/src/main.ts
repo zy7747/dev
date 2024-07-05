@@ -7,7 +7,7 @@ import "@/styles/index.scss";
 import "@/permission";
 
 //组件
-import i18n from "@/language/index";
+import { i18n } from "@/language/index";
 
 export function createApp() {
   const app = createSSRApp(App);

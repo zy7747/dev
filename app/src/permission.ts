@@ -1,5 +1,4 @@
 import { getToken } from "@/utils/auth";
-import { useUserStore } from "@/store/user";
 
 // 登录页面
 const loginPage = "/pages/login";
@@ -34,40 +33,6 @@ uni.addInterceptor("navigateTo", {
       if (checkWhite(to.url)) {
         return true;
       } else {
-        return false;
-      }
-    }
-  },
-  fail(err) {
-    // 失败回调拦截
-    console.log(err);
-  },
-});
-
-// Tab拦截器
-uni.addInterceptor("switchTab", {
-  invoke(to) {
-    //判断是否有TOKEN
-    if (getToken()) {
-      if (to.url === loginPage) {
-        uni.reLaunch({ url: "/" });
-        return false;
-      }
-
-      return true;
-    } else {
-      //如果在白名单
-      if (checkWhite(to.url)) {
-        return true;
-      } else {
-        const userStore = useUserStore();
-
-        userStore.login({
-          loginType: "account",
-          account: "visitor",
-          password: "user123",
-        });
-
         return false;
       }
     }
