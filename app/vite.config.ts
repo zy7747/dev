@@ -17,6 +17,15 @@ export default defineConfig({
         {
           "@/language/index": [["default", "$t"]], //翻译
         },
+        {
+          "@/dict": [
+            ["Dict", "Dict"],
+            ["DictService", "DictService"],
+            ["useDict", "useDict"],
+            ["getDictTag", "getDictTag"],
+            ["getDictName", "getDictName"],
+          ], //字典
+        },
       ],
     }),
   ],

@@ -1,47 +1,21 @@
-<!-- 首页 -->
+<!--  -->
 <template>
   <div class="">
-    <!--  -->
-    <u-tabs :list="tabs" @click="tabsChange"></u-tabs>
-
-    <div class="videoListBox">
-      <!-- 轮播图 -->
-      <u-swiper
-        showTitle
-        :autoplay="true"
-        height="25vh"
-        :list="videoList"
-        keyName="image"
-        circular
-      />
-    </div>
+    <up-input placeholder="请输入内容" border="surround" v-model="a"></up-input>
+    <up-input placeholder="请输入内容" border="surround" v-model="b"></up-input>
+    <up-button text="求和" @click="summation"></up-button>
+    <div>{{ sum }}</div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const fileUrl = import.meta.env.VITE_APP_FILE_API;
-const videoList = ref<any[]>(); //视频列表
-const hotVideoList = ref<any>(); //所有热门视频
-const tabs = ref<any[]>(); //动态栏位
+const a = ref();
+const b = ref();
+const sum = ref();
 
-//处理请求的视频数据
-function getHotVideo() {}
-
-function tabsChange(i: any) {
-  videoList.value = hotVideoList.value[i.key].videoList.map((item: any) => {
-    return { ...item, image: fileUrl + item.picture };
-  });
+function summation() {
+  sum.value = Number(a.value) + Number(b.value);
 }
-
-onMounted(() => {
-  getHotVideo();
-});
 </script>
 
-<style lang="scss" scoped>
-.videoListBox {
-  height: calc(100vh - 44px);
-  width: 100%;
-  overflow: auto;
-}
-</style>
+<style lang="scss" scoped></style>

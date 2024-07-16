@@ -16,7 +16,7 @@
       }
     },
     {
-      "path": "pages/classify/index",
+      "path": "pages/category/index",
       "style": {
         "navigationBarTitleText": "分类"
       }
@@ -28,9 +28,9 @@
       }
     },
     {
-      "path": "pages/shortVideo/index",
+      "path": "pages/message/index",
       "style": {
-        "navigationBarTitleText": "短视频"
+        "navigationBarTitleText": "消息"
       }
     },
     {
@@ -64,14 +64,14 @@
       {
         "iconPath": "static/images/tabBar/GameBot.png",
         "selectedIconPath": "static/images/tabBar/GameBot.png",
-        "pagePath": "pages/classify/index",
+        "pagePath": "pages/category/index",
         "text": "分类"
       },
       {
-        "iconPath": "static/images/tabBar/tiktok.png",
-        "selectedIconPath": "static/images/tabBar/tiktok.png",
-        "pagePath": "pages/shortVideo/index",
-        "text": "短视频"
+        "iconPath": "static/images/tabBar/Message.png",
+        "selectedIconPath": "static/images/tabBar/Message.png",
+        "pagePath": "pages/message/index",
+        "text": "消息"
       },
       {
         "iconPath": "static/images/tabBar/Setting.png",

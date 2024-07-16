@@ -14,7 +14,9 @@
     destroy-on-close
   >
     <template #default>
-      <slot name="body" />
+      <div style="margin: 0 10px">
+        <slot name="body" />
+      </div>
     </template>
 
     <template #footer>

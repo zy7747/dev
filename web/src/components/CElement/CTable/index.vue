@@ -307,7 +307,6 @@ const gridOptions = reactive<any>({
     custom: true, // 显示自定义列按钮
     export: true, // 显示导出按钮
   },
-  exportConfig: {},
   editRules: Rules(),
 });
 

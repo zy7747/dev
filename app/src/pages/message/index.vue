@@ -1,6 +1,6 @@
-<!-- 消息 -->
+<!-- 短视频 -->
 <template>
-  <div class="">分类</div>
+  <div class="shortVideo">消息</div>
 </template>
 
 <script lang="ts" setup></script>

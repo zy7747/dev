@@ -2,15 +2,18 @@
 <template>
   <div style="height: 600px">
     <pre><code class="language-plaintext" v-html="highlightedCode({...pageData,options:null})"></code></pre>
+
+    <MdEditor></MdEditor>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { js_beautify } from "js-beautify";
-
-import "highlight.js/styles/devibeans.css"; // 导入代码高亮样式
-// import "highlight.js/styles/panda-syntax-light.css";
+import { MdEditor } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
+import "highlight.js/styles/devibeans.css";
 import highlight from "@/plugins/highlight";
+
 defineProps({
   active: {
     text: "active",

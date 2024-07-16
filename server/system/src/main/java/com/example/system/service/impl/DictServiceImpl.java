@@ -1,9 +1,11 @@
 package com.example.system.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
+import com.example.framework.utils.RedisUtils;
 import com.example.system.convert.DictConvert;
 import com.example.system.dal.dto.dict.DictQueryDTO;
 import com.example.system.dal.dto.dict.DictSaveDTO;
@@ -27,6 +29,9 @@ import java.util.List;
 public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> implements DictService {
     @Resource
     DictMapper dictMapper;
+
+    @Resource
+    RedisUtils redisUtils;
 
     /**
      * 获取列表分页
@@ -84,6 +89,8 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
         Result<DictEntity> valid = dictMapper.onlyValid(dictData, dictList);
         if (valid.getCode() == 200) {
             this.saveOrUpdate(dictData);
+            //变更时候重新刷新redis
+            redisUtils.setRedis("dictMap", JSON.toJSONString(dictMapper.getDictMap()));
             return Result.success(dictData);
         } else {
             return valid;
@@ -138,6 +145,16 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, DictEntity> impleme
      */
     @Override
     public Result<Object> dictMap() {
-        return Result.success(dictMapper.getDictMap());
+
+        String dictList = redisUtils.getRedis("dictMap");
+
+        if (dictList == null) {
+            redisUtils.setRedis("dictMap", JSON.toJSONString(dictMapper.getDictMap()));
+
+            dictList = redisUtils.getRedis("dictMap");
+        }
+
+
+        return Result.success(JSON.parseObject(dictList));
     }
 }

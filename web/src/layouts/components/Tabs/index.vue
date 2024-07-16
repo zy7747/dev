@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="flex tabs">
-    <div class="action-right" @click="leftSlide">
+    <div class="action right-line" @click="leftSlide">
       <el-icon><ArrowLeftBold /></el-icon>
     </div>
     <div class="flex tags" ref="tags">
@@ -24,17 +24,17 @@
         </el-icon>
       </router-link>
     </div>
-    <div class="action" @click="rightSlide">
+    <div class="action left-line" @click="rightSlide">
       <el-icon><ArrowRightBold /></el-icon>
     </div>
     <ul class="flex">
-      <li class="action" @click="refresh">
+      <li class="action left-line" @click="refresh">
         <el-icon><Refresh /></el-icon>
       </li>
-      <li class="action" @click="themeOpen">
+      <li class="action left-line" @click="themeOpen">
         <el-icon><Tools /></el-icon>
       </li>
-      <li class="action" @click="otherClick">
+      <li class="action left-line" @click="otherClick">
         <CDropdown :options="options" @command="command">
           <template #title>
             <el-icon><ArrowDownBold /></el-icon>
@@ -139,7 +139,7 @@ watch(
 }
 
 .tabs {
-  border: 1px solid var(--el-border-color-darker);
+  border-bottom: 1px solid var(--el-border-color-darker);
   background-color: var(--el-fill-color-light);
   .tag {
     display: flex;
@@ -179,28 +179,22 @@ watch(
     }
   }
 
-  //右侧菜单
   .action {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 1px solid var(--el-border-color-darker);
     padding: 0 10px;
     &:hover {
       cursor: pointer;
       color: #245fd4;
     }
   }
-  .action-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+  .right-line {
     border-right: 1px solid var(--el-border-color-darker);
-    padding: 0 10px;
-    &:hover {
-      cursor: pointer;
-      color: #245fd4;
-    }
+  }
+  .left-line {
+    border-left: 1px solid var(--el-border-color-darker);
   }
 }
 </style>

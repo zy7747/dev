@@ -30,9 +30,12 @@
       </el-aside>
 
       <el-main>
-        <Breadcrumb class="breadcrumb" v-if="theme.breadcrumb" />
-        <Tabs class="tabs" v-if="theme.tabs" />
-        <AppMain class="app-main" />
+        <div class="tool">
+          <Breadcrumb class="breadcrumb" v-if="theme.breadcrumb" />
+          <Tabs class="tabs" v-if="theme.tabs" />
+        </div>
+
+        <AppMain class="page-main" />
       </el-main>
     </el-container>
   </el-container>
@@ -64,9 +67,20 @@ defineProps({
   padding: 0;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--el-border-color-darker);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .el-main {
   padding: 0;
+}
+
+.page-main {
+  padding: 0 10px;
+}
+
+.el-aside {
+  border-right: 1px solid var(--el-border-color-darker);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 </style>

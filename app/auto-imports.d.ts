@@ -6,6 +6,8 @@
 export {}
 declare global {
   const $t: typeof import('@/language/index')['default']
+  const Dict: typeof import('@/dict')['Dict']
+  const DictService: typeof import('@/dict')['DictService']
   const EffectScope: typeof import('vue')['EffectScope']
   const Service: typeof import('@/plugins/service')['default']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
@@ -20,6 +22,8 @@ declare global {
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getDictName: typeof import('@/dict')['getDictName']
+  const getDictTag: typeof import('@/dict')['getDictTag']
   const h: typeof import('vue')['h']
   const inject: typeof import('vue')['inject']
   const isProxy: typeof import('vue')['isProxy']
@@ -66,6 +70,7 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useDict: typeof import('@/dict')['useDict']
   const useSlots: typeof import('vue')['useSlots']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']

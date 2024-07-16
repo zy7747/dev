@@ -21,7 +21,6 @@
   position: relative;
   overflow: hidden;
   background-position: 0;
-  color: #283248;
   font-weight: 550;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -29,9 +28,9 @@
   line-height: 35px;
   font-size: 16px;
   text-align: center;
-
+  color: #5090ff;
+  font-family: "YourFontName", sans-serif;
   background-size: 100% 35px !important;
-
   background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/system/%E8%BE%93%E5%85%A5%E6%A1%86.png")
     no-repeat center;
   &:hover {

@@ -7,7 +7,6 @@ const userStore = useUserStore();
 
 onLaunch(async () => {
   //判断是否有TOKEN
-
   await userStore.login({
     loginType: "account",
     account: "visitor",

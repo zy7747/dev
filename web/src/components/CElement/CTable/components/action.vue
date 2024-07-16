@@ -106,9 +106,10 @@
         v-else
         v-bind="item"
         @handleClick="item.click({ row })"
-        :icon="SwitchFilled"
+        :icon="item.icon ? item.icon : SwitchFilled"
         link
         :tip="item.text"
+        text=""
       />
     </template>
   </template>
@@ -134,7 +135,6 @@ const { xGrid } = defineProps({
       return {};
     },
   },
-
   actions: {
     text: "操作栏",
     type: [Array] as any,

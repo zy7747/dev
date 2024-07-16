@@ -46,6 +46,14 @@ show.value = prop.isShow;
 </script>
 
 <style lang="scss" scoped>
+.el-container {
+  overflow: hidden;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid var(--el-border-color-darker);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
 .title {
   font-weight: 600;
   font-size: 14px;
@@ -54,7 +62,7 @@ show.value = prop.isShow;
   align-items: center;
   justify-content: space-between;
   display: flex;
-  border: 1px solid var(--el-border-color-darker);
+  border-bottom: 1px solid var(--el-border-color-darker);
   background-color: var(--el-fill-color-light);
 }
 
