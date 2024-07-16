@@ -68,6 +68,7 @@ show.value = prop.isShow;
 
 .el-main {
   padding: 10px;
+  background-color: var(--el-bg-color);
 }
 
 .tools {

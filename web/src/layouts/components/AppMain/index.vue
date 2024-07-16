@@ -1,6 +1,6 @@
 <!-- AppMain -->
 <template>
-  <div class="font-mono">
+  <div>
     <el-backtop style="z-index: 10" target=".app-main" />
     <el-watermark content="" :font="font" :gap="[150, 150]">
       <RouterView v-slot="{ Component, route }">
@@ -25,3 +25,5 @@ const font = ref({
   fontSize: 16,
 });
 </script>
+
+<style lang="scss" scoped></style>

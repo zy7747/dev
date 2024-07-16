@@ -235,7 +235,7 @@ const gridOptions = reactive<any>({
   border: true,
   round: true,
   size: "small",
-  height: 600,
+  height: 500,
   align: "center",
   keepSource: true,
   id: `${Route.fullPath}/${tableConfig.title}`, //缓存列状态

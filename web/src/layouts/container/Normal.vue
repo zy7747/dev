@@ -72,15 +72,29 @@ defineProps({
 }
 
 .el-main {
+  position: relative;
   padding: 0;
+  height: 100%;
+  .tool {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
 }
 
 .page-main {
+  margin-top: 25px;
+  overflow: auto;
   padding: 0 10px;
+  height: calc(100% - 25px);
+  background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/main/page-main.jpg")
+    0 0 no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 
 .el-aside {
   border-right: 1px solid var(--el-border-color-darker);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 </style>

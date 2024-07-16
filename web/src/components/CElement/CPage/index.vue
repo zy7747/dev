@@ -1,7 +1,7 @@
 <!--CPage-->
 <template>
   <div class="CPage">
-    <Collapse :isShow="false" title="筛选">
+    <Collapse :isShow="true" title="筛选">
       <template #tools>
         <c-button
           v-if="pageOption.query === false ? pageOption.query : true"

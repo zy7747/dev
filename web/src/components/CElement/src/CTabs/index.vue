@@ -16,7 +16,7 @@
           <span>{{ item.title }}</span>
         </template>
         <el-collapse-transition class="collapse" v-show="show">
-          <div>
+          <div class="content">
             <slot name="content" :item="item" :index="index" />
           </div>
         </el-collapse-transition>
@@ -39,11 +39,6 @@ defineProps({
       return [];
     },
   },
-  height: {
-    text: "height",
-    type: [String] as any,
-    default: "600px",
-  },
 });
 </script>
 
@@ -64,6 +59,7 @@ defineProps({
 
 .el-tabs__content {
   padding: 0 !important;
+  background-color: transparent !important;
 }
 
 .collapse {
