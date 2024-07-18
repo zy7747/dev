@@ -22,6 +22,7 @@ declare module 'vue' {
     CNumber: typeof import('./src/components/CElement/CForm/src/CNumber/index.vue')['default']
     Collapse: typeof import('./src/components/Collapse/index.vue')['default']
     Columns: typeof import('./src/components/CElement/CTable/components/columns.vue')['default']
+    ContextMenu: typeof import('./src/components/ContextMenu/index.vue')['default']
     CPage: typeof import('./src/components/CElement/CPage/index.vue')['default']
     CRadio: typeof import('./src/components/CElement/CForm/src/CRadio/index.vue')['default']
     CSchema: typeof import('./src/components/CElement/CForm/src/CSchema/index.vue')['default']

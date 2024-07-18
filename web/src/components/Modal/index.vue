@@ -14,13 +14,11 @@
     destroy-on-close
   >
     <template #default>
-      <div style="margin: 0 10px">
-        <slot name="body" />
-      </div>
+      <slot name="body" />
     </template>
 
     <template #footer>
-      <div class="flex justify-center">
+      <div>
         <template v-for="item in dialogConfig.actions">
           <template v-if="item.show ? item.show() : true">
             <c-button
@@ -104,11 +102,13 @@ defineExpose({
 }
 
 .vxe-modal--footer {
+  display: flex;
+  justify-content: center;
   border-top: 1px solid #e1e3e7;
   padding: 10px 15px !important;
 }
 
 .vxe-modal--body {
-  padding: 0 !important;
+  padding: 0 10px !important;
 }
 </style>

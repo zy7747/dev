@@ -74,7 +74,10 @@ export default ({ mode }: any) => {
             "@/hooks/useTable": [["default", "useTable"]], //Hook
           },
           {
-            "@/hooks/useModal": [["showModal", "showModal"]], //Hook
+            "@/hooks/useModal": [
+              ["showModal", "showModal"],
+              ["initModal", "initModal"],
+            ], //Hook
           },
         ],
         resolvers: [ElementPlusResolver()],

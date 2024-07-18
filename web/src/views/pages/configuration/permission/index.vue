@@ -3,9 +3,12 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
+import AddPermission from "./components/AddPermission.vue";
+
 defineOptions({
   name: "Permission",
 });
+import { Plus } from "@element-plus/icons-vue";
 const pageData: any = reactive({
   queryData: {},
   editData: {},
@@ -46,6 +49,18 @@ const { pageOption, pageRef, ids } = usePage({
               data: {
                 type: "fun",
               },
+            });
+          },
+        },
+        {
+          text: "一键新增权限",
+          type: "primary",
+          icon: Plus,
+          permission: ["permission:add"],
+          click() {
+            showModal(AddPermission, {
+              title: "批量新增权限",
+              width: 800,
             });
           },
         },

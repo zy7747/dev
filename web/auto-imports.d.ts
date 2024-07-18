@@ -30,6 +30,7 @@ declare global {
   const getDictTag: typeof import('@/dict')['getDictTag']
   const h: typeof import('vue')['h']
   const importSuccess: typeof import('@/hooks/tips')['importSuccess']
+  const initModal: typeof import('@/hooks/useModal')['initModal']
   const inject: typeof import('vue')['inject']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']

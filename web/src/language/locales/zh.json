@@ -81,6 +81,7 @@
   },
   "menu": {
     "menu": "菜单",
+    "menuName": "菜单名称",
     "parentId": "父节点id",
     "title": "菜单名",
     "name": "组件名",
@@ -99,6 +100,7 @@
   },
   "permission": {
     "permission": "权限",
+    "permission tag": "权限标识",
     "name": "权限名称",
     "type": "类型",
     "description": "描述"

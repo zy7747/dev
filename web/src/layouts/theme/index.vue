@@ -73,7 +73,13 @@ import applyTheme from "../config/applyTheme";
 import systemTheme from "../config/systemTheme";
 import videoTheme from "../config/videoTheme";
 
-const isDark = useDark();
+const isDark: any = useDark({
+  // 暗黑class名字
+  valueDark: "dark",
+  // 高亮class名字
+  valueLight: "light",
+  selector: "body",
+});
 const theme: any = defineModel();
 const themeStore = useThemeStore();
 const preset = ref();

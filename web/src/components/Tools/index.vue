@@ -75,12 +75,11 @@
           @handleClick="handleExport(item)"
         />
 
-        <el-button
+        <c-button
           v-else
           v-bind="item"
-          type="info"
           size="small"
-          :icon="SwitchFilled"
+          :icon="item.icon ? item.icon : SwitchFilled"
           @handleClick="item.click"
           :text="item.text"
         />
