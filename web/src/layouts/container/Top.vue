@@ -45,12 +45,16 @@ defineProps({
   padding: 0;
   display: flex;
   align-items: center;
-  // background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/banner/banner.png")
-  //   0 no-repeat;
   background-size: 100%;
+  border-bottom: 1px solid var(--el-border-color-darker);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .el-main {
   padding: 0 100px;
+  background: url("https://cos-1307762674.cos.ap-shanghai.myqcloud.com/picture/main/page-main.jpg")
+    0 0 no-repeat;
+  background-position: center center;
+  background-size: 130% 100%;
 }
 </style>

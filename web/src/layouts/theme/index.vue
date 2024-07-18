@@ -8,11 +8,13 @@
   >
     <div>日夜模式</div>
     <el-switch
-      v-model="isDark"
-      :title="isDark ? '夜间模式' : '明亮模式'"
+      v-model="theme.mode"
       inline-prompt
       :active-icon="Moon"
       :inactive-icon="Sunny"
+      active-value="dark"
+      inactive-value="light"
+      @change="modeChange"
     />
     <div>菜单位置</div>
     <el-radio-group v-model="theme.container">
@@ -22,7 +24,7 @@
     </el-radio-group>
 
     <div>使用预置设置</div>
-    <el-radio-group v-model="preset" @change="setTheme">
+    <el-radio-group v-model="theme.preset" @change="setTheme">
       <el-radio-button v-for="item in presets" :label="item.value">
         {{ item.label }}
       </el-radio-button>
@@ -64,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useDark } from "@vueuse/core";
+import { useColorMode } from "@vueuse/core";
 import { useThemeStore } from "@/store/theme";
 import Moon from "@/icons/system/moon.svg";
 import Sunny from "@/icons/system/sunny.svg";
@@ -73,16 +75,9 @@ import applyTheme from "../config/applyTheme";
 import systemTheme from "../config/systemTheme";
 import videoTheme from "../config/videoTheme";
 
-const isDark: any = useDark({
-  // 暗黑class名字
-  valueDark: "dark",
-  // 高亮class名字
-  valueLight: "light",
-  selector: "body",
-});
+const mode = useColorMode(); // Ref<'dark' | 'light'>
 const theme: any = defineModel();
 const themeStore = useThemeStore();
-const preset = ref();
 
 const options = ref([
   { label: "左菜单", value: "Left" },
@@ -115,4 +110,10 @@ function setTheme(value: any) {
     theme.value = JSON.parse(JSON.stringify(unref(systemTheme)));
   }
 }
+
+function modeChange() {
+  mode.value = unref(theme).mode;
+}
+
+modeChange();
 </script>

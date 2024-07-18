@@ -49,13 +49,6 @@ function menuClick(menu: any) {
   height: 17px;
 }
 
-::v-deep(.el-menu-item) {
-  height: 40px;
-  padding: 0 !important;
-  border-radius: 5px;
-  // justify-content: center;
-}
-
 .el-menu-item.is-active {
   background-color: #fb8c55 !important;
   color: #fff;
@@ -79,5 +72,12 @@ function menuClick(menu: any) {
 <style lang="scss">
 .el-sub-menu .el-menu {
   background-color: transparent !important;
+}
+
+.el-menu-item {
+  height: 40px !important;
+  padding: 0 !important;
+  border-radius: 5px;
+  // justify-content: center;
 }
 </style>

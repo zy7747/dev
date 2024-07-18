@@ -9,5 +9,8 @@ const data = ref({
   headerHeight: 60,
   asideWidth: 200,
   collapse: true,
+  mode: "light",
+  preset: "systemTheme",
 });
+
 export default data;

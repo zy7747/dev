@@ -148,24 +148,32 @@ const { pageOption, pageRef } = usePage({
               type: "input",
             },
             {
-              label: $t("operationLog.operateIp", "操作IP"),
-              prop: "operateIp",
-              type: "input",
-            },
-            {
-              label: $t("operationLog.operatePlace", "操作地"),
-              prop: "operatePlace",
-              type: "input",
-            },
-            {
               label: $t("operationLog.time", "耗时"),
               prop: "time",
               type: "input",
             },
             {
+              label: $t("operationLog.operateIp", "操作IP"),
+              prop: "operateIp",
+              type: "input",
+              span: 12,
+            },
+            {
+              label: $t("operationLog.operatePlace", "操作地"),
+              prop: "operatePlace",
+              type: "input",
+              span: 12,
+            },
+            {
               label: $t("operationLog.errorMsg", "错误信息"),
               prop: "errorMsg",
               type: "input",
+              params: {
+                type: "textarea",
+                "show-word-limit": true,
+                autosize: { minRows: 8, maxRows: 16 },
+              },
+              span: 24,
             },
           ],
         },

@@ -95,3 +95,12 @@ const asWidth = computed(() => {
   padding: 0 !important;
 }
 </style>
+
+<style lang="scss">
+.el-menu-item {
+  height: 40px !important;
+  padding: 0 !important;
+  border-radius: 5px;
+  // justify-content: center;
+}
+</style>
