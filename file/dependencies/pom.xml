@@ -21,13 +21,6 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- ip2region -->
-        <dependency>
-            <groupId>org.lionsoul</groupId>
-            <artifactId>ip2region</artifactId>
-            <version>2.6.3</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -125,12 +118,6 @@
             <version>1.5.0.Final</version>
         </dependency>
 
-        <!--    websocket    -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-
         <!-- 获取文件扩展名 -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -145,12 +132,6 @@
             <version>5.8.22</version>
         </dependency>
 
-        <!-- 定时任务 -->
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.3.0</version>
-        </dependency>
     </dependencies>
 
 </project>

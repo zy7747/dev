@@ -23,7 +23,7 @@
       }"
     >
       <el-aside
-        :width="theme.asideWidth"
+        :width="`${theme.asideWidth}`"
         :style="{ backgroundColor: theme.asideBackgroundColor }"
       >
         <Sidebar :width="theme.asideWidth" :collapse="theme.collapse" />

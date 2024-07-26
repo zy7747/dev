@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div style="padding-top: 20px">
+  <div>
     <c-input
       v-model="query"
       :style="`width:${width};margin-bottom:5px`"
@@ -18,7 +18,7 @@
       :style="`width:${width};`"
       v-bind="$attrs"
       :filter-method="filterMethod"
-      :height="700"
+      :height="600"
     >
       <template #default="{ node }">
         <span class="node-item" @contextmenu.prevent.stop="nodeClick(node)">

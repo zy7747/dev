@@ -83,6 +83,13 @@ const asWidth = computed(() => {
   flex-direction: column;
   align-items: center;
 }
+
+.el-menu-item {
+  height: 40px !important;
+  padding: 0 !important;
+  border-radius: 5px;
+  // justify-content: center;
+}
 </style>
 
 <style lang="scss">
@@ -93,14 +100,5 @@ const asWidth = computed(() => {
 
 .el-sub-menu__title {
   padding: 0 !important;
-}
-</style>
-
-<style lang="scss">
-.el-menu-item {
-  height: 40px !important;
-  padding: 0 !important;
-  border-radius: 5px;
-  // justify-content: center;
 }
 </style>

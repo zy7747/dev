@@ -10,6 +10,7 @@
     :on-exceed="handleExceed"
     :on-success="handleUploadSuccess"
     :on-remove="handleDelete"
+    :http-request="(params:any):any => httpRequest(params)"
     :limit="limit"
   >
     <c-button
@@ -38,9 +39,10 @@
 <script lang="ts" setup>
 const fileUrl = import.meta.env.VITE_APP_FILE_URL;
 const emit = defineEmits(["remove"]);
+const loading = ref(false);
 import { Upload } from "@element-plus/icons-vue";
 
-const prop = defineProps({
+const prop: any = defineProps({
   limit: {
     text: "上限",
     type: [Number] as any,
@@ -67,6 +69,10 @@ const prop = defineProps({
       "mp3",
       "gif",
     ],
+  },
+  api: {
+    text: "接口",
+    type: Function,
   },
   formData: {
     text: "表头数据",
@@ -126,6 +132,17 @@ function handleUploadSuccess({ filename, url, status }: any) {
 }
 function handleUploadError() {
   ElMessage.error("上传失败，请重试");
+}
+
+function httpRequest(params: any) {
+  loading.value = true;
+  const formData = new FormData();
+
+  formData.append("file", params.file);
+
+  prop.api(formData).finally(() => {
+    loading.value = false;
+  });
 }
 </script>
 

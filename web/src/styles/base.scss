@@ -37,3 +37,10 @@
     color: #76d7fa;
   }
 }
+
+.rotate180 {
+  transition: all 0.5s;
+  &:hover {
+    transform: rotate(180deg);
+  }
+}

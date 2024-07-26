@@ -16,6 +16,8 @@ import { i18n } from "@/language/index";
 //style
 import "@/styles/index.scss";
 import "virtual:windi.css";
+//hover.css
+import "hover.css";
 //svg
 import "virtual:svg-icons-register";
 //permission
@@ -24,8 +26,6 @@ import "@/permission";
 import "@/plugins";
 //piniaPersist
 import piniaPersist from "pinia-plugin-persist";
-//hover.css
-import "hover.css";
 
 const app = createApp(App);
 

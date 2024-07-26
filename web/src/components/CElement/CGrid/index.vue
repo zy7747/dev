@@ -38,14 +38,14 @@ function render(config: any) {
         tools: [
           {
             operation: "add",
-            permission: [],
+            permission: [table.permissions + ":add"],
             click() {
               unref(pageRef).handleOpen({ type: "add", data: {} });
             },
           },
           {
             operation: "remove",
-            permission: [],
+            permission: [table.permissions + ":remove"],
             click() {
               return api.remove(ids()).then((res: any) => {
                 removeSuccess(res, pageRef);
@@ -54,7 +54,7 @@ function render(config: any) {
           },
           {
             operation: "import",
-            permission: [],
+            permission: [table.permissions + ":import"],
             api(files: any) {
               return api.imports(files).then((res: any) => {
                 importSuccess(res, pageRef);
@@ -63,7 +63,7 @@ function render(config: any) {
           },
           {
             operation: "export",
-            permission: [],
+            permission: [table.permissions + ":export"],
             api() {
               return api.exports(unref(pageData).queryData);
             },
@@ -86,7 +86,7 @@ function render(config: any) {
         actions: [
           {
             operation: "edit",
-            permission: [],
+            permission: [table.permissions + ":edit"],
             click({ row }: any) {
               api.detail({ id: row.id }).then((res: any) => {
                 unref(pageRef).handleOpen({
@@ -98,7 +98,6 @@ function render(config: any) {
           },
           {
             operation: "detail",
-            permission: [],
             click({ row }: any) {
               api.detail({ id: row.id }).then((res: any) => {
                 unref(pageRef).handleOpen({
@@ -110,7 +109,7 @@ function render(config: any) {
           },
           {
             operation: "remove",
-            permission: [],
+            permission: [table.permissions + ":remove"],
             click({ row }: any) {
               api.remove([row.id]).then((res: any) => {
                 removeSuccess(res, pageRef);

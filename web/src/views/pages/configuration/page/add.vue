@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <Collapse title="配置页面">
+  <Collapse title="配置界面">
     <template #tools>
       <c-button
         size="small"
@@ -15,31 +15,31 @@
         :text="$t('system.back')"
         @handleClick="back"
       />
-      <c-button
-        :icon="RefreshLeft"
-        size="small"
-        text="弹窗"
-        @handleClick="dialog"
-      />
     </template>
     <template #content>
+      <Steps :steps="steps" v-model="active" />
       <el-container>
-        <el-header>
-          <Steps :steps="steps" v-model="active" />
-        </el-header>
         <el-container>
-          <el-aside width="250px" v-if="active !== 3">
-            <Scrollbar :active="active" v-model="pageData" />
+          <el-aside width="250px" style="padding: 0 10px" v-if="3 > active">
+            <Collapse title="组件">
+              <template #content>
+                <Scrollbar :active="active" v-model="pageData" />
+              </template>
+            </Collapse>
           </el-aside>
 
-          <el-main>
-            <component
-              ref="component"
-              v-model="pageData"
-              :pageData="pageData"
-              :is="componentName(active)"
-              :active="active"
-            />
+          <el-main style="padding: 0">
+            <Collapse title="主界面" padding="10px">
+              <template #content>
+                <component
+                  ref="component"
+                  v-model="pageData"
+                  :pageData="pageData"
+                  :is="componentName(active)"
+                  :active="active"
+                />
+              </template>
+            </Collapse>
           </el-main>
         </el-container>
       </el-container>
@@ -152,8 +152,6 @@ function back() {
     path: "/configuration/page",
   });
 }
-
-function dialog() {}
 
 load();
 </script>

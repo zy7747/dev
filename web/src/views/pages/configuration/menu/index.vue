@@ -296,11 +296,6 @@ const { pageOption, pageRef, ids } = usePage({
               params: {
                 "check-strictly": true,
               },
-              rules: [
-                {
-                  required: true,
-                },
-              ],
               show: () => pageData.editData.type !== "system",
               options: menuTree.value,
               span: 12,
@@ -328,12 +323,9 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("menu.name", "组件名"),
               prop: "name",
               type: "input",
-              show: () => pageData.editData.type !== "button",
-              rules: [
-                {
-                  required: true,
-                },
-              ],
+              show: () =>
+                pageData.editData.type !== "button" &&
+                pageData.editData.type !== "directory",
               span: 12,
             },
             {

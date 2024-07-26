@@ -1,5 +1,7 @@
 package com.example.system.dal.dto.menu;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.example.framework.dal.dto.BaseParamsDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

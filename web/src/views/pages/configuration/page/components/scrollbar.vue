@@ -1,44 +1,38 @@
 <!--  -->
 <template>
   <div class="">
-    <div v-if="active === 0">
-      {{ "表单组件" }}
-      <el-scrollbar height="400px">
-        <p
-          v-for="item in formOptions"
-          class="scrollbar-demo-item"
-          @click="addForm(item)"
-        >
-          {{ item.name }}
-        </p>
-      </el-scrollbar>
-    </div>
+    <el-scrollbar height="400px" v-if="active === 0">
+      <p
+        v-for="item in formOptions"
+        class="scrollbar-demo-item"
+        @click="addForm(item)"
+      >
+        {{ item.name }}
+      </p>
+    </el-scrollbar>
 
-    <div v-if="active === 1 && pageData.tables.length">
-      {{ "表格栏位" }}
-      <el-scrollbar height="400px">
-        <p
-          v-for="item in tableOptions"
-          class="scrollbar-demo-item"
-          @click="addTableColum(item)"
-        >
-          {{ item.name }}
-        </p>
-      </el-scrollbar>
-    </div>
+    <el-scrollbar
+      height="400px"
+      v-else-if="active === 1 && pageData.tables.length"
+    >
+      <p
+        v-for="item in tableOptions"
+        class="scrollbar-demo-item"
+        @click="addTableColum(item)"
+      >
+        {{ item.name }}
+      </p>
+    </el-scrollbar>
 
-    <div v-if="active === 2">
-      {{ "表单组件" }}
-      <el-scrollbar height="400px">
-        <p
-          v-for="item in formOptions"
-          class="scrollbar-demo-item"
-          @click="addEdit(item)"
-        >
-          {{ item.name }}
-        </p>
-      </el-scrollbar>
-    </div>
+    <el-scrollbar height="400px" v-else-if="active === 2">
+      <p
+        v-for="item in formOptions"
+        class="scrollbar-demo-item"
+        @click="addEdit(item)"
+      >
+        {{ item.name }}
+      </p>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -139,9 +133,7 @@ const tableOptions = ref([
 ]);
 
 function addForm(item: any) {
-  if (prop.active === 0) {
-    pageData.value.form.push(item.attr);
-  }
+  unref(pageData).form.push(item.attr);
 }
 
 function addTableColum(item: any) {
@@ -165,12 +157,13 @@ function addEdit(item: any) {
   height: 50px;
   text-align: center;
   border-radius: 4px;
-  margin: 10px 0;
   background: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
-}
-
-.scrollbar-demo-item:hover {
-  cursor: pointer;
+  &:hover {
+    border: 1px solid var(--el-color-primary);
+    background-color: #fb8c55;
+    color: #ffffff;
+    cursor: pointer;
+  }
 }
 </style>

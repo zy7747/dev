@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <el-steps :space="100" simple :active="active">
+  <el-steps :space="100" simple finish-status="success" :active="active">
     <el-step
       class="step"
       v-for="(item, index) in steps"
@@ -30,7 +30,21 @@ const stepChange = (index: Number) => {
 </script>
 
 <style lang="scss" scoped>
-.step:hover {
+::v-deep(.step):hover {
   cursor: pointer;
+}
+
+::v-deep(.el-step__title):hover {
+  color: #409eff !important;
+}
+
+.el-steps {
+  border-bottom: 1px solid var(--el-border-color-darker);
+}
+</style>
+
+<style lang="scss">
+.is-process {
+  color: #409eff !important;
 }
 </style>

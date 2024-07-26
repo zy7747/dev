@@ -4,6 +4,7 @@
     <el-header height="45px">
       <div class="title">
         {{ title }}
+        <slot name="title" />
       </div>
 
       <div class="tools">
@@ -17,7 +18,7 @@
       </div>
     </el-header>
     <el-collapse-transition>
-      <el-main v-show="show">
+      <el-main v-show="show" :style="{ padding: padding ? padding : 0 }">
         <slot name="content" />
       </el-main>
     </el-collapse-transition>
@@ -29,6 +30,11 @@ import { ArrowDownBold, ArrowUpBold } from "@element-plus/icons-vue";
 
 const prop = defineProps({
   title: {
+    text: "标题",
+    type: [String, Function],
+    default: "",
+  },
+  padding: {
     text: "标题",
     type: [String, Function],
     default: "",
@@ -47,6 +53,7 @@ show.value = prop.isShow;
 
 <style lang="scss" scoped>
 .el-container {
+  width: 100%;
   overflow: hidden;
   margin: 10px 0;
   border-radius: 10px;
@@ -67,7 +74,6 @@ show.value = prop.isShow;
 }
 
 .el-main {
-  padding: 10px;
   background-color: var(--el-bg-color);
 }
 

@@ -23,7 +23,7 @@ const { pageOption, pageRef, ids } = usePage({
   formConfig: {
     formParams: [
       {
-        label: $t("page.menuId", "页面id"),
+        label: $t("page.menuId", "页面"),
         prop: "menuId",
         type: "treeSelect",
         params: {
@@ -87,7 +87,7 @@ const { pageOption, pageRef, ids } = usePage({
           fixed: "left",
         },
         {
-          title: $t("page.menuId", "页面id"),
+          title: $t("page.menuId", "页面"),
           field: "menuId",
           isFilters: true,
         },
@@ -189,7 +189,7 @@ const { pageOption, pageRef, ids } = usePage({
         formConfig: {
           formParams: [
             {
-              label: $t("page.menuId", "页面id"),
+              label: $t("page.menuId", "页面"),
               prop: "menuId",
               type: "treeSelect",
               params: {

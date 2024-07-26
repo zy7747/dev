@@ -8,7 +8,7 @@
       :model="loginInfo"
       :formConfig="formConfig"
     />
-    <div style="width: 100%">
+    <div style="width: 100%; padding: 0 10px">
       <el-checkbox v-model="loginInfo.rememberMe" label="记住我" />
     </div>
 
@@ -21,9 +21,10 @@
 
 <script lang="ts" setup>
 import { useUserStore } from "@/store/user";
+import { router } from "@/router/index";
+const route = router.currentRoute.value;
 
 const userStore = useUserStore();
-const Router = useRouter();
 
 const formRef = ref();
 const show: any = defineModel();
@@ -49,6 +50,7 @@ const formConfig = ref({
     },
   ],
 });
+
 //登录
 function login() {
   return unref(formRef)
@@ -62,7 +64,10 @@ function login() {
           })
           .then((res: any) => {
             if (res) {
-              Router.push("/");
+              console.log(route);
+
+              router.push("/");
+              closeModal();
               ElNotification({
                 title: "登录成功",
                 message: `欢迎回来 ${res.userInfo.user}`,
@@ -91,6 +96,8 @@ hasRemember();
 <style lang="scss" scoped>
 .button {
   width: 100%;
+  margin: 10px 0;
+  padding: 0 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -2,18 +2,17 @@
 <template>
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
     <template #dialog0>
-      <Collapse title="视频列表" v-if="pageData.editData.id">
+      <Collapse :isShow="false" title="视频列表" v-if="pageData.editData.id">
         <template #content>
-          <CUpload v-model="pageData.editData.videoList"></CUpload>
+          <VideoUpload :api="api" v-model="pageData.editData.videoList" />
         </template>
       </Collapse>
     </template>
   </c-page>
 </template>
 <script lang="ts" setup>
+import VideoUpload from "./components/VideoUploads.vue";
 const fileUrl = import.meta.env.VITE_APP_FILE_URL;
-// import VideoPlay from "@/components/Player/video.vue";
-// import { showModal } from "@/hooks/useModal.tsx";
 
 defineOptions({
   name: "Video",
@@ -26,6 +25,58 @@ const pageData: any = reactive({
   queryData: {},
   editData: {},
 });
+
+function api(files: any) {
+  const editData = unref(pageData).editData;
+
+  if (pageData.editData.isCollection) {
+    files.append("parentId", pageData.editData.savePath);
+
+    return Service.file.uploadFile(files).then((res: any) => {
+      const data = {
+        parentId: editData.id,
+        videoName: res.data.fileName,
+        url: res.data.url,
+        episode: editData.length + 1,
+        isCollection: 0,
+        status: "success",
+      };
+      pageData.editData.videoList.push(data);
+
+      return Service.video.list.save(data).then(() => {
+        ElMessage({
+          message: "上传成功",
+          type: "success",
+        });
+      });
+    });
+  } else {
+    return Service.file
+      .save({
+        parentId: pageData.editData.savePath,
+        fileName: pageData.editData.videoName,
+        fileType: "folder",
+      })
+      .then((fileRes: any) => {
+        files.append("parentId", fileRes.data.id);
+
+        Service.file.uploadFile(files).then((res: any) => {
+          return Service.video.list
+            .save({
+              ...pageData.editData,
+              url: res.data.url,
+            })
+            .then(() => {
+              ElMessage({
+                message: "上传成功",
+                type: "success",
+              });
+            });
+        });
+      });
+  }
+}
+
 const { pageOption, pageRef, ids } = usePage({
   createLoad: true,
   title: $t("video.video", "视频"),
@@ -82,6 +133,7 @@ const { pageOption, pageRef, ids } = usePage({
             unref(pageRef).handleOpen({ type: "add", data: {} });
           },
         },
+
         {
           operation: "remove",
           permission: ["video:remove"],
@@ -89,6 +141,13 @@ const { pageOption, pageRef, ids } = usePage({
             return Service.video.list.remove(ids()).then((res: any) => {
               removeSuccess(res, pageRef);
             });
+          },
+        },
+        {
+          text: "批量导入",
+          permission: ["video:import"],
+          click() {
+            console.log(123);
           },
         },
         {
@@ -195,13 +254,11 @@ const { pageOption, pageRef, ids } = usePage({
           title: $t("video.episode", "集"),
           field: "episode",
         },
-
         {
           title: $t("video.isCollection", "是否是集合"),
           field: "isCollection",
           translate: "isNo",
         },
-
         {
           cType: "action",
           fixed: "right",
@@ -248,7 +305,7 @@ const { pageOption, pageRef, ids } = usePage({
       dialogConfig: {
         width: "1000px",
         formConfig: {
-          isShow: false,
+          isShow: true,
           formParams: [
             {
               label: $t("video.savePath", "视频存储节点"),

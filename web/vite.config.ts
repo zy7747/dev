@@ -2,16 +2,15 @@ import { defineConfig, loadEnv } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import vue from "@vitejs/plugin-vue";
 import svgLoader from "vite-svg-loader";
+import Icons from "unplugin-icons/vite";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import WindiCSS from "vite-plugin-windicss";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-import Icons from "unplugin-icons/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import VueDevTools from "vite-plugin-vue-devtools";
 import vueJsx from "@vitejs/plugin-vue-jsx"; // 添加这一句
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+
 import { resolve } from "path";
-// import basicSsl from "@vitejs/plugin-basic-ssl";
 const getTarget = (mode: string, target: string) => {
   return loadEnv(mode, process.cwd())[target];
 };
@@ -21,10 +20,8 @@ export default ({ mode }: any) => {
   return defineConfig({
     base: "/system",
     plugins: [
-      VueDevTools(),
       vue(),
       vueJsx(),
-      // basicSsl(),
       WindiCSS(),
       svgLoader(),
       createSvgIconsPlugin({
@@ -76,7 +73,7 @@ export default ({ mode }: any) => {
           {
             "@/hooks/useModal": [
               ["showModal", "showModal"],
-              ["initModal", "initModal"],
+              ["closeModal", "closeModal"],
             ], //Hook
           },
         ],

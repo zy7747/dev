@@ -2,16 +2,23 @@
 <template>
   <el-container>
     <el-aside width="200">
-      <Tree :data="tree" @node-click="nodeClick" />
+      <Collapse title="文件列表">
+        <template #content>
+          <Tree :data="tree" @node-click="nodeClick" />
+        </template>
+      </Collapse>
     </el-aside>
     <el-main>
-      <Breadcrumb
-        @goBack="goBack"
-        @first="firstMenu"
-        @pathChange="folderPathChange"
-        :list="folderPath"
-      ></Breadcrumb>
       <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData">
+        <template #title>
+          <Breadcrumb
+            @goBack="goBack"
+            @first="firstMenu"
+            @pathChange="folderPathChange"
+            :list="folderPath"
+          />
+        </template>
+
         <template #fileView>
           <View @nodeClick="nodeClick" :data="list" />
         </template>
@@ -45,7 +52,6 @@ const folderPath: any = ref([]);
 
 const { pageOption, pageRef, ids, query } = usePage({
   createLoad: true,
-  title: $t("file.file", "文件"),
   formConfig: {
     formParams: [
       {
@@ -386,3 +392,9 @@ function firstMenu() {
 
 getList();
 </script>
+
+<style lang="scss" scoped>
+.el-main {
+  padding: 0 20px;
+}
+</style>

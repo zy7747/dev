@@ -1,5 +1,7 @@
 package com.example.system.dal.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.framework.dal.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -77,6 +79,7 @@ public class MenuEntity extends BaseEntity {
     /**
      * 图标
      */
+    @TableField(fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "图标")
     private String icon;
     /**

@@ -2,7 +2,7 @@ import { VxeUI } from "vxe-pc-ui";
 
 export function showModal(Dom: any, config: any) {
   const DomRef = ref();
-  // const modalDom = <Dom ref={DomRef} />;
+
   VxeUI.modal.open({
     mask: false,
     lockView: false,
@@ -34,8 +34,6 @@ export function showModal(Dom: any, config: any) {
   });
 }
 
-export function initModal({ confirm }: any) {
-  return {
-    confirm,
-  };
+export function closeModal() {
+  VxeUI.modal.close();
 }

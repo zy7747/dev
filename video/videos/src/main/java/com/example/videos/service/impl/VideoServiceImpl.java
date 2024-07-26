@@ -60,7 +60,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, VideoEntity> impl
     public Result<VideoDetailVO> videoDetail(Long id) {
         VideoDetailVO videoInfo = VideoConvert.INSTANCE.detail(videoMapper.selectById(id));
 
-        videoInfo.setVideoList(videoMapper.queryDetailList(id,videoInfo.getIsCollection()));
+        videoInfo.setVideoList(videoMapper.queryDetailList(id, videoInfo.getIsCollection()));
 
 
         return Result.success(videoInfo);
@@ -78,6 +78,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, VideoEntity> impl
         List<VideoEntity> videoList = videoMapper.queryList(new VideoQueryDTO());
         Result<VideoEntity> valid = videoMapper.onlyValid(videoData, videoList);
         if (valid.getCode() == 200) {
+
             this.saveOrUpdate(videoData);
             return Result.success(videoData);
         } else {
@@ -96,6 +97,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, VideoEntity> impl
         List<VideoEntity> videoData = VideoConvert.INSTANCE.saveList(video);
         Result<List<VideoEntity>> valid = videoMapper.onlyValidList(videoData);
         if (valid.getCode() == 200) {
+
             this.saveOrUpdateBatch(videoData);
             return Result.success(videoData);
         } else {

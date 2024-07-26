@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="">
-    <vxe-list height="550" v-bind="$attrs" :scroll-y="{ enabled: true }">
+    <vxe-list height="500" v-bind="$attrs" :scroll-y="{ enabled: true }">
       <template #default="{ items }">
         <div
           @click="openFile(item)"

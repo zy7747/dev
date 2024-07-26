@@ -1,7 +1,11 @@
 <!--CPage-->
 <template>
   <div class="CPage">
-    <Collapse :isShow="true" title="筛选">
+    <Collapse :title="pageOption.title">
+      <template #title>
+        <slot name="title" />
+      </template>
+
       <template #tools>
         <c-button
           v-if="pageOption.query === false ? pageOption.query : true"
@@ -227,4 +231,8 @@ defineExpose({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+::v-deep(.el-main) {
+  padding: 10px !important;
+}
+</style>

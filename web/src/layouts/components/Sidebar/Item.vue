@@ -58,9 +58,25 @@ function menuClick(menu: any) {
   }
 }
 
+.el-menu-item:hover {
+  background-color: #fb8c55 !important;
+  color: #fff;
+  font-weight: 550;
+  span {
+    color: #fff !important;
+  }
+}
+
 .menu-text {
   font-weight: 550 !important;
   font-size: 15px;
+}
+
+.el-menu-item {
+  height: 40px !important;
+  padding: 0 !important;
+  border-radius: 5px;
+  // justify-content: center;
 }
 
 //不要箭头
@@ -72,12 +88,5 @@ function menuClick(menu: any) {
 <style lang="scss">
 .el-sub-menu .el-menu {
   background-color: transparent !important;
-}
-
-.el-menu-item {
-  height: 40px !important;
-  padding: 0 !important;
-  border-radius: 5px;
-  // justify-content: center;
 }
 </style>

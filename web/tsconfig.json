@@ -23,9 +23,15 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "types": [
-    "pinia-plugin-persist"
+  "types": ["pinia-plugin-persist"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "src/hooks/useModal.tsx"
   ],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","auto-imports.d.ts","components.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
