@@ -4,13 +4,13 @@
     <c-select
       v-if="type === 'select'"
       :placeholder="getPlaceholder('select', item)"
-      :options="options"
+      :options="option"
       v-model="value"
       v-bind="params"
     />
     <c-radio
       v-else-if="type === 'radio'"
-      :options="options"
+      :options="option"
       v-model="value"
       v-bind="params"
     />
@@ -22,7 +22,7 @@
     />
     <c-checkbox
       v-else-if="type === 'checkbox'"
-      :options="options"
+      :options="option"
       v-model="value"
       v-bind="params"
     />
@@ -41,7 +41,7 @@
     <c-treeSelect
       v-else-if="type === 'treeSelect'"
       :placeholder="getPlaceholder('select', item)"
-      :options="options"
+      :options="option"
       v-model="value"
       v-bind="params"
     />
@@ -71,7 +71,7 @@
     <IconSelect
       v-else-if="type === 'icon'"
       :placeholder="getPlaceholder('select', item)"
-      :options="options"
+      :options="option"
       v-model="value"
       v-bind="params"
     />
@@ -81,7 +81,7 @@
 <script lang="ts" setup>
 const value: any = defineModel();
 
-defineProps({
+const prop = defineProps({
   type: {
     text: "类型",
     type: [String],
@@ -108,6 +108,14 @@ defineProps({
       return {};
     },
   },
+});
+
+const option = computed(() => {
+  if (typeof prop.options === "function") {
+    return prop.options();
+  } else if (typeof prop.options === "object") {
+    return prop.options;
+  }
 });
 
 function getPlaceholder(type: string, item: any) {

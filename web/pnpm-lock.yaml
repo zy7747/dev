@@ -80,6 +80,9 @@ dependencies:
   vue:
     specifier: ^3.4.19
     version: 3.4.19(typescript@5.3.3)
+  vue-echarts:
+    specifier: 7.0.0-beta.0
+    version: 7.0.0-beta.0(echarts@5.5.0)(vue@3.4.19)
   vue-hooks-plus:
     specifier: ^1.8.9
     version: 1.8.9(vue@3.4.19)
@@ -109,6 +112,9 @@ dependencies:
     version: 3.0.14(core-js@3.36.0)
 
 devDependencies:
+  '@amap/amap-jsapi-loader':
+    specifier: ^1.0.1
+    version: 1.0.1
   '@element-plus/icons-vue':
     specifier: ^2.3.1
     version: 2.3.1(vue@3.4.19)
@@ -320,6 +326,10 @@ packages:
       '@algolia/cache-common': 4.23.3
       '@algolia/logger-common': 4.23.3
       '@algolia/requester-common': 4.23.3
+    dev: true
+
+  /@amap/amap-jsapi-loader@1.0.1:
+    resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==}
     dev: true
 
   /@ampproject/remapping@2.3.0:
@@ -6836,6 +6846,21 @@ packages:
       vue: 3.4.19(typescript@5.3.3)
     dev: true
 
+  /vue-demi@0.13.11(vue@3.4.19):
+    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.4.19(typescript@5.3.3)
+    dev: false
+
   /vue-demi@0.14.7(vue@3.4.19):
     resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}
     engines: {node: '>=12'}
@@ -6864,6 +6889,23 @@ packages:
     dependencies:
       vue: 3.4.21(typescript@5.3.3)
     dev: true
+
+  /vue-echarts@7.0.0-beta.0(echarts@5.5.0)(vue@3.4.19):
+    resolution: {integrity: sha512-DKmPak9+Al/GlIexC5OvvWIDyO39q/AmZm2aqF7+n2fTDyUq7l/dkdmg/9hBeLafZlU6Yf5J7io/BnDzzRK1+g==}
+    peerDependencies:
+      '@vue/runtime-core': ^3.0.0
+      echarts: ^5.5.1
+      vue: ^2.7.0 || ^3.1.1
+    peerDependenciesMeta:
+      '@vue/runtime-core':
+        optional: true
+    dependencies:
+      echarts: 5.5.0
+      vue: 3.4.19(typescript@5.3.3)
+      vue-demi: 0.13.11(vue@3.4.19)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
 
   /vue-hooks-plus@1.8.9(vue@3.4.19):
     resolution: {integrity: sha512-XscyVXQOqe3V5YTQa7E7w1WXOBZMp85dJ9js2H0RJ9ktatmeABQYxqBqsDSCpETBz+OoNXQxamFggTccwsK+jg==}

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-const { options } = defineProps({
+const prop = defineProps({
   size: {
     text: "下拉框大小",
     type: [String] as any,
@@ -58,10 +58,10 @@ const { options } = defineProps({
 const value: any = defineModel();
 
 const option = computed(() => {
-  if (typeof options === "function") {
-    return options();
-  } else if (typeof options === "object") {
-    return options;
+  if (typeof prop.options === "function") {
+    return prop.options();
+  } else if (typeof prop.options === "object") {
+    return prop.options;
   }
 });
 </script>

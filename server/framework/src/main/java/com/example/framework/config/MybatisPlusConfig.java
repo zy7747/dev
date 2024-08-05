@@ -32,7 +32,8 @@ public class MybatisPlusConfig {
         tableWhitelist.add("user_role");
         tableWhitelist.add("user_permission");
         tableWhitelist.add("role_menu");
-
+        tableWhitelist.add("TABLES");
+        tableWhitelist.add("COLUMNS");
 
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         //多租户插件

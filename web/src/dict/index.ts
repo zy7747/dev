@@ -52,10 +52,10 @@ export function useDict(dictMap: any = {}) {
     Object.assign(dict, { [key]: [] });
   });
 
-  Object.keys(dictMap).forEach(async (key: any) => {
-    const arr = await dictMap[key];
-
-    Object.assign(dict, { [key]: arr });
+  Object.keys(dictMap).forEach((key: any) => {
+    dictMap[key].then((res: any) => {
+      Object.assign(dict, { [key]: res });
+    });
   });
 
   return {

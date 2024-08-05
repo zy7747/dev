@@ -10,7 +10,14 @@
     @menu-click="contextMenuClickEvent"
   >
     <template #toolbar_buttons>
-      <Tools :tools="tableConfig.tools" :checkboxData="checkboxData()" />
+      <Tools :tools="tableConfig.tools" :checkboxData="checkboxData()">
+        <template
+          v-for="item in toolsSlot(tableConfig.tools)"
+          v-slot:[item.slot]
+        >
+          <slot :name="item.slot" />
+        </template>
+      </Tools>
     </template>
 
     <template #toolbar_tools>
@@ -79,7 +86,7 @@ import lodash from "lodash";
 
 import { VxeUI } from "vxe-table";
 import { Search } from "@element-plus/icons-vue";
-import { getFilter, getTableCols, getRules } from "@/hooks/table";
+import { getFilter, getTableCols, getRules, toolsSlot } from "@/hooks/table";
 
 const xGrid = ref<any>();
 const Route = useRoute();

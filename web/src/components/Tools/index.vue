@@ -3,8 +3,10 @@
   <div class="flex">
     <template v-for="item in tools">
       <template v-if="item.show !== false">
+        <slot v-if="item.slot" :name="item.slot" :item="item" />
+
         <c-button
-          v-if="item.operation === 'add'"
+          v-else-if="item.operation === 'add'"
           v-bind="item"
           type="primary"
           size="small"

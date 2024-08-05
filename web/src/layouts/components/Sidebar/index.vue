@@ -74,6 +74,7 @@ const asWidth = computed(() => {
   border-radius: 5px;
   padding: 0 !important;
   background-color: transparent !important;
+  color: "#2d3132";
   // justify-content: center;
 }
 

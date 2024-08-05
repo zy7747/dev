@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <Collapse title="用户中心">
+  <Collapse title="用户中心" padding="0">
     <template #content>
       <div class="user-card">
         <UserInfo :userInfo="userInfo" />

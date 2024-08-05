@@ -1,6 +1,6 @@
 import { VxeUI } from "vxe-pc-ui";
 
-export function showModal(Dom: any, config: any) {
+export function showModal(Dom: any, config: any, prop?: any) {
   const DomRef = ref();
 
   VxeUI.modal.open({
@@ -18,7 +18,7 @@ export function showModal(Dom: any, config: any) {
     ...config,
     slots: {
       default() {
-        return <Dom ref={DomRef} />;
+        return <Dom {...prop} ref={DomRef} />;
       },
     },
     onConfirm() {

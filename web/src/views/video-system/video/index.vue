@@ -12,6 +12,7 @@
 </template>
 <script lang="ts" setup>
 import VideoUpload from "./components/VideoUploads.vue";
+import VideoImport from "./components/VideoImport.vue";
 const fileUrl = import.meta.env.VITE_APP_FILE_URL;
 
 defineOptions({
@@ -147,7 +148,11 @@ const { pageOption, pageRef, ids } = usePage({
           text: "批量导入",
           permission: ["video:import"],
           click() {
-            console.log(123);
+            showModal(VideoImport, {
+              title: "批量新增视频",
+              width: 1000,
+              showFooter: false,
+            });
           },
         },
         {

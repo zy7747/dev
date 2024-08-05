@@ -18,7 +18,7 @@
       </div>
     </el-header>
     <el-collapse-transition>
-      <el-main v-show="show" :style="{ padding: padding ? padding : 0 }">
+      <el-main v-show="show" :style="{ padding }">
         <slot name="content" />
       </el-main>
     </el-collapse-transition>
@@ -34,10 +34,15 @@ const prop = defineProps({
     type: [String, Function],
     default: "",
   },
+  width: {
+    text: "width",
+    type: [String],
+    default: "100%",
+  },
   padding: {
-    text: "标题",
-    type: [String, Function],
-    default: "",
+    text: "padding",
+    type: [String],
+    default: "10px",
   },
   isShow: {
     text: "是否默认展开",

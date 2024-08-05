@@ -12,4 +12,10 @@ public class CountQueryVO {
      */
     @ApiModelProperty(value = "用户总数")
     private Integer userTotal;
+
+    /**
+     * 在线用户总数
+     */
+    @ApiModelProperty(value = "在线用户总数")
+    private Integer userOnlineTotal;
 }

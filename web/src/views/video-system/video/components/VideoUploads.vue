@@ -18,7 +18,7 @@
       type="success"
       size="small"
       :icon="Upload"
-      :text="$t('system.uploadFile')"
+      :text="'文件上传'"
     />
     <template #tip>
       <div class="el-upload__tip">
@@ -140,9 +140,17 @@ function httpRequest(params: any) {
 
   formData.append("file", params.file);
 
-  prop.api(formData).finally(() => {
+  prop.api(formData, getFileName(params.file), params).finally(() => {
     loading.value = false;
   });
+}
+
+function getFileName(file: any) {
+  if (file.name.lastIndexOf(".") > -1) {
+    return file.name.slice(0, file.name.lastIndexOf("."));
+  } else {
+    return file.name;
+  }
 }
 </script>
 

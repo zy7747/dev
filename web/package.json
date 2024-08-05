@@ -44,6 +44,7 @@
     "qrcode": "^1.5.3",
     "sass": "^1.71.1",
     "vue": "^3.4.19",
+    "vue-echarts": "7.0.0-beta.0",
     "vue-hooks-plus": "^1.8.9",
     "vue-i18n": "^9.9.1",
     "vue-router": "^4.3.0",
@@ -55,6 +56,7 @@
     "xgplayer": "^3.0.14"
   },
   "devDependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.3.1",
     "@types/js-beautify": "^1.14.3",
     "@types/js-cookie": "^3.0.6",

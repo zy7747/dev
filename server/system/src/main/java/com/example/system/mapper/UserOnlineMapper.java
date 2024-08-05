@@ -39,6 +39,10 @@ public interface UserOnlineMapper extends BaseMapper<UserOnlineEntity> {
         if (!StrUtil.hasBlank(userOnline.getLoginIp())) {
             wrapper.eq("login_ip", userOnline.getLoginIp());
         }
+        /* 登录IP */
+        if (!StrUtil.hasBlank(userOnline.getStatus())) {
+            wrapper.eq("status", userOnline.getStatus());
+        }
         /* 登录地 */
         if (!StrUtil.hasBlank(userOnline.getLoginPlace())) {
             wrapper.eq("login_place", userOnline.getLoginPlace());

@@ -106,3 +106,7 @@ export function getRules(column: any, rules: any) {
 
   return rules;
 }
+
+export function toolsSlot(tools: any) {
+  return tools.filter((i: any) => i.slot && i.slot.indexOf("tools_") !== -1);
+}

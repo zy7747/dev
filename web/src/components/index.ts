@@ -1,5 +1,6 @@
 import SvgIcon from "./SvgIcon/index.vue";
 import Collapse from "./Collapse/index.vue";
+import Card from "./Card/index.vue";
 import Pagination from "./Pagination/index.vue";
 import VideoPlayer from "./Player/video.vue";
 import Tools from "./Tools/index.vue";
@@ -18,6 +19,7 @@ function setupComponents(app: any) {
   app.component("SvgIcon", SvgIcon);
   app.component("Tools", Tools);
   app.component("Collapse", Collapse);
+  app.component("Card", Card);
   app.component("Pagination", Pagination);
   app.component("VideoPlayer", VideoPlayer);
   app.component("Episode", Episode);

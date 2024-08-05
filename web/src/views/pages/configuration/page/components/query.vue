@@ -1,12 +1,25 @@
 <template>
-  <c-table ref="tableRef" :tableConfig="tableConfig" />
+  <c-table ref="tableRef" :tableConfig="tableConfig">
+    <template #tools_tableImport>
+      <div style="width: 250px" class="btnR">
+        <c-schema
+          :params="{ size: 'small' }"
+          type="select"
+          :options="() => dict.tableList"
+          v-model="tableName"
+        />
+      </div>
+    </template>
+  </c-table>
 </template>
 
 <script lang="ts" setup>
 const pageData: any = defineModel();
+const tableName: any = ref("");
 
 const { dict } = useDict({
   dictList: DictService("dictList"),
+  tableList: DictService("getTableList"),
 });
 
 const tableColumn = () => {
@@ -22,7 +35,6 @@ const tableColumn = () => {
       field: "label",
       sortable: true,
       isFilters: true,
-
       rules: [
         {
           type: "date",
@@ -41,7 +53,6 @@ const tableColumn = () => {
       field: "prop",
       sortable: true,
       isFilters: true,
-
       rules: [
         {
           type: "date",
@@ -81,7 +92,6 @@ const tableColumn = () => {
       field: "options",
       sortable: true,
       isFilters: true,
-
       form: {
         type: "select",
         params: {
@@ -94,7 +104,6 @@ const tableColumn = () => {
       field: "span",
       sortable: true,
       isFilters: true,
-
       form: {
         type: "number",
         params: {
@@ -127,6 +136,33 @@ const tableColumn = () => {
 
 const { tableConfig, tableRef } = useTable({
   tools: [
+    {
+      slot: "tools_tableImport",
+    },
+    {
+      text: "按表导入",
+      click() {
+        Service.configuration.table
+          .getTableColumn({
+            tableName: unref(tableName),
+          })
+          .then((res: any) => {
+            if (res.data.length) {
+              unref(pageData).form.unshift(
+                ...res.data.map((item: any) => {
+                  return {
+                    prop: item.COLUMN_NAME,
+                    label: item.COLUMN_COMMENT,
+                    type: "input",
+                  };
+                })
+              );
+
+              console.log(unref(pageData).form);
+            }
+          });
+      },
+    },
     {
       operation: "add",
       click() {

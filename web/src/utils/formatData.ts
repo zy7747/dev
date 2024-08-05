@@ -39,3 +39,11 @@ export function handleTree(
 export function isEmpty(obj: any) {
   return Object.keys(obj).length === 0;
 }
+
+// 下划线转换驼峰
+export const toHump = (name: string) => {
+  // eslint-disable-next-line no-useless-escape
+  return name.replace(/\_(\w)/g, function (_all, letter: string) {
+    return letter.toUpperCase();
+  });
+};
