@@ -32,7 +32,6 @@ defineOptions({
 });
 import View from "./components/View.vue";
 import Tree from "./components/Tree.vue";
-import { handleTree } from "@/utils/formatData";
 import Breadcrumb from "@/components/Breadcrumb/index.vue";
 
 const fileUrl = import.meta.env.VITE_APP_FILE_URL;
@@ -301,7 +300,7 @@ function getList() {
       return { ...item, label: item.fileName, value: item.id };
     });
     treeList.value = data;
-    tree.value = handleTree(data);
+    tree.value = FormatData.handleTree(data);
     query();
   });
 }

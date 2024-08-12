@@ -85,17 +85,11 @@ const rules = computed(() => {
 
   prop.formConfig.formParams.forEach((item: any) => {
     if (item.rules) {
-      rules[item.prop] = item.rules.map((i: any) => {
-        if (i.required) {
-          return {
-            required: true,
-            message: item.label + " " + $t("system.is no null", "不能为空"),
-            trigger: "blur",
-          };
-        } else {
-          return item;
-        }
-      });
+      rules[item.prop] = {
+        required: true,
+        message: item.label + " " + $t("system.is no null", "不能为空"),
+        trigger: "blur",
+      };
     }
   });
 

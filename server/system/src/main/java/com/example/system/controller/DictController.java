@@ -3,6 +3,7 @@ package com.example.system.controller;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
+import com.example.system.annotation.dict.DictUtil;
 import com.example.system.annotation.log.Log;
 import com.example.system.convert.DictConvert;
 import com.example.system.dal.dto.dict.DictQueryDTO;
@@ -44,6 +45,7 @@ public class DictController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页")
+    @DictUtil(type = "page")
     public Result<PageList<DictPageVO>> dictPage(@Valid DictQueryDTO dict) {
         return dictService.dictPage(dict);
     }

@@ -23,6 +23,20 @@ function apis(params: String) {
 
 //页面渲染
 function render(config: any) {
+  let form = [];
+  if (config.form.length) {
+    form = config.form.map((item: any) => {
+      console.log(item);
+      if (item.type === "select") {
+        return {};
+      } else {
+        return item;
+      }
+    });
+  }
+
+  console.log(form);
+
   const { pageOption, ids } = usePage({
     pageRef,
     createLoad: true,
@@ -117,8 +131,9 @@ function render(config: any) {
             },
           },
         ],
-        query: (pages: any) =>
-          api.page({ ...pages, ...unref(pageData).queryData }),
+        query: (pages: any) => {
+          return api.page({ ...pages, ...unref(pageData).queryData });
+        },
       };
     }),
   });

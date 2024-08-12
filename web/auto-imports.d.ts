@@ -12,6 +12,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElNotification: typeof import('element-plus/es')['ElNotification']
+  const FormatData: typeof import('@/utils/formatData')['default']
   const Service: typeof import('@/plugins/service')['default']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const closeModal: typeof import('@/hooks/useModal')['closeModal']

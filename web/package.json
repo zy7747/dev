@@ -43,6 +43,7 @@
     "pinia": "^2.1.7",
     "qrcode": "^1.5.3",
     "sass": "^1.71.1",
+    "sortablejs": "^1.15.2",
     "vue": "^3.4.19",
     "vue-echarts": "7.0.0-beta.0",
     "vue-hooks-plus": "^1.8.9",

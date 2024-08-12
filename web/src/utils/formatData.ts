@@ -1,49 +1,13 @@
-/**
- * 构造树型结构数据
- * @param {*} data 数据源
- * @param {*} id id字段 默认 'id'
- * @param {*} parentId 父节点字段 默认 'parentId'
- * @param {*} children 孩子节点字段 默认 'children'
- * @param {*} rootId 根Id 默认 0
- */
-export function handleTree(
-  data: any,
-  rootId?: any,
-  id?: any,
-  parentId?: any,
-  children?: any
-): any {
-  id = id || "id";
-  parentId = parentId || "parentId";
-  children = children || "children";
-  rootId = rootId || null;
+const format = import.meta.glob(["@/utils/formatData/**.ts"], {
+  eager: true,
+});
 
-  //对源数据深度克隆
-  const cloneData = JSON.parse(JSON.stringify(data));
-  //循环所有项
-  const treeData = cloneData.filter((father: any) => {
-    let branchArr = cloneData.filter((child: any) => {
-      //返回每一项的子级数组
-      return father[id] === child[parentId];
-    });
-    branchArr.length > 0 ? (father.children = branchArr) : "";
+const formatDataMap: any = {};
 
-    //返回第一层
-    return father[parentId] === rootId;
+Object.values(format).map((value: any) => {
+  Object.keys(value).map((key: any) => {
+    formatDataMap[key] = value[key];
   });
+});
 
-  return treeData !== "" ? treeData : data;
-}
-
-//判断对象是否为空
-export function isEmpty(obj: any) {
-  return Object.keys(obj).length === 0;
-}
-
-// 下划线转换驼峰
-export const toHump = (name: string) => {
-  // eslint-disable-next-line no-useless-escape
-  return name.replace(/\_(\w)/g, function (_all, letter: string) {
-    return letter.toUpperCase();
-  });
-};
+export default formatDataMap;

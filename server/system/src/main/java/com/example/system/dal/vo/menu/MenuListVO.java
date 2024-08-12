@@ -1,6 +1,7 @@
 package com.example.system.dal.vo.menu;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.example.system.annotation.dict.Dict;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,8 +33,14 @@ public class MenuListVO extends BaseParamsVO {
     /**
      * 类型
      */
+    @Dict(code = "menu_type")
     @ApiModelProperty(value = "类型")
     private String type;
+    /**
+     * 类型
+     */
+    @ApiModelProperty(value = "类型名称")
+    private String typeName;
     /**
      * 组件
      */

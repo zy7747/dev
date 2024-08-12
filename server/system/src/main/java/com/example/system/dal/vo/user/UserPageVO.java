@@ -53,4 +53,9 @@ public class UserPageVO extends BaseParamsVO {
     @Dict(code = "user_type")
     @ApiModelProperty(value = "类型")
     private String userType;
+    /**
+     * 类型名称
+     */
+    @ApiModelProperty(value = "类型名称")
+    private String userTypeName;
 }

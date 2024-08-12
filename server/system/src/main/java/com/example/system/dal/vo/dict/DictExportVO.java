@@ -3,7 +3,9 @@ package com.example.system.dal.vo.dict;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.example.framework.dal.vo.ExcelVO;
+import com.example.system.annotation.dict.Dict;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,8 +33,14 @@ public class DictExportVO extends ExcelVO {
     /**
      * 字典类型
      */
+    @Dict(code = "dict_type")
     @ExcelProperty("字典类型")
     private String dictType;
+    /**
+     * 字典类型名称
+     */
+    @ExcelProperty(value = "字典类型名称")
+    private String dictTypeName;
     /**
      * 名
      */

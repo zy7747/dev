@@ -47,6 +47,7 @@ export function getDictName(dictCode: string, value: string) {
 
 export function useDict(dictMap: any = {}) {
   const dict: any = reactive({});
+  const dictStore = useDictStore();
 
   Object.keys(dictMap).forEach((key: any) => {
     Object.assign(dict, { [key]: [] });
@@ -55,6 +56,7 @@ export function useDict(dictMap: any = {}) {
   Object.keys(dictMap).forEach((key: any) => {
     dictMap[key].then((res: any) => {
       Object.assign(dict, { [key]: res });
+      dictStore.setDict(key, res);
     });
   });
 

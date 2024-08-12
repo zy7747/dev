@@ -163,8 +163,7 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("user.userType", "类型"),
           isFilters: true,
-          field: "userType",
-          translate: "user_type",
+          field: "userTypeName",
         },
         {
           title: $t("table.status", "状态"),

@@ -3,7 +3,6 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
-import { handleTree } from "@/utils/formatData";
 defineOptions({
   name: "Menu",
 });
@@ -42,6 +41,22 @@ const { pageOption, pageRef, ids } = usePage({
         reserve: true,
         rowField: "id",
         parentField: "parentId",
+      },
+      cellClassName({ row, column }: any) {
+        if (column.type !== "checkbox" && column.slots.default != "operate") {
+          if (row.type === "system") {
+            return "--el-color-danger-light-9";
+          }
+          if (row.type === "menu") {
+            return "--el-color-warning-light-9";
+          }
+          if (row.type === "button") {
+            return "--el-color-primary-light-9";
+          }
+          if (row.type === "directory") {
+            return "--el-color-success-light-9";
+          }
+        }
       },
       title: $t("menu.menu", "菜单"),
       tools: [
@@ -95,7 +110,8 @@ const { pageOption, pageRef, ids } = usePage({
         {
           title: $t("menu.sort", "排序"),
           field: "sort",
-          width: 60,
+          width: 100,
+          sortable: true,
           fixed: "left",
         },
         {
@@ -169,22 +185,10 @@ const { pageOption, pageRef, ids } = usePage({
           width: 100,
         },
         {
-          title: $t("table.creator", "创建人"),
-          field: "creator",
-          translate: "user",
-          isFilters: true,
-        },
-        {
           title: $t("table.updater", "更新人"),
           field: "updater",
           translate: "user",
           isFilters: true,
-        },
-        {
-          title: $t("table.createTime", "创建时间"),
-          field: "createTime",
-          sortable: true,
-          width: 150,
         },
         {
           title: $t("table.updateTime", "更新时间"),
@@ -421,7 +425,7 @@ const { pageOption, pageRef, ids } = usePage({
 
             menuTree.value.splice(0);
 
-            menuTree.value.push(...handleTree(list));
+            menuTree.value.push(...FormatData.handleTree(list));
 
             return res;
           });

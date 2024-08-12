@@ -53,18 +53,21 @@ function menuClick(menu: any) {
   background-color: #fb8c55 !important;
   color: #fff;
   font-weight: 550;
+  margin: 3px 0;
+  transition: 0.2s all;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   span {
     color: #fff !important;
   }
 }
 
 .el-menu-item:hover {
-  background-color: #fb8c55 !important;
+  background-color: #e4e8ec !important;
   color: #fff;
   font-weight: 550;
-  span {
-    color: #fff !important;
-  }
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .menu-text {

@@ -3,11 +3,11 @@
   <c-page ref="pageRef" :pageOption="pageOption" :pageData="pageData" />
 </template>
 <script lang="ts" setup>
-const Router = useRouter();
-
 defineOptions({
   name: "Page",
 });
+
+const Router = useRouter();
 const pageData: any = ref({
   queryData: {},
   editData: {},
@@ -15,6 +15,7 @@ const pageData: any = ref({
 
 const { dict } = useDict({
   menusTree: DictService("menusTree"),
+  menusList: DictService("menusList"),
 });
 
 const { pageOption, pageRef, ids } = usePage({
@@ -90,6 +91,7 @@ const { pageOption, pageRef, ids } = usePage({
           title: $t("page.menuId", "页面"),
           field: "menuId",
           isFilters: true,
+          translate: "menusList",
         },
         {
           title: $t("page.pageCode", "页面编码"),

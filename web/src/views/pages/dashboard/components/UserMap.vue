@@ -9,8 +9,6 @@ import ECharts from "@/plugins/echarts";
 const mapMainRef = ref();
 
 function createChart(params: any) {
-  console.log(90, params);
-
   var myChart = ECharts.init(mapMainRef.value);
 
   myChart.setOption({

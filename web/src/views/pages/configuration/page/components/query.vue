@@ -22,13 +22,73 @@ const { dict } = useDict({
   tableList: DictService("getTableList"),
 });
 
-const tableColumn = () => {
-  return [
+const { tableConfig, findCheckDataIndex, tableRef } = useTable({
+  isDrop: true,
+  tools: [
+    {
+      slot: "tools_tableImport",
+    },
+    {
+      text: "按表导入",
+      click() {
+        Service.configuration.table
+          .getTableColumn({
+            tableName: unref(tableName),
+          })
+          .then((res: any) => {
+            if (res.data.length) {
+              unref(pageData).form.unshift(
+                ...res.data.map((item: any, index: any) => {
+                  return {
+                    prop: item.COLUMN_NAME,
+                    label: item.COLUMN_COMMENT,
+                    type: "input",
+                    sort: index,
+                    span: 6,
+                    require: 0,
+                  };
+                })
+              );
+            }
+          });
+      },
+    },
+    {
+      operation: "add",
+      click() {
+        unref(tableRef).addLine({
+          span: 6,
+          type: "input",
+          require: 0,
+          sort: unref(pageData).form.length,
+        });
+      },
+    },
+    {
+      operation: "remove",
+      click() {
+        const data = findCheckDataIndex(unref(pageData).form);
+
+        unref(pageData).form.splice(0);
+
+        unref(pageData).form.push(...data);
+      },
+    },
+  ],
+  tableColumn: [
     { type: "checkbox", width: 50 },
     {
-      title: "序号",
-      type: "seq",
+      title: "序号", //基本宽度
+      field: "sort",
+      sortable: true,
       width: 100,
+      form: {
+        type: "number",
+        params: {
+          max: 100,
+          min: 0,
+        },
+      },
     },
     {
       title: "字段名称", //字段名称
@@ -71,7 +131,7 @@ const tableColumn = () => {
       field: "type",
       sortable: true,
       isFilters: true,
-
+      translate: "form_type",
       rules: [
         {
           type: "date",
@@ -92,6 +152,7 @@ const tableColumn = () => {
       field: "options",
       sortable: true,
       isFilters: true,
+      translate: "dictList",
       form: {
         type: "select",
         params: {
@@ -112,12 +173,12 @@ const tableColumn = () => {
         },
       },
     },
+
     {
       title: "是否必填", //基本宽度
-      field: "rules",
+      field: "require",
       sortable: true,
       isFilters: true,
-
       translate: "isNo",
       form: {
         type: "select",
@@ -131,50 +192,7 @@ const tableColumn = () => {
       cType: "action",
       fixed: "right",
     },
-  ];
-};
-
-const { tableConfig, tableRef } = useTable({
-  tools: [
-    {
-      slot: "tools_tableImport",
-    },
-    {
-      text: "按表导入",
-      click() {
-        Service.configuration.table
-          .getTableColumn({
-            tableName: unref(tableName),
-          })
-          .then((res: any) => {
-            if (res.data.length) {
-              unref(pageData).form.unshift(
-                ...res.data.map((item: any) => {
-                  return {
-                    prop: item.COLUMN_NAME,
-                    label: item.COLUMN_COMMENT,
-                    type: "input",
-                  };
-                })
-              );
-
-              console.log(unref(pageData).form);
-            }
-          });
-      },
-    },
-    {
-      operation: "add",
-      click() {
-        unref(tableRef).addLine({});
-      },
-    },
-    {
-      operation: "remove",
-      click() {},
-    },
   ],
-  tableColumn: tableColumn(),
   actions: [
     {
       operation: "operate",

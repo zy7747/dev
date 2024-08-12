@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <Collapse title="配置界面">
+  <Collapse title="配置界面" padding="0">
     <template #tools>
       <c-button
         size="small"
@@ -21,7 +21,7 @@
       <el-container>
         <el-container>
           <el-aside width="250px" style="padding: 0 10px" v-if="3 > active">
-            <Collapse title="组件">
+            <Collapse title="组件" padding="0">
               <template #content>
                 <Scrollbar :active="active" v-model="pageData" />
               </template>
@@ -110,18 +110,22 @@ function componentName(active: number) {
 }
 //加载数据
 function load() {
-  Service.configuration.page.detail({ id: Route.query.id }).then((res: any) => {
-    const options = JSON.parse(res.data.options);
+  if (Route.query.id) {
+    Service.configuration.page
+      .detail({ id: Route.query.id })
+      .then((res: any) => {
+        const options = JSON.parse(res.data.options);
 
-    if (options && options !== "") {
-      Object.assign(pageData, { id: res.data.id });
+        if (options && options !== "") {
+          Object.assign(pageData, { id: res.data.id });
 
-      pageData.form.push(...options.form);
-      pageData.tables.push(...options.tables);
-    } else {
-      Object.assign(pageData, { id: res.data.id });
-    }
-  });
+          pageData.form.push(...options.form);
+          pageData.tables.push(...options.tables);
+        } else {
+          Object.assign(pageData, { id: res.data.id });
+        }
+      });
+  }
 }
 //保存
 function save() {
@@ -141,7 +145,6 @@ function save() {
             message: "提交成功",
             type: "success",
           });
-          back();
         }
       });
   }

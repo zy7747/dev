@@ -39,6 +39,11 @@ defineProps({
   border-radius: 5px;
   border: 1px solid var(--el-border-color-darker);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.7s;
+  &:hover {
+    box-shadow: -1px -2px 8px 2px rgba(0, 0, 0, 0.1),
+      0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .card-title {

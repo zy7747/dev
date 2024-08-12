@@ -1,6 +1,7 @@
 package com.example.system.dal.vo.page;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.example.system.annotation.dict.Dict;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

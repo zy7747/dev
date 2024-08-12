@@ -2,13 +2,15 @@
 <template>
   <vxe-grid
     ref="xGrid"
-    keep-source
     :columns="tableColumn"
     :data="tableData"
     v-bind="gridOptions"
     :loading="loading"
     @menu-click="contextMenuClickEvent"
   >
+    <template #empty>
+      <el-empty description="没有更多数据了" />
+    </template>
     <template #toolbar_buttons>
       <Tools :tools="tableConfig.tools" :checkboxData="checkboxData()">
         <template
@@ -20,24 +22,7 @@
       </Tools>
     </template>
 
-    <template #toolbar_tools>
-      <div class="flex">
-        <c-schema
-          class="btnR"
-          :params="{ size: 'small' }"
-          type="input"
-          v-model="search"
-        />
-        <c-button
-          size="small"
-          type="primary"
-          class="btnR"
-          @handleClick="query"
-          :text="$t('system.table search')"
-          :icon="Search"
-        />
-      </div>
-    </template>
+    <template #toolbar_tools> </template>
 
     <template #tableSlot="{ row, column }: any">
       <Columns
@@ -79,27 +64,24 @@
 
 <script lang="ts" setup>
 import "./tsx/filter.tsx";
-
+import Sortable from "sortablejs";
 import Action from "./components/action.vue";
 import Columns from "./components/columns.vue";
 import lodash from "lodash";
 
 import { VxeUI } from "vxe-table";
-import { Search } from "@element-plus/icons-vue";
-import { getFilter, getTableCols, getRules, toolsSlot } from "@/hooks/table";
+import { initFilter, getTableCols, getRules, toolsSlot } from "@/hooks/table";
 
 const xGrid = ref<any>();
 const Route = useRoute();
 
 const paginationRef = ref();
-const tableData = ref();
-const filters: any = ref({});
-const search = ref();
-
+const tableData: any = ref([]);
+const filters: any = ref({}); //过滤数据
 const total: Ref<number> = ref(0);
 const loading: any = ref(false);
 
-const { tableConfig } = defineProps({
+const prop = defineProps({
   tableConfig: {
     text: "表格配置",
     type: [Object],
@@ -112,32 +94,35 @@ const { tableConfig } = defineProps({
 function Rules() {
   let rules = {};
 
-  getRules(tableConfig.tableColumn, rules);
+  getRules(prop.tableConfig.tableColumn, rules);
 
   return rules;
 }
 
-function getFilters() {
-  getFilter(tableConfig.tableColumn, unref(filters));
-}
-
+//塞入Filter
 function setFilter() {
-  //数据装入
-  tableData.value.forEach((item: any) => {
-    Object.keys(unref(filters)).forEach((key: any) => {
-      unref(filters)[key].push({ label: item[key], value: item[key] });
-    });
-  });
+  const $grid = xGrid.value;
 
-  //数据去重
-  Object.keys(unref(filters)).map((key) => {
-    unref(filters)[key] = lodash.uniqBy(unref(filters)[key], "value");
-  });
+  initFilter(prop.tableConfig.tableColumn, unref(filters));
+
+  if (tableData && unref(tableData).length) {
+    //数据装入
+    tableData.value.forEach((item: any) => {
+      Object.keys(unref(filters)).forEach((key: any) => {
+        unref(filters)[key].push({ label: item[key], value: item[key] });
+      });
+    });
+
+    //数据去重
+    Object.keys(unref(filters)).map((key) => {
+      unref(filters)[key] = lodash.uniqBy(unref(filters)[key], "value");
+
+      if ($grid) {
+        $grid.setFilter(key, lodash.uniqBy(unref(filters)[key], "value"));
+      }
+    });
+  }
 }
-//列
-const tableColumn: any = computed(() => {
-  return getTableCols(tableConfig.tableColumn, filters);
-});
 
 //插入数据
 const addLine = async (row: any) => {
@@ -150,7 +135,7 @@ const addLine = async (row: any) => {
         null
       );
 
-      tableConfig.data.unshift(newRow);
+      prop.tableConfig.data.unshift(newRow);
 
       await $grid.setEditRow(newRow);
     } else {
@@ -181,13 +166,13 @@ function checkRadioData() {
 }
 //查询
 function query() {
-  if (tableConfig.query) {
+  if (prop.tableConfig.query) {
     loading.value = true;
     return nextTick(() => {
       const page = unref(paginationRef).page;
       const size = unref(paginationRef).size;
 
-      return tableConfig
+      return prop.tableConfig
         .query({ page, size })
         .then((res: any) => {
           tableData.value = JSON.parse(JSON.stringify(res.data.list));
@@ -198,9 +183,9 @@ function query() {
           setFilter();
         });
     });
-  } else if (tableConfig.list) {
+  } else if (prop.tableConfig.list) {
     loading.value = true;
-    return tableConfig
+    return prop.tableConfig
       .list()
       .then((res: any) => {
         tableData.value = JSON.parse(JSON.stringify(res.data));
@@ -209,6 +194,8 @@ function query() {
         loading.value = false;
         setFilter();
       });
+  } else {
+    tableData.value = prop.tableConfig.data;
   }
 }
 
@@ -237,27 +224,43 @@ function contextMenuClickEvent({ menu, row, column }: any) {
   }
 }
 
+onMounted(() => {
+  if (prop.tableConfig.isDrop) {
+    Sortable.create(
+      unref(xGrid).$el.querySelector(".body--wrapper>.vxe-table--body tbody"),
+      {
+        onEnd: ({ newIndex, oldIndex }: any) => {
+          const targetRow = prop.tableConfig.data.splice(oldIndex, 1)[0];
+          prop.tableConfig.data.splice(newIndex, 0, targetRow);
+
+          for (let index in prop.tableConfig.data) {
+            prop.tableConfig.data[index].sort = parseInt(index);
+          }
+        },
+      }
+    );
+  }
+});
+
 //基本配置
 const gridOptions = reactive<any>({
-  border: true,
+  border: false,
   round: true,
   size: "small",
   height: 500,
   align: "center",
   keepSource: true,
-  id: `${Route.fullPath}/${tableConfig.title}`, //缓存列状态
+  id: `${Route.fullPath}/${prop.tableConfig.title}`, //缓存列状态
   showHeaderOverflow: "title",
   scrollX: { enabled: true, gt: 20 },
   scrollY: { enabled: true, gt: 50 },
   rowConfig: {
+    useKey: true,
     keyField: "_row_index",
-    isHover: false,
-    isCurrent: false,
+    isHover: true,
+    isCurrent: true,
   },
-  resizableConfig: {
-    minWidth: 80,
-  },
-  columnConfig: { isCurrent: false, isHover: false, maxFixedSize: 12 },
+  columnConfig: { isCurrent: false, isHover: false, maxFixedSize: 8 },
   editConfig: {
     trigger: "manual",
     mode: "row",
@@ -289,10 +292,9 @@ const gridOptions = reactive<any>({
   customConfig: {
     storage: true,
     mode: "popup",
-    immediate: true,
   },
   printConfig: {
-    columns: tableConfig.columns,
+    columns: prop.tableConfig.columns,
   },
   loadingConfig: { text: "正在拼命加载中..." },
   checkboxConfig: {
@@ -316,9 +318,13 @@ const gridOptions = reactive<any>({
   },
   editRules: Rules(),
 });
+//合并参数
+Object.assign(gridOptions, prop.tableConfig);
 
-getFilters();
-Object.assign(gridOptions, tableConfig);
+//列
+const tableColumn: any = computed(() => {
+  return getTableCols(prop.tableConfig.tableColumn);
+});
 
 defineExpose({
   query,
@@ -326,6 +332,7 @@ defineExpose({
   addLine,
   checkboxData,
   checkRadioData,
+  setFilter,
 });
 </script>
 

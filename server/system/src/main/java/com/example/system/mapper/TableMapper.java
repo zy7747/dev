@@ -16,6 +16,6 @@ public interface TableMapper {
 
 
     @DS("table_schema")
-    @Select("SELECT COLUMN_NAME,COLUMN_COMMENT,DATA_TYPE FROM information_schema.COLUMNS WHERE table_name = #{tableName}")
+    @Select("SELECT COLUMN_NAME,COLUMN_COMMENT,DATA_TYPE FROM information_schema.COLUMNS WHERE table_name = #{tableName} AND table_schema = 'system_server'")
     List<Map<String, Object>> selectTableColumn(String tableName);
 }

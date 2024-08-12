@@ -44,5 +44,8 @@ export const useDictStore = defineStore({
         }
       });
     },
+    setDict(key: string, list: any) {
+      this.dictMap[key] = list;
+    },
   },
 });

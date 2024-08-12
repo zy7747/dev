@@ -1,6 +1,5 @@
 import type { App } from "vue";
 import type { RouteRecordRaw } from "vue-router";
-import { useRoute } from "vue-router";
 import { createRouter, createWebHashHistory } from "vue-router";
 
 //其他独立的路由在这里拼接
@@ -33,5 +32,3 @@ export const router = createRouter({
 export function setupRouter(app: App<Element>) {
   app.use(router);
 }
-
-export const route = useRoute();

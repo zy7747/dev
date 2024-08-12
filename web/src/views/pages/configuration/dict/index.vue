@@ -109,8 +109,8 @@ const { pageOption, pageRef, ids } = usePage({
         },
         {
           title: $t("dict.dictType", "字典类型"),
-          field: "dictType",
-          translate: "dict_type",
+          field: "dictTypeName",
+
           isFilters: true,
         },
         {

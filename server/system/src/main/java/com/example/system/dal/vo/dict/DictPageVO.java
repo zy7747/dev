@@ -1,6 +1,7 @@
 package com.example.system.dal.vo.dict;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.example.system.annotation.dict.Dict;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,8 +31,14 @@ public class DictPageVO extends BaseParamsVO {
     /**
      * 字典类型
      */
+    @Dict(code = "dict_type")
     @ApiModelProperty(value = "字典类型")
     private String dictType;
+    /**
+     * 字典类型名称
+     */
+    @ApiModelProperty(value = "字典类型名称")
+    private String dictTypeName;
     /**
      * 名
      */

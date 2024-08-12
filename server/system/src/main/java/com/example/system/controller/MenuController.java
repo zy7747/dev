@@ -3,6 +3,7 @@ package com.example.system.controller;
 import com.example.framework.common.PageList;
 import com.example.framework.common.Result;
 import com.example.framework.utils.ExcelUtils;
+import com.example.system.annotation.dict.DictUtil;
 import com.example.system.annotation.log.Log;
 import com.example.system.convert.MenuConvert;
 import com.example.system.dal.dto.menu.MenuQueryDTO;
@@ -49,6 +50,7 @@ public class MenuController {
 
     @GetMapping("/list")
     @ApiOperation(value = "列表")
+    @DictUtil(type = "list")
     public Result<List<MenuListVO>> menuList(@Valid MenuQueryDTO menu) {
         return menuService.menuList(menu);
     }

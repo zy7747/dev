@@ -1,6 +1,7 @@
 package com.example.system.dal.vo.userOnline;
 
 import com.example.framework.dal.vo.BaseParamsVO;
+import com.example.system.annotation.dict.Dict;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -40,6 +41,12 @@ public class UserOnlinePageVO extends BaseParamsVO {
     /**
      * 操作结果
      */
+    @Dict(code = "user_online_operateResults")
     @ApiModelProperty(value = "操作结果")
     private String operateResults;
+    /**
+     * 操作结果
+     */
+    @ApiModelProperty(value = "操作结果")
+    private String operateResultsName;
 }

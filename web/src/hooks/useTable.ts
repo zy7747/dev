@@ -6,8 +6,20 @@ function useTable(config: any = {}) {
     tableRef.value = config.tableRef.value;
   }
 
-  function checkboxData() {
+  function getCheckboxData() {
     return unref(tableRef).checkboxData();
+  }
+
+  function findCheckDataIndex(list: any): any {
+    const checkboxData = unref(tableRef).checkboxData();
+
+    return list.filter((item: any) => {
+      const has = checkboxData.every(
+        (i: any) => i._row_index !== item._row_index
+      );
+
+      return has;
+    });
   }
 
   function apis(params: String) {
@@ -36,7 +48,8 @@ function useTable(config: any = {}) {
     apis,
     tableConfig,
     tableRef,
-    checkboxData,
+    getCheckboxData,
+    findCheckDataIndex,
   };
 }
 

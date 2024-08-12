@@ -1,12 +1,12 @@
-//过滤
-export function getFilter(columns: any, filterMap: any) {
+//初始化过滤条件
+export function initFilter(columns: any, filterMap: any) {
   columns.forEach((item: any) => {
     if (item.isFilters) {
       filterMap[item.field] = [];
     }
 
     if (item.children && item.children.length) {
-      getFilter(item.children, filterMap);
+      initFilter(item.children, filterMap);
     }
   });
 }
@@ -36,10 +36,9 @@ function tableColumns(item: any) {
 }
 
 //插槽处理
-function tableSlot(item: any, filters: any) {
+function tableSlot(item: any) {
   const col: any = {
     resizable: true,
-    "show-header-overflow": "ellipsis",
     slots: {},
     params: {},
     columns: {},
@@ -64,7 +63,7 @@ function tableSlot(item: any, filters: any) {
 
   //过滤
   if (item.isFilters) {
-    col.filters = unref(filters)[item.field];
+    col.filters = [];
     col.filterRender = { name: "FilterInput" };
   }
 
@@ -74,7 +73,7 @@ function tableSlot(item: any, filters: any) {
   }
 
   if (item.children && item.children.length) {
-    col.children = getTableCols(item.children, filters);
+    col.children = getTableCols(item.children);
   }
 
   if (item.cType === "action") {
@@ -84,10 +83,11 @@ function tableSlot(item: any, filters: any) {
   return col;
 }
 //列
-export function getTableCols(columns: any, filters: any) {
+export function getTableCols(columns: any) {
   if (!columns) return [];
+
   return unref(columns).map((item: any) => {
-    return { ...tableColumns(item), ...tableSlot(item, filters) };
+    return { ...tableColumns(item), ...tableSlot(item) };
   });
 }
 //校验
