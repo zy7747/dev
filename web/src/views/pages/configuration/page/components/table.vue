@@ -87,8 +87,8 @@ const editableTabs: any = computed(() => {
                   ].tableColumn.push(
                     ...res.data.map((item: any) => {
                       return {
-                        field: item.COLUMN_NAME,
                         title: item.COLUMN_COMMENT,
+                        field: FormatData.toHump(item.COLUMN_NAME),
                       };
                     })
                   );

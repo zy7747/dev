@@ -40,7 +40,7 @@ const { tableConfig, findCheckDataIndex, tableRef } = useTable({
               unref(pageData).form.unshift(
                 ...res.data.map((item: any, index: any) => {
                   return {
-                    prop: item.COLUMN_NAME,
+                    prop: FormatData.toHump(item.COLUMN_NAME),
                     label: item.COLUMN_COMMENT,
                     type: "input",
                     sort: index,

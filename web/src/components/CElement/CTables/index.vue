@@ -2,10 +2,9 @@
 <template>
   <c-tabs
     type="border-card"
-    v-if="prop.tableOption.tableConfig && prop.tableOption.tableConfig.length"
     @tabChange="tabChange"
     v-model="active"
-    :options="prop.tableOption.tableConfig"
+    :options="prop.tableConfig"
   >
     <template #content="{ item, index }">
       <c-table
@@ -20,12 +19,14 @@
 </template>
 
 <script lang="ts" setup>
+const emit = defineEmits(["tabChange"]);
+
 const prop = defineProps({
-  tableOption: {
-    text: "页面配置",
-    type: [Object],
+  tableConfig: {
+    text: "配置",
+    type: [Array],
     default: () => {
-      return {};
+      return [];
     },
   },
 });
@@ -38,9 +39,24 @@ function setTableRef(el: any, index: number) {
   unref(tableRef)[unref(index)] = el;
 }
 
-function tabChange() {
-  console.log(123);
+//新增
+function addLine(row: any) {
+  unref(tableRef)[unref(active)].addLine(row);
 }
+
+//多选
+function checkboxData() {
+  return unref(tableRef)[unref(active)].checkboxData();
+}
+
+function tabChange() {
+  emit("tabChange", active.value);
+}
+
+defineExpose({
+  addLine,
+  checkboxData,
+});
 </script>
 
 <style lang="scss" scoped></style>
