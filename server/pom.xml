@@ -29,6 +29,7 @@
         <module>job</module>
         <module>message</module>
         <module>count</module>
+        <module>web</module>
     </modules>
 
     <!--  版本  -->
@@ -86,6 +87,13 @@
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>count</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+            <!-- web模块 -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>web</artifactId>
                 <version>${version}</version>
             </dependency>
 

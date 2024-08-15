@@ -44,11 +44,8 @@ function api(files: any) {
       };
       pageData.editData.videoList.push(data);
 
-      return Service.video.list.save(data).then(() => {
-        ElMessage({
-          message: "上传成功",
-          type: "success",
-        });
+      return Service.video.list.save(data).then((res: any) => {
+        uploadSuccess(res);
       });
     });
   } else {
@@ -67,11 +64,8 @@ function api(files: any) {
               ...pageData.editData,
               url: res.data.url,
             })
-            .then(() => {
-              ElMessage({
-                message: "上传成功",
-                type: "success",
-              });
+            .then((res: any) => {
+              uploadSuccess(res);
             });
         });
       });

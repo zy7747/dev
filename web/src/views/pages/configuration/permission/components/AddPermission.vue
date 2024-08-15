@@ -143,11 +143,8 @@ function confirm() {
   ];
 
   Service.configuration.menu.saveList(menu).then(() => {
-    Service.configuration.permission.saveList(permission).then(() => {
-      ElMessage({
-        message: "提交成功",
-        type: "success",
-      });
+    Service.configuration.permission.saveList(permission).then((res: any) => {
+      submitSuccess(res);
     });
   });
 }

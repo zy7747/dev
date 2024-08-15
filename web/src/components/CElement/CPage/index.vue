@@ -10,7 +10,7 @@
         <c-button
           v-if="pageOption.query === false ? pageOption.query : true"
           size="small"
-          type="primary"
+          color="#0960bd"
           @handleClick="query"
           :text="$t('system.query')"
           :icon="Search"

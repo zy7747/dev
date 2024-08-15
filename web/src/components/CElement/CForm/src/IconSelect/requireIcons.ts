@@ -16,8 +16,16 @@ const icons: any = {
   flag,
 };
 
-export default function iconSelect(iconList: string) {
-  return Object.keys(icons[iconList]).map((key: string) => {
-    return key.replace(".svg", "").replace(`/src/icons/${iconList}/`, "");
+export default function iconSelect(iconList: any) {
+  const data: any = [];
+  iconList.forEach((item: any) => {
+    const list = Object.keys(icons[item]).map((key: string) => {
+      return key.replace(".svg", "").replace(`/src/icons/${item}/`, "");
+    });
+    console.log(100, list);
+
+    data.push(...list);
   });
+
+  return data;
 }

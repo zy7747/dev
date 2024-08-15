@@ -80,11 +80,8 @@ function api(files: any, fileName: any) {
             status: "success",
             episode: 1,
           })
-          .then(() => {
-            ElMessage({
-              message: "上传成功",
-              type: "success",
-            });
+          .then((res: any) => {
+            uploadSuccess(res);
           });
       });
     });

@@ -308,7 +308,7 @@ const { pageOption, pageRef, ids } = usePage({
               label: $t("menu.icon", "图标"),
               prop: "icon",
               type: "icon",
-              options: "app",
+              options: ["app", "system"],
               show: () => pageData.editData.type !== "button",
               span: 12,
             },

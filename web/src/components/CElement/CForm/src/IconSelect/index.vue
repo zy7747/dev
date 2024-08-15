@@ -13,7 +13,7 @@
     <template #default="{ item }">
       <div class="flex items-center">
         <svg-icon :name="item.value" class="icon" />
-        {{ item.label }}
+        <span>{{ item.label }}</span>
       </div>
     </template>
 
@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import requireIcons from "./requireIcons";
 
-const { options } = defineProps({
+const prop = defineProps({
   size: {
     text: "下拉框大小",
     type: [String] as any,
@@ -69,7 +69,7 @@ const value: any = defineModel();
 const iconData: any = ref([]);
 
 function render() {
-  iconData.value = requireIcons(options).map((item: string) => {
+  iconData.value = requireIcons(prop.options).map((item: string) => {
     return { label: item, value: item };
   });
 }

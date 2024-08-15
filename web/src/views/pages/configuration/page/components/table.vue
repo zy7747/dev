@@ -68,6 +68,7 @@ const editableTabs: any = computed(() => {
     return {
       title: item.title,
       name: item.name,
+      isDrop: true,
       tools: [
         {
           slot: "tools_tableImport",
@@ -98,7 +99,9 @@ const editableTabs: any = computed(() => {
         {
           operation: "add",
           click() {
-            unref(tableRef)[pageData.value.tabIndex].addLine({});
+            unref(tableRef)[pageData.value.tabIndex].addLine({
+              sort: unref(pageData).form.length,
+            });
           },
         },
         {
@@ -123,9 +126,17 @@ const editableTabs: any = computed(() => {
       tableColumn: [
         { type: "checkbox", width: 50 },
         {
-          title: "序号",
-          type: "seq",
+          title: "序号", //基本宽度
+          field: "sort",
+          sortable: true,
           width: 100,
+          form: {
+            type: "number",
+            params: {
+              max: 100,
+              min: 0,
+            },
+          },
         },
         {
           title: "字段名称", //字段名称

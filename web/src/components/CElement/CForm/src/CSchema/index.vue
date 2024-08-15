@@ -71,7 +71,7 @@
     <IconSelect
       v-else-if="type === 'icon'"
       :placeholder="getPlaceholder('select', item)"
-      :options="option"
+      :options="options"
       v-model="value"
       v-bind="params"
     />

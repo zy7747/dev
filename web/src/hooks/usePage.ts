@@ -31,7 +31,8 @@ function usePage(config: any = {}) {
   //删除成功后提示
   function removeSuccess(res: any) {
     if (res.code === 200) {
-      ElMessage({
+      ElNotification({
+        title: "Success",
         message: "删除成功",
         type: "success",
       });
@@ -42,7 +43,8 @@ function usePage(config: any = {}) {
   //新增成功后提示
   function submitSuccess(res: any) {
     if (res.code === 200) {
-      ElMessage({
+      ElNotification({
+        title: "Success",
         message: "提交成功",
         type: "success",
       });

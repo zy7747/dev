@@ -62,6 +62,8 @@ export default ({ mode }: any) => {
               ["submitSuccess", "submitSuccess"],
               ["importSuccess", "importSuccess"],
               ["exportSuccess", "exportSuccess"],
+              ["validateFail", "validateFail"],
+              ["uploadSuccess", "uploadSuccess"],
             ], //提示
           },
           {

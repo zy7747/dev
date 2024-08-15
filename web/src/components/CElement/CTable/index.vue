@@ -139,11 +139,10 @@ const addLine = async (row: any) => {
 
       await $grid.setEditRow(newRow);
     } else {
-      ElMessage({
+      ElNotification({
+        title: "Warning",
         message: "请先保存数据再新增",
         type: "warning",
-        showClose: true,
-        grouping: true,
       });
     }
   }

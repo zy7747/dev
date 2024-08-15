@@ -140,12 +140,7 @@ function save() {
         }),
       })
       .then((res: any) => {
-        if (res.code === 200) {
-          ElMessage({
-            message: "提交成功",
-            type: "success",
-          });
-        }
+        submitSuccess(res);
       });
   }
 }

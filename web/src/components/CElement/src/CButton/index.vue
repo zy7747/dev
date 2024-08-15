@@ -1,7 +1,6 @@
 <!--    -->
 <template>
   <el-button
-    class="hvr-shadow hvr-buzz-out"
     :size="size"
     v-show="show"
     :loading="attrs.loading || loading"

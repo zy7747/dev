@@ -55,12 +55,7 @@ const submitForm = () => {
     if (valid) {
       return true;
     } else {
-      ElMessage({
-        message: "校验不通过",
-        type: "warning",
-        showClose: true,
-        grouping: true,
-      });
+      validateFail();
       return false;
     }
   });
