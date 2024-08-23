@@ -8,18 +8,16 @@ const gridRef = ref();
 const Route = useRoute();
 
 function getGrid() {
-  Service.configuration.page
-    .detail({ pageCode: Route.name })
-    .then((res: any) => {
-      const options = JSON.parse(res.data.options);
+  Service.config.page.detail({ pageCode: Route.name }).then((res: any) => {
+    const options = JSON.parse(res.data.options);
 
-      nextTick(() => {
-        unref(gridRef).render({
-          title: Route.meta.title,
-          ...options,
-        });
+    nextTick(() => {
+      unref(gridRef).render({
+        title: Route.meta.title,
+        ...options,
       });
     });
+  });
 }
 
 getGrid();

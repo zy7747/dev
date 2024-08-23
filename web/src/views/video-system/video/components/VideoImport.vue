@@ -62,7 +62,7 @@ const formConfig = computed(() => {
 });
 
 function api(files: any, fileName: any) {
-  return Service.file
+  return Service.system.file
     .save({
       parentId: pageData.savePath,
       fileName: fileName,
@@ -70,7 +70,7 @@ function api(files: any, fileName: any) {
     })
     .then((fileRes: any) => {
       files.append("parentId", fileRes.data.id);
-      Service.file.uploadFile(files).then((res: any) => {
+      Service.system.file.uploadFile(files).then((res: any) => {
         return Service.video.list
           .save({
             ...pageData,

@@ -19,7 +19,7 @@
           />
         </template>
 
-        <template #fileView>
+        <template #tab_fileView>
           <View @nodeClick="nodeClick" :data="list" />
         </template>
       </c-page>
@@ -77,7 +77,7 @@ const { pageOption, pageRef, ids, query } = usePage({
       api(files: any) {
         files.append("parentId", unref(nodeInfo).id);
         files.append("path", unref(nodeInfo).filePath);
-        return Service.file.uploadFile(files).then((res: any) => {
+        return Service.system.file.uploadFile(files).then((res: any) => {
           importSuccess(res, pageRef);
         });
       },
@@ -105,7 +105,7 @@ const { pageOption, pageRef, ids, query } = usePage({
           operation: "remove",
           permission: ["file:remove"],
           click() {
-            return Service.file.remove(ids()).then((res: any) => {
+            return Service.system.file.remove(ids()).then((res: any) => {
               removeSuccess(res, pageRef);
             });
           },
@@ -114,7 +114,7 @@ const { pageOption, pageRef, ids, query } = usePage({
           operation: "export",
           permission: ["file:export"],
           api() {
-            return Service.file.exports(unref(pageData).queryData);
+            return Service.system.file.exports(unref(pageData).queryData);
           },
           fileName: $t("file.file", "文件"),
         },
@@ -196,7 +196,7 @@ const { pageOption, pageRef, ids, query } = usePage({
           operation: "edit",
           permission: ["file:edit"],
           click({ row }: any) {
-            Service.file.detail({ id: row.id }).then((res: any) => {
+            Service.system.file.detail({ id: row.id }).then((res: any) => {
               unref(pageRef).handleOpen({
                 type: "edit",
                 data: res.data,
@@ -207,25 +207,27 @@ const { pageOption, pageRef, ids, query } = usePage({
         {
           operation: "detail",
           click({ row }: any) {
-            return Service.file.detail({ id: row.id }).then((res: any) => {
-              unref(pageRef).handleOpen({
-                type: "detail",
-                data: res.data,
+            return Service.system.file
+              .detail({ id: row.id })
+              .then((res: any) => {
+                unref(pageRef).handleOpen({
+                  type: "detail",
+                  data: res.data,
+                });
               });
-            });
           },
         },
         {
           operation: "remove",
           permission: ["file:remove"],
           click({ row }: any) {
-            return Service.file.remove([row.id]).then((res: any) => {
+            return Service.system.file.remove([row.id]).then((res: any) => {
               removeSuccess(res, pageRef);
             });
           },
         },
       ],
-      dialogConfig: {
+      editConfig: {
         width: "1000px",
         formConfig: {
           formParams: [
@@ -277,7 +279,7 @@ const { pageOption, pageRef, ids, query } = usePage({
         },
         //提交
         handleConfirm() {
-          return Service.file
+          return Service.system.file
             .save(unref(pageData).editData)
             .then((res: any) => {
               submitSuccess(res, pageRef);
@@ -288,14 +290,14 @@ const { pageOption, pageRef, ids, query } = usePage({
     },
     {
       title: $t("file.file view", "文件视图"),
-      slot: "fileView",
+      slot: "tab_fileView",
       slotQuery: () => queryFile(),
     },
   ],
 });
 //获取文件夹树
 function getList() {
-  Service.file.list({ fileType: "folder" }).then((res: any) => {
+  Service.system.file.list({ fileType: "folder" }).then((res: any) => {
     const data = res.data.map((item: any) => {
       return { ...item, label: item.fileName, value: item.id };
     });
@@ -306,7 +308,7 @@ function getList() {
 }
 //查询文件详情
 function queryFile() {
-  return Service.file
+  return Service.system.file
     .fileDetailList({ parentId: unref(nodeInfo).id, ...pageData.queryData })
     .then((res: any) => {
       list.value.splice(0);

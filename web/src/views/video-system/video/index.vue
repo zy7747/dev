@@ -33,7 +33,7 @@ function api(files: any) {
   if (pageData.editData.isCollection) {
     files.append("parentId", pageData.editData.savePath);
 
-    return Service.file.uploadFile(files).then((res: any) => {
+    return Service.system.file.uploadFile(files).then((res: any) => {
       const data = {
         parentId: editData.id,
         videoName: res.data.fileName,
@@ -49,7 +49,7 @@ function api(files: any) {
       });
     });
   } else {
-    return Service.file
+    return Service.system.file
       .save({
         parentId: pageData.editData.savePath,
         fileName: pageData.editData.videoName,
@@ -58,7 +58,7 @@ function api(files: any) {
       .then((fileRes: any) => {
         files.append("parentId", fileRes.data.id);
 
-        Service.file.uploadFile(files).then((res: any) => {
+        Service.system.file.uploadFile(files).then((res: any) => {
           return Service.video.list
             .save({
               ...pageData.editData,
@@ -301,7 +301,7 @@ const { pageOption, pageRef, ids } = usePage({
           },
         },
       ],
-      dialogConfig: {
+      editConfig: {
         width: "1000px",
         formConfig: {
           isShow: true,

@@ -7,8 +7,6 @@ export function getLoginInfo() {
 }
 
 export function setLoginInfo(info: string) {
-  console.log(info);
-
   return Cookies.set(LoginInfoKey, info);
 }
 

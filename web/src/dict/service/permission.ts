@@ -1,5 +1,5 @@
 export function permissionTree() {
-  return Service.configuration.permission.list().then((res: any) => {
+  return Service.config.permission.list().then((res: any) => {
     const permissionList = res.data.map((item: any) => {
       return { ...item, label: item.name, value: item.id, parentId: "1" };
     });

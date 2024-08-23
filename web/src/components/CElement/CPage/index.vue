@@ -40,43 +40,32 @@
       </template>
     </Collapse>
 
-    <c-tabs
-      type="border-card"
-      v-if="pageOption.tableConfig && pageOption.tableConfig.length"
-      @tabChange="tabChange"
+    <c-tables
+      ref="tablesRef"
       v-model="active"
-      :options="pageOption.tableConfig"
+      @tabChange="tabChange"
+      :tableConfig="pageOption.tableConfig"
     >
-      <template #content="{ item, index }">
-        <c-table
-          v-if="item.tableColumn"
-          :ref="(el) => setTableRef(el, index)"
-          :tableConfig="item"
-        />
-
-        <slot :name="item.slot" :item="item" :index="index" />
+      <template v-slot:[item] v-for="item in tableSlots()">
+        <slot :name="item" />
       </template>
-    </c-tabs>
+    </c-tables>
 
     <template v-for="(item, index) in pageOption.tableConfig">
       <c-modal
         :ref="(el:any) => setDialogRef(el, index)"
         @confirm="confirm"
         :title="dialogTitle"
-        :dialogConfig="dialogConfig(item.dialogConfig)"
+        :dialogConfig="dialogConfig(item.editConfig)"
       >
         <template #body>
-          <Collapse
-            title="表单"
-            v-if="item.dialogConfig.formConfig"
-            v-bind="item.dialogConfig.formConfig"
-          >
+          <Collapse v-bind="item.editConfig.formConfig">
             <template #content>
               <c-form
                 :ref="(el) => setEditRef(el, index)"
                 :disabled="isDetail"
                 :model="pageData.editData"
-                :formConfig="item.dialogConfig.formConfig"
+                :formConfig="item.editConfig.formConfig"
               />
             </template>
           </Collapse>
@@ -90,8 +79,9 @@
 
 <script lang="ts" setup>
 import { Refresh, Search } from "@element-plus/icons-vue";
-
-const { pageOption } = defineProps({
+// 获取插槽对象
+const slots = useSlots();
+const prop = defineProps({
   pageOption: {
     text: "页面配置",
     type: [Object],
@@ -105,10 +95,10 @@ const pageData: any = defineModel("pageData");
 const dialogType = ref();
 
 const formRef: any = ref<any>();
-const tableRef: any = ref<any>([]);
+const tablesRef: any = ref<any>([]);
+
 const dialogRef: any = ref<any>([]);
 const editRef: any = ref<any>([]);
-
 const active: any = ref(0);
 const isDetail: any = ref<any>();
 const dialogTitle: Ref<string> = ref<string>("");
@@ -118,10 +108,15 @@ function query() {
   return unref(formRef)
     .submitForm()
     .then((res: any) => {
-      if (res && unref(tableRef)[unref(active)]) {
-        return unref(tableRef)[unref(active)].query();
-      } else if (pageOption.tableConfig[unref(active)].slotQuery) {
-        return pageOption.tableConfig[unref(active)].slotQuery();
+      if (res) {
+        if (
+          prop.pageOption.tableConfig[unref(active)] &&
+          prop.pageOption.tableConfig[unref(active)].slotQuery
+        ) {
+          return prop.pageOption.tableConfig[unref(active)].slotQuery();
+        } else {
+          return unref(tablesRef).query();
+        }
       }
     });
 }
@@ -129,11 +124,11 @@ function query() {
 function reset() {
   unref(formRef).resetForm();
 
-  if (unref(tableRef)[unref(active)]) {
-    unref(tableRef)[unref(active)].reset();
+  if (unref(tablesRef)[unref(active)]) {
+    unref(tablesRef)[unref(active)].reset();
     query();
-  } else if (pageOption.tableConfig[unref(active)].slotQuery) {
-    return pageOption.tableConfig[unref(active)].slotQuery();
+  } else if (prop.pageOption.tableConfig[unref(active)].slotQuery) {
+    return prop.pageOption.tableConfig[unref(active)].slotQuery();
   }
 }
 //编辑弹窗
@@ -156,6 +151,13 @@ function handleOpen({ type, data }: any) {
   //打开弹窗
   unref(dialogRef)[unref(active)].handleOpen();
 }
+function tableSlots(): any {
+  // 获取所有插槽的名称
+  return Object.keys(slots).filter((res: any) => {
+    return res.indexOf("table_") !== -1 || res.indexOf("tab_") !== -1;
+  });
+}
+
 //关闭弹窗
 function handleClose() {
   unref(dialogRef)[unref(active)].handleClose();
@@ -176,24 +178,22 @@ function submitForm() {
 }
 //多选
 function checkboxData() {
-  return unref(tableRef)[unref(active)].checkboxData();
+  return unref(tablesRef).checkboxData();
 }
 //新增
 function addLine(row: any) {
-  unref(tableRef)[unref(active)].addLine(row);
+  unref(tablesRef).addLine(row);
 }
+//tab变更
 function tabChange() {
   query();
 }
-//循环ref获取
-function setTableRef(el: any, index: number) {
-  unref(tableRef)[unref(index)] = el;
-}
+
 function setDialogRef(el: any, index: number) {
-  unref(dialogRef)[unref(index)] = el;
+  unref(dialogRef)[index] = el;
 }
 function setEditRef(el: any, index: number) {
-  unref(editRef)[unref(index)] = el;
+  unref(editRef)[index] = el;
 }
 function dialogSlot(index: number) {
   return "dialog" + index;
@@ -214,7 +214,7 @@ function getActive() {
 }
 
 onMounted(() => {
-  if (pageOption.createLoad) {
+  if (prop.pageOption.createLoad) {
     query();
   }
 });

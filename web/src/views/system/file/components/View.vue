@@ -60,8 +60,6 @@ function fileIcon(item: any) {
   } else if (item.fileType === "mp3") {
     return obj["mp3"];
   } else if (item.fileType === "mp4") {
-    console.log(obj["mp4"]);
-
     return obj["mp4"];
   } else {
     return obj["file"];

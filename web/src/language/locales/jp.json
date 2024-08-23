@@ -73,8 +73,8 @@
   },
   "page": {
     "menuId": "Page id",
-    "options": "Page configuration",
-    "page": "Configuration page",
+    "options": "Page config",
+    "page": "config page",
     "pageCode": "Page encoding"
   },
   "permission": {

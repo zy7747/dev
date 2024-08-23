@@ -128,7 +128,7 @@ const { pageOption, pageRef } = usePage({
           },
         },
       ],
-      dialogConfig: {
+      editConfig: {
         width: "1000px",
         formConfig: {
           formParams: [

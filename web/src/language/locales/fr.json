@@ -47,8 +47,8 @@
   },
   "page": {
     "menuId": "Identifiant de la page",
-    "options": "Configuration des pages",
-    "page": "Page de configuration",
+    "options": "config des pages",
+    "page": "Page de config",
     "pageCode": "Encodage des pages"
   },
   "permission": {

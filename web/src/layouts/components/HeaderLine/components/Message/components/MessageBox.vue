@@ -48,7 +48,7 @@ defineProps({
 
 function viewMessage(item: any) {
   if (item.isRead === "0") {
-    Service.message.save({ ...item, isRead: "1" }).then(() => {
+    Service.system.message.save({ ...item, isRead: "1" }).then(() => {
       emit("refresh");
     });
   }

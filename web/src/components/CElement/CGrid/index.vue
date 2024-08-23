@@ -24,28 +24,44 @@ function apis(params: String) {
 //页面渲染
 function render(config: any) {
   let form = [];
+
   if (config.form.length) {
     form = config.form.map((item: any) => {
-      console.log(item);
       if (item.type === "select") {
-        return {};
+        return {
+          ...item,
+          options: Dict(item.options),
+        };
       } else {
         return item;
       }
     });
   }
 
-  console.log(form);
-
   const { pageOption, ids } = usePage({
     pageRef,
     createLoad: true,
     title: config.title,
     formConfig: {
-      formParams: config.form,
+      formParams: form,
     },
     tableConfig: config.tables.map((table: any) => {
       const api = apis(table.api);
+
+      let dialogForm = [];
+
+      if (table.dialogForm.length) {
+        dialogForm = table.dialogForm.map((item: any) => {
+          if (item.type === "select") {
+            return {
+              ...item,
+              options: Dict(item.options),
+            };
+          } else {
+            return item;
+          }
+        });
+      }
 
       return {
         title: table.title,
@@ -85,10 +101,10 @@ function render(config: any) {
           },
         ],
         tableColumn: table.tableColumn,
-        dialogConfig: {
+        editConfig: {
           width: "1000px",
           formConfig: {
-            formParams: table.dialogForm,
+            formParams: dialogForm,
           },
           //提交
           handleConfirm() {

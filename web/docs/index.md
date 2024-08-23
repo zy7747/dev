@@ -8,12 +8,8 @@ hero:
   tagline: My great project tagline
   actions:
     - theme: brand
-      text: 框架
-      link: /frame
-    - theme: alt
-      text: 组件
-      link: /components
-
+      text: 技术文档
+      link: /adb使用
 features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit

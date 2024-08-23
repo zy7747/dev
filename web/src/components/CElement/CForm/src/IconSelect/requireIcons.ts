@@ -22,7 +22,6 @@ export default function iconSelect(iconList: any) {
     const list = Object.keys(icons[item]).map((key: string) => {
       return key.replace(".svg", "").replace(`/src/icons/${item}/`, "");
     });
-    console.log(100, list);
 
     data.push(...list);
   });

@@ -1,5 +1,5 @@
 export function menusTree() {
-  return Service.configuration.menu.list().then((res: any) => {
+  return Service.config.menu.list().then((res: any) => {
     const menuList = res.data.map((item: any) => {
       return { ...item, label: item.title, value: item.id };
     });
@@ -9,7 +9,7 @@ export function menusTree() {
 }
 
 export function menusList() {
-  return Service.configuration.menu.list().then((res: any) => {
+  return Service.config.menu.list().then((res: any) => {
     const menuList = res.data.map((item: any) => {
       return { ...item, label: item.title, value: item.id };
     });

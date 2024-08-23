@@ -113,6 +113,9 @@ dependencies:
   xgplayer:
     specifier: ^3.0.14
     version: 3.0.14(core-js@3.36.0)
+  zy-formatdata:
+    specifier: ^1.0.0
+    version: 1.0.0
 
 devDependencies:
   '@amap/amap-jsapi-loader':
@@ -7169,4 +7172,8 @@ packages:
     resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==}
     dependencies:
       tslib: 2.3.0
+    dev: false
+
+  /zy-formatdata@1.0.0:
+    resolution: {integrity: sha512-+YHp1v6MbW85KvoNHsuXkwmrXQgGOy2BzrzhHlWmq5CHP2+LqcxZvR1RV5jMMatnVtVvd8WQMopaopZ6/sepQw==, tarball: https://registry.npmjs.org/zy-formatdata/-/zy-formatdata-1.0.0.tgz}
     dev: false

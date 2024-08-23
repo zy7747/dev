@@ -77,35 +77,37 @@ export const useUserStore = defineStore({
   actions: {
     // 登录
     login(loginInfo: any) {
-      return Service.user.login({ ...loginInfo }).then((response: any) => {
-        if (response.code === 200) {
-          //加入Token
-          setToken(response.data.token);
+      return Service.system.user
+        .login({ ...loginInfo })
+        .then((response: any) => {
+          if (response.code === 200) {
+            //加入Token
+            setToken(response.data.token);
 
-          this.userInfo = response.data.userInfo;
-          this.userId = response.data.userInfo.id;
-          setLoginInfo(
-            JSON.stringify({
-              loginId: response.data.loginId,
-              loginTime: response.data.loginTime,
-            })
-          );
+            this.userInfo = response.data.userInfo;
+            this.userId = response.data.userInfo.id;
+            setLoginInfo(
+              JSON.stringify({
+                loginId: response.data.loginId,
+                loginTime: response.data.loginTime,
+              })
+            );
 
-          //1.记住密码
-          if (loginInfo.rememberMe) {
-            localStorage.setItem("rememberMe", JSON.stringify(loginInfo));
-          } else {
-            localStorage.removeItem("rememberMe");
+            //1.记住密码
+            if (loginInfo.rememberMe) {
+              localStorage.setItem("rememberMe", JSON.stringify(loginInfo));
+            } else {
+              localStorage.removeItem("rememberMe");
+            }
+
+            return response.data;
           }
-
-          return response.data;
-        }
-      });
+        });
     },
     logout() {
       const loginInfo: any = getLoginInfo();
 
-      return Service.user
+      return Service.system.user
         .logout({ id: JSON.parse(loginInfo).loginId })
         .then((response: any) => {
           if (response.code === 200) {
@@ -125,7 +127,7 @@ export const useUserStore = defineStore({
         });
     },
     getUserInfo() {
-      return Service.user
+      return Service.system.user
         .userInfo({})
         .then((response: any) => {
           if (response.code === 200) {

@@ -22,7 +22,6 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/store/user";
 import { router } from "@/router/index";
-const route = router.currentRoute.value;
 
 const userStore = useUserStore();
 
@@ -64,8 +63,6 @@ function login() {
           })
           .then((res: any) => {
             if (res) {
-              console.log(route);
-
               router.push("/");
               closeModal();
               ElNotification({

@@ -56,28 +56,30 @@ const massageBoxList = ref([
 const active = ref("通知");
 
 function getMessage() {
-  Service.message.list({ receiver: userStore.userId }).then((res: any) => {
-    const mail: any = [];
-    const notice: any = [];
-    const announcement: any = [];
+  Service.system.message
+    .list({ receiver: userStore.userId })
+    .then((res: any) => {
+      const mail: any = [];
+      const notice: any = [];
+      const announcement: any = [];
 
-    res.data.forEach((item: any) => {
-      if (item.type === "notice") {
-        notice.push(item);
-      } else if (item.type === "mail") {
-        mail.push(item);
-      } else {
-        announcement.push(item);
-      }
+      res.data.forEach((item: any) => {
+        if (item.type === "notice") {
+          notice.push(item);
+        } else if (item.type === "mail") {
+          mail.push(item);
+        } else {
+          announcement.push(item);
+        }
+      });
+
+      //全部已读
+      isDot.value = !res.data.every((item: any) => item.isRead !== "0");
+
+      massageBoxList.value[0].list = notice;
+      massageBoxList.value[1].list = mail;
+      massageBoxList.value[2].list = announcement;
     });
-
-    //全部已读
-    isDot.value = !res.data.every((item: any) => item.isRead !== "0");
-
-    massageBoxList.value[0].list = notice;
-    massageBoxList.value[1].list = mail;
-    massageBoxList.value[2].list = announcement;
-  });
 }
 
 getWebsocket(getMessage);
