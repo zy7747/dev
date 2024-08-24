@@ -33,6 +33,19 @@ export default defineConfig({
           { text: "git命令", link: "/git命令" },
         ],
       },
+      {
+        text: "项目创建流程",
+        items: [{ text: "vue3项目创建", link: "/VUE3项目创建流程" }],
+      },
+      {
+        text: "npm",
+        items: [
+          {
+            text: "将自己的包上传至npm",
+            link: "/functions/将自己的包上传至npm",
+          },
+        ],
+      },
     ],
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" },
