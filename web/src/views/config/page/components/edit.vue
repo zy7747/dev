@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <c-tables v-model="active" :tableConfig="editableTabs">
+  <c-tables ref="tablesRef" v-model="active" :tableConfig="editableTabs">
     <template #tools_tableImport>
       <div style="width: 250px" class="btnR">
         <c-schema
@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 const pageData: any = defineModel();
-const tableRef = ref();
+const tablesRef = ref();
 const active = ref(0);
 const tableName: any = ref("");
 
@@ -34,15 +34,15 @@ const { dict } = useDict({
 // console.log(sum(123));
 
 const editableTabs: any = computed(() => {
-  return unref(pageData).tables.map((item: any, index: number) => {
+  return unref(pageData).tables.map((item: any) => {
     return {
       title: item.title,
       name: item.name,
       isDrop: true,
       tools: [
-        // {
-        //   slot: "tools_tableImport",
-        // },
+        {
+          slot: "tools_tableImport",
+        },
         {
           text: "按表导入",
           click() {
@@ -71,13 +71,13 @@ const editableTabs: any = computed(() => {
         {
           operation: "add",
           click() {
-            // unref(tableRef)[index].addLine();
+            unref(tablesRef).addLine();
           },
         },
         {
           operation: "remove",
           click() {
-            const checkboxData = unref(tableRef)[unref(index)].checkboxData();
+            const checkboxData = unref(tablesRef).checkboxData();
 
             const data = item.dialogForm.filter((item: any) => {
               const has = checkboxData.every(

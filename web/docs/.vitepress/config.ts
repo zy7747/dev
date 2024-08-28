@@ -46,6 +46,23 @@ export default defineConfig({
           },
         ],
       },
+      {
+        text: "基础知识",
+        items: [
+          {
+            text: "HTML(超文本标记语言)",
+            link: "/basic/HTML(超文本标记语言)",
+          },
+          {
+            text: "JS",
+            link: "/basic/JS",
+          },
+          {
+            text: "CSS样式",
+            link: "/basic/CSS样式",
+          },
+        ],
+      },
     ],
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" },

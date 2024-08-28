@@ -30,8 +30,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "auto-imports.d.ts",
-    "components.d.ts",
-    "src/hooks/useModal.tsx"
+    "components.d.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

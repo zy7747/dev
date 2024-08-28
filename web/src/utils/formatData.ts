@@ -1,10 +1,6 @@
-import formatdata from "zy-formatdata";
-
 const format = import.meta.glob(["@/utils/formatData/**.ts"], {
   eager: true,
 });
-
-console.log(123, formatdata.toHump("user_name"));
 
 const formatDataMap: any = {};
 
