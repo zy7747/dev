@@ -45,10 +45,6 @@
             <artifactId>count</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>web</artifactId>
-        </dependency>
     </dependencies>
 
 

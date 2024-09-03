@@ -69,7 +69,7 @@ public class SecurityConfig {
                 // 1. 静态资源，可匿名访问
                 .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
                 // 2. 可匿名访问接口
-                .antMatchers("/websocket/**", "/user/login", "/user/signUp").permitAll()
+                .antMatchers("/websocket/**", "/dict/dictMap", "/user/login", "/user/signUp").permitAll()
                 // 3. swagger
                 .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**", "/doc.html").permitAll()
                 // 4. 其他接口需要校验
